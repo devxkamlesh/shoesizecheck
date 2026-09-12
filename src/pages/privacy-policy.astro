@@ -1,0 +1,207 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/privacy-policy/`;
+const pageTitle = 'Privacy Policy | AllShoeSizeConverter';
+const pageDescription = 'Read the privacy policy of AllShoeSizeConverter. Learn how we handle client-side calculations, cookies, analytics, and your data protection rights.';
+const ogImage = `${domain}/og-image.png`;
+
+const breadcrumbSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `${domain}/`
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Privacy Policy",
+      "item": pageCanonical
+    }
+  ]
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content" class="legal-page">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Privacy Policy' },
+    ]} />
+
+    <section class="legal-hero">
+      <div class="legal-inner">
+        <p class="mono-eyebrow">Data Protection &amp; Transparency</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,44px)">Privacy Policy</h1>
+        <p class="hero-sub body-lg">Last Updated: September 12, 2026. Your privacy is fundamental to our platform design.</p>
+      </div>
+    </section>
+
+    <section class="legal-body-band">
+      <div class="legal-inner">
+        <article class="legal-card card-elevated">
+          
+          <div class="legal-section">
+            <h2 class="heading-md">1. Overview &amp; Our Core Privacy Commitment</h2>
+            <p>At <strong>AllShoeSizeConverter</strong> (accessible from <a href="https://allshoesizeconverter.com/">https://allshoesizeconverter.com/</a>), we believe utility tools should respect user privacy by design. Our footwear sizing calculators and comparison matrices perform calculations <strong>locally in your web browser</strong> using client-side JavaScript. We do not require account registration, and we do not store, catalog, or transmit your individual foot measurements or demographic inputs to our servers.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">2. Information We Do NOT Collect</h2>
+            <p>Unlike commercial portals, we maintain a strictly non-invasive data posture:</p>
+            <ul>
+              <li><strong>No Personal Identifiers:</strong> We do not ask for or store your name, residential address, email address, phone number, or payment details when utilizing our conversion calculators.</li>
+              <li><strong>No Biometric or Health Data:</strong> Foot dimensions, millimetre lengths, arch height preferences, and shoe sizes entered into our tools are processed ephemerally in browser memory and discarded upon navigating away.</li>
+              <li><strong>No Account Creation:</strong> All conversion tables, interactive sliders, and brand guides are 100% free and open without credentials.</li>
+            </ul>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">3. Information We Collect Automatically</h2>
+            <p>When you access AllShoeSizeConverter, standard technical data is logged automatically through our hosting provider, Cloudflare:</p>
+            <ul>
+              <li><strong>Server Log Data:</strong> Internet Protocol (IP) address, browser software version, operating system, referring URL, time stamp, and requested pages. This data is utilized solely for DDoS defense, server reliability, and network routing.</li>
+              <li><strong>Aggregated Anonymous Analytics:</strong> We utilize privacy-preserving, lightweight telemetry (such as Cloudflare Web Analytics) which does not use client fingerprinting or track individual visitor identities across external websites. Metrics are aggregated to assess page popularity and geographic bandwidth demands.</li>
+            </ul>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">4. Cookies and Local Storage</h2>
+            <p>Our website minimizes cookie usage to essential functions:</p>
+            <ul>
+              <li><strong>Theme Preference:</strong> We store a small key named <code>theme-preference</code> (values: <code>light</code> or <code>dark</code>) in your browser's <code>localStorage</code> so your visual appearance preference persists across visits. This storage contains no personal identifier and never leaves your computer.</li>
+              <li><strong>Session Cookies:</strong> Cloudflare may set standard security cookies (such as <code>__cf_bm</code>) to identify trusted web traffic and mitigate malicious bots. These cookies do not store personally identifiable records.</li>
+            </ul>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">5. Third-Party Links &amp; Retailers</h2>
+            <p>Our sizing guides frequently reference international footwear manufacturers (e.g., Nike, Adidas, Clarks, New Balance, Bata, Woodland) and e-commerce platforms. If you click on external links to third-party stores, please note that their independent privacy policies govern any interactions, purchases, or cookies on their domains. We encourage you to review their policies upon visiting.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">6. Data Protection Rights (GDPR &amp; CCPA Compliance)</h2>
+            <p>Under international privacy frameworks including the General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA):</p>
+            <ul>
+              <li><strong>Right to Know &amp; Access:</strong> You have the right to request what personal information is held about you. Because AllShoeSizeConverter does not collect identifying personal profiles, we hold no records linked to individual identities.</li>
+              <li><strong>Right to Deletion:</strong> You may clear your browser cookies and <code>localStorage</code> at any time through your browser settings to erase visual theme preferences.</li>
+              <li><strong>Do Not Sell My Personal Information:</strong> We do not sell, rent, monetize, or trade visitor data to brokers or advertisers.</li>
+            </ul>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">7. Children's Online Privacy Protection (COPPA)</h2>
+            <p>While our site provides specialized kids and toddler shoe size growth milestone charts to assist parents and guardians in buying properly fitting footwear, AllShoeSizeConverter does not knowingly collect or solicit personal data from children under the age of 13. All kids sizing calculations remain entirely client-side on the user's browser.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">8. Policy Updates &amp; Contacting Us</h2>
+            <p>We may update this Privacy Policy periodically to reflect technological or regulatory advancements. Continued use of our service after amendments indicates acceptance of the revised terms.</p>
+            <p>If you have questions regarding this Privacy Policy or our data practices, please reach out via our dedicated <a href="/contact/">Contact Us</a> page or email us at <code>privacy@allshoesizeconverter.com</code>.</p>
+          </div>
+
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    background: var(--v-canvas);
+    min-height: 80vh;
+  }
+  .legal-hero {
+    padding: 56px 24px 32px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .legal-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    color: var(--v-mute);
+    margin-top: 12px;
+  }
+  .legal-body-band {
+    padding: 48px 24px 80px;
+  }
+  .legal-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 44px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .legal-section {
+    margin-bottom: 36px;
+  }
+  .legal-section:last-child {
+    margin-bottom: 0;
+  }
+  .legal-section h2 {
+    color: var(--v-ink);
+    margin-bottom: 12px;
+  }
+  .legal-section p {
+    color: var(--v-body);
+    line-height: 26px;
+    margin-bottom: 14px;
+  }
+  .legal-section ul {
+    color: var(--v-body);
+    line-height: 24px;
+    padding-left: 20px;
+    margin-bottom: 14px;
+  }
+  .legal-section li {
+    margin-bottom: 8px;
+  }
+  .legal-section a {
+    color: var(--v-link);
+    text-decoration: underline;
+  }
+  code {
+    background: var(--v-hairline-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--v-ink);
+  }
+
+  @media (max-width: 768px) {
+    .legal-card {
+      padding: 24px 18px;
+    }
+  }
+</style>

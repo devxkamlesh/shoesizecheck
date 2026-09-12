@@ -1,3 +1,12 @@
+# Machine-readable discovery link headers per RFC 8288 & RFC 9727
+/*
+  Link: </.well-known/api-catalog>; rel="api-catalog", </llms.txt>; rel="service-doc", </.well-known/schema.json>; rel="describedby", </index.md>; rel="alternate"; type="text/markdown"
+
+# Explicit text/markdown content-type for markdown files
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+
 # Prevent indexing of Cloudflare Pages development and preview domains
 https://allshoesizeconverter.pages.dev/*
   X-Robots-Tag: noindex, nofollow

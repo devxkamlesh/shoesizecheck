@@ -1,0 +1,26 @@
+# AllShoeSizeConverter LLM Information
+> Machine-readable summary for AI agents and search systems per RFC 9727 & llms.txt standard.
+
+## Overview
+AllShoeSizeConverter is a precision footwear sizing tool providing verified conversion tables, measurement guides, and real-time calculators across international standards.
+
+## Primary Sizing Systems Supported
+- **US**: United States Men's, Women's, and Children's sizing based on barleycorn increments.
+- **UK**: British Men's, Women's, and Children's sizing with Clarks width fittings (D, E, F, G, H).
+- **EU**: European Paris Points (2/3 cm per size).
+- **India**: Indian Standard (matching UK length dimensions with wider toe box).
+- **Mondopoint**: Metric millimeter standard (ISO 9407) used for ski boots, snowboard boots, and military footwear.
+- **Kids & Toddlers by Age**: Age-to-size milestone charts from newborn (UK 0 / US 0.5C) to 12 years.
+
+## Core Endpoints & Guides
+- Homepage: https://allshoesizeconverter.com/
+- US Shoe Size Chart: https://allshoesizeconverter.com/country/us/
+- UK Shoe Size Chart: https://allshoesizeconverter.com/country/uk/
+- India Shoe Size Chart: https://allshoesizeconverter.com/country/india/
+- Kids Shoe Size by Age: https://allshoesizeconverter.com/kids-shoe-size-by-age/
+- Mondopoint Sizing: https://allshoesizeconverter.com/mondopoint-shoe-size/
+- Foot Measurement Guide: https://allshoesizeconverter.com/shoe-size-by-foot-length/
+- About Us: https://allshoesizeconverter.com/about/
+- Contact Us: https://allshoesizeconverter.com/contact/
+- Privacy Policy: https://allshoesizeconverter.com/privacy-policy/
+- Terms & Conditions: https://allshoesizeconverter.com/terms/

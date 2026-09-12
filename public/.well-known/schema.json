@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ShoeSizeConversion",
+  "type": "object",
+  "properties": {
+    "system": {
+      "type": "string",
+      "enum": ["US", "UK", "EU", "India", "Mondopoint", "CM", "Inches"]
+    },
+    "gender": {
+      "type": "string",
+      "enum": ["men", "women", "kids"]
+    },
+    "size": {
+      "type": "string"
+    },
+    "footLengthCm": {
+      "type": "number"
+    }
+  }
+}

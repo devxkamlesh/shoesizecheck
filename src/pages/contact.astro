@@ -1,0 +1,347 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/contact/`;
+const pageTitle = 'Contact Us — Support & Sizing Inquiries | AllShoeSizeConverter';
+const pageDescription = 'Have questions, footwear sizing feedback, or a brand chart suggestion? Contact the AllShoeSizeConverter team. We respond within 24–48 hours.';
+const ogImage = `${domain}/og-image.png`;
+
+const breadcrumbSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `${domain}/`
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Contact Us",
+      "item": pageCanonical
+    }
+  ]
+});
+
+const contactPageSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact AllShoeSizeConverter",
+  "description": pageDescription,
+  "url": pageCanonical,
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "AllShoeSizeConverter",
+    "url": domain,
+    "email": "support@allshoesizeconverter.com"
+  }
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+    <script type="application/ld+json" set:html={contactPageSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content" class="contact-page">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Contact Us' },
+    ]} />
+
+    <section class="contact-hero">
+      <div class="contact-inner">
+        <p class="mono-eyebrow">Get in Touch</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,44px)">Contact Our Team</h1>
+        <p class="hero-sub body-lg">Have a question about a shoe conversion, feedback on brand fit, or a suggestion for our sizing tools? We’d love to hear from you.</p>
+      </div>
+    </section>
+
+    <section class="contact-body-band">
+      <div class="contact-inner">
+        
+        <div class="contact-layout">
+
+          <!-- Left Column: Form -->
+          <div class="contact-form-card card-elevated">
+            <h2 class="heading-md" style="margin-bottom:8px">Send Us a Message</h2>
+            <p class="body-sm text-mute" style="margin-bottom:24px">Fill out the details below and our editorial team will review your inquiry.</p>
+
+            <form id="contact-form" class="contact-form" onsubmit="event.preventDefault(); document.getElementById('form-feedback').style.display = 'block'; this.reset();">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="contact-name">Your Name *</label>
+                  <input type="text" id="contact-name" class="form-input" placeholder="e.g. Sarah Jenkins" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="contact-email">Email Address *</label>
+                  <input type="email" id="contact-email" class="form-input" placeholder="name@example.com" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-subject">Inquiry Subject *</label>
+                <select id="contact-subject" class="form-select" required>
+                  <option value="" disabled selected>Select an inquiry category</option>
+                  <option value="conversion-question">Footwear Conversion Question</option>
+                  <option value="brand-feedback">Brand Fit / Correction Feedback</option>
+                  <option value="feature-request">Feature / Country Chart Request</option>
+                  <option value="business-inquiry">General / Business Inquiry</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">Your Message *</label>
+                <textarea id="contact-message" class="form-textarea" rows="5" placeholder="Describe your question, shoe model, or feedback in detail..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:12px;">
+                Send Message
+              </button>
+
+              <div id="form-feedback" class="form-success-banner" style="display:none; margin-top:16px;">
+                <p><strong>Thank you for reaching out!</strong> Your message has been received. Our team will review your note and respond within 24 to 48 business hours.</p>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right Column: Channels & Quick Links -->
+          <div class="contact-sidebar">
+
+            <!-- Direct Channels -->
+            <div class="side-card card-elevated">
+              <h3 class="heading-sm">Direct Channels</h3>
+              
+              <div class="channel-item">
+                <div class="channel-icon">✉️</div>
+                <div>
+                  <span class="channel-label">General Support</span>
+                  <a href="mailto:support@allshoesizeconverter.com" class="channel-value">support@allshoesizeconverter.com</a>
+                </div>
+              </div>
+
+              <div class="channel-item">
+                <div class="channel-icon">📊</div>
+                <div>
+                  <span class="channel-label">Editorial &amp; Corrections</span>
+                  <a href="mailto:editorial@allshoesizeconverter.com" class="channel-value">editorial@allshoesizeconverter.com</a>
+                </div>
+              </div>
+
+              <div class="channel-item">
+                <div class="channel-icon">⏱️</div>
+                <div>
+                  <span class="channel-label">Response Time</span>
+                  <span class="body-sm text-body">Usually within 24–48 hours</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Self-Service Links -->
+            <div class="side-card card-elevated" style="margin-top:20px;">
+              <h3 class="heading-sm">Quick Solutions</h3>
+              <p class="body-sm text-mute">Looking for immediate answers? Jump straight to our verified guides:</p>
+              
+              <ul class="quick-links">
+                <li><a href="/shoe-size-by-foot-length/">How to measure foot length in CM &amp; Inches →</a></li>
+                <li><a href="/kids-shoe-size-by-age/">Kids &amp; Toddler sizing milestones by age →</a></li>
+                <li><a href="/mondopoint-shoe-size/">Ski boot &amp; Mondopoint conversions →</a></li>
+                <li><a href="/country/us/">US Shoe Size Chart &amp; Width Guide →</a></li>
+                <li><a href="/country/uk/">UK &amp; Clarks Width Fittings Guide →</a></li>
+                <li><a href="/country/india/">India Shoe Size Chart &amp; BIS Bha →</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .contact-page {
+    background: var(--v-canvas);
+    min-height: 80vh;
+  }
+  .contact-hero {
+    padding: 56px 24px 32px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .contact-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    color: var(--v-mute);
+    margin-top: 12px;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-body-band {
+    padding: 48px 24px 80px;
+  }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* Form */
+  .contact-form-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 36px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--v-ink);
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    color: var(--v-ink);
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--v-link);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+  .form-textarea {
+    resize: vertical;
+  }
+  .form-success-banner {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--v-r-sm);
+    padding: 12px 16px;
+    color: var(--v-ink);
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .form-success-banner p { margin: 0; }
+
+  /* Sidebar */
+  .side-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 28px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .side-card h3 {
+    margin: 0 0 16px;
+    color: var(--v-ink);
+  }
+  .channel-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .channel-item:last-child {
+    margin-bottom: 0;
+  }
+  .channel-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .channel-label {
+    display: block;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    color: var(--v-mute);
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+  .channel-value {
+    font-size: 14px;
+    color: var(--v-link);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .channel-value:hover {
+    text-decoration: underline;
+  }
+
+  .quick-links {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .quick-links a {
+    font-size: 13px;
+    color: var(--v-body);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .quick-links a:hover {
+    color: var(--v-link);
+  }
+
+  @media (max-width: 768px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    .contact-form-card {
+      padding: 24px 18px;
+    }
+  }
+</style>

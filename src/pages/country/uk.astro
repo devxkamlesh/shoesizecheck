@@ -14,32 +14,36 @@ const ogImage = `${domain}/og-image.png`;
 
 const faqs = [
   {
-    q: 'How do I measure my feet at home to find my size on a UK shoe size chart?',
-    a: 'To measure your feet for a UK shoe size chart: stand upright on a blank sheet of paper placed on a hard floor against a skirting board or wall. With your heel resting lightly against the wall and wearing your usual socks, mark the furthest point of your longest toe. Measure the distance from the edge of the paper to the mark in millimetres. Look up this measurement on our feet size chart, ensuring you add approximately 10 mm (about half an inch) of toe room for walking clearance.'
+    q: 'Shoe size chart: How to measure your feet accurately at home?',
+    a: 'To measure your feet using a shoe size chart how to measure technique: stand upright with your heel lightly resting against a flat wall on top of a sheet of plain paper taped to a hard floor. Wearing the socks you plan to pair with your shoes, mark the furthest tip of your longest toe (which may be your second toe). Measure the distance from the edge of the paper to your mark in millimetres. Refer to our feet size chart and add 10 mm (approx. 0.4 inches) of walking clearance to find your true British shoe size.'
+  },
+  {
+    q: 'How do I read a shoe size chart to find my correct UK size?',
+    a: 'To read a shoe size chart effectively: first locate your anatomical foot length in the centimetres (CM) or millimetres column rather than guessing from old footwear. Next, trace across horizontally to find your corresponding UK adult or child size. If you fall between two half-sizes, round up to allow natural foot expansion during walking. Finally, check whether the brand lists a width fitting letter (such as Clarks D, E, F, G, or H) to ensure the forefoot width matches your foot volume.'
   },
   {
     q: 'What is a Chinese shoe size chart and how does it convert to UK sizes?',
-    a: 'China uses two official footwear systems. The traditional China Type 1 system matches European Paris Points (e.g., China 42 equals UK 8 / US 9). The modern China Type 2 national standard (GB/T 3293.1-1998) is based on Mondopoint metric millimetres (e.g., China 260 mm equals a foot length of 26 cm, converting to UK 7.5 to 8). When buying footwear from Chinese manufacturers, check whether the label states metric millimetres or European numbers.'
+    a: 'China utilises two footwear measurement systems. The traditional China Type 1 system matches European Paris Points (e.g., a China size 42 corresponds directly to an EU 42 and UK size 8). The modern China Type 2 national standard (GB/T 3293.1-1998) is based on metric Mondopoint millimetres (e.g., China 260 indicates a foot length of 260 mm / 26.0 cm, which converts to UK 7.5 to 8). When buying from Chinese online retailers, check whether the label displays metric millimetres or continental EU numbers.'
   },
   {
-    q: 'How does a UK shoe size width chart work, particularly for Clarks footwear?',
-    a: 'In British shoemaking, width is designated by letters rather than numbers. On a Clarks shoe size chart: "E" is narrow/slim, "F" is standard medium (fitting approximately 75% of British adults and children), "G" is wide fit, and "H" is extra wide. For women, "D" represents narrow and "E" is standard, while "EE" indicates extra wide. If your toes feel cramped at the sides despite having correct length, switching from an "F" to a "G" fitting solves the problem without sizing up in length.'
+    q: 'How to fit my shoe size chart: How should properly fitted shoes feel?',
+    a: 'To verify proper fit using our how to fit my shoe size chart criteria, your footwear must satisfy three clinical requirements: 1) Toe Clearance: There must be 10 to 12 mm (roughly a thumb width) between your longest toe and the front tip; 2) Heel Lock: The heel counter should hug your calcaneus snugly with no vertical slipping when you step forward; and 3) Flex Point: The ball of your foot (first metatarsal joint) must align cleanly with the widest part and natural flex groove of the sole without bulging or side pressure.'
+  },
+  {
+    q: 'How does a shoe size width chart work for Clarks and British footwear?',
+    a: 'In British shoemaking, width is designated by alphabetical letters rather than numerical sizes. On a Clarks shoe size width chart: "D" signifies narrow fit (women/girls), "E" is slim/narrow for men or standard for women, "F" is the standard medium fit (worn by approximately 75% of the British population), "G" is wide fit, and "H" is extra wide. Selecting the correct width fitting prevents the common mistake of buying an oversized shoe just to accommodate wide toes or a high instep.'
   },
   {
     q: 'What does CM mean on a shoe size chart and why is it the most reliable measurement?',
-    a: 'On any size guide shoes, "CM" stands for centimetres and represents either the anatomical foot length the shoe was built for, or the internal footbed length. Unlike UK, US, or European sizes—which use arbitrary numerical formulas like barleycorns and Paris points—centimetres are an absolute physical measurement. If you know your bare foot measures 26.5 cm, matching this directly on a brand\'s CM column guarantees an accurate fit across international borders.'
-  },
-  {
-    q: 'How should shoes properly fit according to a British size guide?',
-    a: 'According to British master bootmakers, a properly fitting shoe must satisfy three conditions: 1) There should be approximately 10 to 12 mm (the width of an adult thumb) of clearance between your longest toe and the front tip of the shoe; 2) The heel counter should grip firmly without slipping upwards when stepping forward; and 3) The ball of your foot (widest part) should align naturally with the widest part of the sole without stretching the leather over the welt.'
+    a: 'On any size guide shoes, "CM" stands for centimetres and denotes either the bare foot length the shoe was sculpted for, or the internal footbed length. Unlike UK sizes (calculated in barleycorns of 1/3 inch) or European sizes (calculated in Paris Points of 2/3 cm), centimetres represent an unskewed physical metric. Knowing your foot length in centimetres allows you to bypass brand inconsistencies and achieve an exact conversion across global manufacturers.'
   },
   {
     q: 'How do UK toddler and children\'s shoe sizes correspond to age?',
-    a: 'On a toddler shoe size chart by age in the UK: newborns wear baby shoe size chart numbers UK 0 to 1 (0–6 months); toddlers wear UK 2 to 5 (6–18 months / crawling to early walking); older toddlers wear UK 6 to 9 (2–4 years); and school-age children wear UK 10 to 13.5 (4–7 years). After size 13.5, British sizing switches to junior/adult sizes 1 to 6 (ages 7 to 12).'
+    a: 'On a toddler shoe size chart by age in Great Britain: babies wear UK 0 to 1 (0–6 months); infants wear UK 2 to 4 (6–18 months); toddlers wear UK 5 to 8 (18 months to 3.5 years); and little kids wear UK 9 to 13.5 (3.5 to 7 years). Once a child outgrows UK 13.5, the British childs shoe size chart resets back to UK 1 (Junior/Adult 1) through UK 6 (ages 8 to 12+).'
   },
   {
-    q: 'How do UK adult shoe sizes compare with US and European Paris points?',
-    a: 'For men, a UK size is roughly 0.5 to 1 size smaller than a US Men\'s size (a UK 9 is a US Men\'s 9.5 to 10, EU 43). For women, a UK size is approximately 2 sizes smaller than a US Women\'s size (a UK 5 is a US Women\'s 7, EU 38). European sizing is gender-neutral, making it an excellent benchmark when converting British footwear.'
+    q: 'How do UK adult shoe sizes compare with US and European footwear?',
+    a: 'For men, a UK shoe size is roughly 0.5 to 1 size smaller than an American US Men\'s size (for example, UK 9 = US 9.5 to 10 = EU 43). For women, a UK shoe size is 2 sizes smaller than a US Women\'s size (for example, UK 5 = US Women\'s 7 = EU 38). European Paris point sizing is gender-neutral, making it a reliable bridge when converting between British and international footwear.'
   }
 ];
 
@@ -49,7 +53,7 @@ const faqSchema = JSON.stringify({
   "mainEntity": faqs.map(f => ({
     "@type": "Question",
     "name": f.q,
-    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` },
   })),
 });
 
@@ -362,6 +366,23 @@ const countryLinks = [
               <li><strong>Measure in Millimetres:</strong> Measure from the edge of the paper to your pencil mark. Compare against our <strong>feet size chart</strong>, and always size to the larger foot if you have slight asymmetry.</li>
             </ol>
             <p><strong>The 10 mm Toe Clearance Rule:</strong> Always ensure there is roughly 10 to 12 mm (about half an inch) between the tip of your longest toe and the inside front of the shoe. This space is essential to allow your foot to slide forward naturally during heel-to-toe stride transitions.</p>
+
+            <h3 class="heading-sm">How to Read a Shoe Size Chart Correctly</h3>
+            <p>Reading an international footwear conversion chart can be daunting if you only look at the numbers. To read our <strong>size chart shoes</strong> like an experienced podiatrist, follow this straightforward sequence:</p>
+            <ul>
+              <li><strong>Step 1: Anchor on Physical Length (CM):</strong> Start with your measured anatomical foot length in centimetres or millimetres. This is your only absolute, non-negotiable metric.</li>
+              <li><strong>Step 2: Trace to Your Target Standard:</strong> Read horizontally across the table to your destination country column (UK, US, or EU). For example, a 26.2 cm foot correlates with a UK 8 or US Men's 8.5.</li>
+              <li><strong>Step 3: Confirm Gender &amp; Age Group:</strong> Verify whether you are consulting the Men's, Women's, or Kids table, as a UK 5 in women's footwear is significantly smaller than a UK 5 in men's footwear.</li>
+              <li><strong>Step 4: Factor in the Brand's Width System:</strong> If you are shopping with British shoemakers or Clarks, cross-reference their width scale (D, E, F, G, H) to ensure your forefoot volume is accommodated without sizing up in length.</li>
+            </ul>
+
+            <h3 class="heading-sm">How to Ensure Your Shoes Fit Properly: The Fit Checklist</h3>
+            <p>A shoe size chart is an indispensable starting point, but the true test of footwear comes down to personal biomechanics and fit. When trying on new footwear at home or in a boutique, test for these three indicators:</p>
+            <ol>
+              <li><strong>Forefoot Freedom:</strong> Your toes should lie completely flat and be able to wiggle gently. If your smallest toe feels pinched against the side wall or curled underneath, the shoe is either too narrow or half a size too short.</li>
+              <li><strong>Heel Security:</strong> Lace or fasten the shoe securely and walk across a hard surface. The heel cup should cradle your heel firmly with virtually zero vertical slippage (a maximum of 3–5 mm of initial give in stiff leather Goodyear-welted boots is normal before break-in).</li>
+              <li><strong>Metatarsal Alignment:</strong> The widest part of your foot (the ball of the foot) must sit squarely at the widest curve of the shoe sole so that the sole bends where your foot naturally flexes.</li>
+            </ol>
           </div>
         </article>
       </div>

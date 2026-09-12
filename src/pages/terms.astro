@@ -1,0 +1,189 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/terms/`;
+const pageTitle = 'Terms & Conditions | AllShoeSizeConverter';
+const pageDescription = 'Review the terms of service and conditions of use for AllShoeSizeConverter. Learn about our sizing disclaimers, intellectual property, and guidelines.';
+const ogImage = `${domain}/og-image.png`;
+
+const breadcrumbSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `${domain}/`
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Terms & Conditions",
+      "item": pageCanonical
+    }
+  ]
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content" class="legal-page">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Terms & Conditions' },
+    ]} />
+
+    <section class="legal-hero">
+      <div class="legal-inner">
+        <p class="mono-eyebrow">Service Agreement</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,44px)">Terms &amp; Conditions</h1>
+        <p class="hero-sub body-lg">Effective Date: September 12, 2026. Please read these terms carefully before utilizing our conversion tools.</p>
+      </div>
+    </section>
+
+    <section class="legal-body-band">
+      <div class="legal-inner">
+        <article class="legal-card card-elevated">
+
+          <div class="legal-section">
+            <h2 class="heading-md">1. Agreement to Terms</h2>
+            <p>By accessing or using <strong>AllShoeSizeConverter</strong> (<a href="https://allshoesizeconverter.com/">https://allshoesizeconverter.com/</a>), you acknowledge that you have read, understood, and agreed to be bound by these Terms &amp; Conditions and our <a href="/privacy-policy/">Privacy Policy</a>. If you do not agree with any part of these terms, you should discontinue use of the site immediately.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">2. Informational &amp; Estimation Disclaimer</h2>
+            <p>AllShoeSizeConverter provides footwear size conversion calculators, charts, and measurement tutorials for <strong>informational and guidance purposes only</strong>.</p>
+            <ul>
+              <li><strong>Manufacturer Variance:</strong> While our conversion algorithms reflect recognized ISO, Brannock, European Paris Point, and British barleycorn standards, individual footwear brands, shoe silhouettes (e.g., pointed dress oxfords vs. open running sneakers), and materials (e.g., rigid full-grain leather vs. elastic knit mesh) may cause physical shoes to fit differently from standard charts.</li>
+              <li><strong>Independent Verification:</strong> We strongly advise verifying measurements against specific manufacturer sizing tables and consulting retail return policies before purchasing high-value or specialty footwear online.</li>
+            </ul>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">3. Permitted &amp; Prohibited Use</h2>
+            <p>You are granted a limited, revocable, non-exclusive license to use AllShoeSizeConverter for personal, non-commercial purposes. You agree not to:</p>
+            <ul>
+              <li>Deploy automated scrapers, crawlers, or data harvesting bots to duplicate our proprietary tables or calculation logic for competing commercial directories without explicit written consent.</li>
+              <li>Attempt to disrupt, overload, or compromise website infrastructure or Cloudflare security protections through Denial of Service (DoS) attacks or malicious scripting.</li>
+              <li>Frame, hotlink, or republish full conversion guides in a manner that misrepresents AllShoeSizeConverter content as your own intellectual property.</li>
+            </ul>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">4. Intellectual Property Rights</h2>
+            <p>All original editorial copy, custom styling, visual diagrams, conversion matrices, and codebase components on AllShoeSizeConverter are the intellectual property of the site operators and protected by international copyright laws. Third-party brand names (including but not limited to Nike, Adidas, Clarks, New Balance, Puma, Bata, and Woodland) are the registered trademarks of their respective owners and are referenced solely for descriptive, nominative conversion comparison.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">5. Limitation of Liability</h2>
+            <p>To the fullest extent permissible under applicable law, AllShoeSizeConverter, its authors, and operators shall not be liable for any direct, indirect, incidental, consequential, or punitive damages—including, without limitation, shipping costs, restocking fees, customs duties, or foot discomfort resulting from footwear purchased based on calculations or size estimations provided on this website. Your use of this service is at your sole risk.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">6. External Third-Party Links</h2>
+            <p>Our platform may contain hyperlinks to third-party marketplaces, brand catalogs, or retailer sizing charts. We do not control or endorse the content, business practices, or privacy policies of third-party websites, and we assume no responsibility for transactions conducted outside our domain.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">7. Changes to Terms</h2>
+            <p>We reserve the right to modify or replace these Terms &amp; Conditions at our sole discretion. Any modifications will be posted directly to this page with an updated effective date. Continued access following changes constitutes acceptance of the revised terms.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2 class="heading-md">8. Contact Information</h2>
+            <p>For questions, legal inquiries, or trademark clarifications concerning these terms, please contact our administrative team via our <a href="/contact/">Contact Us</a> page or email <code>legal@allshoesizeconverter.com</code>.</p>
+          </div>
+
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    background: var(--v-canvas);
+    min-height: 80vh;
+  }
+  .legal-hero {
+    padding: 56px 24px 32px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .legal-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    color: var(--v-mute);
+    margin-top: 12px;
+  }
+  .legal-body-band {
+    padding: 48px 24px 80px;
+  }
+  .legal-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 44px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .legal-section {
+    margin-bottom: 36px;
+  }
+  .legal-section:last-child {
+    margin-bottom: 0;
+  }
+  .legal-section h2 {
+    color: var(--v-ink);
+    margin-bottom: 12px;
+  }
+  .legal-section p {
+    color: var(--v-body);
+    line-height: 26px;
+    margin-bottom: 14px;
+  }
+  .legal-section ul {
+    color: var(--v-body);
+    line-height: 24px;
+    padding-left: 20px;
+    margin-bottom: 14px;
+  }
+  .legal-section li {
+    margin-bottom: 8px;
+  }
+  .legal-section a {
+    color: var(--v-link);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .legal-card {
+      padding: 24px 18px;
+    }
+  }
+</style>
