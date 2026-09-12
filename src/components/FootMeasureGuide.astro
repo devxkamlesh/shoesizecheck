@@ -1,0 +1,111 @@
+---
+// FootMeasureGuide.astro — How to measure, Geist design
+const steps = [
+  { title: 'Prepare', desc: 'Place a blank A4 sheet on a hard floor against a wall.' },
+  { title: 'Stand naturally', desc: 'Stand with your heel touching the wall, weight evenly distributed.' },
+  { title: 'Mark your longest toe', desc: 'Make a pencil mark at the tip of your longest toe.' },
+  { title: 'Measure', desc: 'Measure from the wall edge to the pencil mark in cm or inches.' },
+  { title: 'Measure both feet', desc: 'Repeat for the other foot and use the larger measurement.' },
+  { title: 'Measure in the afternoon', desc: 'Feet swell during the day — afternoon gives the best fit.' },
+];
+---
+
+<section class="guide-section">
+  <div class="guide-inner">
+    <p class="mono-eyebrow">Measurement Guide</p>
+    <h2 class="heading-lg">How to Measure Your Feet</h2>
+    <p class="guide-sub body-lg">Follow these steps to get an accurate foot measurement at home — all you need is a sheet of paper, a pencil, and a ruler.</p>
+
+    <div class="guide-grid">
+      {steps.map((step, i) => (
+        <div class="guide-step card">
+          <div class="guide-num">{i + 1}</div>
+          <div class="guide-body">
+            <h3 class="guide-title">{step.title}</h3>
+            <p class="guide-desc">{step.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="guide-tip">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p><strong>Tip:</strong> If you have wide feet, consider ordering half a size up — foot length measurements don't account for width.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .guide-section {
+    padding: 96px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .guide-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .guide-sub { margin: 8px 0 32px; }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .guide-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .guide-num {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--v-r-full);
+    background: var(--v-ink);
+    color: var(--v-canvas);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+  }
+  .guide-body { flex: 1; }
+  .guide-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin: 0 0 4px;
+    letter-spacing: -0.28px;
+  }
+  .guide-desc {
+    font-size: 13px;
+    color: var(--v-body);
+    line-height: 18px;
+    margin: 0;
+  }
+
+  .guide-tip {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 32px;
+    padding: 16px 20px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    font-size: 13px;
+    color: var(--v-body);
+    line-height: 20px;
+  }
+  .guide-tip svg { flex-shrink: 0; margin-top: 2px; color: var(--v-link); }
+  .guide-tip p { margin: 0; }
+  .guide-tip strong { color: var(--v-ink); }
+
+  @media (max-width: 640px) {
+    .guide-section { padding: 64px 16px; }
+    .guide-grid { grid-template-columns: 1fr; }
+  }
+</style>

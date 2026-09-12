@@ -1,0 +1,312 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import FAQ from '../../components/FAQ.astro';
+import Footer from '../../components/Footer.astro';
+import { COUNTRIES, SIZE_DATA, SYSTEM_LABELS } from '../../data/shoe-sizes';
+import type { CountryData } from '../../data/shoe-sizes';
+
+export function getStaticPaths() {
+  return COUNTRIES.filter(c => c.slug !== 'us').map(c => ({
+    params: { country: c.slug },
+    props: { country: c },
+  }));
+}
+
+interface Props { country: CountryData; }
+const { country } = Astro.props;
+
+const domain = 'https://allshoesizeconverter.com';
+const sys = country.system;
+
+// Build comparison systems (exclude country's own)
+const compareSystems = ['us','uk','eu','india','jp','cm','inches'].filter(s => s !== sys);
+
+// Build related links
+const conversionLinks = country.relatedConversions.map(slug => {
+  const parts = slug.replace(/-shoe-size$/, '').split('-to-');
+  return { label: `${parts[0].toUpperCase()} to ${parts[1].toUpperCase()} Shoe Size`, href: `/${slug}/` };
+});
+const countryLinks = country.relatedCountries.map(slug => {
+  const c = COUNTRIES.find(x => x.slug === slug);
+  return { label: `${c?.flag} ${c?.name} Shoe Sizes`, href: `/country/${slug}/` };
+});
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": country.faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+---
+
+<Layout
+  title={`${country.title} | AllShoeSizeConverter`}
+  description={country.description}
+  canonical={`${domain}/country/${country.slug}/`}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+  <Header />
+  <main id="main-content">
+
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Countries', href: '/country/us/' },
+      { label: `${country.flag} ${country.name}` },
+    ]} />
+
+    <!-- Hero -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">{country.flag} {country.systemLabel} Shoe Sizes</p>
+        <h1 class="display-xl">{country.h1}</h1>
+        <p class="hero-sub body-lg">{country.intro}</p>
+      </div>
+    </section>
+
+    <!-- Converter -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated converter-inline">
+          <h2 class="heading-md">Convert {country.systemLabel} Sizes</h2>
+          <div class="ci-row">
+            <div class="ci-field">
+              <label class="step-label" for={`${country.slug}-size`}>
+                <span class="step-num">1</span> {country.systemLabel} Size
+              </label>
+              <select id={`${country.slug}-size`} class="form-select ci-size-select" aria-label={`${country.systemLabel} shoe size`}>
+                <option value="" disabled selected>Select size</option>
+                {SIZE_DATA.men[sys]?.map(s => <option value={String(s)}>{s}</option>)}
+              </select>
+            </div>
+            <div class="ci-field">
+              <label class="step-label" for={`${country.slug}-gender`}>
+                <span class="step-num">2</span> Gender
+              </label>
+              <select id={`${country.slug}-gender`} class="form-select ci-gender-select" aria-label="Gender">
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="kids">Kids</option>
+              </select>
+            </div>
+          </div>
+          <div class="ci-results" id={`${country.slug}-results`} aria-live="polite">
+            <p class="ci-placeholder">Select a size to see all conversions</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="content-band">
+      <div class="page-inner content-prose">
+        <h2 class="heading-md">How {country.name} Shoe Sizing Works</h2>
+        <p>{country.explanation}</p>
+
+        <h3 class="heading-sm">Sizing Tips</h3>
+        <ul>
+          {country.tips.map(t => <li>{t}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Size Table -->
+    <section class="table-band">
+      <div class="page-inner">
+        <h2 class="heading-md">{country.name} Shoe Size Chart — Men</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label={`${country.name} men shoe size chart`}>
+            <thead>
+              <tr>
+                <th>{country.systemLabel}</th>
+                {compareSystems.map(s => <th>{SYSTEM_LABELS[s]}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {SIZE_DATA.men[sys]?.map((val, i) => (
+                <tr>
+                  <td>{val}</td>
+                  {compareSystems.map(s => <td>{SIZE_DATA.men[s]?.[i] ?? '—'}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="heading-md" style="margin-top:48px">{country.name} Shoe Size Chart — Women</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label={`${country.name} women shoe size chart`}>
+            <thead>
+              <tr>
+                <th>{country.systemLabel}</th>
+                {compareSystems.map(s => <th>{SYSTEM_LABELS[s]}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {SIZE_DATA.women[sys]?.map((val, i) => (
+                <tr>
+                  <td>{val}</td>
+                  {compareSystems.map(s => <td>{SIZE_DATA.women[s]?.[i] ?? '—'}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="heading-md">{country.name} Shoe Size FAQ</h2>
+        <div class="country-faq-list">
+          {country.faqs.map((f, i) => (
+            <div class="faq-item">
+              <button class="faq-trigger" aria-expanded="false" id={`cfaq-${i}`} aria-controls={`cfaq-c-${i}`}>
+                <span>{f.q}</span>
+                <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="faq-content" id={`cfaq-c-${i}`} role="region" aria-labelledby={`cfaq-${i}`}>
+                <div class="faq-inner">{f.a}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Links -->
+    <RelatedLinks title={`${country.name} Conversion Pages`} links={conversionLinks} />
+    <RelatedLinks title="Other Countries" links={countryLinks} />
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero { padding: 48px 24px 40px; background: var(--v-canvas); }
+  .page-inner { max-width: 900px; margin: 0 auto; }
+  .hero-sub { margin: 12px 0 0; max-width: 600px; }
+
+  .converter-band { padding: 0 24px 64px; background: var(--v-canvas); }
+  .converter-inline { padding: 24px; }
+  .ci-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 20px; }
+  .ci-results { min-height: 60px; display: flex; align-items: center; }
+  .ci-placeholder { color: var(--v-faint); font-size: 14px; margin: 0; }
+  .ci-result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; width: 100%; }
+  .ci-result-item { display: flex; flex-direction: column; align-items: center; padding: 10px 6px; background: var(--v-canvas); border: 1px solid var(--v-hairline); border-radius: var(--v-r-md); }
+  .ci-result-item:hover { border-color: var(--v-link); }
+  .ci-result-sys { font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; color: var(--v-mute); margin-bottom: 4px; }
+  .ci-result-val { font-size: 20px; font-weight: 600; font-family: var(--font-display); color: var(--v-ink); letter-spacing: -0.4px; }
+
+  .content-band { padding: 64px 24px; background: var(--v-elevated); border-top: 1px solid var(--v-hairline); }
+  .content-prose h2 { margin: 0 0 12px; }
+  .content-prose h3 { font-size: 16px; font-weight: 600; color: var(--v-ink); margin: 24px 0 8px; letter-spacing: -0.32px; }
+  .heading-sm { font-size: 16px; font-weight: 600; color: var(--v-ink); letter-spacing: -0.32px; }
+  .content-prose p { color: var(--v-body); line-height: 24px; font-size: 14px; margin: 0 0 16px; }
+  .content-prose ul { color: var(--v-body); line-height: 24px; font-size: 14px; padding-left: 20px; margin: 0 0 16px; }
+  .content-prose li { margin-bottom: 6px; }
+
+  .table-band { padding: 64px 24px; background: var(--v-canvas); border-top: 1px solid var(--v-hairline); }
+  .faq-band { padding: 64px 24px; background: var(--v-elevated); border-top: 1px solid var(--v-hairline); }
+  .country-faq-list { margin-top: 24px; }
+
+  @media (max-width: 640px) {
+    .page-hero { padding: 32px 16px; }
+    .converter-band { padding: 0 16px 48px; }
+    .content-band, .table-band, .faq-band { padding: 48px 16px; }
+    .ci-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script define:vars={{ sys: country.system, slug: country.slug }}>
+  const SIZE_DATA = {
+    men: {
+      us:[6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,13,14,15,16],
+      uk:[5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12.5,13.5,14.5,15.5],
+      eu:[39,39,40,40,41,41,42,42,43,43,44,44,45,46,47,48,49],
+      india:[5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,12,13,14,15],
+      jp:[24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],
+      cm:[24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],
+      inches:[9.3,9.5,9.6,9.8,9.9,10.1,10.3,10.4,10.6,10.8,10.9,11.1,11.3,11.6,11.9,12.2,12.5],
+      china:[39,39,40,40,41,41,42,42,43,43,44,44,45,46,47,48,49],
+      korea:[240,245,250,255,260,265,270,275,280,285,290,295,300,310,320,330,340],
+      australia:[5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12.5,13.5,14.5,15.5],
+      mexico:[5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,12,13,14,15],
+    },
+    women: {
+      us:[4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12],
+      uk:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+      eu:[35,35,35,36,36,37,37,38,38,39,39,40,40,41,41,42,42],
+      india:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+      jp:[21,21.5,22,22.5,23,23,23.5,24,24,24.5,25,25,25.5,26,26,26.5,27],
+      cm:[21,21.5,22,22.5,23,23,23.5,24,24,24.5,25,25,25.5,26,26,26.5,27],
+      inches:[8.2,8.3,8.5,8.8,8.9,9.1,9.3,9.4,9.5,9.7,9.9,10,10.2,10.3,10.5,10.7,10.9],
+      china:[35,35,35,36,36,37,37,38,38,39,39,40,40,41,41,42,42],
+      korea:[210,215,220,225,230,230,235,240,240,245,250,250,255,260,260,265,270],
+      australia:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+      mexico:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+    },
+    kids: {
+      us:[1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y','3Y'],
+      uk:[0.5,1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y'],
+      eu:[17,18,19,20,21,22,23,25,26,27,28,30,31,32,33,35],
+      india:[1,2,3,3,4,5,5,6,7,8,9,10,11,12,13,1],
+      jp:[11,12,13,13,14,14,15,15,16,17,17,18,19,20,21,22],
+      cm:[11,12,13,13,14,14,15,15,16,17,17,18,19,20,21,22],
+      inches:[4.3,4.7,5.1,5.5,5.9,6.1,6.3,6.5,6.7,6.9,7.1,7.3,7.7,7.9,8.3,8.7],
+      china:[17,18,19,20,21,22,23,25,26,27,28,30,31,32,33,35],
+      korea:[110,120,130,130,140,140,150,150,160,170,170,180,190,200,210,220],
+      australia:[0.5,1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y'],
+      mexico:[1,2,3,3,4,5,5,6,7,8,9,10,11,12,13,1],
+    }
+  };
+  const LABELS = {us:'US',uk:'UK',eu:'EU',india:'India',jp:'Japan',cm:'CM',inches:'Inches',china:'China',korea:'Korea',australia:'Australia',mexico:'Mexico'};
+
+  const sizeSelect = document.querySelector('.ci-size-select');
+  const genderSelect = document.querySelector('.ci-gender-select');
+  const resultsEl = document.getElementById(`${slug}-results`);
+
+  function updateSizes() {
+    const gender = genderSelect?.value || 'men';
+    const sizes = SIZE_DATA[gender]?.[sys];
+    if (!sizeSelect || !sizes) return;
+    sizeSelect.innerHTML = '<option value="" disabled selected>Select size</option>' +
+      sizes.map(s => `<option value="${s}">${s}</option>`).join('');
+    if (resultsEl) resultsEl.innerHTML = '<p class="ci-placeholder">Select a size to see all conversions</p>';
+  }
+
+  function convert() {
+    const gender = genderSelect?.value || 'men';
+    const val = sizeSelect?.value;
+    if (!val || !resultsEl) return;
+    const data = SIZE_DATA[gender];
+    const idx = data[sys]?.findIndex(v => String(v) === String(val));
+    if (idx === -1 || idx === undefined) return;
+    const otherSystems = Object.keys(data).filter(k => k !== sys);
+    const html = otherSystems.map(s => {
+      const v = data[s]?.[idx] ?? '—';
+      return `<div class="ci-result-item"><span class="ci-result-sys">${LABELS[s]||s}</span><span class="ci-result-val">${v}</span></div>`;
+    }).join('');
+    resultsEl.innerHTML = `<div class="ci-result-grid">${html}</div>`;
+  }
+
+  genderSelect?.addEventListener('change', updateSizes);
+  sizeSelect?.addEventListener('change', convert);
+
+  // FAQ toggles
+  document.querySelectorAll('.faq-trigger').forEach(t => {
+    t.addEventListener('click', () => {
+      const exp = t.getAttribute('aria-expanded') === 'true';
+      t.setAttribute('aria-expanded', String(!exp));
+      t.nextElementSibling?.classList.toggle('open', !exp);
+    });
+  });
+</script>

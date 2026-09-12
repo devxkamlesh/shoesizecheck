@@ -1,0 +1,326 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Footer from '../components/Footer.astro';
+import { CONVERSIONS, SIZE_DATA, SYSTEM_LABELS } from '../data/shoe-sizes';
+import type { ConversionData } from '../data/shoe-sizes';
+
+export function getStaticPaths() {
+  return CONVERSIONS.map(c => ({
+    params: { conversion: c.slug },
+    props: { conversion: c },
+  }));
+}
+
+interface Props { conversion: ConversionData; }
+const { conversion } = Astro.props;
+
+const domain = 'https://allshoesizeconverter.com';
+const from = conversion.fromSystem;
+const to = conversion.toSystem;
+
+// Related links
+const relatedLinks = conversion.relatedConversions.map(slug => {
+  const parts = slug.replace(/-shoe-size$/, '').split('-to-');
+  return { label: `${parts[0].toUpperCase()} to ${parts[1].toUpperCase()} Shoe Size`, href: `/${slug}/` };
+});
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": conversion.faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+---
+
+<Layout
+  title={`${conversion.title} | AllShoeSizeConverter`}
+  description={conversion.description}
+  canonical={`${domain}/${conversion.slug}/`}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+  <Header />
+  <main id="main-content">
+
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: conversion.h1 },
+    ]} />
+
+    <!-- Hero -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">{conversion.fromLabel} → {conversion.toLabel}</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,48px)">{conversion.h1}</h1>
+        <p class="hero-sub body-lg">{conversion.intro}</p>
+      </div>
+    </section>
+
+    <!-- Converter -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated conv-card">
+          <h2 class="heading-md">Convert {conversion.fromLabel} to {conversion.toLabel}</h2>
+          <div class="conv-row">
+            <div class="conv-field">
+              <label class="step-label" for="conv-size">
+                <span class="step-num">1</span> {conversion.fromLabel} Size
+              </label>
+              <select id="conv-size" class="form-select" aria-label={`${conversion.fromLabel} size`}>
+                <option value="" disabled selected>Select size</option>
+                {SIZE_DATA.men[from]?.map(s => <option value={String(s)}>{s}</option>)}
+              </select>
+            </div>
+            <div class="conv-field">
+              <label class="step-label" for="conv-gender">
+                <span class="step-num">2</span> Gender
+              </label>
+              <select id="conv-gender" class="form-select" aria-label="Gender">
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="kids">Kids</option>
+              </select>
+            </div>
+          </div>
+          <div class="conv-result" id="conv-result" aria-live="polite">
+            <p class="conv-placeholder">Select a size to convert</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formula -->
+    <section class="content-band">
+      <div class="page-inner content-prose">
+        <h2 class="heading-md">How to Convert {conversion.fromLabel} to {conversion.toLabel}</h2>
+        <p>{conversion.formula}</p>
+
+        <div class="examples-grid">
+          <div class="example-col">
+            <h3 class="heading-sm">Men's Examples</h3>
+            <ul>
+              {conversion.menExamples.map(ex => <li>{ex}</li>)}
+            </ul>
+          </div>
+          <div class="example-col">
+            <h3 class="heading-sm">Women's Examples</h3>
+            <ul>
+              {conversion.womenExamples.map(ex => <li>{ex}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="heading-sm">Tips</h3>
+        <ul>
+          {conversion.tips.map(t => <li>{t}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Full Table -->
+    <section class="table-band">
+      <div class="page-inner">
+        <h2 class="heading-md">{conversion.fromLabel} to {conversion.toLabel} — Men's Chart</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label={`${conversion.fromLabel} to ${conversion.toLabel} men chart`}>
+            <thead>
+              <tr><th>{conversion.fromLabel}</th><th>{conversion.toLabel}</th><th>CM</th></tr>
+            </thead>
+            <tbody>
+              {SIZE_DATA.men[from]?.map((val, i) => (
+                <tr>
+                  <td>{val}</td>
+                  <td>{SIZE_DATA.men[to]?.[i] ?? '—'}</td>
+                  <td>{SIZE_DATA.men.cm?.[i] ?? '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="heading-md" style="margin-top:48px">{conversion.fromLabel} to {conversion.toLabel} — Women's Chart</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label={`${conversion.fromLabel} to ${conversion.toLabel} women chart`}>
+            <thead>
+              <tr><th>{conversion.fromLabel}</th><th>{conversion.toLabel}</th><th>CM</th></tr>
+            </thead>
+            <tbody>
+              {SIZE_DATA.women[from]?.map((val, i) => (
+                <tr>
+                  <td>{val}</td>
+                  <td>{SIZE_DATA.women[to]?.[i] ?? '—'}</td>
+                  <td>{SIZE_DATA.women.cm?.[i] ?? '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="heading-md">{conversion.fromLabel} to {conversion.toLabel} FAQ</h2>
+        <div class="conv-faq-list">
+          {conversion.faqs.map((f, i) => (
+            <div class="faq-item">
+              <button class="faq-trigger" aria-expanded="false" id={`convfaq-${i}`} aria-controls={`convfaq-c-${i}`}>
+                <span>{f.q}</span>
+                <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="faq-content" id={`convfaq-c-${i}`} role="region" aria-labelledby={`convfaq-${i}`}>
+                <div class="faq-inner">{f.a}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Related -->
+    <RelatedLinks title="Related Conversions" links={relatedLinks} />
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero { padding: 48px 24px 40px; background: var(--v-canvas); }
+  .page-inner { max-width: 900px; margin: 0 auto; }
+  .hero-sub { margin: 12px 0 0; max-width: 600px; }
+
+  .converter-band { padding: 0 24px 64px; background: var(--v-canvas); }
+  .conv-card { padding: 24px; }
+  .conv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 20px; }
+  .conv-result { min-height: 80px; display: flex; align-items: center; justify-content: center; }
+  .conv-placeholder { color: var(--v-faint); font-size: 14px; margin: 0; }
+
+  .conv-result-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    padding: 16px 0;
+  }
+  .conv-from, .conv-to {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+  .conv-sys { font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; color: var(--v-mute); }
+  .conv-val { font-size: 32px; font-weight: 600; font-family: var(--font-display); color: var(--v-ink); letter-spacing: -0.8px; }
+  .conv-arrow { color: var(--v-faint); flex-shrink: 0; }
+
+  .content-band { padding: 64px 24px; background: var(--v-elevated); border-top: 1px solid var(--v-hairline); }
+  .content-prose h2 { margin: 0 0 12px; }
+  .heading-sm { font-size: 16px; font-weight: 600; color: var(--v-ink); letter-spacing: -0.32px; margin: 24px 0 8px; }
+  .content-prose p { color: var(--v-body); line-height: 24px; font-size: 14px; margin: 0 0 16px; }
+  .content-prose ul { color: var(--v-body); line-height: 24px; font-size: 14px; padding-left: 20px; margin: 0 0 16px; }
+  .content-prose li { margin-bottom: 6px; }
+
+  .examples-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 16px 0 24px; }
+  .example-col h3 { margin: 0 0 8px; }
+
+  .table-band { padding: 64px 24px; background: var(--v-canvas); border-top: 1px solid var(--v-hairline); }
+  .faq-band { padding: 64px 24px; background: var(--v-elevated); border-top: 1px solid var(--v-hairline); }
+  .conv-faq-list { margin-top: 24px; }
+
+  @media (max-width: 640px) {
+    .page-hero { padding: 32px 16px; }
+    .converter-band { padding: 0 16px 48px; }
+    .content-band, .table-band, .faq-band { padding: 48px 16px; }
+    .conv-row { grid-template-columns: 1fr; }
+    .examples-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script define:vars={{ from, to }}>
+  const SIZE_DATA = {
+    men: {
+      us:[6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,13,14,15,16],
+      uk:[5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12.5,13.5,14.5,15.5],
+      eu:[39,39,40,40,41,41,42,42,43,43,44,44,45,46,47,48,49],
+      india:[5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,12,13,14,15],
+      jp:[24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],
+      cm:[24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],
+      inches:[9.3,9.5,9.6,9.8,9.9,10.1,10.3,10.4,10.6,10.8,10.9,11.1,11.3,11.6,11.9,12.2,12.5],
+    },
+    women: {
+      us:[4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12],
+      uk:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+      eu:[35,35,35,36,36,37,37,38,38,39,39,40,40,41,41,42,42],
+      india:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+      jp:[21,21.5,22,22.5,23,23,23.5,24,24,24.5,25,25,25.5,26,26,26.5,27],
+      cm:[21,21.5,22,22.5,23,23,23.5,24,24,24.5,25,25,25.5,26,26,26.5,27],
+      inches:[8.2,8.3,8.5,8.8,8.9,9.1,9.3,9.4,9.5,9.7,9.9,10,10.2,10.3,10.5,10.7,10.9],
+    },
+    kids: {
+      us:[1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y','3Y'],
+      uk:[0.5,1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y'],
+      eu:[17,18,19,20,21,22,23,25,26,27,28,30,31,32,33,35],
+      india:[1,2,3,3,4,5,5,6,7,8,9,10,11,12,13,1],
+      jp:[11,12,13,13,14,14,15,15,16,17,17,18,19,20,21,22],
+      cm:[11,12,13,13,14,14,15,15,16,17,17,18,19,20,21,22],
+      inches:[4.3,4.7,5.1,5.5,5.9,6.1,6.3,6.5,6.7,6.9,7.1,7.3,7.7,7.9,8.3,8.7],
+    }
+  };
+  const LABELS = {us:'US',uk:'UK',eu:'EU',india:'India',jp:'Japan',cm:'CM',inches:'Inches'};
+
+  const sizeSelect = document.getElementById('conv-size');
+  const genderSelect = document.getElementById('conv-gender');
+  const resultEl = document.getElementById('conv-result');
+
+  function updateSizes() {
+    const gender = genderSelect?.value || 'men';
+    const sizes = SIZE_DATA[gender]?.[from];
+    if (!sizeSelect || !sizes) return;
+    sizeSelect.innerHTML = '<option value="" disabled selected>Select size</option>' +
+      sizes.map(s => `<option value="${s}">${s}</option>`).join('');
+    if (resultEl) resultEl.innerHTML = '<p class="conv-placeholder">Select a size to convert</p>';
+  }
+
+  function convert() {
+    const gender = genderSelect?.value || 'men';
+    const val = sizeSelect?.value;
+    if (!val || !resultEl) return;
+    const data = SIZE_DATA[gender];
+    const idx = data[from]?.findIndex(v => String(v) === String(val));
+    if (idx === -1 || idx === undefined) return;
+    const fromVal = data[from][idx];
+    const toVal = data[to]?.[idx] ?? '—';
+    resultEl.innerHTML = `
+      <div class="conv-result-card">
+        <div class="conv-from">
+          <span class="conv-sys">${LABELS[from]||from}</span>
+          <span class="conv-val">${fromVal}</span>
+        </div>
+        <svg class="conv-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <div class="conv-to">
+          <span class="conv-sys">${LABELS[to]||to}</span>
+          <span class="conv-val">${toVal}</span>
+        </div>
+      </div>`;
+  }
+
+  genderSelect?.addEventListener('change', updateSizes);
+  sizeSelect?.addEventListener('change', convert);
+
+  // FAQ toggles
+  document.querySelectorAll('.faq-trigger').forEach(t => {
+    t.addEventListener('click', () => {
+      const exp = t.getAttribute('aria-expanded') === 'true';
+      t.setAttribute('aria-expanded', String(!exp));
+      t.nextElementSibling?.classList.toggle('open', !exp);
+    });
+  });
+</script>

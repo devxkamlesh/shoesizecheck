@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FindMySize from '../components/FindMySize.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/what-is-my-shoe-size/`;
+const pageTitle = 'What Is My Shoe Size? — Shoe Size Calculator & Conversion Guide | AllShoeSizeConverter';
+const pageDescription = 'Find out what your shoe size is in US, UK, EU, and India. Enter your foot length in cm or inches to get accurate sizes for men, women, kids, and babies.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'What is my UK shoe size if I know my US size?',
+    a: 'For men, your UK shoe size is usually 0.5 to 1 full size smaller than your US size (a US Men\'s 9 is roughly a UK 8.5). For women, your UK size is approximately 2 sizes smaller than your US size (a US Women\'s 8 is a UK 6). In India, standard sizing matches UK sizes directly.'
+  },
+  {
+    q: 'What is my EU shoe size?',
+    a: 'European sizing is unisex and uses the Paris Point standard (each size is 2/3 of a centimeter). For US men, add approximately 33 to your size (US Men\'s 9 = EU 42). For US women, add roughly 31 to 31.5 (US Women\'s 8 = EU 39). An adult foot measuring 26 cm fits EU 41 in both men\'s and women\'s shoes.'
+  },
+  {
+    q: 'If my foot is 26 cm long, what size shoe am I?',
+    a: 'A 26 cm foot length corresponds to US Men\'s 8, US Women\'s 9.5, UK 7.5, EU 41, and India 7. In Japan and Mondopoint sizing, this is labeled directly as size 26.'
+  },
+  {
+    q: 'If my foot is 27 cm long, what size shoe am I?',
+    a: 'A 27 cm foot length corresponds to US Men\'s 9, US Women\'s 10.5, UK 8.5, EU 42, and India 8. It is one of the most widely manufactured adult shoe sizes in the world.'
+  },
+  {
+    q: 'If my foot is 24 cm or 25 cm long, what shoe size am I?',
+    a: 'A 24 cm foot equals US Men\'s 6, US Women\'s 7.5, UK 5.5, EU 38, or India 5. A 25 cm foot equals US Men\'s 7, US Women\'s 8.5, UK 6.5, EU 40, or India 6.'
+  },
+  {
+    q: 'If my foot is 10 inches long, what shoe size is that?',
+    a: 'Ten inches equals 25.4 centimeters. That corresponds to US Men\'s 7.5 to 8, US Women\'s 9 to 9.5, UK 7, and EU 40.5 to 41. If your foot is 9 inches (~22.9 cm), you fit approximately a US Women\'s 6 or Men\'s 4.5.'
+  },
+  {
+    q: 'What shoe size is my 1-year-old baby?',
+    a: 'Most 1-year-old toddlers wear between a US size 3C and 4.5C, which corresponds to a foot length between 10.8 cm and 11.7 cm (4.25 to 4.6 inches), or EU 19 to 20. Because baby feet grow quickly, keep about 1 cm (half a thumb width) of extra room at the front.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="what is my shoe size, what is my uk shoe size, what is my eu shoe size, what size shoe is my 1 year old, foot length to shoe size, how to know my shoe size, what shoe size am i" />
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'What Is My Shoe Size?' },
+    ]} />
+
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Find My Shoe Size</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,48px)">What Is My Shoe Size?</h1>
+        <p class="hero-sub body-lg">Not sure what shoe size to order? Measure your bare foot in centimeters or inches and discover your exact fit across US, UK, EU, India, and Japanese sizing.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">Men, Women &amp; Kids</span>
+          <span class="badge-trust">7 Sizing Systems</span>
+          <span class="badge-trust">CM &amp; Inch Measurements</span>
+        </div>
+      </div>
+    </section>
+
+    <FindMySize />
+
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Comprehensive Sizing Guide</p>
+            <h2 class="prose-main-title">How to Find Your True Shoe Size with Confidence</h2>
+            <p class="prose-lead">Shoe tags can be misleading because sizing numbers vary across regions and manufacturers. Here is how to find your true size using exact foot measurements.</p>
+          </header>
+          <div class="content-prose">
+            <h3 class="heading-sm">Four Practical Reasons to Measure Before Buying</h3>
+        <ul>
+          <li><strong>Feet change over adulthood:</strong> Ligaments and tendons naturally relax over time, and arch flattening can add half a size after age 30 or after pregnancy. A size that fit five years ago may feel restrictive today.</li>
+          <li><strong>International size offsets:</strong> A US size 8 in women's is roughly a UK 6, but in men's it corresponds to a UK 7.5. Knowing your exact foot length prevents costly return shipping on international orders.</li>
+          <li><strong>Foot asymmetry:</strong> More than 60% of people have one foot that is 3 to 6 millimeters longer or wider than the other. Always choose your footwear size based on the larger foot.</li>
+          <li><strong>Brand last differences:</strong> Nike running sneakers tend to fit snug through the midfoot and often require going up half a size. In contrast, Converse Chuck Taylors run notoriously long, frequently requiring shoppers to buy a half or full size smaller.</li>
+        </ul>
+
+        <h2 class="heading-md">Step-by-Step: Measuring Your Foot at Home</h2>
+        <p>You do not need a professional Brannock device to get an accurate measurement. A blank sheet of paper, a pencil, and a tape measure or ruler are enough:</p>
+        <ol>
+          <li><strong>Wait until the late afternoon or evening:</strong> Standing and walking throughout the day causes blood pooling and normal fluid buildup, expanding feet by up to 5% to 8%. Measuring in the evening ensures your shoes will never pinch when you are on your feet.</li>
+          <li><strong>Wear the socks you intend to use:</strong> If you are shopping for athletic sneakers or hiking boots, wear your cushioned sports socks. For dress flats or heels, measure barefoot or in thin hosiery.</li>
+          <li><strong>Tape paper against a wall:</strong> Place the sheet flat on a hard, uncarpeted floor with the short edge flush against the baseboard.</li>
+          <li><strong>Stand naturally with full weight:</strong> Stand with your heel gently touching the wall. Distribute your weight evenly across both legs. Having a partner make the pencil mark while you stand upright produces a more accurate result than bending over, which shifts your foot position.</li>
+          <li><strong>Mark the longest toe:</strong> Hold the pencil straight up and down (perpendicular to the floor). Draw a crisp line at the furthest tip of your longest toe — which is often the second toe, not the big toe.</li>
+          <li><strong>Measure the distance:</strong> Use a ruler to measure from the wall edge of the paper to your mark in millimeters, centimeters, or fractions of an inch. Repeat for the other foot.</li>
+        </ol>
+
+        <h2 class="heading-md">Major Shoe Sizing Systems at a Glance</h2>
+        <div class="system-grid">
+          <div class="card">
+            <h3>🇺🇸 United States (US)</h3>
+            <p>Based on the historic 1/3-inch barleycorn unit. Men's and women's scales are offset: an 8 in women's equals a 6.5 in men's for length.</p>
+          </div>
+          <div class="card">
+            <h3>🇬🇧 United Kingdom (UK)</h3>
+            <p>Runs roughly 0.5 to 1 size smaller than US Men's and 2 sizes smaller than US Women's. Indian footwear standards follow the UK system.</p>
+          </div>
+          <div class="card">
+            <h3>🇪🇺 European Union (EU)</h3>
+            <p>Uses Paris Points (2/3 cm or 6.67 mm per increment). Unisex across men and women, meaning an EU 41 indicates the exact same length for both.</p>
+          </div>
+          <div class="card">
+            <h3>🇯🇵 Japan &amp; Mondopoint (CM)</h3>
+            <p>The simplest system available: the number is literally your foot length in centimeters. A 27 cm foot takes a JP 27.</p>
+          </div>
+        </div>
+
+        <h2 class="heading-md">When Should You Size Up or Down?</h2>
+        <p>Shoe fit is not solely about foot length — shoe purpose, upper material, and foot width dictate how much breathing room you need:</p>
+        <ul>
+          <li><strong>Running &amp; Training Shoes:</strong> Always leave 10 to 15 mm (roughly the width of your thumbnail) between your longest toe and the tip of the shoe. During running, your foot slides forward on downhill strikes; inadequate toe clearance leads to runner's black toenails.</li>
+          <li><strong>Leather Dress Shoes &amp; Loafers:</strong> Buy these with a close, snug fit without painful pressure points. Quality leather uppers stretch and mold to your foot contours over the first 20 to 30 hours of wear.</li>
+          <li><strong>Wide Feet and High Arches:</strong> If a standard shoe feels tight across the ball of your foot, do not just buy a longer size. An overly long shoe causes the flex point to fall behind your natural foot bend, causing arch fatigue and premature shoe creasing. Instead, look for dedicated wide widths (EE/4E for men, D for women).</li>
+        </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+    <!-- Dedicated FAQ Section with Accordion -->
+    <section class="faq-band" id="faq">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Common Questions</p>
+        <h2 class="heading-md">Frequently Asked Questions: What Is My Shoe Size?</h2>
+        <div class="faq-list">
+          {faqs.map((f, i) => (
+            <div class="faq-item">
+              <button class="faq-trigger" aria-expanded="false" id={`fmsfaq-${i}`} aria-controls={`fmsfaq-c-${i}`}>
+                <span>{f.q}</span>
+                <span class="faq-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-content" id={`fmsfaq-c-${i}`} role="region" aria-labelledby={`fmsfaq-${i}`}>
+                <div class="faq-inner">{f.a}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero { padding: 48px 24px 40px; background: var(--v-canvas); }
+  .page-inner { max-width: 900px; margin: 0 auto; }
+  .hero-sub { margin: 12px 0 20px; max-width: 600px; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .system-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin: 24px 0 16px; }
+  .system-grid h3 { font-size: 14px; font-weight: 600; color: var(--v-ink); margin: 0 0 8px; }
+  .system-grid p { font-size: 13px; margin: 0; color: var(--v-body); line-height: 20px; }
+
+  @media (max-width: 640px) {
+    .page-hero { padding: 32px 16px; }
+    .system-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-trigger').forEach(t => {
+    t.addEventListener('click', () => {
+      const exp = t.getAttribute('aria-expanded') === 'true';
+      t.setAttribute('aria-expanded', String(!exp));
+      t.nextElementSibling?.classList.toggle('open', !exp);
+    });
+  });
+</script>

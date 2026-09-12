@@ -1,0 +1,714 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Footer from '../../components/Footer.astro';
+import { SIZE_DATA } from '../../data/shoe-sizes';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/country/us/`;
+const pageTitle = 'US Shoe Size Chart — Men, Women & Kids Footwear Conversion | AllShoeSizeConverter';
+const pageDescription = 'Complete US shoe size chart and footwear size conversion guide. Instant shoes size conversion for men shoe size chart, female shoe size chart, and childs shoe size chart with feet size chart in cm & inches.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'Is a US size 8 a 38 or 39?',
+    a: 'In female shoe size charts, a US size 8 corresponds to an EU 38.5 to 39 (approx. 24.5 to 25.0 cm foot length). In a men\'s shoe chart, a US Men\'s size 8 corresponds to an EU 41. Always confirm whether the footwear tag refers to men\'s or women\'s sizing before purchasing.'
+  },
+  {
+    q: 'Is US 7 size 40?',
+    a: 'Yes, on a men foot size chart, a US Men\'s 7 equals EU 40 (approx. 25.0 cm foot length / UK 6.5). However, in women and men shoe size comparisons, a US Women\'s 7 corresponds to EU 37.5 to 38 (approx. 23.8 cm).'
+  },
+  {
+    q: 'What is 42 in US shoe size?',
+    a: 'An EU 42 corresponds to a US Men\'s size 8.5 to 9 (UK 8, India 8, approx. 27.0 cm foot length). On a female shoe size chart, an EU 42 is roughly a US Women\'s 10 to 10.5.'
+  },
+  {
+    q: 'What is US size 8 in India?',
+    a: 'India footwear size conversion follows the UK standard. A US Men\'s size 8 is equivalent to an India size 7.5 (or India 7 in snug dress shoes). A US Women\'s size 8 converts to an India size 6.'
+  },
+  {
+    q: 'What is a 36 shoe size in US women\'s?',
+    a: 'An EU 36 shoe size in US women\'s is equivalent to a US Women\'s size 5.5 to 6 (UK 3.5, India 3.5, approx. 22.5 to 23.0 cm foot length). It is one of the most common standard European women\'s sizes.'
+  },
+  {
+    q: 'How do women and men shoe size compare in the US?',
+    a: 'In US footwear size conversion, female shoe sizes run exactly 1.5 sizes larger numerically than men\'s shoe sizes for the same physical length. For example, a US Men\'s 8 fits the same foot length as a US Women\'s 9.5. Additionally, men\'s shoes default to a wider "D" width, while women\'s shoes default to a narrower "B" width.'
+  },
+  {
+    q: 'How does a child\'s shoe size chart work in the US?',
+    a: 'A child\'s shoe size chart in the US is split into two numbered series: Child ("C") from infant 0C to little kid 13.5C, followed by Youth ("Y") from 1Y to 7Y. A youth 7Y transitions directly into adult US Men\'s 7 or Women\'s 8.5.'
+  },
+  {
+    q: 'How do I use a feet size chart to find my true US shoe size?',
+    a: 'Stand with your heel against a flat wall, mark your longest toe on paper, and measure the distance in centimeters or inches. Compare your measurement against our feet size chart, adding approximately 10 to 12 mm (about half an inch) of wiggle room for normal walking clearance.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+
+const breadcrumbSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": `${domain}/`
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "US Shoe Size Chart",
+      "item": pageCanonical
+    }
+  ]
+});
+
+const conversionLinks = [
+  { label: 'US to EU Shoe Size', href: '/us-to-eu-shoe-size/' },
+  { label: 'US to UK Shoe Size', href: '/us-to-uk-shoe-size/' },
+  { label: 'US to India Shoe Size', href: '/us-to-india-shoe-size/' },
+  { label: 'US to Japan Shoe Size', href: '/us-to-japan-shoe-size/' },
+  { label: 'US to CM Shoe Size', href: '/us-to-cm-shoe-size/' },
+];
+
+const countryLinks = [
+  { label: '🇬🇧 UK Shoe Sizes', href: '/country/uk/' },
+  { label: '🇪🇺 Europe Shoe Sizes', href: '/country/europe/' },
+  { label: '🇮🇳 India Shoe Sizes', href: '/country/india/' },
+  { label: '🇯🇵 Japan Shoe Sizes', href: '/country/japan/' },
+  { label: '🇦🇺 Australia Shoe Sizes', href: '/country/australia/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="us shoe size chart, shoe size conversion chart, shoes size conversion, men shoe size chart, feet size chart, female shoe size chart, childs shoe size chart, men foot size chart, women and men shoe size, men's shoe chart, footwear size conversion, 36 shoe size in us women's" />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="US Shoe Size Chart — Men, Women & Kids Footwear Size Conversion" />
+    <meta property="og:description" content="Accurate US shoe size chart & conversion tool for men, women, and kids. Convert US sizes to UK, EU, India, and centimeters with feet size chart." />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="US Shoe Size Chart and Conversion Guide" />
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="US Shoe Size Chart — Men, Women & Kids Conversion" />
+    <meta name="twitter:description" content="Official US shoe size chart, men shoe size chart, female shoe size chart, and childs shoe size chart." />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={faqSchema} />
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Countries', href: '/country/us/' },
+      { label: '🇺🇸 United States (US)' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">🇺🇸 Official Sizing Guide</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">US Shoe Size Chart &amp; Conversion Guide</h1>
+        <p class="hero-sub body-lg">Looking for an accurate <strong>us shoe size chart</strong>? Explore our verified <strong>shoe size conversion chart</strong> for men, women, and kids. Convert American footwear measurements to UK, EU, India, Japan, CM, and Inches with precision.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">Men Shoe Size Chart</span>
+          <span class="badge-trust">Female Shoe Size Chart</span>
+          <span class="badge-trust">Childs Shoe Size Chart</span>
+          <span class="badge-trust">Feet Size Chart (CM &amp; In)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Converter Tool -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated converter-inline">
+          <div class="ci-header">
+            <div>
+              <p class="mono-eyebrow">Instant Footwear Size Conversion</p>
+              <h2 class="heading-md">Convert US Shoe Sizes Instantly</h2>
+            </div>
+            <p class="body-sm text-mute">Select your US size and gender to generate real-time global conversions.</p>
+          </div>
+
+          <div class="ci-row">
+            <div class="ci-field">
+              <label class="step-label" for="us-size">
+                <span class="step-num">1</span> US Shoe Size
+              </label>
+              <select id="us-size" class="form-select ci-size-select" aria-label="US shoe size">
+                <option value="" disabled selected>Select US size</option>
+                {SIZE_DATA.men.us.map(s => <option value={String(s)}>US {s}</option>)}
+              </select>
+            </div>
+            <div class="ci-field">
+              <label class="step-label" for="us-gender">
+                <span class="step-num">2</span> Category / Gender
+              </label>
+              <select id="us-gender" class="form-select ci-gender-select" aria-label="Gender">
+                <option value="men" selected>Men's Shoe Chart</option>
+                <option value="women">Female Shoe Size Chart</option>
+                <option value="kids">Childs Shoe Size Chart</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ci-results" id="us-results" aria-live="polite">
+            <p class="ci-placeholder">Select a size to see instant conversions across UK, EU, India, Japan, CM, and Inches</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Charts Section -->
+    <section class="table-band">
+      <div class="page-inner">
+        <header class="section-heading">
+          <p class="mono-eyebrow">Reference Charts</p>
+          <h2 class="heading-lg">Comprehensive US Shoe Size Conversion Charts</h2>
+          <p class="body-md">Use these master charts to convert between US shoe sizes, foot length, and international sizing standards.</p>
+        </header>
+
+        <!-- 1. Men Shoe Size Chart -->
+        <div class="table-card">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Men Shoe Size Chart (US Men's Shoe Chart)</h3>
+              <p class="body-sm text-mute">Men foot size chart with international conversions &amp; feet size chart measurements</p>
+            </div>
+            <span class="category-pill">Men's Standard D Width</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Men shoe size chart">
+              <thead>
+                <tr>
+                  <th>US Men</th>
+                  <th>UK Size</th>
+                  <th>EU Size</th>
+                  <th>India Size</th>
+                  <th>Japan (CM)</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Foot Length (Inches)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>6.0</strong></td><td>5.5</td><td>39</td><td>5.0</td><td>24.0</td><td>24.1 cm</td><td>9.5"</td></tr>
+                <tr><td><strong>6.5</strong></td><td>6.0</td><td>39.5</td><td>5.5</td><td>24.5</td><td>24.6 cm</td><td>9.7"</td></tr>
+                <tr><td><strong>7.0</strong></td><td>6.5</td><td>40</td><td>6.0</td><td>25.0</td><td>25.0 cm</td><td>9.8"</td></tr>
+                <tr><td><strong>7.5</strong></td><td>7.0</td><td>40.5</td><td>6.5</td><td>25.5</td><td>25.4 cm</td><td>10.0"</td></tr>
+                <tr><td><strong>8.0</strong></td><td>7.5</td><td>41</td><td>7.0</td><td>26.0</td><td>25.9 cm</td><td>10.2"</td></tr>
+                <tr><td><strong>8.5</strong></td><td>8.0</td><td>41.5</td><td>7.5</td><td>26.5</td><td>26.2 cm</td><td>10.3"</td></tr>
+                <tr><td><strong>9.0</strong></td><td>8.5</td><td>42</td><td>8.0</td><td>27.0</td><td>26.7 cm</td><td>10.5"</td></tr>
+                <tr><td><strong>9.5</strong></td><td>9.0</td><td>42.5</td><td>8.5</td><td>27.5</td><td>27.1 cm</td><td>10.7"</td></tr>
+                <tr><td><strong>10.0</strong></td><td>9.5</td><td>43</td><td>9.0</td><td>28.0</td><td>27.6 cm</td><td>10.9"</td></tr>
+                <tr><td><strong>10.5</strong></td><td>10.0</td><td>43.5</td><td>9.5</td><td>28.5</td><td>28.0 cm</td><td>11.0"</td></tr>
+                <tr><td><strong>11.0</strong></td><td>10.5</td><td>44</td><td>10.0</td><td>29.0</td><td>28.4 cm</td><td>11.2"</td></tr>
+                <tr><td><strong>11.5</strong></td><td>11.0</td><td>44.5</td><td>10.5</td><td>29.5</td><td>28.8 cm</td><td>11.3"</td></tr>
+                <tr><td><strong>12.0</strong></td><td>11.5</td><td>45</td><td>11.0</td><td>30.0</td><td>29.3 cm</td><td>11.5"</td></tr>
+                <tr><td><strong>13.0</strong></td><td>12.5</td><td>46</td><td>12.0</td><td>31.0</td><td>30.1 cm</td><td>11.9"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Female Shoe Size Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Female Shoe Size Chart (US Women's Shoe Chart)</h3>
+              <p class="body-sm text-mute">Includes 36 shoe size in us women's, EU, UK, India, and metric length</p>
+            </div>
+            <span class="category-pill">Women's Standard B Width</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Female shoe size chart">
+              <thead>
+                <tr>
+                  <th>US Women</th>
+                  <th>UK Size</th>
+                  <th>EU Size</th>
+                  <th>India Size</th>
+                  <th>Japan (CM)</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Foot Length (Inches)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>5.0</strong></td><td>3.0</td><td>35</td><td>3.0</td><td>22.0</td><td>21.6 cm</td><td>8.5"</td></tr>
+                <tr><td><strong>5.5</strong></td><td>3.5</td><td>35.5</td><td>3.5</td><td>22.5</td><td>22.2 cm</td><td>8.75"</td></tr>
+                <tr class="highlight-row"><td><strong>6.0</strong></td><td>4.0</td><td><strong>36 (EU 36)</strong></td><td>4.0</td><td>23.0</td><td>22.5 cm</td><td>8.9"</td></tr>
+                <tr><td><strong>6.5</strong></td><td>4.5</td><td>36.5</td><td>4.5</td><td>23.5</td><td>23.0 cm</td><td>9.0"</td></tr>
+                <tr><td><strong>7.0</strong></td><td>5.0</td><td>37.5</td><td>5.0</td><td>24.0</td><td>23.5 cm</td><td>9.25"</td></tr>
+                <tr><td><strong>7.5</strong></td><td>5.5</td><td>38</td><td>5.5</td><td>24.5</td><td>23.8 cm</td><td>9.4"</td></tr>
+                <tr><td><strong>8.0</strong></td><td>6.0</td><td>38.5 / 39</td><td>6.0</td><td>25.0</td><td>24.1 cm</td><td>9.5"</td></tr>
+                <tr><td><strong>8.5</strong></td><td>6.5</td><td>39</td><td>6.5</td><td>25.5</td><td>24.6 cm</td><td>9.7"</td></tr>
+                <tr><td><strong>9.0</strong></td><td>7.0</td><td>40</td><td>7.0</td><td>26.0</td><td>25.1 cm</td><td>9.9"</td></tr>
+                <tr><td><strong>9.5</strong></td><td>7.5</td><td>40.5</td><td>7.5</td><td>26.5</td><td>25.4 cm</td><td>10.0"</td></tr>
+                <tr><td><strong>10.0</strong></td><td>8.0</td><td>41</td><td>8.0</td><td>27.0</td><td>25.9 cm</td><td>10.2"</td></tr>
+                <tr><td><strong>10.5</strong></td><td>8.5</td><td>41.5 / 42</td><td>8.5</td><td>27.5</td><td>26.2 cm</td><td>10.3"</td></tr>
+                <tr><td><strong>11.0</strong></td><td>9.0</td><td>42</td><td>9.0</td><td>28.0</td><td>26.7 cm</td><td>10.5"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Childs Shoe Size Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Childs Shoe Size Chart (US Kids, Toddler &amp; Youth)</h3>
+              <p class="body-sm text-mute">From baby/infant (0C) through youth (7Y) progression</p>
+            </div>
+            <span class="category-pill">Infant, Toddler &amp; Youth</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Childs shoe size chart">
+              <thead>
+                <tr>
+                  <th>US Kids Size</th>
+                  <th>Category</th>
+                  <th>UK Child</th>
+                  <th>EU Kids</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Foot Length (Inches)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>1C</strong></td><td>Infant (0–6 mo)</td><td>0.5</td><td>16</td><td>9.5 cm</td><td>3.75"</td></tr>
+                <tr><td><strong>3C</strong></td><td>Infant (9–12 mo)</td><td>2.5</td><td>18–19</td><td>11.1 cm</td><td>4.35"</td></tr>
+                <tr><td><strong>4C</strong></td><td>Toddler (1 Year)</td><td>3.5</td><td>19–20</td><td>11.7 cm</td><td>4.6"</td></tr>
+                <tr><td><strong>6C</strong></td><td>Toddler (2 Years)</td><td>5.5</td><td>22</td><td>13.3 cm</td><td>5.25"</td></tr>
+                <tr><td><strong>8C</strong></td><td>Toddler (3 Years)</td><td>7.5</td><td>25</td><td>14.9 cm</td><td>5.85"</td></tr>
+                <tr><td><strong>10C</strong></td><td>Toddler (4 Years)</td><td>9.5</td><td>27</td><td>16.5 cm</td><td>6.5"</td></tr>
+                <tr><td><strong>12C</strong></td><td>Little Kid (5–6 Years)</td><td>11.5</td><td>29–30</td><td>18.1 cm</td><td>7.1"</td></tr>
+                <tr><td><strong>13.5C</strong></td><td>Little Kid (6–7 Years)</td><td>13.0</td><td>31–32</td><td>19.4 cm</td><td>7.65"</td></tr>
+                <tr><td><strong>1Y</strong></td><td>Youth / Big Kid (7–8 Years)</td><td>0.5</td><td>32–33</td><td>20.0 cm</td><td>7.9"</td></tr>
+                <tr><td><strong>3Y</strong></td><td>Youth / Big Kid (8–9 Years)</td><td>2.5</td><td>34–35</td><td>21.6 cm</td><td>8.5"</td></tr>
+                <tr><td><strong>5Y</strong></td><td>Youth / Big Kid (10–11 Years)</td><td>4.5</td><td>37</td><td>23.2 cm</td><td>9.15"</td></tr>
+                <tr><td><strong>7Y</strong></td><td>Youth (Adult Men's 7 / Women's 8.5)</td><td>6.5</td><td>40</td><td>24.8 cm</td><td>9.75"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- In-Depth SEO Prose Content -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">On-Page Sizing Guide</p>
+            <h2 class="prose-main-title">Understanding the US Shoe Size Chart &amp; Footwear Size Conversion</h2>
+            <p class="prose-lead">Whether you are shopping for sneakers online or comparing international size tags, understanding how American shoe sizing functions is essential to finding footwear that fits comfortably.</p>
+          </header>
+
+          <div class="content-prose">
+            <h3 class="heading-sm">How the US Shoe Size System Works: The Brannock Standard</h3>
+            <p>The standard <strong>us shoe size chart</strong> used across North America is based on the famous Brannock Device, invented by Charles F. Brannock in 1927. Unlike metric sizing systems that simply track bare centimeters, the American system is built upon the historical English barleycorn unit, where <strong>one full shoe size equals exactly 1/3 of an inch (8.46 mm)</strong>, and a half size represents 1/6 of an inch (4.23 mm).</p>
+            <p>Because the starting zero-point differs between categories, a <strong>men shoe size chart</strong> and a <strong>female shoe size chart</strong> do not align numerically. For instance, an adult foot measuring 10 inches is a US Men's 7.5 to 8, but on a female chart, that same foot requires a US Women's 9.5. Utilizing an accurate <strong>shoe size conversion chart</strong> prevents expensive international return shipments.</p>
+
+            <h3 class="heading-sm">Women and Men Shoe Size: The 1.5 Size Offset &amp; Width Mechanics</h3>
+            <p>When conducting a <strong>shoes size conversion</strong> between <strong>women and men shoe size</strong> selections, the universal rule of thumb in US footwear is a <strong>1.5 size difference</strong>:</p>
+            <ul>
+              <li><strong>Men's to Women's:</strong> Add 1.5 to the men's size (e.g., US Men's 9 + 1.5 = US Women's 10.5).</li>
+              <li><strong>Women's to Men's:</strong> Subtract 1.5 from the women's size (e.g., US Women's 8.5 − 1.5 = US Men's 7).</li>
+            </ul>
+            <p>However, length is only half the equation in <strong>footwear size conversion</strong>. A critical difference lies in shoe width:</p>
+            <ul>
+              <li>Standard Men's shoes are built on a <strong>"D" width last</strong> (medium).</li>
+              <li>Standard Women's shoes are built on a <strong>"B" width last</strong> (medium).</li>
+            </ul>
+            <p>This means that if a woman purchases a men's sneaker using the 1.5 downsize rule, the shoe will fit wider through the midfoot and heel pocket. Conversely, a man wearing a women's sneaker will experience a narrower cut, often requiring sizing up by an additional half size.</p>
+
+            <h3 class="heading-sm">Decoding the 36 Shoe Size in US Women's</h3>
+            <p>A frequent query among international shoppers is finding the equivalent of a <strong>36 shoe size in us women's</strong>. In European Paris Point sizing, an EU 36 represents an internal footbed length calibrated for feet measuring approximately 22.5 to 23.0 centimeters.</p>
+            <p>On a verified <strong>female shoe size chart</strong>, an <strong>EU 36 translates to a US Women's 5.5 to 6.0</strong> (UK 3.5, India 3.5). If you have wider feet or intend to wear thicker wool or cotton socks, opting for a US Women's 6 is generally recommended to prevent pinch points at the pinky toe.</p>
+
+            <h3 class="heading-sm">How to Measure Your Foot Using a Feet Size Chart</h3>
+            <p>To get the most accurate result from any <strong>men foot size chart</strong> or <strong>childs shoe size chart</strong>, follow this simple measurement procedure at home:</p>
+            <ol>
+              <li><strong>Measure in the Evening:</strong> Your feet swell naturally by up to 5% to 8% throughout the day due to gravity and physical activity. Measuring later in the afternoon ensures shoes won't feel tight when you need them most.</li>
+              <li><strong>Place Paper Against a Flat Wall:</strong> Tape a blank sheet to a firm floor (tile or hardwood, avoid plush carpeting) flush against the baseboard.</li>
+              <li><strong>Stand with Weight Evenly Distributed:</strong> Stand upright with your heel touching the wall. Have a friend or partner trace the outermost tip of your longest toe (often the second toe).</li>
+              <li><strong>Measure the Distance:</strong> Measure the length from the wall edge of the paper to the toe mark in millimeters or inches, then refer to the <strong>feet size chart</strong> above. Always size your shoes to fit the larger foot, as over 60% of people have asymmetrical feet.</li>
+            </ol>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <div class="faq-card">
+          <p class="mono-eyebrow">Frequently Asked Questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">US Shoe Size Conversion FAQs</h2>
+          <div class="faq-list">
+            {faqs.map(item => (
+              <details class="faq-item">
+                <summary class="faq-q">
+                  <span>{item.q}</span>
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-a"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Internal Links -->
+    <section class="related-band">
+      <div class="page-inner">
+        <RelatedLinks
+          title="Popular US Shoe Size Conversions"
+          links={conversionLinks}
+        />
+        <div style="margin-top:32px">
+          <RelatedLinks
+            title="Explore Other Regional Sizing Systems"
+            links={countryLinks}
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 64px 24px 40px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .page-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    max-width: 720px;
+    margin: 16px auto 24px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .badge-trust {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-body);
+  }
+
+  /* Converter Band */
+  .converter-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .converter-inline {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .ci-header {
+    margin-bottom: 24px;
+  }
+  .ci-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .ci-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ci-results {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 20px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ci-placeholder {
+    color: var(--v-mute);
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Tables band */
+  .table-band {
+    padding: 48px 24px;
+  }
+  .section-heading {
+    margin-bottom: 32px;
+  }
+  .table-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    overflow: hidden;
+  }
+  .table-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    background: var(--v-canvas);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .category-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: var(--v-r-full);
+    background: var(--v-hairline-soft);
+    color: var(--v-body);
+  }
+  .highlight-row {
+    background-color: var(--v-link-soft) !important;
+    font-weight: 500;
+  }
+
+  /* Prose band */
+  .content-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .prose-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 40px;
+  }
+  .prose-header {
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .prose-main-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--v-ink);
+    margin: 8px 0 12px;
+  }
+  .prose-lead {
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--v-body);
+    margin: 0;
+  }
+  .content-prose h3 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+  .content-prose p, .content-prose ul, .content-prose ol {
+    margin-bottom: 16px;
+    line-height: 24px;
+    color: var(--v-body);
+  }
+  .content-prose ul, .content-prose ol {
+    padding-left: 20px;
+  }
+  .content-prose li {
+    margin-bottom: 8px;
+  }
+
+  /* FAQ */
+  .faq-band {
+    padding: 48px 24px;
+  }
+  .faq-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 36px;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    overflow: hidden;
+    background: var(--v-canvas);
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] {
+    border-color: var(--v-link);
+  }
+  .faq-q {
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--v-ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .faq-chevron {
+    transition: transform 0.2s ease;
+    color: var(--v-mute);
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--v-link);
+  }
+  .faq-a {
+    padding: 0 20px 16px;
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .faq-a p { margin: 0; }
+
+  .related-band {
+    padding: 16px 24px 80px;
+  }
+
+  @media (max-width: 768px) {
+    .ci-row { grid-template-columns: 1fr; }
+    .prose-card, .converter-inline, .faq-card { padding: 24px 16px; }
+  }
+</style>
+
+<script>
+  import { SIZE_DATA } from '../../data/shoe-sizes';
+
+  const sizeSelect = document.getElementById('us-size') as HTMLSelectElement;
+  const genderSelect = document.getElementById('us-gender') as HTMLSelectElement;
+  const resultsContainer = document.getElementById('us-results');
+
+  function updateSizes() {
+    const gender = (genderSelect?.value || 'men') as 'men' | 'women' | 'kids';
+    const currentVal = sizeSelect?.value;
+    const sizes = SIZE_DATA[gender]?.us || [];
+
+    if (sizeSelect) {
+      sizeSelect.innerHTML = '<option value="" disabled selected>Select US size</option>';
+      sizes.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = String(s);
+        opt.textContent = `US ${s}`;
+        sizeSelect.appendChild(opt);
+      });
+      if (currentVal && sizes.map(String).includes(currentVal)) {
+        sizeSelect.value = currentVal;
+      }
+    }
+    renderResults();
+  }
+
+  function renderResults() {
+    if (!resultsContainer || !sizeSelect) return;
+    const size = sizeSelect.value;
+    if (!size) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Select a size to see instant conversions across UK, EU, India, Japan, CM, and Inches</p>';
+      return;
+    }
+
+    const gender = (genderSelect?.value || 'men') as 'men' | 'women' | 'kids';
+    const data = SIZE_DATA[gender];
+    const idx = data.us?.findIndex(s => String(s) === size);
+
+    if (idx === undefined || idx === -1) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Size not found in database</p>';
+      return;
+    }
+
+    const uk = data.uk?.[idx] ?? '—';
+    const eu = data.eu?.[idx] ?? '—';
+    const india = data.india?.[idx] ?? '—';
+    const jp = data.jp?.[idx] ?? '—';
+    const cm = data.cm?.[idx] ?? '—';
+    const inches = data.inches?.[idx] ?? '—';
+
+    resultsContainer.innerHTML = `
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">
+        <div style="background:var(--v-elevated); border:1px solid var(--v-link); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-link);">US Selected</span>
+          <div style="font-size:20px; font-weight:700; color:var(--v-ink); margin-top:2px;">US ${size}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-mute);">UK Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${uk}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-mute);">EU Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${eu}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-mute);">India Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${india}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-mute);">Foot CM</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${cm} cm</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-mute);">Inches</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${inches}"</div>
+        </div>
+      </div>
+    `;
+  }
+
+  genderSelect?.addEventListener('change', updateSizes);
+  sizeSelect?.addEventListener('change', renderResults);
+</script>

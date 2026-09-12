@@ -1,0 +1,77 @@
+---
+// Breadcrumbs.astro — Geist-styled breadcrumbs with JSON-LD
+interface Props {
+  items: { label: string; href?: string }[];
+}
+
+const { items } = Astro.props;
+const domain = 'https://allshoesizeconverter.com';
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": item.label,
+    ...(item.href ? { "item": item.href.startsWith('http') ? item.href : `${domain}${item.href}` } : {}),
+  })),
+});
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol class="bc-list">
+    {items.map((item, i) => (
+      <li class="bc-item">
+        {i > 0 && <span class="bc-sep" aria-hidden="true">/</span>}
+        {item.href ? (
+          <a href={item.href} class="bc-link">{item.label}</a>
+        ) : (
+          <span class="bc-current" aria-current="page">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={jsonLd} />
+
+<style>
+  .breadcrumbs {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+  }
+  .bc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+  }
+  .bc-item {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .bc-sep {
+    color: var(--v-faint);
+    margin: 0 8px;
+    font-size: 13px;
+  }
+  .bc-link {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--v-mute);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .bc-link:hover { color: var(--v-ink); }
+  .bc-current {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--v-ink);
+  }
+</style>

@@ -1,0 +1,313 @@
+---
+// Header.astro — Geist-styled navigation bar
+---
+
+<header class="nav-bar" id="site-header">
+  <div class="nav-inner">
+
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="AllShoeSizeConverter Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/>
+        <path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/>
+        <path d="M16 17h4"/>
+        <path d="M4 13h4"/>
+      </svg>
+      <span class="nav-wordmark">AllShoeSizeConverter</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="/country/us/" class="nav-link">US Sizes</a>
+      <a href="/country/europe/" class="nav-link">EU Sizes</a>
+      <a href="/country/uk/" class="nav-link">UK Sizes</a>
+      <a href="/kids-shoe-size-by-age/" class="nav-link">Kids by Age</a>
+      <a href="/shoe-size-in-cm/" class="nav-link">CM</a>
+    </nav>
+
+    <!-- CTA & Theme Toggle -->
+    <div class="nav-actions">
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle theme">
+        <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+        </svg>
+      </button>
+      <a href="/#converter" class="btn-sm">Convert</a>
+    </div>
+
+    <!-- Mobile menu trigger -->
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hamburger-bar bar-top"></span>
+      <span class="hamburger-bar bar-mid"></span>
+      <span class="hamburger-bar bar-bot"></span>
+    </button>
+
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="/" class="mobile-link">Home</a>
+      <a href="/country/us/" class="mobile-link">US Sizes</a>
+      <a href="/country/europe/" class="mobile-link">EU Sizes</a>
+      <a href="/country/uk/" class="mobile-link">UK Sizes</a>
+      <a href="/country/india/" class="mobile-link">India Sizes</a>
+      <a href="/kids-shoe-size-by-age/" class="mobile-link">Kids Size by Age</a>
+      <a href="/mondopoint-shoe-size/" class="mobile-link">Mondopoint (Ski Boots)</a>
+      <a href="/shoe-size-in-cm/" class="mobile-link">CM Sizes</a>
+      <a href="/shoe-size-in-inches/" class="mobile-link">Inches</a>
+      <a href="/what-is-my-shoe-size/" class="mobile-link">Find My Size</a>
+      
+      <div class="mobile-theme-row">
+        <span>Appearance</span>
+        <button id="mobile-theme-toggle" class="mobile-theme-btn" aria-label="Toggle theme">
+          <svg class="sun-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <svg class="moon-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+          <span class="light-text">Light Mode</span>
+          <span class="dark-text">Dark Mode</span>
+        </button>
+      </div>
+
+      <div class="mobile-divider"></div>
+      <a href="/#converter" class="btn-primary mobile-cta">Open Converter</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--v-canvas);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 48px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--v-ink);
+    flex-shrink: 0;
+  }
+  .nav-wordmark {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.28px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .nav-link {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--v-body);
+    text-decoration: none;
+    border-radius: var(--v-r-full);
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+  .nav-link:hover {
+    color: var(--v-ink);
+    background: var(--v-hairline-soft);
+  }
+
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+
+  .nav-menu-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 36px;
+    height: 36px;
+    gap: 4px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+  .nav-menu-btn:active {
+    transform: scale(0.94);
+  }
+  .hamburger-bar {
+    width: 16px;
+    height: 2px;
+    background-color: var(--v-ink);
+    border-radius: 2px;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    transform-origin: center;
+  }
+  .nav-menu-btn[aria-expanded="true"] .bar-top {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .nav-menu-btn[aria-expanded="true"] .bar-mid {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .nav-menu-btn[aria-expanded="true"] .bar-bot {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    background: var(--v-elevated);
+    border-bottom: 1px solid var(--v-hairline);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.25s ease,
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.35s ease;
+    padding: 0 24px;
+    pointer-events: none;
+  }
+  .mobile-menu.open {
+    max-height: 750px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 12px 24px 24px;
+    pointer-events: auto;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .mobile-link {
+    display: block;
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--v-body);
+    text-decoration: none;
+    border-bottom: 1px solid var(--v-hairline);
+    transition: color 0.15s ease, padding-left 0.15s ease;
+  }
+  .mobile-link:hover {
+    color: var(--v-ink);
+    padding-left: 4px;
+  }
+  .mobile-divider {
+    height: 12px;
+  }
+  .mobile-cta {
+    margin-top: 4px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Staggered entrance animation for links */
+  .mobile-menu.open .mobile-link,
+  .mobile-menu.open .mobile-theme-row,
+  .mobile-menu.open .mobile-cta {
+    animation: mobileSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .mobile-menu.open .mobile-link:nth-child(1) { animation-delay: 0.02s; }
+  .mobile-menu.open .mobile-link:nth-child(2) { animation-delay: 0.04s; }
+  .mobile-menu.open .mobile-link:nth-child(3) { animation-delay: 0.06s; }
+  .mobile-menu.open .mobile-link:nth-child(4) { animation-delay: 0.08s; }
+  .mobile-menu.open .mobile-link:nth-child(5) { animation-delay: 0.10s; }
+  .mobile-menu.open .mobile-link:nth-child(6) { animation-delay: 0.12s; }
+  .mobile-menu.open .mobile-link:nth-child(7) { animation-delay: 0.14s; }
+  .mobile-menu.open .mobile-link:nth-child(8) { animation-delay: 0.16s; }
+  .mobile-menu.open .mobile-link:nth-child(9) { animation-delay: 0.18s; }
+  .mobile-menu.open .mobile-link:nth-child(10) { animation-delay: 0.20s; }
+  .mobile-menu.open .mobile-theme-row { animation-delay: 0.22s; }
+  .mobile-menu.open .mobile-cta { animation-delay: 0.24s; }
+
+  @keyframes mobileSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-actions { display: none; }
+    .nav-menu-btn { display: flex; }
+  }
+</style>
+
+<script>
+  // Mobile Menu
+  const btn = document.getElementById('nav-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  btn?.addEventListener('click', () => {
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isExpanded));
+    menu?.classList.toggle('open', !isExpanded);
+    menu?.setAttribute('aria-hidden', String(isExpanded));
+  });
+
+  // Close when clicking any link
+  document.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => {
+    link.addEventListener('click', () => {
+      btn?.setAttribute('aria-expanded', 'false');
+      menu?.classList.remove('open');
+      menu?.setAttribute('aria-hidden', 'true');
+    });
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && btn?.getAttribute('aria-expanded') === 'true') {
+      btn.setAttribute('aria-expanded', 'false');
+      menu?.classList.remove('open');
+      menu?.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  // Theme Toggle
+  const toggleBtn = document.getElementById('theme-toggle');
+  const mobileToggleBtn = document.getElementById('mobile-theme-toggle');
+
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (isDark) {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+
+  toggleBtn?.addEventListener('click', toggleTheme);
+  mobileToggleBtn?.addEventListener('click', toggleTheme);
+</script>

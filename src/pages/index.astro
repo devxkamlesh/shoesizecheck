@@ -1,11 +1,141 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import SizeConverter from '../components/SizeConverter.astro';
+import PopularConversions from '../components/PopularConversions.astro';
+import FindMySize from '../components/FindMySize.astro';
+import SizeTable from '../components/SizeTable.astro';
+import BrandConverter from '../components/BrandConverter.astro';
+import FootMeasureGuide from '../components/FootMeasureGuide.astro';
+import HomeSeoContent from '../components/HomeSeoContent.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const domain = 'https://allshoesizeconverter.com';
+const pageTitle = 'Shoe Size Converter – US, UK, EU & India Size Charts for Men, Women & Kids | AllShoeSizeConverter';
+const pageDescription = 'Free shoe size converter for Men, Women & Kids. Convert US, UK, EU, India, Japan, CM sizes instantly. Use our men to women and kids shoe size converter with accurate charts and brand-specific sizing.';
+const pageCanonical = `${domain}/`;
+const ogImage = `${domain}/og-image.png`;
+
+const webAppSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Shoe Size Converter",
+  "alternateName": ["AllShoeSizeConverter", "Men to Women Shoe Size Converter", "Kids Shoe Size Converter"],
+  "url": pageCanonical,
+  "description": pageDescription,
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Instant shoe size converter across US, UK, EU, India, Japan and CM",
+    "Men to women shoe size converter with width guidance",
+    "Kids shoe size converter covering Infant, Toddler, Little Kid and Youth",
+    "Interactive foot length calculator for centimeters and inches",
+    "Brand-specific shoe size charts for Nike, Adidas, Puma, Converse and New Balance"
+  ]
+});
+
+const websiteSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "AllShoeSizeConverter",
+  "alternateName": "All Shoe Size Converter",
+  "url": domain,
+  "description": "Free shoe size converter for Men, Women & Kids. Convert US, UK, EU, India, Japan, CM sizes instantly.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": `${domain}/?q={search_term_string}`,
+    "query-input": "required name=search_term_string"
+  }
+});
+
+const orgSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AllShoeSizeConverter",
+  "url": domain,
+  "logo": `${domain}/favicon.svg`,
+  "sameAs": []
+});
+
+const breadcrumbSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": pageCanonical
+    }
+  ]
+});
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <!-- SEO Meta -->
+    <meta name="keywords" content="shoe size converter, men to women shoe size converter, kids shoe size converter, shoe size chart, US to EU shoe size, UK to US shoe size, CM shoe size, foot length shoe size, India shoe size, shoe size conversion, men shoe size chart, women shoe size chart, kids shoe size chart" />
+    <meta name="author" content="AllShoeSizeConverter" />
+    <meta name="theme-color" content="#171717" />
+
+    <!-- Additional OG -->
+    <meta property="og:image:type" content="image/png" />
+
+    <!-- Twitter extras -->
+    <meta name="twitter:site" content="@allshoeconvert" />
+    <meta name="twitter:creator" content="@allshoeconvert" />
+    <meta name="twitter:label1" content="Tool" />
+    <meta name="twitter:data1" content="Shoe Size Converter" />
+    <meta name="twitter:label2" content="Systems" />
+    <meta name="twitter:data2" content="US, UK, EU, India, Japan, CM" />
+
+    <!-- Structured Data: WebApplication -->
+    <script type="application/ld+json" set:html={webAppSchema} />
+    <!-- Structured Data: WebSite -->
+    <script type="application/ld+json" set:html={websiteSchema} />
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json" set:html={orgSchema} />
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content">
+    <!-- 1. Hero + Interactive Converter -->
+    <SizeConverter />
+
+    <!-- 2. Popular Conversions -->
+    <PopularConversions />
+
+    <!-- 3. Find Size by Foot Length -->
+    <FindMySize />
+
+    <!-- 4. Size Charts (Men, Women, Kids all in one tabbed component) -->
+    <SizeTable />
+
+    <!-- 5. Brand Converters -->
+    <BrandConverter />
+
+    <!-- 6. How to Measure Your Feet -->
+    <FootMeasureGuide />
+
+    <!-- 7. SEO Content (800–1200 words) -->
+    <HomeSeoContent />
+
+    <!-- 8. FAQ with FAQPage Schema -->
+    <FAQ />
+  </main>
+  <Footer />
 </Layout>

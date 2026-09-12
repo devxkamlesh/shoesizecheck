@@ -1,0 +1,93 @@
+---
+// RelatedLinks.astro — Internal linking grid for SEO
+interface Props {
+  title?: string;
+  links: { label: string; href: string; description?: string }[];
+}
+
+const { title = 'Related Converters', links } = Astro.props;
+---
+
+<section class="related-section">
+  <div class="related-inner">
+    <h2 class="related-title">{title}</h2>
+    <div class="related-grid">
+      {links.map(link => (
+        <a href={link.href} class="related-card">
+          <span class="related-label">{link.label}</span>
+          {link.description && <span class="related-desc">{link.description}</span>}
+          <svg class="related-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .related-section {
+    padding: 64px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .related-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .related-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    color: var(--v-ink);
+    margin: 0 0 24px;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 20px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    text-decoration: none;
+    position: relative;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .related-card:hover {
+    border-color: #ddd;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .related-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--v-ink);
+    letter-spacing: -0.28px;
+  }
+  .related-desc {
+    font-size: 13px;
+    color: var(--v-mute);
+    line-height: 18px;
+  }
+  .related-arrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--v-faint);
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .related-card:hover .related-arrow {
+    color: var(--v-ink);
+    transform: translateY(-50%) translateX(2px);
+  }
+
+  @media (max-width: 640px) {
+    .related-section { padding: 48px 16px; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>

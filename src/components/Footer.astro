@@ -1,0 +1,154 @@
+---
+// Footer.astro — Geist-styled footer with multi-column links
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/>
+            <path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/>
+            <path d="M16 17h4"/>
+            <path d="M4 13h4"/>
+          </svg>
+          <span>AllShoeSizeConverter</span>
+        </a>
+        <p class="footer-tagline">Fast, accurate shoe size conversions for every system worldwide.</p>
+      </div>
+
+      <!-- Converters -->
+      <div class="footer-col">
+        <h3 class="footer-heading">Converters</h3>
+        <ul class="footer-links">
+          <li><a href="/us-to-eu-shoe-size/">US → EU</a></li>
+          <li><a href="/us-to-uk-shoe-size/">US → UK</a></li>
+          <li><a href="/us-to-india-shoe-size/">US → India</a></li>
+          <li><a href="/eu-to-us-shoe-size/">EU → US</a></li>
+          <li><a href="/uk-to-us-shoe-size/">UK → US</a></li>
+          <li><a href="/india-to-us-shoe-size/">India → US</a></li>
+        </ul>
+      </div>
+
+      <!-- Countries -->
+      <div class="footer-col">
+        <h3 class="footer-heading">Countries</h3>
+        <ul class="footer-links">
+          <li><a href="/country/us/">🇺🇸 United States</a></li>
+          <li><a href="/country/uk/">🇬🇧 United Kingdom</a></li>
+          <li><a href="/country/europe/">🇪🇺 Europe</a></li>
+          <li><a href="/country/india/">🇮🇳 India</a></li>
+          <li><a href="/country/japan/">🇯🇵 Japan</a></li>
+          <li><a href="/country/australia/">🇦🇺 Australia</a></li>
+        </ul>
+      </div>
+
+      <!-- Tools -->
+      <div class="footer-col">
+        <h3 class="footer-heading">Tools</h3>
+        <ul class="footer-links">
+          <li><a href="/">Shoe Size Converter</a></li>
+          <li><a href="/what-is-my-shoe-size/">Find My Shoe Size</a></li>
+          <li><a href="/kids-shoe-size-by-age/">Kids Size by Age</a></li>
+          <li><a href="/mondopoint-shoe-size/">Mondopoint (Ski Boots)</a></li>
+          <li><a href="/shoe-size-by-foot-length/">Size by Foot Length</a></li>
+          <li><a href="/shoe-size-in-cm/">Shoe Size in CM</a></li>
+          <li><a href="/shoe-size-in-inches/">Shoe Size in Inches</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; {new Date().getFullYear()} AllShoeSizeConverter. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+    padding: 64px 24px 32px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--v-ink);
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  .footer-tagline {
+    font-size: 13px;
+    color: var(--v-mute);
+    line-height: 20px;
+    margin: 0;
+    max-width: 240px;
+  }
+
+  .footer-heading {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--v-mute);
+    margin: 0 0 16px;
+  }
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .footer-links a {
+    font-size: 14px;
+    color: var(--v-body);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .footer-links a:hover { color: var(--v-ink); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--v-hairline);
+    padding-top: 24px;
+  }
+  .footer-copy {
+    font-size: 13px;
+    color: var(--v-faint);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-brand { grid-column: span 2; }
+  }
+  @media (max-width: 480px) {
+    .site-footer { padding: 48px 16px 24px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    .footer-brand { grid-column: span 1; }
+  }
+</style>

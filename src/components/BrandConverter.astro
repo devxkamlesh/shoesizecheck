@@ -1,0 +1,86 @@
+---
+// BrandConverter.astro — Brand-specific sizing notes, Geist design
+const brands = [
+  { name: 'Nike', note: 'Nike sizes run slightly small. Consider sizing up 0.5, especially for narrow shoes like Air Max. Nike uses US sizing as primary.', systems: 'US / EU' },
+  { name: 'Adidas', note: 'Adidas shoes tend to run 0.5 larger than Nike. If you\'re US 9 in Nike, try US 8.5 in Adidas. Adidas uses EU as their primary sizing.', systems: 'EU / UK' },
+  { name: 'New Balance', note: 'New Balance is known for true-to-size fit. They offer width options (B, D, 2E, 4E) making them ideal for wide feet.', systems: 'US / UK' },
+  { name: 'Puma', note: 'Puma sizes are similar to Adidas — slightly large. If between sizes, go half down. Puma uses EU as primary.', systems: 'EU / UK' },
+  { name: 'Reebok', note: 'Reebok runs true to size for most models. Their Classic Leather runs slightly narrow; consider a half size up for wide feet.', systems: 'US / UK' },
+  { name: 'Converse', note: 'Converse Chuck Taylors run a full size large. If you\'re US 9, order a US 8 in Chucks. This is one of the biggest offsets in footwear.', systems: 'US / EU' },
+];
+---
+
+<section class="brand-section">
+  <div class="brand-inner">
+    <p class="mono-eyebrow">Brand Sizing</p>
+    <h2 class="heading-lg">Brand-Specific Shoe Sizing</h2>
+    <p class="brand-sub body-lg">Shoe sizes vary by brand. Here's how the most popular brands compare so you can order the right size first time.</p>
+
+    <div class="brand-grid">
+      {brands.map(b => (
+        <div class="brand-card card">
+          <div class="brand-head">
+            <h3 class="brand-name">{b.name}</h3>
+            <span class="brand-sys">{b.systems}</span>
+          </div>
+          <p class="brand-note">{b.note}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .brand-section {
+    padding: 96px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .brand-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .brand-sub { margin: 8px 0 32px; max-width: 540px; }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .brand-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .brand-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin: 0;
+    letter-spacing: -0.32px;
+  }
+  .brand-sys {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--v-mute);
+    background: var(--v-hairline-soft);
+    padding: 2px 8px;
+    border-radius: var(--v-r-full);
+  }
+  .brand-note {
+    font-size: 14px;
+    color: var(--v-body);
+    line-height: 20px;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) { .brand-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) {
+    .brand-section { padding: 64px 16px; }
+    .brand-grid { grid-template-columns: 1fr; }
+  }
+</style>

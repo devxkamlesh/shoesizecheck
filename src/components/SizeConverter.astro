@@ -1,0 +1,350 @@
+---
+// SizeConverter.astro — Interactive converter, Geist design
+---
+
+<section id="converter" class="converter-section">
+  <div class="converter-inner">
+
+    <!-- Hero copy -->
+    <div class="hero-copy">
+      <p class="mono-eyebrow">Shoe Size Converter</p>
+      <h1 class="display-xl">
+        Convert <span class="gradient-text">Any Shoe Size</span> Instantly
+      </h1>
+      <p class="hero-sub body-lg">
+        US, UK, EU, India, Japan, CM — for men, women &amp; kids. Fast, accurate, and free.
+      </p>
+    </div>
+
+    <!-- Converter card -->
+    <div class="card-elevated converter-card">
+
+      <!-- Gender tabs -->
+      <div class="tab-group converter-tabs" role="tablist" aria-label="Select gender">
+        <button class="tab-btn active" role="tab" data-gender="men" aria-selected="true" id="tab-men">Men</button>
+        <button class="tab-btn" role="tab" data-gender="women" aria-selected="false" id="tab-women">Women</button>
+        <button class="tab-btn" role="tab" data-gender="kids" aria-selected="false" id="tab-kids">Kids</button>
+      </div>
+
+      <!-- Inputs row -->
+      <div class="converter-row">
+
+        <!-- From -->
+        <div class="converter-field">
+          <label class="step-label" for="from-system">
+            <span class="step-num">1</span> From
+          </label>
+          <select id="from-system" class="form-select" aria-label="Source size system">
+            <option value="us" selected>US</option>
+            <option value="uk">UK</option>
+            <option value="eu">EU</option>
+            <option value="india">India</option>
+            <option value="jp">Japan/CM</option>
+            <option value="cm">CM</option>
+            <option value="inches">Inches</option>
+          </select>
+        </div>
+
+        <!-- Size -->
+        <div class="converter-field">
+          <label class="step-label" for="from-size">
+            <span class="step-num">2</span> Size
+          </label>
+          <select id="from-size" class="form-select" aria-label="Shoe size value">
+          </select>
+        </div>
+
+        <!-- Swap -->
+        <button class="swap-btn" id="swap-btn" aria-label="Swap from and to systems" title="Swap systems">
+          <svg id="swap-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12M17 20l4-4M17 20l-4-4"/>
+          </svg>
+        </button>
+
+        <!-- To -->
+        <div class="converter-field">
+          <label class="step-label" for="to-system">
+            <span class="step-num">3</span> To
+          </label>
+          <select id="to-system" class="form-select" aria-label="Target size system">
+            <option value="all" selected>All Systems</option>
+            <option value="us">US</option>
+            <option value="uk">UK</option>
+            <option value="eu">EU</option>
+            <option value="india">India</option>
+            <option value="jp">Japan/CM</option>
+            <option value="cm">CM</option>
+            <option value="inches">Inches</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="converter-results" class="converter-results" aria-live="polite">
+        <p class="results-placeholder">Select a size above to see conversions</p>
+      </div>
+
+      <!-- Actions -->
+      <div class="converter-actions" id="converter-actions" hidden>
+        <button class="copy-btn" id="copy-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Result
+        </button>
+        <button class="btn-ghost" id="reset-btn">Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .converter-section {
+    padding: 96px 24px 80px;
+    background: var(--v-canvas);
+    position: relative;
+    overflow: hidden;
+  }
+  .converter-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%,
+        rgba(0,124,240,0.12),
+        rgba(121,40,202,0.08),
+        rgba(255,0,128,0.04),
+        transparent 70%
+      );
+    pointer-events: none;
+  }
+  .converter-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-copy {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .hero-sub {
+    max-width: 480px;
+    margin: 16px auto 0;
+  }
+
+  .converter-card {
+    padding: 32px;
+  }
+  .converter-tabs {
+    margin-bottom: 24px;
+  }
+
+  .converter-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto 1fr;
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 24px;
+  }
+
+  .swap-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    cursor: pointer;
+    color: var(--v-ink);
+    transition: background 0.15s ease, border-color 0.15s ease;
+    margin-bottom: 0;
+    align-self: end;
+  }
+  .swap-btn:hover { background: var(--v-hairline-soft); border-color: #ddd; }
+
+  .converter-results {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0;
+  }
+  .results-placeholder {
+    color: var(--v-faint);
+    font-size: 14px;
+    margin: 0;
+  }
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+
+  .converter-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--v-hairline);
+  }
+
+  @media (max-width: 640px) {
+    .converter-section { padding: 64px 16px 56px; }
+    .converter-card { padding: 20px; }
+    .converter-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .swap-btn {
+      grid-column: span 2;
+      justify-self: center;
+    }
+  }
+</style>
+
+<script>
+  const SIZE_DATA = {
+    men: {
+      us:     [6,   6.5, 7,   7.5, 8,   8.5, 9,   9.5, 10,  10.5,11,  11.5,12,  13,  14,  15,  16],
+      uk:     [5.5, 6,   6.5, 7,   7.5, 8,   8.5, 9,   9.5, 10,  10.5,11,  11.5,12.5,13.5,14.5,15.5],
+      eu:     [39,  39,  40,  40,  41,  41,  42,  42,  43,  43,  44,  44,  45,  46,  47,  48,  49],
+      india:  [5,   5.5, 6,   6.5, 7,   7.5, 8,   8.5, 9,   9.5, 10,  10.5,11,  12,  13,  14,  15],
+      jp:     [24,  24.5,25,  25.5,26,  26.5,27,  27.5,28,  28.5,29,  29.5,30,  31,  32,  33,  34],
+      cm:     [24,  24.5,25,  25.5,26,  26.5,27,  27.5,28,  28.5,29,  29.5,30,  31,  32,  33,  34],
+      inches: [9.3, 9.5, 9.6, 9.8, 9.9, 10.1,10.3,10.4,10.6,10.8,10.9,11.1,11.3,11.6,11.9,12.2,12.5],
+    },
+    women: {
+      us:     [4,   4.5, 5,   5.5, 6,   6.5, 7,   7.5, 8,   8.5, 9,   9.5, 10,  10.5,11,  11.5,12],
+      uk:     [2,   2.5, 3,   3.5, 4,   4.5, 5,   5.5, 6,   6.5, 7,   7.5, 8,   8.5, 9,   9.5, 10],
+      eu:     [35,  35,  35,  36,  36,  37,  37,  38,  38,  39,  39,  40,  40,  41,  41,  42,  42],
+      india:  [2,   2.5, 3,   3.5, 4,   4.5, 5,   5.5, 6,   6.5, 7,   7.5, 8,   8.5, 9,   9.5, 10],
+      jp:     [21,  21.5,22,  22.5,23,  23,  23.5,24,  24,  24.5,25,  25,  25.5,26,  26,  26.5,27],
+      cm:     [21,  21.5,22,  22.5,23,  23,  23.5,24,  24,  24.5,25,  25,  25.5,26,  26,  26.5,27],
+      inches: [8.2, 8.3, 8.5, 8.8, 8.9, 9.1, 9.3, 9.4, 9.5, 9.7, 9.9, 10,  10.2,10.3,10.5,10.7,10.9],
+    },
+    kids: {
+      us:     [1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  11,  12,  13,  '1Y','2Y','3Y'],
+      uk:     [0.5, 1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  11,  12,  13,  '1Y','2Y'],
+      eu:     [17,  18,  19,  20,  21,  22,  23,  25,  26,  27,  28,  30,  31,  32,  33,  35],
+      india:  [1,   2,   3,   3,   4,   5,   5,   6,   7,   8,   9,   10,  11,  12,  13,  1],
+      jp:     [11,  12,  13,  13,  14,  14,  15,  15,  16,  17,  17,  18,  19,  20,  21,  22],
+      cm:     [11,  12,  13,  13,  14,  14,  15,  15,  16,  17,  17,  18,  19,  20,  21,  22],
+      inches: [4.3, 4.7, 5.1, 5.5, 5.9, 6.1, 6.3, 6.5, 6.7, 6.9, 7.1, 7.3, 7.7, 7.9, 8.3, 8.7],
+    }
+  };
+
+  const SYSTEM_LABELS = {
+    us: 'US', uk: 'UK', eu: 'EU', india: 'India',
+    jp: 'Japan', cm: 'CM', inches: 'Inches'
+  };
+
+  let currentGender = 'men';
+  const fromSelect = document.getElementById('from-system');
+  const fromSize   = document.getElementById('from-size');
+  const toSelect   = document.getElementById('to-system');
+  const results    = document.getElementById('converter-results');
+  const actions    = document.getElementById('converter-actions');
+  const copyBtn    = document.getElementById('copy-btn');
+  const resetBtn   = document.getElementById('reset-btn');
+  const swapBtn    = document.getElementById('swap-btn');
+  const swapIcon   = document.getElementById('swap-icon');
+
+  function populateSizes() {
+    const sys = fromSelect.value;
+    const data = SIZE_DATA[currentGender][sys];
+    if (!data) return;
+    fromSize.innerHTML = '<option value="" disabled selected>Select size</option>' +
+      data.map(v => `<option value="${v}">${v}</option>`).join('');
+    clearResults();
+  }
+
+  function convert() {
+    const sys = fromSelect.value;
+    const val = fromSize.value;
+    if (!val) return;
+
+    const data = SIZE_DATA[currentGender];
+    const idx = data[sys].findIndex(v => String(v) === String(val));
+    if (idx === -1) return;
+
+    const target = toSelect.value;
+    const systems = target === 'all'
+      ? Object.keys(data).filter(k => k !== sys)
+      : [target];
+
+    const html = systems.map(s => {
+      const v = data[s]?.[idx] ?? '—';
+      return `<div class="result-badge"><span class="label">${SYSTEM_LABELS[s] || s}</span><span class="value">${v}</span></div>`;
+    }).join('');
+
+    results.innerHTML = `<div class="results-grid">${html}</div>`;
+    if (actions) actions.hidden = false;
+  }
+
+  function clearResults() {
+    results.innerHTML = '<p class="results-placeholder">Select a size above to see conversions</p>';
+    if (actions) actions.hidden = true;
+  }
+
+  // Gender tabs
+  document.querySelectorAll('[data-gender]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-gender]').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      currentGender = btn.dataset.gender;
+      populateSizes();
+    });
+  });
+
+  fromSelect?.addEventListener('change', populateSizes);
+  fromSize?.addEventListener('change', convert);
+  toSelect?.addEventListener('change', () => { if (fromSize?.value) convert(); });
+
+  // Swap
+  swapBtn?.addEventListener('click', () => {
+    const to = toSelect?.value;
+    if (to && to !== 'all') {
+      const from = fromSelect?.value;
+      fromSelect.value = to;
+      toSelect.value = from;
+      swapIcon?.classList.add('swap-spin');
+      setTimeout(() => swapIcon?.classList.remove('swap-spin'), 350);
+      populateSizes();
+    }
+  });
+
+  // Copy
+  copyBtn?.addEventListener('click', () => {
+    const badges = results?.querySelectorAll('.result-badge');
+    if (!badges?.length) return;
+    const text = Array.from(badges).map(b => {
+      const label = b.querySelector('.label')?.textContent || '';
+      const value = b.querySelector('.value')?.textContent || '';
+      return `${label}: ${value}`;
+    }).join(' | ');
+    navigator.clipboard.writeText(text).then(() => {
+      copyBtn.classList.add('copied');
+      copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Copied!';
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Result';
+      }, 2000);
+    });
+  });
+
+  // Reset
+  resetBtn?.addEventListener('click', () => {
+    fromSelect.value = 'us';
+    toSelect.value = 'all';
+    populateSizes();
+  });
+
+  // Init
+  populateSizes();
+</script>

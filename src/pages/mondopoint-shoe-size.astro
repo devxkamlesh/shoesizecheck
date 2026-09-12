@@ -1,0 +1,755 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/mondopoint-shoe-size/`;
+const pageTitle = 'Mondopoint Ski Boot & Snowboard Size Chart — Conversion Guide | AllShoeSizeConverter';
+const pageDescription = 'Convert Mondopoint to US, UK, and EU shoe sizes for ski and snowboard boots. Interactive Mondopoint calculator, shell sizing guide, and boot last width tables.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'What is Mondopoint sizing and how does it work?',
+    a: 'Mondopoint is an international footwear sizing standard (ISO 9407) designed around the foot\'s actual length and width in millimeters or centimeters. Primarily used for alpine ski boots, snowboard boots, and military gear, a Mondopoint size 27.5 means the boot interior is calibrated for a foot measuring 27.5 cm (275 mm) from heel to longest toe.'
+  },
+  {
+    q: 'Should my toes touch the front of a new ski boot?',
+    a: 'Yes! When standing completely upright in a new ski boot, your toes should lightly brush the front of the liner. However, when you flex your knees forward into an athletic skiing stance, your heel drives back into the heel pocket, pulling your toes 2 to 3 millimeters away from the front. If toes do not touch when standing straight, the boot is too large and will cause heel lift.'
+  },
+  {
+    q: 'Do ski boots share plastic shell molds between full and half sizes?',
+    a: 'Yes. Virtually all alpine ski boot manufacturers (Salomon, Atomic, Nordica, Rossignol, Tecnica, Dalbello) produce shells only in full-size shell breaks. A size 26.0 and a size 26.5 use the identical plastic outer shell and the identical Boot Sole Length (BSL). The difference between 26.0 and 26.5 is only the thickness of the insole or footbed liner.'
+  },
+  {
+    q: 'How do I convert my US shoe size to Mondopoint?',
+    a: 'Because street shoe sizing accounts for extra walking clearance, buying a ski boot in your street shoe size usually results in a boot that is 1 to 2 sizes too large. For men, US 9 generally corresponds to Mondopoint 27.0 (or 26.5 for a performance fit). For women, US 8 converts to Mondopoint 25.0. Always measure your foot length directly in centimeters for ski boots.'
+  },
+  {
+    q: 'What does ski boot "last width" mean (LV, MV, HV)?',
+    a: 'Last width measures the forefoot width across the metatarsal heads at Mondopoint size 26.5. Low Volume (LV) boots measure 97–98 mm for narrow feet; Mid Volume (MV) measures 100–101 mm for average feet; and High Volume (HV) measures 102–104 mm+ for wide feet or high insteps.'
+  },
+  {
+    q: 'Do snowboard boots use Mondopoint?',
+    a: 'Snowboard boots frequently list Mondopoint (in cm) alongside US sizing on their tags. Because snowboard boots use flexible synthetic outer materials rather than rigid polyurethane plastic shells, fit tolerance is slightly more forgiving, but measuring bare foot length in centimeters remains the most accurate way to prevent heel lift and toe drag.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="mondopoint shoe size, mondopoint ski boot size chart, mondopoint conversion, ski boot size converter, snowboard boot sizing mondopoint, how to measure foot for ski boots, mondopoint to us shoe size, mondopoint to eu, ski boot last width" />
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Mondopoint Ski Boot Sizing' },
+    ]} />
+
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Winter Sports Sizing</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Mondopoint Ski &amp; Snowboard Boot Size Chart</h1>
+        <p class="hero-sub body-lg">Convert Mondopoint measurements directly to US, UK, and EU shoe sizes. Discover exact shell breaks, boot last widths (LV, MV, HV), and proper flex ratings for alpine skiing.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">ISO 9407 Standard</span>
+          <span class="badge-trust">Ski &amp; Snowboard Boots</span>
+          <span class="badge-trust">Millimeter Precision</span>
+          <span class="badge-trust">Shell Break Analysis</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Mondopoint Calculator -->
+    <section class="interactive-band">
+      <div class="page-inner">
+        <div class="mondo-calc-card">
+          <div class="calc-header">
+            <div>
+              <p class="mono-eyebrow">Precision Boot Matcher</p>
+              <h2 class="heading-lg">Mondopoint &amp; Ski Boot Size Calculator</h2>
+            </div>
+            <p class="body-sm calc-header-hint">Enter your exact bare foot length and select your skiing profile.</p>
+          </div>
+
+          <div class="calc-inputs-grid">
+            <div class="calc-field">
+              <label class="step-label" for="mondo-length">
+                <span class="step-num">1</span> Bare Foot Length
+              </label>
+              <div class="input-unit-wrap">
+                <input type="number" id="mondo-length" class="form-input" placeholder="e.g. 26.8" step="0.1" min="15" max="34" value="27" />
+                <select id="mondo-unit" class="form-select unit-pill">
+                  <option value="cm" selected>CM</option>
+                  <option value="mm">MM</option>
+                  <option value="in">Inches</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="calc-field">
+              <label class="step-label" for="mondo-gender">
+                <span class="step-num">2</span> Category
+              </label>
+              <select id="mondo-gender" class="form-select">
+                <option value="men" selected>Men / Unisex</option>
+                <option value="women">Women</option>
+                <option value="kids">Junior / Kids</option>
+              </select>
+            </div>
+
+            <div class="calc-field">
+              <label class="step-label" for="mondo-fit">
+                <span class="step-num">3</span> Fit Preference
+              </label>
+              <select id="mondo-fit" class="form-select">
+                <option value="performance" selected>Performance / Snug (Recommended)</option>
+                <option value="comfort">Comfort / Casual (+0.5 cm)</option>
+                <option value="race">Race / Expert (-0.5 cm Downsize)</option>
+              </select>
+            </div>
+
+            <div class="calc-field">
+              <label class="step-label" for="mondo-width">
+                <span class="step-num">4</span> Foot Width (At Ball)
+              </label>
+              <select id="mondo-width" class="form-select">
+                <option value="narrow">Narrow (&lt;98 mm / LV)</option>
+                <option value="average" selected>Average (100 mm / MV)</option>
+                <option value="wide">Wide (102+ mm / HV)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="mondo-result-box">
+            <div class="result-top">
+              <div class="result-badge" id="res-mondo-badge">Recommended Mondopoint: 27.0 / 27.5</div>
+              <div class="result-growth-note" id="res-shell-note">Typical Shell Length: ~315 mm BSL</div>
+            </div>
+
+            <div class="result-sizes-grid">
+              <div class="res-stat-card primary-stat">
+                <span class="res-label">Mondopoint Size</span>
+                <span class="res-value" id="res-mondo-val">27.0</span>
+                <span class="res-sub">270 mm Footbed</span>
+              </div>
+              <div class="res-stat-card">
+                <span class="res-label">US Street Size</span>
+                <span class="res-value" id="res-us-val">9.0 – 9.5</span>
+                <span class="res-sub">Approximate</span>
+              </div>
+              <div class="res-stat-card">
+                <span class="res-label">EU Size</span>
+                <span class="res-value" id="res-eu-val">42 – 42.5</span>
+                <span class="res-sub">Paris Points</span>
+              </div>
+              <div class="res-stat-card">
+                <span class="res-label">Boot Last (Width)</span>
+                <span class="res-value" id="res-last-val">Mid Volume</span>
+                <span class="res-sub" id="res-last-mm">100 mm Metatarsal</span>
+              </div>
+            </div>
+
+            <div class="res-advice" id="res-mondo-advice">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+              </svg>
+              <p id="res-advice-text"><strong>Shell Sizing Insight:</strong> A 27.0 and 27.5 boot share the exact same outer plastic shell mold. Ski boot liners pack out by 15% to 20% after 4–6 days of skiing. Do not size up for toe room.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mondopoint Conversion Tables -->
+    <section class="table-band">
+      <div class="page-inner">
+        <header class="section-heading">
+          <p class="mono-eyebrow">Standard Reference Matrix</p>
+          <h2 class="heading-lg">Mondopoint to US, UK, and EU Conversion Chart</h2>
+          <p class="body-md">Use this reference chart to cross-reference Mondopoint measurements with standard global street shoe sizes.</p>
+        </header>
+
+        <div class="table-card">
+          <div class="table-card-head">
+            <h3 class="heading-sm">Adult Alpine &amp; Snowboard Mondopoint Matrix</h3>
+            <span class="category-pill">Men &amp; Women Conversions</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Mondopoint to US UK EU conversion table">
+              <thead>
+                <tr>
+                  <th>Mondopoint (CM)</th>
+                  <th>Foot (MM)</th>
+                  <th>Inches</th>
+                  <th>US Men</th>
+                  <th>US Women</th>
+                  <th>UK</th>
+                  <th>EU</th>
+                  <th>Approx BSL (Shell mm)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>22.0 / 22.5</td><td>220 – 225 mm</td><td>8.7" – 8.9"</td><td>4</td><td>5.0 – 5.5</td><td>3</td><td>35</td><td>265 mm</td></tr>
+                <tr><td>23.0 / 23.5</td><td>230 – 235 mm</td><td>9.1" – 9.3"</td><td>5</td><td>6.0 – 6.5</td><td>4</td><td>36.5</td><td>275 mm</td></tr>
+                <tr><td>24.0 / 24.5</td><td>240 – 245 mm</td><td>9.4" – 9.6"</td><td>6</td><td>7.0 – 7.5</td><td>5</td><td>38</td><td>285 mm</td></tr>
+                <tr><td>25.0 / 25.5</td><td>250 – 255 mm</td><td>9.8" – 10.0"</td><td>7 – 7.5</td><td>8.0 – 8.5</td><td>6 – 6.5</td><td>39.5 – 40</td><td>295 mm</td></tr>
+                <tr><td>26.0 / 26.5</td><td>260 – 265 mm</td><td>10.2" – 10.4"</td><td>8 – 8.5</td><td>9.0 – 9.5</td><td>7 – 7.5</td><td>41 – 41.5</td><td>305 mm</td></tr>
+                <tr><td>27.0 / 27.5</td><td>270 – 275 mm</td><td>10.6" – 10.8"</td><td>9 – 9.5</td><td>10.0 – 10.5</td><td>8 – 8.5</td><td>42 – 42.5</td><td>315 mm</td></tr>
+                <tr><td>28.0 / 28.5</td><td>280 – 285 mm</td><td>11.0" – 11.2"</td><td>10 – 10.5</td><td>11.0 – 11.5</td><td>9 – 9.5</td><td>43.5 – 44</td><td>325 mm</td></tr>
+                <tr><td>29.0 / 29.5</td><td>290 – 295 mm</td><td>11.4" – 11.6"</td><td>11 – 11.5</td><td>12.0 – 12.5</td><td>10 – 10.5</td><td>45 – 45.5</td><td>335 mm</td></tr>
+                <tr><td>30.0 / 30.5</td><td>300 – 305 mm</td><td>11.8" – 12.0"</td><td>12 – 12.5</td><td>—</td><td>11 – 11.5</td><td>46.5 – 47</td><td>345 mm</td></tr>
+                <tr><td>31.0 / 31.5</td><td>310 – 315 mm</td><td>12.2" – 12.4"</td><td>13 – 13.5</td><td>—</td><td>12 – 12.5</td><td>48</td><td>355 mm</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Last Width Guide -->
+        <div class="table-card" style="margin-top:32px">
+          <div class="table-card-head">
+            <h3 class="heading-sm">Ski Boot Width Categories (Last Width)</h3>
+            <span class="category-pill">Forefoot Volume</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Ski boot last width guide">
+              <thead>
+                <tr>
+                  <th>Volume Category</th>
+                  <th>Last Width (at 26.5)</th>
+                  <th>Target Foot Shape</th>
+                  <th>Typical Fit Feel</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Low Volume (LV)</td><td>97 – 98 mm</td><td>Narrow forefoot, slim heel, low instep</td><td>Race-inspired, ultra-snug hold, zero slop</td></tr>
+                <tr><td>Mid Volume (MV)</td><td>100 – 101 mm</td><td>Standard foot width (approx. 70% of skiers)</td><td>Balanced precision and all-day comfort</td></tr>
+                <tr><td>High Volume (HV)</td><td>102 – 106 mm</td><td>Wide forefoot, thick midfoot, high instep</td><td>Generous toe box, alleviates pressure points</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Flex Index -->
+        <div class="table-card" style="margin-top:32px">
+          <div class="table-card-head">
+            <h3 class="heading-sm">Ski Boot Flex Rating Guide</h3>
+            <span class="category-pill">Stiffness Index</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Ski boot flex index guide">
+              <thead>
+                <tr>
+                  <th>Ability Level</th>
+                  <th>Men's Flex</th>
+                  <th>Women's Flex</th>
+                  <th>Terrain &amp; Riding Style</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Beginner / Novice</td><td>60 – 80</td><td>50 – 70</td><td>Groomed green runs, slow speeds, upright stance</td></tr>
+                <tr><td>Intermediate</td><td>80 – 100</td><td>70 – 90</td><td>Blue cruisers, variable snow, developing parallel turns</td></tr>
+                <tr><td>Advanced / All-Mountain</td><td>100 – 120</td><td>90 – 110</td><td>Steep black runs, moguls, trees, higher speeds</td></tr>
+                <tr><td>Expert / Freeride / Racer</td><td>120 – 140+</td><td>110 – 130+</td><td>High speed carving, aggressive charging, maximum leverage</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep-Dive Guides -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Bootfitter's Masterclass</p>
+            <h2 class="prose-main-title">The Three Golden Rules of Ski Boot Fitting</h2>
+            <p class="prose-lead">More skiers ruin their ski vacation from oversized boots than any other gear mistake. Here is how professional bootfitters ensure peak warmth, performance, and blister-free comfort.</p>
+          </header>
+
+          <div class="content-prose">
+            <h3 class="heading-sm">Rule 1: Never Buy Your Street Shoe Size</h3>
+            <p>Street shoes are built with roughly 12 to 15 mm of forward clearance so your toes don't contact the end while walking. If you purchase ski boots with that much room, your foot will slide backward and forward inside the plastic shell on every turn.</p>
+            <p>To compensate for foot slippage, skiers instinctively overtighten the buckles over their instep. This cuts off blood circulation to the toes (causing cold, numb feet) and causes your toes to slam violently against the front when navigating bumps ("toe bang"). A properly fitted ski boot should feel much snugger than your daily sneakers.</p>
+
+            <h3 class="heading-sm">Rule 2: Understand the "Pack-Out" Effect</h3>
+            <p>Ski boot liners are packed with dense foam that compresses and molds to the exact contours of your bones and warmth. Over the first 4 to 6 full days on the mountain, a new liner will compress by <strong>15% to 20% in overall volume</strong>. If a ski boot feels like a comfortable slipper in the ski shop showroom, it will feel loose, unresponsive, and sloppy after one week on snow.</p>
+
+            <h3 class="heading-sm">Rule 3: How to Perform the "Shell Fit Test" at Home</h3>
+            <p>The most dependable way to confirm your boot shell size before committing to a purchase is the bootfitter's shell test:</p>
+            <ol>
+              <li>Unbuckle the boot completely and remove the soft inner liner from the plastic shell.</li>
+              <li>Step your bare foot (or foot in thin ski socks) directly into the plastic shell.</li>
+              <li>Slide your foot forward until your longest toe gently touches the front of the plastic shell.</li>
+              <li>Look behind your heel at the gap between your heel bone and the back of the plastic shell:
+                <ul>
+                  <li><strong>1 finger (approx. 10–15 mm):</strong> Performance fit for advanced and intermediate skiers.</li>
+                  <li><strong>1.5 to 2 fingers (approx. 20–25 mm):</strong> Comfort / recreational fit for casual skiers.</li>
+                  <li><strong>More than 2 fingers (30+ mm):</strong> The shell is too large. You must downsize.</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <div class="faq-card">
+          <p class="mono-eyebrow">Common Questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">Frequently Asked Questions: Mondopoint &amp; Ski Boots</h2>
+          <div class="faq-list">
+            {faqs.map(item => (
+              <details class="faq-item">
+                <summary class="faq-q">
+                  <span>{item.q}</span>
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-a"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 64px 24px 40px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-2), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .page-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    max-width: 680px;
+    margin: 16px auto 24px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .badge-trust {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-body);
+  }
+
+  /* Interactive band */
+  .interactive-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .mondo-calc-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .calc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 28px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .calc-header-hint {
+    color: var(--v-mute);
+    max-width: 320px;
+  }
+  .calc-inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .calc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .input-unit-wrap {
+    display: flex;
+    gap: 6px;
+  }
+  .unit-pill {
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  /* Dynamic results */
+  .mondo-result-box {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 24px;
+  }
+  .result-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .result-badge {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--v-link-soft);
+    color: var(--v-link);
+    padding: 6px 14px;
+    border-radius: var(--v-r-full);
+  }
+  .result-growth-note {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--v-body);
+  }
+  .result-sizes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .res-stat-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .primary-stat {
+    border-color: var(--v-link);
+    background: linear-gradient(180deg, var(--v-elevated), var(--v-link-soft));
+  }
+  .res-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--v-mute);
+  }
+  .res-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+  }
+  .res-sub {
+    font-size: 11px;
+    color: var(--v-faint);
+  }
+  .res-advice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--v-body);
+  }
+  .res-advice svg {
+    color: var(--v-link);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .res-advice p { margin: 0; }
+
+  /* Tables section */
+  .table-band {
+    padding: 48px 24px;
+  }
+  .section-heading {
+    margin-bottom: 32px;
+  }
+  .table-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    overflow: hidden;
+  }
+  .table-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    background: var(--v-canvas);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .category-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: var(--v-r-full);
+    background: var(--v-hairline-soft);
+    color: var(--v-body);
+  }
+
+  /* Prose section */
+  .content-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .prose-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 40px;
+  }
+  .prose-header {
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .prose-main-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--v-ink);
+    margin: 8px 0 12px;
+  }
+  .prose-lead {
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--v-body);
+    margin: 0;
+  }
+  .content-prose h3 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+  .content-prose p, .content-prose ul, .content-prose ol {
+    margin-bottom: 16px;
+    line-height: 24px;
+    color: var(--v-body);
+  }
+  .content-prose ul, .content-prose ol {
+    padding-left: 20px;
+  }
+  .content-prose li {
+    margin-bottom: 8px;
+  }
+
+  /* FAQ */
+  .faq-band {
+    padding: 48px 24px 80px;
+  }
+  .faq-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 36px;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    overflow: hidden;
+    background: var(--v-canvas);
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] {
+    border-color: var(--v-link);
+  }
+  .faq-q {
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--v-ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .faq-chevron {
+    transition: transform 0.2s ease;
+    color: var(--v-mute);
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--v-link);
+  }
+  .faq-a {
+    padding: 0 20px 16px;
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .faq-a p { margin: 0; }
+
+  @media (max-width: 900px) {
+    .calc-inputs-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .calc-inputs-grid {
+      grid-template-columns: 1fr;
+    }
+    .result-sizes-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .prose-card, .mondo-calc-card, .faq-card {
+      padding: 24px 16px;
+    }
+  }
+</style>
+
+<script>
+  const lenInput = document.getElementById('mondo-length') as HTMLInputElement;
+  const unitSelect = document.getElementById('mondo-unit') as HTMLSelectElement;
+  const genderSelect = document.getElementById('mondo-gender') as HTMLSelectElement;
+  const fitSelect = document.getElementById('mondo-fit') as HTMLSelectElement;
+  const widthSelect = document.getElementById('mondo-width') as HTMLSelectElement;
+
+  const mondoBadge = document.getElementById('res-mondo-badge');
+  const shellNote = document.getElementById('res-shell-note');
+  const mondoVal = document.getElementById('res-mondo-val');
+  const usVal = document.getElementById('res-us-val');
+  const euVal = document.getElementById('res-eu-val');
+  const lastVal = document.getElementById('res-last-val');
+  const lastMm = document.getElementById('res-last-mm');
+  const adviceText = document.getElementById('res-advice-text');
+
+  function calculateMondopoint() {
+    const raw = parseFloat(lenInput?.value || '27');
+    if (!raw || isNaN(raw)) return;
+
+    const unit = unitSelect?.value || 'cm';
+    let cm = raw;
+    if (unit === 'mm') cm = raw / 10;
+    if (unit === 'in') cm = raw * 2.54;
+
+    const fit = fitSelect?.value || 'performance';
+    const gender = genderSelect?.value || 'men';
+    const width = widthSelect?.value || 'average';
+
+    // Adjust cm according to fit style
+    let fitAdjustedCm = cm;
+    if (fit === 'comfort') fitAdjustedCm += 0.5;
+    if (fit === 'race') fitAdjustedCm -= 0.5;
+
+    // Round to nearest 0.5 Mondopoint
+    let mondo = Math.round(fitAdjustedCm * 2) / 2;
+    if (mondo < 15) mondo = 15;
+    if (mondo > 34) mondo = 34;
+
+    // Calculate approx BSL (Boot Sole Length)
+    // Formula: roughly (mondo * 10) + 43 to 45 mm
+    const bsl = Math.round((Math.floor(mondo) * 10) + 45);
+
+    // Approximate US and EU conversions
+    let us = '';
+    let eu = '';
+
+    if (gender === 'women') {
+      const usWomen = ((mondo - 20) * 1.5 + 4.5).toFixed(1);
+      us = `US W ${usWomen}`;
+      eu = `${Math.round((mondo + 1.5) * 1.5)}`;
+    } else if (gender === 'kids') {
+      us = mondo <= 19 ? `US Kids ${Math.round((mondo - 10) * 1.2)}C` : `Youth ${Math.round((mondo - 19) * 1.2)}Y`;
+      eu = `${Math.round(mondo * 1.5 + 1)}`;
+    } else {
+      const usMen = ((mondo - 22) * 1.15 + 4).toFixed(1);
+      us = `US M ${usMen}`;
+      eu = `${Math.round((mondo + 1.5) * 1.5 + 0.5)}`;
+    }
+
+    // Last width description
+    let lastTitle = 'Mid Volume (MV)';
+    let lastDetail = '100 mm Metatarsal Width';
+    if (width === 'narrow') {
+      lastTitle = 'Low Volume (LV)';
+      lastDetail = '97–98 mm (Narrow Foot / Thin Heel)';
+    } else if (width === 'wide') {
+      lastTitle = 'High Volume (HV)';
+      lastDetail = '102–104 mm+ (Wide Foot / High Instep)';
+    }
+
+    if (mondoBadge) mondoBadge.textContent = `Recommended Mondopoint: ${mondo.toFixed(1)}`;
+    if (shellNote) shellNote.textContent = `Approx Boot Sole Length: ~${bsl} mm BSL`;
+    if (mondoVal) mondoVal.textContent = mondo.toFixed(1);
+    if (usVal) usVal.textContent = us;
+    if (euVal) euVal.textContent = `EU ${eu}`;
+    if (lastVal) lastVal.textContent = lastTitle;
+    if (lastMm) lastMm.textContent = lastDetail;
+
+    let advice = `<strong>Shell Sizing Insight:</strong> Mondopoint ${Math.floor(mondo)}.0 and ${(Math.floor(mondo) + 0.5).toFixed(1)} share the same outer plastic shell mold. Liners pack out by 15% to 20% after 4–6 days on snow.`;
+    if (fit === 'comfort') {
+      advice += ` Because you chose <em>Comfort Fit</em>, a thicker sock or custom insole will fill excess volume as the liner settles.`;
+    } else if (fit === 'race') {
+      advice += ` Because you chose <em>Race Fit</em>, you may require a bootfitter to punch the shell slightly at specific pressure points.`;
+    }
+    if (adviceText) adviceText.innerHTML = advice;
+  }
+
+  lenInput?.addEventListener('input', calculateMondopoint);
+  unitSelect?.addEventListener('change', calculateMondopoint);
+  genderSelect?.addEventListener('change', calculateMondopoint);
+  fitSelect?.addEventListener('change', calculateMondopoint);
+  widthSelect?.addEventListener('change', calculateMondopoint);
+
+  // Initialize
+  calculateMondopoint();
+</script>

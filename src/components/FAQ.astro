@@ -1,0 +1,209 @@
+---
+// FAQ.astro — Geist-styled FAQ with FAQPage JSON-LD schema
+const faqs = [
+  {
+    q: 'What is a shoe size converter?',
+    a: 'A shoe size converter is a tool that takes your shoe size in one country\'s system and tells you what it equals in another. For example, if you know your US size, the converter shows the matching UK, EU, India, Japan (CM), and inch sizes. It\'s useful when you\'re buying shoes from international brands or overseas websites.'
+  },
+  {
+    q: 'How to calculate shoe size for men?',
+    a: 'Measure your foot from the back of your heel to the tip of your longest toe in centimeters. For US men\'s sizing, a 27 cm foot is about a US 9. For UK, subtract 0.5 from your US size (US 9 = UK 8.5). For EU, add 33 to your US size (US 9 = EU 42). Or just enter your CM measurement into our converter and it does the math for you.'
+  },
+  {
+    q: 'What is my size in men\'s shoes?',
+    a: 'It depends on your foot length. Stand on a piece of paper, trace your foot, and measure from heel to toe. If your foot is about 25.4 cm (10 inches), you\'re roughly a US men\'s 7.5. At 27 cm, you\'re a US 9. At 28.5 cm, you\'re about a US 10.5. The converter at the top of this page gives you exact results for any measurement.'
+  },
+  {
+    q: 'What is IND 7 shoe size in US and UK?',
+    a: 'India 7 is the same as UK 7, since Indian shoe sizing follows the UK system. In US men\'s sizing, IND 7 equals about US 7.5 to 8. In EU sizing, it\'s approximately EU 41. The foot length for this size is around 25.5 to 26 cm.'
+  },
+  {
+    q: 'What size is 42 in men\'s shoes?',
+    a: 'EU 42 is one of the most common men\'s sizes. It equals US men\'s 9, UK 8 to 8.5, and India 8. The foot length for EU 42 is about 26.5 to 27 cm. If you\'re shopping on European sites like Zalando or buying Adidas or Puma, EU 42 is what most brands label as a "medium" men\'s size.'
+  },
+  {
+    q: 'Is EU 42 shoe size same as UK 8 or UK 9?',
+    a: 'EU 42 is closer to UK 8 or 8.5, not UK 9. UK 9 would be about EU 43. The confusion happens because the conversion isn\'t a round number. If you\'re between sizes, go with UK 8.5 for EU 42.'
+  },
+  {
+    q: 'What is US 7 shoe size in India?',
+    a: 'US men\'s 7 is approximately India 6 to 6.5 (since India uses UK sizing, and UK is about 0.5 to 1 less than US for men). US women\'s 7 is approximately India 5 (UK women\'s = US women\'s minus 2). The foot length for US 7 men\'s is about 25 cm.'
+  },
+  {
+    q: 'How do I convert women\'s shoe size to men\'s?',
+    a: 'Subtract about 1.5 from the US women\'s size to get the US men\'s size. So a women\'s 9 is roughly a men\'s 7.5. A women\'s 8 is a men\'s 6.5. This only applies to US sizing though. In EU and Japanese (CM) sizing, there\'s no gender difference — the number is the same for both.'
+  },
+  {
+    q: 'What is US 10 in EU and UK?',
+    a: 'US men\'s 10 is EU 43 and UK 9.5. US women\'s 10 is EU 40-41 and UK 8. The foot length for US men\'s 10 is about 28 cm (11 inches).'
+  },
+  {
+    q: 'How do kids shoe sizes work?',
+    a: 'In the US, kids\' sizes go from 0C (newborn) to 13C (child), then reset to 1Y (youth) through 7Y. After youth 7Y, adult sizing starts. This reset from 13C to 1Y confuses a lot of parents. EU kids\' sizes are simpler — they go in a straight line from EU 17 to EU 39 without any restarts.'
+  },
+  {
+    q: 'What is US 9 in all other sizes?',
+    a: 'US men\'s 9 equals UK 8.5, EU 42, India 8, Japan 27 cm, and about 10.25 inches in foot length. It\'s one of the most common men\'s sizes worldwide.'
+  },
+  {
+    q: 'Do shoe sizes change between brands?',
+    a: 'Yes. Nike tends to run a bit small, so some people go half a size up. Converse runs large — about a full size bigger than other brands. Adidas is usually a little bigger than Nike. New Balance is generally true to size. When buying a new brand, check their specific size chart or measure your foot in CM and compare.'
+  },
+  {
+    q: 'Should I size up or down if I\'m between two sizes?',
+    a: 'Go up. A slightly roomy shoe can be fixed with an insole or thicker socks. A tight shoe just causes pain, blisters, and nail problems. Also, feet swell during the day, so a shoe that feels fine in the morning might feel tight by evening.'
+  },
+  {
+    q: 'Is Indian shoe size same as UK?',
+    a: 'Yes, for almost all brands. India\'s sizing system is based on the UK standard. A UK 8 is an India 8. Brands like Bata, Woodland, Red Tape, and Liberty all follow this. Some very small local manufacturers might differ slightly, but for any recognized brand, UK and India sizes are the same.'
+  },
+  {
+    q: 'How to measure foot size at home?',
+    a: 'Place a sheet of paper on the floor against a wall. Stand on it with your heel touching the wall. Mark the tip of your longest toe with a pen. Measure from the edge of the paper to the mark in centimeters. Do both feet and use the bigger number. Measure in the evening since feet swell during the day.'
+  },
+];
+
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+---
+
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <p class="mono-eyebrow">FAQ</p>
+    <h2 class="heading-lg">Frequently Asked Questions</h2>
+
+    <div class="faq-list">
+      {faqs.map((f, i) => (
+        <div class="faq-item">
+          <button
+            class="faq-trigger"
+            id={`faq-trigger-${i}`}
+            aria-expanded="false"
+            aria-controls={`faq-content-${i}`}
+          >
+            <span>{f.q}</span>
+            <span class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-content" id={`faq-content-${i}`} role="region" aria-labelledby={`faq-trigger-${i}`}>
+            <div class="faq-inner-text">{f.a}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={faqSchema} />
+
+<style>
+  .faq-section {
+    padding: 96px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .faq-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .faq-list { margin-top: 32px; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--v-hairline);
+  }
+
+  .faq-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--v-ink);
+    text-align: left;
+    gap: 16px;
+    line-height: 1.4;
+  }
+
+  .faq-trigger:hover {
+    color: var(--v-link);
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--v-r-full);
+    background: var(--v-hairline-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, background 0.15s ease, color 0.15s ease;
+    color: var(--v-mute);
+  }
+
+  .faq-trigger:hover .faq-icon {
+    color: var(--v-ink);
+    background: #e5e5e5;
+  }
+
+  .faq-trigger[aria-expanded="true"] .faq-icon {
+    transform: rotate(45deg);
+    background: var(--v-ink);
+    color: white;
+  }
+
+  .faq-trigger[aria-expanded="true"] .faq-icon svg {
+    stroke: white;
+  }
+
+  .faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    opacity: 0;
+  }
+
+  .faq-content.open {
+    max-height: 600px;
+    opacity: 1;
+  }
+
+  .faq-inner-text {
+    padding: 0 0 20px;
+    color: var(--v-body);
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  @media (max-width: 640px) {
+    .faq-section { padding: 64px 16px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      trigger.setAttribute('aria-expanded', String(!expanded));
+      const content = trigger.nextElementSibling;
+      if (content) content.classList.toggle('open', !expanded);
+    });
+  });
+</script>

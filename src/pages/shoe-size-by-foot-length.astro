@@ -1,0 +1,244 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FindMySize from '../components/FindMySize.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/shoe-size-by-foot-length/`;
+const pageTitle = 'Shoe Size by Foot Length — Men, Women & Kids Charts | AllShoeSizeConverter';
+const pageDescription = 'Determine your shoe size by length of foot in cm or inches. Accurate charts for men, women, and kids covering US, UK, EU, India, and Japan.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'How to determine shoe size by length of foot?',
+    a: 'Stand on a blank paper taped to a hard floor, with your heel lightly touching a flat wall. Trace or mark the tip of your longest toe, keeping the pen perpendicular to the paper. Measure the distance from the edge to the mark in centimeters or millimeters. Then look up that measurement in our chart, adding approximately 10 to 15 mm of space for normal toe movement.'
+  },
+  {
+    q: 'How to find women\'s shoe size by foot length?',
+    a: 'Measure your foot in centimeters and refer to the women\'s chart. For instance, a foot measuring 23.5 cm to 24 cm requires a US Women\'s 7.5, UK 5.5, or EU 38. Keep in mind that US Women\'s sizes run 1.5 to 2 sizes higher numerically than US Men\'s for the exact same length.'
+  },
+  {
+    q: 'What is my shoe size by foot length in UK sizing?',
+    a: 'UK shoe sizing uses a 1/3-inch (barleycorn) scale. A foot length of 25.5 cm equals UK 7, 26 cm equals UK 7.5, and 27 cm equals UK 8.5. If you shop Indian footwear brands like Bata or Woodland, their sizes match UK sizing one-to-one.'
+  },
+  {
+    q: 'How do kids and child shoe sizes work by foot length?',
+    a: 'Kids\' shoe sizing starts at infant size 0C (~8.5 cm) up to youth 7Y (~25 cm). Toddler sizes usually cover 11 to 15 cm, while older children range from 16 to 22 cm. Always measure a child\'s foot standing up with socks on, and add 12 mm (~0.5 inch) to allow for natural growth.'
+  },
+  {
+    q: 'Should I size up if my foot measurement is between two sizes?',
+    a: 'Yes, always choose the larger size. Feet swell throughout the day, and shoes that fit tightly against your toes can lead to ingrown toenails and blisters. You can always add a thin insole or wear cushioned socks to secure a roomier fit.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="shoe size by foot length, women's shoe size by foot length, shoe size by foot length uk, kids shoe size by foot length, child shoe size by foot length, how to determine shoe size by length of foot" />
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Shoe Size by Foot Length' },
+    ]} />
+
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Foot Length to Shoe Size</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,48px)">Shoe Size by Foot Length</h1>
+        <p class="hero-sub body-lg">Measure your foot from heel to toe in centimeters or inches, and find your exact shoe size across US, UK, EU, India, and Japan.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">Men, Women &amp; Kids</span>
+          <span class="badge-trust">CM &amp; Inches</span>
+          <span class="badge-trust">UK &amp; US Standards</span>
+        </div>
+      </div>
+    </section>
+
+    <FindMySize />
+
+    <section class="table-band">
+      <div class="page-inner">
+        <h2 class="heading-md">Men's Foot Length to Shoe Size Chart</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label="Men foot length to shoe size chart">
+            <thead><tr><th>Foot Length (CM)</th><th>Inches</th><th>US Men</th><th>UK</th><th>EU</th><th>India</th><th>Japan (CM)</th></tr></thead>
+            <tbody>
+              <tr><td>24.0</td><td>9.4"</td><td>6</td><td>5.5</td><td>39</td><td>5</td><td>24</td></tr>
+              <tr><td>24.5</td><td>9.6"</td><td>6.5</td><td>6</td><td>39</td><td>5.5</td><td>24.5</td></tr>
+              <tr><td>25.0</td><td>9.8"</td><td>7</td><td>6.5</td><td>40</td><td>6</td><td>25</td></tr>
+              <tr><td>25.5</td><td>10.0"</td><td>7.5</td><td>7</td><td>40</td><td>6.5</td><td>25.5</td></tr>
+              <tr><td>26.0</td><td>10.2"</td><td>8</td><td>7.5</td><td>41</td><td>7</td><td>26</td></tr>
+              <tr><td>26.5</td><td>10.4"</td><td>8.5</td><td>8</td><td>41</td><td>7.5</td><td>26.5</td></tr>
+              <tr><td>27.0</td><td>10.6"</td><td>9</td><td>8.5</td><td>42</td><td>8</td><td>27</td></tr>
+              <tr><td>27.5</td><td>10.8"</td><td>9.5</td><td>9</td><td>42</td><td>8.5</td><td>27.5</td></tr>
+              <tr><td>28.0</td><td>11.0"</td><td>10</td><td>9.5</td><td>43</td><td>9</td><td>28</td></tr>
+              <tr><td>28.5</td><td>11.2"</td><td>10.5</td><td>10</td><td>43</td><td>9.5</td><td>28.5</td></tr>
+              <tr><td>29.0</td><td>11.4"</td><td>11</td><td>10.5</td><td>44</td><td>10</td><td>29</td></tr>
+              <tr><td>30.0</td><td>11.8"</td><td>12</td><td>11.5</td><td>45</td><td>11</td><td>30</td></tr>
+              <tr><td>31.0</td><td>12.2"</td><td>13</td><td>12.5</td><td>46</td><td>12</td><td>31</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="heading-md" style="margin-top:48px">Women's Shoe Size by Foot Length</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label="Women foot length to shoe size chart">
+            <thead><tr><th>Foot Length (CM)</th><th>Inches</th><th>US Women</th><th>UK</th><th>EU</th><th>India</th><th>Japan (CM)</th></tr></thead>
+            <tbody>
+              <tr><td>21.5</td><td>8.5"</td><td>4.5</td><td>2.5</td><td>35</td><td>2.5</td><td>21.5</td></tr>
+              <tr><td>22.0</td><td>8.7"</td><td>5</td><td>3</td><td>35</td><td>3</td><td>22</td></tr>
+              <tr><td>22.5</td><td>8.9"</td><td>5.5</td><td>3.5</td><td>36</td><td>3.5</td><td>22.5</td></tr>
+              <tr><td>23.0</td><td>9.1"</td><td>6</td><td>4</td><td>36</td><td>4</td><td>23</td></tr>
+              <tr><td>23.5</td><td>9.3"</td><td>6.5</td><td>4.5</td><td>37</td><td>4.5</td><td>23.5</td></tr>
+              <tr><td>24.0</td><td>9.4"</td><td>7.5</td><td>5.5</td><td>38</td><td>5.5</td><td>24</td></tr>
+              <tr><td>24.5</td><td>9.6"</td><td>8</td><td>6</td><td>38</td><td>6</td><td>24.5</td></tr>
+              <tr><td>25.0</td><td>9.8"</td><td>9</td><td>7</td><td>39</td><td>7</td><td>25</td></tr>
+              <tr><td>25.5</td><td>10.0"</td><td>9.5</td><td>7.5</td><td>40</td><td>7.5</td><td>25.5</td></tr>
+              <tr><td>26.0</td><td>10.2"</td><td>10.5</td><td>8.5</td><td>41</td><td>8.5</td><td>26</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="heading-md" style="margin-top:48px">Kids &amp; Child Shoe Size by Foot Length</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label="Kids and child foot length to shoe size chart">
+            <thead><tr><th>Foot Length (CM)</th><th>Inches</th><th>US Kids</th><th>UK Child</th><th>EU Kids</th><th>Age Category</th></tr></thead>
+            <tbody>
+              <tr><td>11.0</td><td>4.3"</td><td>1C</td><td>0.5</td><td>17</td><td>Infant (0–6 mo)</td></tr>
+              <tr><td>12.0</td><td>4.7"</td><td>2C</td><td>1</td><td>18</td><td>Infant (6–12 mo)</td></tr>
+              <tr><td>13.0</td><td>5.1"</td><td>4C</td><td>3</td><td>19</td><td>Toddler (1–2 yr)</td></tr>
+              <tr><td>14.0</td><td>5.5"</td><td>5C</td><td>4</td><td>21</td><td>Toddler (2 yr)</td></tr>
+              <tr><td>15.0</td><td>5.9"</td><td>7C</td><td>6</td><td>23</td><td>Toddler (2–3 yr)</td></tr>
+              <tr><td>16.0</td><td>6.3"</td><td>8.5C</td><td>8</td><td>25</td><td>Little Kid (3–4 yr)</td></tr>
+              <tr><td>18.0</td><td>7.1"</td><td>11C</td><td>10</td><td>28</td><td>Little Kid (5–6 yr)</td></tr>
+              <tr><td>20.0</td><td>7.9"</td><td>1Y</td><td>13</td><td>32</td><td>Youth (7–8 yr)</td></tr>
+              <tr><td>22.0</td><td>8.7"</td><td>3Y</td><td>2Y</td><td>35</td><td>Youth (9+ yr)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tip-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p><strong>Measuring Recommendation:</strong> Always measure feet in the late afternoon. As you stand and walk during the day, feet expand slightly due to blood flow. Measuring in the evening ensures you never buy shoes that end up too small.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Foot Length Guide (500+ words) -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Foot Length Sizing Guide</p>
+            <h2 class="prose-main-title">Why Foot Length is the Only True Sizing Standard</h2>
+            <p class="prose-lead">Shoe size numbers are arbitrary regional conventions. Only your actual foot length in centimeters or millimeters provides a reliable, universal fit standard across every brand.</p>
+          </header>
+
+          <div class="content-prose">
+            <p>Shoe size numbers are arbitrary regional conventions. In the United Kingdom, sizes count in 1/3-inch increments starting from a historic child size zero. The United States uses that same increment but starts at a different base point and adds separate offsets for men and women. European manufacturers use Paris Points (2/3 of a centimeter per size). Because of these competing systems, a person who wears a US Men's 9 might be a UK 8.5, an EU 42, or a Japanese 27. Physical foot measurement in centimeters or millimeters eliminates confusion when switching brands or ordering from overseas retailers.</p>
+
+            <h3 class="heading-md">How Foot Length Relates to Shoe Interior (Lasting Allowance)</h3>
+            <p>A frequent mistake when converting foot length to shoe size is expecting the shoe's internal cavity to match your foot measurement exactly. In shoemaking, shoes are built around wooden or plastic molds known as lasts. A well-fitted shoe must include an extra <strong>10 to 15 millimeters (approx. 0.4 to 0.6 inches)</strong> of clearance beyond your longest toe.</p>
+            
+            <div class="prose-callout">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <p><strong>Toe Room Rule:</strong> Always ensure you have roughly one thumbnail's width (12–15 mm) between your longest toe and the end of the shoe when standing upright. This toe spring room prevents blisters and blackened toenails.</p>
+            </div>
+
+            <p>This clearance, known as the lasting allowance or toe spring room, allows your foot to elongate naturally as your arch flattens during weight-bearing strides. Without this buffer, your toes strike the front bumper with every downhill step, causing numbness, bunion irritation, and bruised toenails.</p>
+
+            <h3 class="heading-md">Women's Shoe Size by Foot Length: Important Fit Nuances</h3>
+            <p>While an adult woman and an adult man might both measure exactly 24.5 cm from heel to toe, their footwear needs rarely match. Female feet generally display a higher ball-to-heel width ratio — meaning the heel is noticeably narrower in proportion to the forefoot. When women buy men's or unisex shoes based purely on foot length, they frequently experience irritating heel slip and ankle blister points even when the toe length is correct. If you are a woman buying unisex athletic models, consider adding heel-grip pads or selecting brands that construct women's models on gender-specific lasts.</p>
+
+            <h3 class="heading-md">Tracking Kids and Child Foot Length as They Grow</h3>
+            <p>Children's feet develop rapidly, and their bones are soft and pliable, meaning kids often cannot feel or articulate when their shoes have become too small. Podiatrists recommend measuring children's foot length on a regular schedule:</p>
+            <ul>
+              <li><strong>Ages 1 to 3 (Toddlers):</strong> Feet grow approximately 1.5 millimeters per month. Re-measure every 2 to 3 months — toddlers frequently jump a full shoe size every 4 to 6 months.</li>
+              <li><strong>Ages 4 to 8 (Young Children):</strong> Growth slows to roughly 1 millimeter per month. Measure foot length every 4 months.</li>
+              <li><strong>Ages 9 and Up (Youth):</strong> Foot growth occurs in distinct spurts alongside height changes. Measure every 6 months.</li>
+            </ul>
+            <p>While it is tempting to buy children's shoes two sizes too large to "grow into," excessive length causes the child's foot to bend behind the shoe's engineered flex groove, leading to scuffing, tripping, and unnatural gait alterations. Keep extra toe room to roughly 12 millimeters (~0.5 inch).</p>
+
+            <h3 class="heading-md">How to Handle Uneven Foot Measurements</h3>
+            <p>More than 60% of people have one foot that measures slightly longer or wider than the other — often by 3 to 6 millimeters (up to half a shoe size). When choosing footwear, always fit for your larger foot. You can easily adjust the fit for your smaller foot by adding a thin, tapered insole, using a tongue pad, or lacing with a runner's lock technique to prevent your heel from lifting.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="faq-band" id="faq">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Help &amp; Guidelines</p>
+        <h2 class="heading-md">Frequently Asked Questions: Shoe Size by Foot Length</h2>
+        <div class="faq-list">
+          {faqs.map((f, i) => (
+            <div class="faq-item">
+              <button class="faq-trigger" aria-expanded="false" id={`flfaq-${i}`} aria-controls={`flfaq-c-${i}`}>
+                <span>{f.q}</span>
+                <span class="faq-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-content" id={`flfaq-c-${i}`} role="region" aria-labelledby={`flfaq-${i}`}>
+                <div class="faq-inner">{f.a}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero { padding: 48px 24px 40px; background: var(--v-canvas); }
+  .page-inner { max-width: 900px; margin: 0 auto; }
+  .hero-sub { margin: 12px 0 20px; max-width: 600px; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+  .table-band { padding: 64px 24px; background: var(--v-canvas); border-top: 1px solid var(--v-hairline); }
+  .tip-box { display: flex; gap: 12px; align-items: flex-start; margin-top: 32px; padding: 16px 20px; background: var(--v-elevated); border: 1px solid var(--v-hairline); border-radius: var(--v-r-md); font-size: 13px; color: var(--v-body); line-height: 20px; }
+  .tip-box svg { flex-shrink: 0; margin-top: 2px; color: var(--v-link); }
+  .tip-box p { margin: 0; }
+  .tip-box strong { color: var(--v-ink); }
+  @media (max-width: 640px) {
+    .page-hero { padding: 32px 16px; }
+    .table-band { padding: 48px 16px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-trigger').forEach(t => {
+    t.addEventListener('click', () => {
+      const exp = t.getAttribute('aria-expanded') === 'true';
+      t.setAttribute('aria-expanded', String(!exp));
+      t.nextElementSibling?.classList.toggle('open', !exp);
+    });
+  });
+</script>

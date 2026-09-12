@@ -1,0 +1,916 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/kids-shoe-size-by-age/`;
+const pageTitle = 'Kids & Toddler Shoe Size Chart by Age — Baby to Youth Sizing | AllShoeSizeConverter';
+const pageDescription = 'Find the right shoe size for babies, toddlers, and kids by age from 0 to 12 years. Interactive age-to-size calculator, foot length in cm/inches, and 2T vs 3T guide.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'What shoe size is typical for a 1-year-old?',
+    a: 'Most 1-year-old babies wear between a US size 3.5C and 4.5C, which corresponds to UK 2.5 to 3.5, EU 19 to 20, or a foot length of approximately 11.4 to 12.1 cm (4.5 to 4.75 inches). If your baby is learning to walk, choose soft-soled flexible shoes with about 1 cm of toe room.'
+  },
+  {
+    q: 'What is the difference between toddler clothing sizes (2T/3T) and shoe sizes?',
+    a: 'Toddler apparel labels like 2T, 3T, or 4T refer strictly to clothing height and weight, not shoe size. A 2-year-old wearing 2T clothes usually wears a US shoe size between 5C and 7C (EU 21 to 23). A 3-year-old in 3T clothes typically wears a US shoe size 7C to 9C (EU 23 to 26). Never order shoes by clothing tag size.'
+  },
+  {
+    q: 'What do the "C" and "Y" mean on children\'s shoe labels?',
+    a: '"C" stands for Child or Toddler sizes, spanning from 0C (newborn) up through 13.5C (around age 6-7). "Y" stands for Youth or Big Kids sizes, which resets back to 1Y and continues up to 7Y. Once a child outgrows 7Y, they transition directly into adult Men\'s 7 or Women\'s 8.5.'
+  },
+  {
+    q: 'How much room should there be in the front of a toddler\'s shoe?',
+    a: 'Always leave approximately 12 mm to 15 mm (about half an inch, or the width of an adult thumb) between your child\'s longest toe and the tip of the shoe. This space allows for natural toe splay, forward foot slide while walking, and healthy growth room without causing trips.'
+  },
+  {
+    q: 'How fast do children\'s feet grow by age?',
+    a: 'Between birth and age 2, children\'s feet grow about one half size every 2 to 3 months. Between ages 2 and 5, feet grow approximately one size every 3 to 4 months. After age 5, growth slows to one full size every 4 to 6 months until foot development stabilizes around puberty.'
+  },
+  {
+    q: 'What shoe size is average for a 5-year-old?',
+    a: 'A 5-year-old child typically wears between a US size 10.5C and 12C, corresponding to a foot length of 16.8 cm to 18.1 cm (6.6 to 7.1 inches), UK 9.5 to 11, and EU 28 to 30.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="kids shoe size by age, shoe size for 1 year old, toddler shoe size chart, baby shoe size by months, shoe size 2t vs 3t, child shoe size chart, youth shoe size by age, what shoe size is my 2 year old" />
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Kids Shoe Size by Age' },
+    ]} />
+
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Milestone Sizing Guide</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Kids &amp; Toddler Shoe Size by Age</h1>
+        <p class="hero-sub body-lg">Find the recommended shoe size for babies, toddlers, little kids, and youth from birth through 12 years old. Use our interactive age converter or explore verified milestone tables.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">0–12 Years Milestones</span>
+          <span class="badge-trust">US "C" &amp; "Y" Standards</span>
+          <span class="badge-trust">CM &amp; Inch Sizing</span>
+          <span class="badge-trust">UK &amp; EU Equivalent</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Child Age Calculator -->
+    <section class="interactive-band">
+      <div class="page-inner">
+        <div class="age-calc-card">
+          <div class="calc-header">
+            <div>
+              <p class="mono-eyebrow">Instant Age Converter</p>
+              <h2 class="heading-lg">Find Child Shoe Size by Age or Foot Length</h2>
+            </div>
+            <p class="body-sm calc-header-hint">Select an age milestone or type your child's bare foot measurement.</p>
+          </div>
+
+          <div class="calc-inputs-grid">
+            <div class="calc-field">
+              <label class="step-label" for="child-age-select">
+                <span class="step-num">1</span> Select Child's Age
+              </label>
+              <select id="child-age-select" class="form-select">
+                <option value="0-3m">0–3 Months (Newborn)</option>
+                <option value="3-6m">3–6 Months (Infant)</option>
+                <option value="6-9m">6–9 Months (Infant)</option>
+                <option value="9-12m" selected>9–12 Months (1 Year Old)</option>
+                <option value="12-18m">12–18 Months (Crawler / Early Walker)</option>
+                <option value="18-24m">18–24 Months (2 Years Old)</option>
+                <option value="2-3y">2–3 Years (Toddler 2T/3T)</option>
+                <option value="3-4y">3–4 Years (Toddler 3T/4T)</option>
+                <option value="4-5y">4–5 Years (Pre-School / 4T/5T)</option>
+                <option value="5-6y">5–6 Years (Kindergarten / Little Kid)</option>
+                <option value="6-7y">6–7 Years (Little Kid)</option>
+                <option value="7-8y">7–8 Years (Little Kid)</option>
+                <option value="8-9y">8–9 Years (Youth / Big Kid)</option>
+                <option value="10-12y">10–12 Years (Youth / Big Kid)</option>
+              </select>
+            </div>
+
+            <div class="calc-field">
+              <label class="step-label" for="child-length-input">
+                <span class="step-num">2</span> Or Foot Length (Optional)
+              </label>
+              <div class="input-unit-wrap">
+                <input type="number" id="child-length-input" class="form-input" placeholder="e.g. 12" step="0.1" min="7" max="26" />
+                <select id="child-length-unit" class="form-select unit-pill">
+                  <option value="cm" selected>CM</option>
+                  <option value="in">Inches</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Display -->
+          <div class="age-result-box" id="age-result-box">
+            <div class="result-top">
+              <div class="result-badge" id="res-stage-badge">Toddler (1 Year Old)</div>
+              <div class="result-growth-note" id="res-growth-rate">Fast Growth: Checks every 2–3 months</div>
+            </div>
+
+            <div class="result-sizes-grid">
+              <div class="res-stat-card primary-stat">
+                <span class="res-label">US Kids</span>
+                <span class="res-value" id="res-us-size">4C</span>
+                <span class="res-sub">Child Sizing</span>
+              </div>
+              <div class="res-stat-card">
+                <span class="res-label">UK Child</span>
+                <span class="res-value" id="res-uk-size">3.5</span>
+                <span class="res-sub">Standard</span>
+              </div>
+              <div class="res-stat-card">
+                <span class="res-label">EU Kids</span>
+                <span class="res-value" id="res-eu-size">19–20</span>
+                <span class="res-sub">Paris Points</span>
+              </div>
+              <div class="res-stat-card">
+                <span class="res-label">Avg Foot Length</span>
+                <span class="res-value" id="res-length">11.7 cm</span>
+                <span class="res-sub" id="res-inches">4.6 inches</span>
+              </div>
+            </div>
+
+            <div class="res-advice" id="res-advice">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+              </svg>
+              <p><strong>Fit Tip:</strong> For early walkers, prioritize lightweight, flexible soles that mimic barefoot walking. Leave about 12 mm (1/2 thumb width) space for natural toe flexion.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Milestone Tables Section -->
+    <section class="table-band">
+      <div class="page-inner">
+        <header class="section-heading">
+          <p class="mono-eyebrow">Comprehensive Age Progression</p>
+          <h2 class="heading-lg">Complete Kids &amp; Toddler Shoe Size Charts</h2>
+          <p class="body-md">Children's shoe sizes follow four distinct life stages. Use these charts to check size progression from newborn to youth.</p>
+        </header>
+
+        <!-- 1. Baby & Infant (0-12 Months) -->
+        <div class="table-card">
+          <div class="table-card-head">
+            <h3 class="heading-sm">1. Baby &amp; Infant Shoe Sizes (0–12 Months)</h3>
+            <span class="category-pill">Soft Soles &amp; Pre-Walkers</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Baby and infant shoe size chart">
+              <thead>
+                <tr>
+                  <th>Age Range</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Foot Length (Inches)</th>
+                  <th>US Size</th>
+                  <th>UK Size</th>
+                  <th>EU Size</th>
+                  <th>Footwear Stage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0–3 Months</td><td>8.3 – 8.9 cm</td><td>3.25" – 3.5"</td><td>0C – 0.5C</td><td>0</td><td>15</td><td>Crib booties / socks</td></tr>
+                <tr><td>3–6 Months</td><td>9.2 – 9.8 cm</td><td>3.6" – 3.85"</td><td>1C – 1.5C</td><td>0.5 – 1</td><td>16 – 17</td><td>Soft cotton booties</td></tr>
+                <tr><td>6–9 Months</td><td>10.2 – 10.8 cm</td><td>4.0" – 4.25"</td><td>2C – 2.5C</td><td>1.5 – 2</td><td>17 – 18</td><td>Pre-walker leather sole</td></tr>
+                <tr><td>9–12 Months</td><td>11.1 – 11.7 cm</td><td>4.35" – 4.6"</td><td>3C – 4C</td><td>2.5 – 3.5</td><td>19 – 20</td><td>Early walker flexible sole</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Toddler Sizes (1-4 Years / 2T-5T) -->
+        <div class="table-card" style="margin-top:32px">
+          <div class="table-card-head">
+            <h3 class="heading-sm">2. Toddler Shoe Sizes (1–4 Years / 2T–5T)</h3>
+            <span class="category-pill">Active Walkers</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Toddler shoe size chart">
+              <thead>
+                <tr>
+                  <th>Age Range</th>
+                  <th>Typical Clothing</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                  <th>US Size</th>
+                  <th>UK Size</th>
+                  <th>EU Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>12–18 Months</td><td>12M – 18M</td><td>11.7 – 12.4 cm</td><td>4.6" – 4.9"</td><td>4.5C – 5C</td><td>4</td><td>20 – 21</td></tr>
+                <tr><td>18–24 Months</td><td>18M – 24M / 2T</td><td>12.7 – 13.3 cm</td><td>5.0" – 5.25"</td><td>5.5C – 6C</td><td>4.5 – 5.5</td><td>21 – 22</td></tr>
+                <tr><td>2 – 2.5 Years</td><td>2T</td><td>13.7 – 14.3 cm</td><td>5.4" – 5.6"</td><td>6.5C – 7C</td><td>6 – 6.5</td><td>23</td></tr>
+                <tr><td>2.5 – 3 Years</td><td>3T</td><td>14.6 – 15.2 cm</td><td>5.75" – 6.0"</td><td>7.5C – 8C</td><td>7 – 7.5</td><td>24 – 25</td></tr>
+                <tr><td>3 – 3.5 Years</td><td>3T / 4T</td><td>15.6 – 15.9 cm</td><td>6.1" – 6.25"</td><td>8.5C – 9C</td><td>8 – 8.5</td><td>25 – 26</td></tr>
+                <tr><td>3.5 – 4 Years</td><td>4T / 5T</td><td>16.2 – 16.5 cm</td><td>6.4" – 6.5"</td><td>9.5C – 10C</td><td>9 – 9.5</td><td>26 – 27</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Little Kids (4-8 Years) -->
+        <div class="table-card" style="margin-top:32px">
+          <div class="table-card-head">
+            <h3 class="heading-sm">3. Little Kids Shoe Sizes (4–8 Years)</h3>
+            <span class="category-pill">Preschool &amp; Grade School</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Little kids shoe size chart">
+              <thead>
+                <tr>
+                  <th>Age Range</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                  <th>US Size</th>
+                  <th>UK Size</th>
+                  <th>EU Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>4 – 4.5 Years</td><td>16.8 – 17.1 cm</td><td>6.6" – 6.75"</td><td>10.5C – 11C</td><td>10 – 10.5</td><td>28</td></tr>
+                <tr><td>4.5 – 5 Years</td><td>17.5 – 17.8 cm</td><td>6.9" – 7.0"</td><td>11.5C – 12C</td><td>11 – 11.5</td><td>29 – 30</td></tr>
+                <tr><td>5 – 6 Years</td><td>18.1 – 18.7 cm</td><td>7.1" – 7.35"</td><td>12.5C – 13C</td><td>12 – 12.5</td><td>30 – 31</td></tr>
+                <tr><td>6 – 7 Years</td><td>19.1 – 19.7 cm</td><td>7.5" – 7.75"</td><td>13.5C – 1Y</td><td>13 – 13.5</td><td>31 – 32</td></tr>
+                <tr><td>7 – 8 Years</td><td>20.0 – 20.6 cm</td><td>7.9" – 8.1"</td><td>1.5Y – 2.5Y</td><td>1 – 2</td><td>33 – 34</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Big Kids / Youth (8-12 Years) -->
+        <div class="table-card" style="margin-top:32px">
+          <div class="table-card-head">
+            <h3 class="heading-sm">4. Big Kids &amp; Youth Shoe Sizes (8–12+ Years)</h3>
+            <span class="category-pill">Transition to Adult</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Big kids and youth shoe size chart">
+              <thead>
+                <tr>
+                  <th>Age Range</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                  <th>US Youth Size</th>
+                  <th>UK Size</th>
+                  <th>EU Size</th>
+                  <th>Equivalent Adult Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>8 – 9 Years</td><td>21.0 – 21.6 cm</td><td>8.25" – 8.5"</td><td>3Y – 3.5Y</td><td>2.5 – 3</td><td>34 – 35</td><td>Women's 4.5 – 5</td></tr>
+                <tr><td>9 – 10 Years</td><td>21.9 – 22.5 cm</td><td>8.6" – 8.85"</td><td>4Y – 4.5Y</td><td>3.5 – 4</td><td>35 – 36</td><td>Women's 5.5 – 6</td></tr>
+                <tr><td>10 – 11 Years</td><td>22.9 – 23.5 cm</td><td>9.0" – 9.25"</td><td>5Y – 5.5Y</td><td>4.5 – 5</td><td>37 – 38</td><td>Women's 6.5 – 7 / Men's 5</td></tr>
+                <tr><td>11 – 12 Years</td><td>23.8 – 24.4 cm</td><td>9.4" – 9.6"</td><td>6Y – 6.5Y</td><td>5.5 – 6</td><td>38 – 39</td><td>Women's 7.5 – 8 / Men's 6</td></tr>
+                <tr><td>12+ Years</td><td>24.8 – 25.4 cm</td><td>9.75" – 10.0"</td><td>7Y</td><td>6.5</td><td>40</td><td>Women's 8.5 / Men's 7</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep-Dive Guides -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Parent's Field Guide</p>
+            <h2 class="prose-main-title">How to Measure and Fit Children's Shoes Properly</h2>
+            <p class="prose-lead">Children's bones are made of soft, pliable cartilage until age 5 to 6. A shoe that is too short can force toes into a curled position without causing noticeable pain to the child. Here is how to keep their feet healthy.</p>
+          </header>
+
+          <div class="content-prose">
+            <h3 class="heading-sm">The 2T vs 3T Shoe Sizing Confusion Explained</h3>
+            <p>One of the most frequent misconceptions for parents is searching for <em>"shoe size 2T"</em> or <em>"shoe size 3T"</em>. Labels like 2T, 3T, 4T, and 5T exist strictly in the garment industry to categorize clothing sizes for toddlers (the "T" standing for Toddler, based on height in inches and weight in pounds).</p>
+            <p>Shoe manufacturers do not produce a size "2T" shoe. Instead, toddlers wearing 2T clothes generally wear a shoe size between <strong>5C and 7C</strong>, while toddlers in 3T apparel wear sizes <strong>7C to 9C</strong>. Use bare foot measurement in centimeters rather than clothing tags to choose proper footwear.</p>
+
+            <h3 class="heading-sm">Understanding "C" vs "Y" Sizing Labels</h3>
+            <p>In the United States and Canada, children's shoe sizing runs on a two-tier scale:</p>
+            <ul>
+              <li><strong>"C" (Child / Toddler):</strong> Runs from 0C through 13.5C. This covers infants, toddlers, and young primary school children.</li>
+              <li><strong>"Y" (Youth / Big Kid):</strong> Once a child reaches size 13.5C, the sizing does not continue to 14. Instead, it flips back to <strong>1Y</strong> and runs through <strong>7Y</strong>.</li>
+              <li><strong>Adult Transition:</strong> A youth size 7Y is physically identical in length and width to an adult Men's 7 (or Women's 8.5). Parents can frequently save money on athletic sneakers by shopping the youth equivalent instead of paying adult retail prices.</li>
+            </ul>
+
+            <h3 class="heading-sm">The 12 mm "Rule of Thumb"</h3>
+            <p>When trying shoes on a child, have them stand upright with their weight evenly loaded. Press your thumb down across the front of the shoe in front of their longest toe:</p>
+            <ul>
+              <li>There should be approximately <strong>12 mm (0.5 inch)</strong> of open clearance between the longest toe and the inside tip of the shoe.</li>
+              <li>Less than 6 mm means the shoe is already too small and restricting forward foot glide while running.</li>
+              <li>More than 18 mm means the shoe is oversized and will cause tripping, heel slipping, or unnatural gait compensations.</li>
+            </ul>
+
+            <h3 class="heading-sm">How to Measure a Wriggly Baby or Toddler's Foot at Home</h3>
+            <ol>
+              <li><strong>Use a Hard Surface:</strong> Do not measure on a squishy rug or bed. Place a piece of paper on hardwood, vinyl, or tile flooring against a flat wall.</li>
+              <li><strong>Stand with Weight:</strong> Gently position your child standing on the paper with their heel resting against the wall. A seated child's foot is significantly smaller because foot arches flatten under body weight.</li>
+              <li><strong>Distract with a Toy:</strong> Have someone hand them a favorite book or toy so they look forward rather than curling their toes downward.</li>
+              <li><strong>Mark Both Feet:</strong> Draw a straight line at the tip of the longest toe on each foot. Measure the longer foot from the wall edge in millimeters.</li>
+            </ol>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <div class="faq-card">
+          <p class="mono-eyebrow">Common Questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">Frequently Asked Questions: Kids Sizing</h2>
+          <div class="faq-list">
+            {faqs.map(item => (
+              <details class="faq-item">
+                <summary class="faq-q">
+                  <span>{item.q}</span>
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-a"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 64px 24px 40px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .page-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    max-width: 680px;
+    margin: 16px auto 24px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .badge-trust {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-body);
+  }
+
+  /* Interactive band */
+  .interactive-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .age-calc-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .calc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 28px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .calc-header-hint {
+    color: var(--v-mute);
+    max-width: 320px;
+  }
+  .calc-inputs-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .calc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .input-unit-wrap {
+    display: flex;
+    gap: 8px;
+  }
+  .unit-pill {
+    width: 90px;
+    flex-shrink: 0;
+  }
+
+  /* Dynamic results */
+  .age-result-box {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 24px;
+  }
+  .result-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .result-badge {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--v-link-soft);
+    color: var(--v-link);
+    padding: 6px 14px;
+    border-radius: var(--v-r-full);
+  }
+  .result-growth-note {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--v-body);
+  }
+  .result-sizes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .res-stat-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .primary-stat {
+    border-color: var(--v-link);
+    background: linear-gradient(180deg, var(--v-elevated), var(--v-link-soft));
+  }
+  .res-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--v-mute);
+  }
+  .res-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+  }
+  .res-sub {
+    font-size: 11px;
+    color: var(--v-faint);
+  }
+  .res-advice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--v-body);
+  }
+  .res-advice svg {
+    color: var(--v-link);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .res-advice p { margin: 0; }
+
+  /* Tables section */
+  .table-band {
+    padding: 48px 24px;
+  }
+  .section-heading {
+    margin-bottom: 32px;
+  }
+  .table-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    overflow: hidden;
+  }
+  .table-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    background: var(--v-canvas);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .category-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: var(--v-r-full);
+    background: var(--v-hairline-soft);
+    color: var(--v-body);
+  }
+
+  /* Prose section */
+  .content-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .prose-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 40px;
+  }
+  .prose-header {
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .prose-main-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--v-ink);
+    margin: 8px 0 12px;
+  }
+  .prose-lead {
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--v-body);
+    margin: 0;
+  }
+  .content-prose h3 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+  .content-prose p, .content-prose ul, .content-prose ol {
+    margin-bottom: 16px;
+    line-height: 24px;
+    color: var(--v-body);
+  }
+  .content-prose ul, .content-prose ol {
+    padding-left: 20px;
+  }
+  .content-prose li {
+    margin-bottom: 8px;
+  }
+
+  /* FAQ */
+  .faq-band {
+    padding: 48px 24px 80px;
+  }
+  .faq-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 36px;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-sm);
+    overflow: hidden;
+    background: var(--v-canvas);
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] {
+    border-color: var(--v-link);
+  }
+  .faq-q {
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--v-ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .faq-chevron {
+    transition: transform 0.2s ease;
+    color: var(--v-mute);
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--v-link);
+  }
+  .faq-a {
+    padding: 0 20px 16px;
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .faq-a p { margin: 0; }
+
+  @media (max-width: 768px) {
+    .calc-inputs-grid {
+      grid-template-columns: 1fr;
+    }
+    .result-sizes-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .prose-card, .age-calc-card, .faq-card {
+      padding: 24px 16px;
+    }
+  }
+</style>
+
+<script>
+  // Child Age Database
+  const ageData = {
+    '0-3m': {
+      stage: 'Newborn / Infant (0–3M)',
+      growth: 'Rapid Growth: Checks every 6–8 weeks',
+      us: '0.5C',
+      uk: '0',
+      eu: '15–16',
+      cm: '8.6 cm',
+      inches: '3.4 inches',
+      advice: 'Newborns do not need rigid shoes. Opt for soft cotton booties or warm socks that preserve natural toe wiggling.'
+    },
+    '3-6m': {
+      stage: 'Infant (3–6M)',
+      growth: 'Rapid Growth: Checks every 2 months',
+      us: '1.5C',
+      uk: '1',
+      eu: '17',
+      cm: '9.5 cm',
+      inches: '3.75 inches',
+      advice: 'Look for soft-soled slippers that protect baby feet from cool floors without restricting developing arches.'
+    },
+    '6-9m': {
+      stage: 'Infant (6–9M)',
+      growth: 'Growth: ~1 size every 2–3 months',
+      us: '2.5C',
+      uk: '2',
+      eu: '18',
+      cm: '10.5 cm',
+      inches: '4.1 inches',
+      advice: 'Babies begin crawling and pulling to stand. Look for leather moccasins or rubberized grip socks for traction.'
+    },
+    '9-12m': {
+      stage: 'Toddler (1 Year Old / 9–12M)',
+      growth: 'Growth: ~1 size every 2–3 months',
+      us: '4C',
+      uk: '3.5',
+      eu: '19–20',
+      cm: '11.7 cm',
+      inches: '4.6 inches',
+      advice: 'For early walkers, prioritize lightweight, flexible soles that mimic barefoot walking. Leave about 12 mm space at the toe.'
+    },
+    '12-18m': {
+      stage: 'Toddler (12–18M)',
+      growth: 'Active Walker: ~1 size every 3 months',
+      us: '5C',
+      uk: '4.5',
+      eu: '20–21',
+      cm: '12.4 cm',
+      inches: '4.9 inches',
+      advice: 'Ensure the toe box is wide and rounded. Toddlers have wide, flat feet with natural fat pads under the arch.'
+    },
+    '18-24m': {
+      stage: 'Toddler (2 Years Old / 18–24M)',
+      growth: 'Active Walker: ~1 size every 3 months',
+      us: '6C',
+      uk: '5.5',
+      eu: '22',
+      cm: '13.3 cm',
+      inches: '5.25 inches',
+      advice: 'At age 2, toddlers wear approximately 5.5C to 6.5C. Inspect the top of their toes for any redness indicating a tight toe box.'
+    },
+    '2-3y': {
+      stage: 'Toddler (2–3 Years / 2T–3T)',
+      growth: 'Growth: ~1 size every 3–4 months',
+      us: '7C – 8C',
+      uk: '6.5 – 7.5',
+      eu: '23 – 25',
+      cm: '14.6 cm',
+      inches: '5.75 inches',
+      advice: 'Toddlers in 2T/3T clothing typically wear 7C to 8C shoes. Choose shoes with secure velcro straps for easy independence.'
+    },
+    '3-4y': {
+      stage: 'Toddler (3–4 Years / 3T–4T)',
+      growth: 'Growth: ~1 size every 3–4 months',
+      us: '9C',
+      uk: '8.5',
+      eu: '26',
+      cm: '15.9 cm',
+      inches: '6.25 inches',
+      advice: 'Arches begin to form naturally. Continue prioritizing pliable soles rather than stiff, heavy orthotic sneakers.'
+    },
+    '4-5y': {
+      stage: 'Preschooler (4–5 Years / 4T–5T)',
+      growth: 'Growth: ~1 size every 4 months',
+      us: '11C',
+      uk: '10.5',
+      eu: '28–29',
+      cm: '17.1 cm',
+      inches: '6.75 inches',
+      advice: 'Average 5-year-olds wear size 11C to 12C. Always measure in late afternoon when active feet are slightly expanded.'
+    },
+    '5-6y': {
+      stage: 'Little Kid (5–6 Years / Kindergarten)',
+      growth: 'Growth: ~1 size every 4–5 months',
+      us: '12.5C',
+      uk: '12',
+      eu: '30–31',
+      cm: '18.4 cm',
+      inches: '7.25 inches',
+      advice: 'Look for reinforced rubber toe caps for schoolyard play, while ensuring the heel counter prevents slipping.'
+    },
+    '6-7y': {
+      stage: 'Little Kid (6–7 Years)',
+      growth: 'Growth: ~1 size every 4–5 months',
+      us: '13.5C / 1Y',
+      uk: '13 / 0.5',
+      eu: '31–32',
+      cm: '19.4 cm',
+      inches: '7.65 inches',
+      advice: 'At this milestone, sizing transitions from "C" (Child 13.5C) to "Y" (Youth 1Y). Remember 1Y is larger than 13.5C.'
+    },
+    '7-8y': {
+      stage: 'Little Kid (7–8 Years)',
+      growth: 'Growth: ~1 size every 5–6 months',
+      us: '2Y',
+      uk: '1.5',
+      eu: '33',
+      cm: '20.6 cm',
+      inches: '8.1 inches',
+      advice: 'Youth sizing is in full effect. Ensure lace or dial mechanisms provide uniform pressure across the midfoot.'
+    },
+    '8-9y': {
+      stage: 'Youth / Big Kid (8–9 Years)',
+      growth: 'Growth: ~1 size every 6 months',
+      us: '3.5Y',
+      uk: '3',
+      eu: '35',
+      cm: '21.6 cm',
+      inches: '8.5 inches',
+      advice: 'Kids at this age participate in structured sports. Verify adequate arch and lateral support in running and court shoes.'
+    },
+    '10-12y': {
+      stage: 'Youth / Big Kid (10–12 Years)',
+      growth: 'Stabilizing Growth: 1 size every 6–9 months',
+      us: '5Y – 6Y',
+      uk: '4.5 – 5.5',
+      eu: '37 – 39',
+      cm: '23.5 cm',
+      inches: '9.25 inches',
+      advice: 'Sizes 6Y and 7Y correspond to adult Men\'s 6–7 or Women\'s 7.5–8.5. Kids can comfortably cross-shop adult selections.'
+    }
+  };
+
+  const ageSelect = document.getElementById('child-age-select') as HTMLSelectElement;
+  const lengthInput = document.getElementById('child-length-input') as HTMLInputElement;
+  const unitSelect = document.getElementById('child-length-unit') as HTMLSelectElement;
+
+  const stageBadge = document.getElementById('res-stage-badge');
+  const growthRate = document.getElementById('res-growth-rate');
+  const usSize = document.getElementById('res-us-size');
+  const ukSize = document.getElementById('res-uk-size');
+  const euSize = document.getElementById('res-eu-size');
+  const lengthVal = document.getElementById('res-length');
+  const inchesVal = document.getElementById('res-inches');
+  const adviceEl = document.getElementById('res-advice');
+
+  function updateByAge() {
+    const key = ageSelect?.value || '9-12m';
+    const data = ageData[key];
+    if (!data) return;
+
+    if (stageBadge) stageBadge.textContent = data.stage;
+    if (growthRate) growthRate.textContent = data.growth;
+    if (usSize) usSize.textContent = data.us;
+    if (ukSize) ukSize.textContent = data.uk;
+    if (euSize) euSize.textContent = data.eu;
+    if (lengthVal) lengthVal.textContent = data.cm;
+    if (inchesVal) inchesVal.textContent = data.inches;
+    if (adviceEl) {
+      adviceEl.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        <p><strong>Fit Tip:</strong> ${data.advice}</p>
+      `;
+    }
+  }
+
+  function updateByLength() {
+    const rawVal = parseFloat(lengthInput?.value || '0');
+    if (!rawVal || rawVal < 7) return;
+
+    const unit = unitSelect?.value || 'cm';
+    const cm = unit === 'in' ? rawVal * 2.54 : rawVal;
+
+    // Approximate size lookup from cm
+    let us = '1C';
+    let uk = '0.5';
+    let eu = '16';
+    let category = 'Infant';
+
+    if (cm < 9.5) { us = '0.5C'; uk = '0'; eu = '15'; category = 'Baby (0–3M)'; }
+    else if (cm < 10.5) { us = '1.5C'; uk = '1'; eu = '17'; category = 'Infant (3–6M)'; }
+    else if (cm < 11.4) { us = '2.5C'; uk = '2'; eu = '18'; category = 'Infant (6–9M)'; }
+    else if (cm < 12.1) { us = '4C'; uk = '3.5'; eu = '19–20'; category = 'Toddler (1 Year)'; }
+    else if (cm < 13.0) { us = '5C'; uk = '4.5'; eu = '21'; category = 'Toddler (1.5 Years)'; }
+    else if (cm < 14.0) { us = '6.5C'; uk = '6'; eu = '22–23'; category = 'Toddler (2 Years)'; }
+    else if (cm < 15.0) { us = '7.5C'; uk = '7'; eu = '24'; category = 'Toddler (2.5 Years)'; }
+    else if (cm < 16.0) { us = '9C'; uk = '8.5'; eu = '25–26'; category = 'Toddler (3 Years)'; }
+    else if (cm < 17.0) { us = '10.5C'; uk = '10'; eu = '27–28'; category = 'Little Kid (4 Years)'; }
+    else if (cm < 18.0) { us = '12C'; uk = '11.5'; eu = '29–30'; category = 'Little Kid (5 Years)'; }
+    else if (cm < 19.5) { us = '13.5C / 1Y'; uk = '13 / 0.5'; eu = '31–32'; category = 'Little Kid (6–7 Years)'; }
+    else if (cm < 21.0) { us = '2Y'; uk = '1.5'; eu = '33–34'; category = 'Youth (7–8 Years)'; }
+    else if (cm < 22.5) { us = '4Y'; uk = '3.5'; eu = '35–36'; category = 'Youth (9–10 Years)'; }
+    else { us = '6Y'; uk = '5.5'; eu = '38–39'; category = 'Youth (11–12 Years)'; }
+
+    if (stageBadge) stageBadge.textContent = `Measured: ${category}`;
+    if (growthRate) growthRate.textContent = `Foot length: ${cm.toFixed(1)} cm (${(cm / 2.54).toFixed(1)}")`;
+    if (usSize) usSize.textContent = us;
+    if (ukSize) ukSize.textContent = uk;
+    if (euSize) euSize.textContent = eu;
+    if (lengthVal) lengthVal.textContent = `${cm.toFixed(1)} cm`;
+    if (inchesVal) inchesVal.textContent = `${(cm / 2.54).toFixed(1)} inches`;
+    if (adviceEl) {
+      adviceEl.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        <p><strong>Custom Fit:</strong> For an exact foot length of ${cm.toFixed(1)} cm, choose shoes with an internal footbed length of ${(cm + 1.2).toFixed(1)} cm to ensure proper room for growth.</p>
+      `;
+    }
+  }
+
+  ageSelect?.addEventListener('change', () => {
+    if (lengthInput) lengthInput.value = '';
+    updateByAge();
+  });
+
+  lengthInput?.addEventListener('input', updateByLength);
+  unitSelect?.addEventListener('change', updateByLength);
+
+  // Initialize default
+  updateByAge();
+</script>

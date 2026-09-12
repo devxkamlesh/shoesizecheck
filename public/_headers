@@ -1,0 +1,9 @@
+# Prevent indexing of Cloudflare Pages development and preview domains
+https://allshoesizeconverter.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+https://*.allshoesizeconverter.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+https://*.pages.dev/*
+  X-Robots-Tag: noindex, nofollow

@@ -1,0 +1,359 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/shoe-size-in-inches/`;
+const pageTitle = 'Shoe Size in Inches — Foot Length to Shoe Size Chart & Calculator | AllShoeSizeConverter';
+const pageDescription = 'Convert foot length in inches to shoe size. Full shoe size in inches charts for men, women, and kids covering US, UK, EU, and India sizes.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'Is shoe size measured in inches?',
+    a: 'Yes, historically and mathematically. Both US and UK shoe sizing originate from the English barleycorn system, where 1 size increment equals 1/3 of an inch (~8.46 mm). A half size equals 1/6 of an inch (~4.23 mm). While shoeboxes show whole numbers like 8 or 9.5, those numbers directly correspond to specific foot lengths measured in inches.'
+  },
+  {
+    q: 'How many inches are between shoe sizes?',
+    a: 'Every full shoe size in US and UK sizing represents exactly 1/3 of an inch (approx. 0.33 inches or 8.46 mm). Every half size represents 1/6 of an inch (approx. 0.17 inches or 4.23 mm).'
+  },
+  {
+    q: 'What is 10 inches in shoe size?',
+    a: 'Exactly 10 inches equals 25.4 cm. For men, a 10-inch foot fits a US Men\'s 7.5 to 8, UK 7, or EU 40.5 to 41. For women, 10 inches fits a US Women\'s 9 to 9.5, UK 7, or EU 40.5.'
+  },
+  {
+    q: 'How big is a size 9 shoe in inches?',
+    a: 'A US Men\'s size 9 shoe fits a foot length of approximately 10.3 inches (26.2 cm). A US Women\'s size 9 shoe fits a foot measuring approximately 9.8 to 9.9 inches (25.0 cm).'
+  },
+  {
+    q: 'How big is a size 6 shoe in inches?',
+    a: 'A US Men\'s size 6 fits a foot length of roughly 9.3 inches (23.6 cm). A US Women\'s size 6 fits a foot length of roughly 8.9 inches (22.6 cm). In UK sizing, a UK 6 fits an adult foot of about 9.6 inches (24.5 cm).'
+  },
+  {
+    q: 'How to measure shoe size in inches at home?',
+    a: 'Place a sheet of paper on a hard, uncarpeted floor against a wall. Stand with your bare heel touching the wall. Mark the tip of your longest toe with a pencil held straight. Measure the length with a ruler or measuring tape in inches, rounding up to the nearest 1/8 inch.'
+  },
+  {
+    q: 'What is UK shoe size in inches compared to US?',
+    a: 'UK shoe sizes use the identical 1/3-inch increment as the US, but with a different baseline. For men, UK sizing is 0.5 to 1 size smaller (US Men\'s 9 = UK 8.5 for a 10.3-inch foot). For women, UK sizing is approximately 2 sizes smaller (US Women\'s 9 = UK 7 for a 9.9-inch foot).'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="shoe size in inches, women's shoe size in inches, kids shoe size in inches, uk shoe size in inches, is shoe size in inches, what is 10 inches in shoe size, how many inches in a shoe size, how big is a size 9 shoe in inches" />
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Shoe Size in Inches' }]} />
+
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Foot Length in Inches</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,48px)">Shoe Size in Inches</h1>
+        <p class="hero-sub body-lg">Convert your foot length in inches to shoe size. Find your exact US, UK, EU, and India size with our live calculator and comparison charts.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">4"–13" Range</span>
+          <span class="badge-trust">Men, Women &amp; Kids</span>
+          <span class="badge-trust">Instant Inch Calculator</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inline calculator -->
+    <section class="calc-band">
+      <div class="page-inner">
+        <div class="card-elevated calc-card">
+          <h2 class="heading-md">Inches to Shoe Size Calculator</h2>
+          <div class="calc-row">
+            <div class="calc-field">
+              <label class="step-label" for="inches-input"><span class="step-num">1</span> Foot Length (inches)</label>
+              <input type="number" id="inches-input" class="form-input" placeholder="e.g. 10.5" min="4" max="14" step="0.1" aria-label="Foot length in inches"/>
+            </div>
+            <div class="calc-field">
+              <label class="step-label" for="inches-gender"><span class="step-num">2</span> Category</label>
+              <select id="inches-gender" class="form-select" aria-label="Gender or category">
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="kids">Kids</option>
+              </select>
+            </div>
+          </div>
+          <div id="inches-result" class="calc-result" aria-live="polite">
+            <p class="calc-placeholder">Enter your foot length in inches to see your shoe size</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tables -->
+    <section class="table-band">
+      <div class="page-inner">
+        <h2 class="heading-md">Men's Shoe Size in Inches</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label="Men shoe size in inches">
+            <thead><tr><th>Inches</th><th>CM</th><th>US Men</th><th>UK</th><th>EU</th><th>India</th></tr></thead>
+            <tbody>
+              <tr><td>9.3"</td><td>23.6</td><td>6</td><td>5.5</td><td>39</td><td>5</td></tr>
+              <tr><td>9.5"</td><td>24.1</td><td>6.5</td><td>6</td><td>39</td><td>5.5</td></tr>
+              <tr><td>9.6"</td><td>24.4</td><td>7</td><td>6.5</td><td>40</td><td>6</td></tr>
+              <tr><td>9.8"</td><td>24.9</td><td>7.5</td><td>7</td><td>40</td><td>6.5</td></tr>
+              <tr><td>9.9"</td><td>25.1</td><td>8</td><td>7.5</td><td>41</td><td>7</td></tr>
+              <tr><td>10.1"</td><td>25.7</td><td>8.5</td><td>8</td><td>41</td><td>7.5</td></tr>
+              <tr><td>10.3"</td><td>26.2</td><td>9</td><td>8.5</td><td>42</td><td>8</td></tr>
+              <tr><td>10.4"</td><td>26.4</td><td>9.5</td><td>9</td><td>42</td><td>8.5</td></tr>
+              <tr><td>10.6"</td><td>26.9</td><td>10</td><td>9.5</td><td>43</td><td>9</td></tr>
+              <tr><td>10.8"</td><td>27.4</td><td>10.5</td><td>10</td><td>43</td><td>9.5</td></tr>
+              <tr><td>10.9"</td><td>27.7</td><td>11</td><td>10.5</td><td>44</td><td>10</td></tr>
+              <tr><td>11.3"</td><td>28.7</td><td>12</td><td>11.5</td><td>45</td><td>11</td></tr>
+              <tr><td>11.6"</td><td>29.5</td><td>13</td><td>12.5</td><td>46</td><td>12</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="heading-md" style="margin-top:48px">Women's Shoe Size in Inches</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label="Women shoe size in inches">
+            <thead><tr><th>Inches</th><th>CM</th><th>US Women</th><th>UK</th><th>EU</th><th>India</th></tr></thead>
+            <tbody>
+              <tr><td>8.5"</td><td>21.6</td><td>5</td><td>3</td><td>35</td><td>3</td></tr>
+              <tr><td>8.8"</td><td>22.2</td><td>5.5</td><td>3.5</td><td>36</td><td>3.5</td></tr>
+              <tr><td>8.9"</td><td>22.6</td><td>6</td><td>4</td><td>36</td><td>4</td></tr>
+              <tr><td>9.1"</td><td>23.0</td><td>6.5</td><td>4.5</td><td>37</td><td>4.5</td></tr>
+              <tr><td>9.3"</td><td>23.6</td><td>7</td><td>5</td><td>37</td><td>5</td></tr>
+              <tr><td>9.4"</td><td>23.9</td><td>7.5</td><td>5.5</td><td>38</td><td>5.5</td></tr>
+              <tr><td>9.5"</td><td>24.1</td><td>8</td><td>6</td><td>38</td><td>6</td></tr>
+              <tr><td>9.7"</td><td>24.6</td><td>8.5</td><td>6.5</td><td>39</td><td>6.5</td></tr>
+              <tr><td>9.9"</td><td>25.1</td><td>9</td><td>7</td><td>39</td><td>7</td></tr>
+              <tr><td>10.2"</td><td>25.9</td><td>10</td><td>8</td><td>40</td><td>8</td></tr>
+              <tr><td>10.5"</td><td>26.7</td><td>11</td><td>9</td><td>41</td><td>9</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="heading-md" style="margin-top:48px">Kids Shoe Size in Inches</h2>
+        <div class="scroll-x">
+          <table class="size-table" aria-label="Kids shoe size in inches">
+            <thead><tr><th>Inches</th><th>CM</th><th>US Kids</th><th>UK Child</th><th>EU Kids</th></tr></thead>
+            <tbody>
+              <tr><td>4.3"</td><td>11.0</td><td>1C</td><td>0.5</td><td>17</td></tr>
+              <tr><td>4.7"</td><td>12.0</td><td>2C</td><td>1</td><td>18</td></tr>
+              <tr><td>5.1"</td><td>13.0</td><td>4C</td><td>3</td><td>19</td></tr>
+              <tr><td>5.5"</td><td>14.0</td><td>5C</td><td>4</td><td>21</td></tr>
+              <tr><td>5.9"</td><td>15.0</td><td>7C</td><td>6</td><td>23</td></tr>
+              <tr><td>6.3"</td><td>16.0</td><td>8.5C</td><td>8</td><td>25</td></tr>
+              <tr><td>6.7"</td><td>17.0</td><td>10C</td><td>9</td><td>27</td></tr>
+              <tr><td>7.1"</td><td>18.0</td><td>11C</td><td>10</td><td>28</td></tr>
+              <tr><td>7.5"</td><td>19.0</td><td>12C</td><td>11</td><td>30</td></tr>
+              <tr><td>7.9"</td><td>20.0</td><td>1Y</td><td>13</td><td>32</td></tr>
+              <tr><td>8.3"</td><td>21.0</td><td>2Y</td><td>1Y</td><td>33</td></tr>
+              <tr><td>8.7"</td><td>22.0</td><td>3Y</td><td>2Y</td><td>35</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cta-box">
+          <h2 class="heading-md">Need an International Conversion?</h2>
+          <p class="body-lg">Convert directly between US, UK, EU, India, and Japan sizing with one click.</p>
+          <a href="/#converter" class="btn-primary">Open Full Converter</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Guide to Shoe Sizing in Inches (500+ words) -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Imperial Footwear Guide</p>
+            <h2 class="prose-main-title">The History of Shoe Sizes in Inches: The Barleycorn Standard</h2>
+            <p class="prose-lead">Learn why shoe sizes step in 1/3-inch increments, how half sizes work, and how to convert tape measure fractions accurately to shoe sizes.</p>
+          </header>
+
+          <div class="content-prose">
+            <p>If you have ever wondered why shoe sizes step in peculiar fractions rather than clean round numbers, the answer dates back over 700 years. In 1324, King Edward II of England standardized the inch as the length of three dried barleycorn grains laid end-to-end. Cordwainers (shoemakers) quickly realized that one barleycorn — exactly <strong>one-third of an inch (approx. 8.46 millimeters)</strong> — made the ideal increment between adult shoe sizes.</p>
+            <p>To this day, both the United States and the United Kingdom footwear sizing scales remain anchored to this ancient 1/3-inch increment. While shoeboxes display whole numbers like 8, 9, or 10, each step up adds precisely one barleycorn in length to the lasting mold.</p>
+
+            <h3 class="heading-md">How Half Sizes Work in Inches</h3>
+            <p>In the late 19th century, American footwear manufacturers introduced half sizes to accommodate subtle differences in foot length. A half shoe size is exactly half a barleycorn: <strong>one-sixth of an inch (approx. 0.169 inches or 4.23 mm)</strong>.</p>
+            <p>While four millimeters might sound insignificant on a ruler, inside a structured shoe it represents the difference between a natural walking stride and painful toe crowding. If you feel pressure against your big toe nail when your foot bends, moving up a half size gives you the necessary 1/6-inch of toe relief without making the heel cavity too wide.</p>
+
+            <h3 class="heading-md">Converting Tape Measure Fractions to Shoe Sizes</h3>
+            <p>Most household tape measures and rulers divide inches into eighths or sixteenths rather than thirds and sixths. When measuring your foot, use this practical conversion reference to map your fractional inch measurement to your shoe size:</p>
+            <ul>
+              <li><strong>8 7/8 to 9 inches (22.6–22.9 cm):</strong> Fits US Women's 6 or US Men's 4.5 (UK 4, EU 36.5).</li>
+              <li><strong>9 1/4 to 9 3/8 inches (23.5–23.8 cm):</strong> Fits US Women's 7 or US Men's 5.5 (UK 5, EU 37.5).</li>
+              <li><strong>9 5/8 to 9 3/4 inches (24.4–24.8 cm):</strong> Fits US Women's 8 or US Men's 6.5 (UK 6, EU 39).</li>
+              <li><strong>9 7/8 to 10 inches (25.1–25.4 cm):</strong> Fits US Women's 9 or US Men's 7.5 to 8 (UK 7, EU 40.5).</li>
+              <li><strong>10 1/4 to 10 3/8 inches (26.0–26.4 cm):</strong> Fits US Women's 10 or US Men's 8.5 to 9 (UK 8, EU 42).</li>
+              <li><strong>10 5/8 to 10 3/4 inches (27.0–27.3 cm):</strong> Fits US Men's 9.5 to 10 (UK 9, EU 43).</li>
+              <li><strong>11 inches (27.9 cm):</strong> Fits US Men's 10.5 to 11 (UK 10, EU 44).</li>
+            </ul>
+
+            <div class="prose-callout">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <p><strong>Measuring Tip:</strong> When using a standard tape measure, round up to the nearest 1/8 inch mark if you fall between lines. Always leave 3/8 to 1/2 inch of toe allowance for daily walking comfort.</p>
+            </div>
+
+            <h3 class="heading-md">Why Women's and Men's Sizes Differ for the Same Inch Measurement</h3>
+            <p>A foot measuring exactly 10 inches from heel to toe fits a US Men's 7.5 to 8, but an identical 10-inch foot requires a US Women's 9 to 9.5. This 1.5-size gap exists because the US women's scale was calibrated on an offset baseline.</p>
+            <p>Furthermore, women's shoes built to standard "B" width are narrower through the arch and heel cup than men's standard "D" width shoes. If a woman with a 10-inch foot buys a Men's 8 for extra forefoot room, the shoe will likely slip at the heel. Conversely, if a man with a 9.5-inch foot buys a Women's 8, the shoe will feel excessively tight across the metatarsal bones.</p>
+
+            <h3 class="heading-md">Kids' Shoe Sizing in Inches and the "Size 13" Reset</h3>
+            <p>Parents often experience confusion when shopping for growing kids because children's shoe sizing resets mid-childhood. The American children's system begins with infant size 0C (approx. 3.25 inches) and progresses up to children's size 13C (approx. 7.67 inches). Once a child outgrows 13C, the scale restarts at Youth 1Y (approx. 8.0 inches), which continues up to 7Y (approx. 9.75 inches). A youth size 7Y is identical in length to a Men's 7 or a Women's 8.5.</p>
+            <p>When measuring a child's foot in inches, always add between 3/8 inch and 1/2 inch of space in front of the toes. This ensures the child has adequate room for natural forward slide when walking and running, while allowing 3 to 4 months of healthy foot growth before needing the next size.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="faq-band" id="faq">
+      <div class="page-inner">
+        <p class="mono-eyebrow">FAQ</p>
+        <h2 class="heading-md">Frequently Asked Questions: Shoe Size in Inches</h2>
+        <div class="faq-list">
+          {faqs.map((f, i) => (
+            <div class="faq-item">
+              <button class="faq-trigger" aria-expanded="false" id={`inchfaq-${i}`} aria-controls={`inchfaq-c-${i}`}>
+                <span>{f.q}</span>
+                <span class="faq-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-content" id={`inchfaq-c-${i}`} role="region" aria-labelledby={`inchfaq-${i}`}>
+                <div class="faq-inner">{f.a}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero { padding: 48px 24px 40px; background: var(--v-canvas); }
+  .page-inner { max-width: 900px; margin: 0 auto; }
+  .hero-sub { margin: 12px 0 20px; max-width: 600px; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .calc-band { padding: 0 24px 64px; background: var(--v-canvas); }
+  .calc-card { padding: 24px; }
+  .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 20px; }
+  .calc-result { min-height: 50px; display: flex; align-items: center; }
+  .calc-placeholder { color: var(--v-faint); font-size: 14px; margin: 0; }
+  .result-row { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+  .result-chip { padding: 6px 12px; background: var(--v-canvas); border: 1px solid var(--v-hairline); border-radius: var(--v-r-sm); font-size: 14px; color: var(--v-ink); }
+  .result-chip span { font-weight: 600; }
+
+  .table-band { padding: 64px 24px; background: var(--v-canvas); border-top: 1px solid var(--v-hairline); }
+  .cta-box { margin-top: 48px; text-align: center; padding: 48px 32px; background: var(--v-elevated); border: 1px solid var(--v-hairline); border-radius: var(--v-r-lg); }
+  .cta-box h2 { margin: 0 0 8px; }
+  .cta-box p { margin: 0 0 20px; }
+
+  @media (max-width: 640px) {
+    .page-hero { padding: 32px 16px; }
+    .calc-band { padding: 0 16px 48px; }
+    .table-band { padding: 48px 16px; }
+    .calc-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const inchesInput = document.getElementById('inches-input');
+  const genderSelect = document.getElementById('inches-gender');
+  const resultEl = document.getElementById('inches-result');
+
+  const DATA = {
+    men: {
+      inches: [9.3,9.5,9.6,9.8,9.9,10.1,10.3,10.4,10.6,10.8,10.9,11.1,11.3,11.6,11.9,12.2,12.5],
+      us: [6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,13,14,15,16],
+      uk: [5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12.5,13.5,14.5,15.5],
+      eu: [39,39,40,40,41,41,42,42,43,43,44,44,45,46,47,48,49],
+      india: [5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,12,13,14,15]
+    },
+    women: {
+      inches: [8.2,8.3,8.5,8.8,8.9,9.1,9.3,9.4,9.5,9.7,9.9,10,10.2,10.3,10.5,10.7,10.9],
+      us: [4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12],
+      uk: [2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+      eu: [35,35,35,36,36,37,37,38,38,39,39,40,40,41,41,42,42],
+      india: [2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10]
+    },
+    kids: {
+      inches: [4.3, 4.7, 5.1, 5.5, 5.9, 6.3, 6.7, 7.1, 7.5, 7.9, 8.3, 8.7],
+      us: ['1C', '2C', '4C', '5C', '7C', '8.5C', '10C', '11C', '12C', '1Y', '2Y', '3Y'],
+      uk: ['0.5', '1', '3', '4', '6', '8', '9', '10', '11', '13', '1Y', '2Y'],
+      eu: [17, 18, 19, 21, 23, 25, 27, 28, 30, 32, 33, 35],
+      india: [1, 2, 3, 4, 5, 7, 9, 10, 11, 12, 13, 1]
+    }
+  };
+
+  function findClosest(arr, val) {
+    let idx = 0, m = Infinity;
+    arr.forEach((v, i) => {
+      const d = Math.abs(v - val);
+      if (d < m) { m = d; idx = i; }
+    });
+    return idx;
+  }
+
+  function calc() {
+    const val = parseFloat(inchesInput?.value);
+    const g = genderSelect?.value || 'men';
+    if (!val || isNaN(val)) {
+      if (resultEl) resultEl.innerHTML = '<p class="calc-placeholder">Enter your foot length in inches to see your shoe size</p>';
+      return;
+    }
+    const d = DATA[g];
+    const idx = findClosest(d.inches, val);
+    const cmVal = Math.round(val * 2.54 * 10) / 10;
+    const catLabel = g === 'men' ? 'US Men' : g === 'women' ? 'US Women' : 'US Kids';
+
+    if (resultEl) {
+      resultEl.innerHTML = `<div class="result-row">
+        <div class="result-chip">${catLabel}: <span>${d.us[idx]}</span></div>
+        <div class="result-chip">UK: <span>${d.uk[idx]}</span></div>
+        <div class="result-chip">EU: <span>${d.eu[idx]}</span></div>
+        <div class="result-chip">India: <span>${d.india[idx]}</span></div>
+        <div class="result-chip">CM: <span>≈${cmVal} cm</span></div>
+      </div>`;
+    }
+  }
+
+  inchesInput?.addEventListener('input', calc);
+  genderSelect?.addEventListener('change', calc);
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-trigger').forEach(t => {
+    t.addEventListener('click', () => {
+      const exp = t.getAttribute('aria-expanded') === 'true';
+      t.setAttribute('aria-expanded', String(!exp));
+      t.nextElementSibling?.classList.toggle('open', !exp);
+    });
+  });
+</script>

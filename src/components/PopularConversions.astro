@@ -1,0 +1,93 @@
+---
+// PopularConversions.astro — Quick conversion cards, Geist design
+const conversions = [
+  { from: 'US', to: 'EU',    emoji: '🇺🇸→🇪🇺', href: '/us-to-eu-shoe-size/' },
+  { from: 'US', to: 'UK',    emoji: '🇺🇸→🇬🇧', href: '/us-to-uk-shoe-size/' },
+  { from: 'US', to: 'India', emoji: '🇺🇸→🇮🇳', href: '/us-to-india-shoe-size/' },
+  { from: 'EU', to: 'US',    emoji: '🇪🇺→🇺🇸', href: '/eu-to-us-shoe-size/' },
+  { from: 'UK', to: 'US',    emoji: '🇬🇧→🇺🇸', href: '/uk-to-us-shoe-size/' },
+  { from: 'India', to: 'US', emoji: '🇮🇳→🇺🇸', href: '/india-to-us-shoe-size/' },
+  { from: 'EU', to: 'UK',    emoji: '🇪🇺→🇬🇧', href: '/eu-to-uk-shoe-size/' },
+  { from: 'CM', to: 'All',   emoji: '📏',        href: '/shoe-size-in-cm/' },
+];
+---
+
+<section class="pop-section">
+  <div class="pop-inner">
+    <p class="mono-eyebrow">Popular Conversions</p>
+    <h2 class="heading-lg">Quick Shoe Size Conversions</h2>
+    <p class="pop-sub body-lg">Jump to the most commonly searched shoe size conversion. Each page includes a dedicated converter and full chart.</p>
+
+    <div class="pop-grid">
+      {conversions.map(c => (
+        <a href={c.href} class="pop-card">
+          <span class="pop-emoji">{c.emoji}</span>
+          <span class="pop-label">{c.from} → {c.to}</span>
+          <svg class="pop-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pop-section {
+    padding: 96px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .pop-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .pop-sub {
+    margin: 8px 0 32px;
+    max-width: 540px;
+  }
+
+  .pop-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .pop-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    text-decoration: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+  }
+  .pop-card:hover {
+    border-color: #ddd;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .pop-emoji { font-size: 20px; flex-shrink: 0; }
+  .pop-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--v-ink);
+    letter-spacing: -0.28px;
+  }
+  .pop-arrow {
+    position: absolute;
+    right: 16px;
+    color: var(--v-faint);
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .pop-card:hover .pop-arrow {
+    color: var(--v-ink);
+    transform: translateX(2px);
+  }
+
+  @media (max-width: 900px) { .pop-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) {
+    .pop-section { padding: 64px 16px; }
+    .pop-grid { grid-template-columns: 1fr; }
+  }
+</style>

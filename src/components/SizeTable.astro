@@ -1,0 +1,135 @@
+---
+// SizeTable.astro — Tabbed size charts, Geist design
+---
+
+<section class="chart-section" id="size-charts">
+  <div class="chart-inner">
+    <p class="mono-eyebrow">Size Charts</p>
+    <h2 class="heading-lg">Shoe Size Charts</h2>
+    <p class="chart-sub body-lg">Complete shoe size charts for men, women and kids — all systems side by side.</p>
+
+    <!-- Tabs -->
+    <div class="tab-group chart-tabs" role="tablist" aria-label="Select chart">
+      <button class="tab-btn active" role="tab" data-chart="men" aria-selected="true">Men</button>
+      <button class="tab-btn" role="tab" data-chart="women" aria-selected="false">Women</button>
+      <button class="tab-btn" role="tab" data-chart="kids" aria-selected="false">Kids</button>
+    </div>
+
+    <!-- Men's Chart -->
+    <div class="chart-panel" id="chart-men" role="tabpanel">
+      <div class="scroll-x">
+        <table class="size-table" aria-label="Men shoe size chart">
+          <thead>
+            <tr><th>US</th><th>UK</th><th>EU</th><th>India</th><th>JP/CM</th><th>Inches</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>6</td><td>5.5</td><td>39</td><td>5</td><td>24</td><td>9.3"</td></tr>
+            <tr><td>6.5</td><td>6</td><td>39</td><td>5.5</td><td>24.5</td><td>9.5"</td></tr>
+            <tr><td>7</td><td>6.5</td><td>40</td><td>6</td><td>25</td><td>9.6"</td></tr>
+            <tr><td>7.5</td><td>7</td><td>40</td><td>6.5</td><td>25.5</td><td>9.8"</td></tr>
+            <tr><td>8</td><td>7.5</td><td>41</td><td>7</td><td>26</td><td>9.9"</td></tr>
+            <tr><td>8.5</td><td>8</td><td>41</td><td>7.5</td><td>26.5</td><td>10.1"</td></tr>
+            <tr><td>9</td><td>8.5</td><td>42</td><td>8</td><td>27</td><td>10.3"</td></tr>
+            <tr><td>9.5</td><td>9</td><td>42</td><td>8.5</td><td>27.5</td><td>10.4"</td></tr>
+            <tr><td>10</td><td>9.5</td><td>43</td><td>9</td><td>28</td><td>10.6"</td></tr>
+            <tr><td>10.5</td><td>10</td><td>43</td><td>9.5</td><td>28.5</td><td>10.8"</td></tr>
+            <tr><td>11</td><td>10.5</td><td>44</td><td>10</td><td>29</td><td>10.9"</td></tr>
+            <tr><td>11.5</td><td>11</td><td>44</td><td>10.5</td><td>29.5</td><td>11.1"</td></tr>
+            <tr><td>12</td><td>11.5</td><td>45</td><td>11</td><td>30</td><td>11.3"</td></tr>
+            <tr><td>13</td><td>12.5</td><td>46</td><td>12</td><td>31</td><td>11.6"</td></tr>
+            <tr><td>14</td><td>13.5</td><td>47</td><td>13</td><td>32</td><td>11.9"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Women's Chart -->
+    <div class="chart-panel" id="chart-women" role="tabpanel" hidden>
+      <div class="scroll-x">
+        <table class="size-table" aria-label="Women shoe size chart">
+          <thead>
+            <tr><th>US</th><th>UK</th><th>EU</th><th>India</th><th>JP/CM</th><th>Inches</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>4</td><td>2</td><td>35</td><td>2</td><td>21</td><td>8.2"</td></tr>
+            <tr><td>5</td><td>3</td><td>35</td><td>3</td><td>22</td><td>8.5"</td></tr>
+            <tr><td>5.5</td><td>3.5</td><td>36</td><td>3.5</td><td>22.5</td><td>8.8"</td></tr>
+            <tr><td>6</td><td>4</td><td>36</td><td>4</td><td>23</td><td>8.9"</td></tr>
+            <tr><td>6.5</td><td>4.5</td><td>37</td><td>4.5</td><td>23</td><td>9.1"</td></tr>
+            <tr><td>7</td><td>5</td><td>37</td><td>5</td><td>23.5</td><td>9.3"</td></tr>
+            <tr><td>7.5</td><td>5.5</td><td>38</td><td>5.5</td><td>24</td><td>9.4"</td></tr>
+            <tr><td>8</td><td>6</td><td>38</td><td>6</td><td>24</td><td>9.5"</td></tr>
+            <tr><td>8.5</td><td>6.5</td><td>39</td><td>6.5</td><td>24.5</td><td>9.7"</td></tr>
+            <tr><td>9</td><td>7</td><td>39</td><td>7</td><td>25</td><td>9.9"</td></tr>
+            <tr><td>9.5</td><td>7.5</td><td>40</td><td>7.5</td><td>25</td><td>10.0"</td></tr>
+            <tr><td>10</td><td>8</td><td>40</td><td>8</td><td>25.5</td><td>10.2"</td></tr>
+            <tr><td>10.5</td><td>8.5</td><td>41</td><td>8.5</td><td>26</td><td>10.3"</td></tr>
+            <tr><td>11</td><td>9</td><td>41</td><td>9</td><td>26</td><td>10.5"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Kids Chart -->
+    <div class="chart-panel" id="chart-kids" role="tabpanel" hidden>
+      <div class="scroll-x">
+        <table class="size-table" aria-label="Kids shoe size chart">
+          <thead>
+            <tr><th>US</th><th>UK</th><th>EU</th><th>India</th><th>JP/CM</th><th>Inches</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>0.5</td><td>17</td><td>1</td><td>11</td><td>4.3"</td></tr>
+            <tr><td>2</td><td>1</td><td>18</td><td>2</td><td>12</td><td>4.7"</td></tr>
+            <tr><td>3</td><td>2</td><td>19</td><td>3</td><td>13</td><td>5.1"</td></tr>
+            <tr><td>5</td><td>4</td><td>21</td><td>4</td><td>14</td><td>5.9"</td></tr>
+            <tr><td>7</td><td>6</td><td>23</td><td>5</td><td>15</td><td>6.3"</td></tr>
+            <tr><td>9</td><td>8</td><td>26</td><td>7</td><td>16</td><td>6.7"</td></tr>
+            <tr><td>10</td><td>9</td><td>27</td><td>8</td><td>17</td><td>6.9"</td></tr>
+            <tr><td>11</td><td>10</td><td>28</td><td>9</td><td>17</td><td>7.1"</td></tr>
+            <tr><td>12</td><td>11</td><td>30</td><td>10</td><td>18</td><td>7.3"</td></tr>
+            <tr><td>13</td><td>12</td><td>31</td><td>11</td><td>19</td><td>7.7"</td></tr>
+            <tr><td>1Y</td><td>13</td><td>32</td><td>12</td><td>20</td><td>7.9"</td></tr>
+            <tr><td>2Y</td><td>1Y</td><td>33</td><td>13</td><td>21</td><td>8.3"</td></tr>
+            <tr><td>3Y</td><td>2Y</td><td>35</td><td>1</td><td>22</td><td>8.7"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .chart-section {
+    padding: 96px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .chart-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .chart-sub { margin: 8px 0 24px; }
+  .chart-tabs { margin-bottom: 24px; }
+  .chart-panel { margin-top: 0; }
+
+  @media (max-width: 640px) {
+    .chart-section { padding: 64px 16px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-chart]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-chart]').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      document.querySelectorAll('.chart-panel').forEach(p => p.hidden = true);
+      const panel = document.getElementById(`chart-${btn.dataset.chart}`);
+      if (panel) panel.hidden = false;
+    });
+  });
+</script>

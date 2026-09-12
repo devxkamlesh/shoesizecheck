@@ -1,0 +1,211 @@
+---
+// FindMySize.astro — Foot length calculator, Geist design
+---
+
+<section id="find-my-size" class="fms-section">
+  <div class="fms-container">
+    <div class="fms-grid">
+
+      <!-- Left: Tool -->
+      <div class="fms-tool">
+        <p class="mono-eyebrow">Find My Shoe Size</p>
+        <h2 class="heading-lg">Find Your Size by Foot Length</h2>
+        <p class="fms-sub body-lg">Enter your foot length in centimeters or inches — instantly see your shoe size in every system.</p>
+
+        <div class="card-elevated fms-card">
+          <div class="fms-inputs">
+            <div class="fms-input-group fms-length-group">
+              <label class="step-label" for="fms-length">
+                <span class="step-num">1</span> Foot Length
+              </label>
+              <div class="fms-length-row">
+                <input type="number" id="fms-length" class="form-input fms-number" placeholder="e.g. 27" min="15" max="36" step="0.5" aria-label="Foot length measurement"/>
+                <select id="fms-unit" class="form-select fms-unit-select" aria-label="Unit of measurement">
+                  <option value="cm" selected>CM</option>
+                  <option value="inches">Inches</option>
+                </select>
+              </div>
+              <p class="fms-hint body-sm">Measure heel to longest toe on flat ground</p>
+            </div>
+            <div class="fms-input-group">
+              <label class="step-label" for="fms-gender">
+                <span class="step-num">2</span> Gender
+              </label>
+              <select id="fms-gender" class="form-select" aria-label="Gender for shoe sizing">
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="kids">Kids</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="fms-results" class="fms-results" aria-live="polite">
+            <p class="fms-placeholder">Enter your foot length above to see results</p>
+          </div>
+
+          <div class="fms-width-note" id="fms-width-note" hidden>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>These are approximate sizes based on foot <em>length</em>. Wide feet may need to size up ½.</span>
+          </div>
+        </div>
+
+        <!-- Reference table -->
+        <div class="card fms-ref">
+          <p class="mono-eyebrow" style="margin-bottom:12px">Quick Reference</p>
+          <div class="fms-ref-grid">
+            <div class="fms-ref-row fms-ref-header">
+              <span>cm</span><span>in</span><span>US M</span><span>US W</span><span>EU</span><span>India</span>
+            </div>
+            <div class="fms-ref-row"><span>23</span><span>9.1"</span><span>5</span><span>6.5</span><span>36</span><span>4</span></div>
+            <div class="fms-ref-row"><span>24</span><span>9.4"</span><span>6</span><span>7.5</span><span>38</span><span>5</span></div>
+            <div class="fms-ref-row"><span>25</span><span>9.8"</span><span>7</span><span>8.5</span><span>40</span><span>6</span></div>
+            <div class="fms-ref-row"><span>26</span><span>10.2"</span><span>8</span><span>9.5</span><span>41</span><span>7</span></div>
+            <div class="fms-ref-row"><span>27</span><span>10.6"</span><span>9</span><span>10.5</span><span>42</span><span>8</span></div>
+            <div class="fms-ref-row"><span>28</span><span>11.0"</span><span>10</span><span>11.5</span><span>43</span><span>9</span></div>
+            <div class="fms-ref-row"><span>29</span><span>11.4"</span><span>11</span><span>12</span><span>44</span><span>10</span></div>
+            <div class="fms-ref-row"><span>30</span><span>11.8"</span><span>12</span><span>—</span><span>45</span><span>11</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Guide -->
+      <div class="fms-guide card">
+        <p class="mono-eyebrow" style="margin-bottom:16px">How to Measure</p>
+        <ol class="fms-steps">
+          <li class="fms-step"><div class="fms-step-num">1</div><div class="fms-step-body"><strong>Prepare</strong><span>Place paper on a hard floor against a wall</span></div></li>
+          <li class="fms-step"><div class="fms-step-num">2</div><div class="fms-step-body"><strong>Stand naturally</strong><span>Heel touching wall, weight even</span></div></li>
+          <li class="fms-step"><div class="fms-step-num">3</div><div class="fms-step-body"><strong>Mark longest toe</strong><span>Pencil mark at the tip</span></div></li>
+          <li class="fms-step"><div class="fms-step-num">4</div><div class="fms-step-body"><strong>Measure</strong><span>Wall edge to mark in cm or inches</span></div></li>
+          <li class="fms-step"><div class="fms-step-num">5</div><div class="fms-step-body"><strong>Both feet</strong><span>Use the larger measurement</span></div></li>
+          <li class="fms-step"><div class="fms-step-num">6</div><div class="fms-step-body"><strong>Afternoon</strong><span>Feet swell — measure later in the day</span></div></li>
+        </ol>
+        <a href="/shoe-size-by-foot-length/" class="btn-ghost fms-more-link">
+          Full guide
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fms-section { padding: 96px 24px; background: var(--v-canvas); border-top: 1px solid var(--v-hairline); }
+  .fms-container { max-width: 1100px; margin: 0 auto; }
+  .fms-grid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; align-items: start; }
+  .fms-sub { margin: 8px 0 24px; max-width: 540px; }
+  .fms-card { padding: 24px; margin-bottom: 24px; }
+  .fms-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .fms-length-group { grid-column: span 2; }
+  .fms-length-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+  .fms-number { text-align: center; font-size: 18px; font-weight: 600; }
+  .fms-unit-select { width: 90px; }
+  .fms-hint { margin: 6px 0 0; }
+
+  .fms-results { min-height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .fms-placeholder { color: var(--v-faint); font-size: 14px; margin: 0; }
+
+  .fms-result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; width: 100%; }
+  .fms-result-item { display: flex; flex-direction: column; align-items: center; padding: 10px 6px; background: var(--v-canvas); border: 1px solid var(--v-hairline); border-radius: var(--v-r-md); transition: border-color 0.15s ease; }
+  .fms-result-item:hover { border-color: var(--v-link); }
+  .fms-result-sys { font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; color: var(--v-mute); margin-bottom: 4px; }
+  .fms-result-val { font-size: 22px; font-weight: 600; font-family: var(--font-display); color: var(--v-ink); letter-spacing: -0.4px; }
+
+  .fms-width-note { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--v-body); padding: 12px 16px; background: var(--v-hairline-soft); border-radius: var(--v-r-sm); line-height: 18px; }
+  .fms-width-note svg { flex-shrink: 0; margin-top: 2px; color: var(--v-link); }
+
+  .fms-ref { padding: 16px; }
+  .fms-ref-grid { display: flex; flex-direction: column; gap: 1px; }
+  .fms-ref-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; font-size: 13px; color: var(--v-body); padding: 4px 4px; border-radius: 3px; }
+  .fms-ref-row:nth-child(even) { background: var(--v-hairline-soft); }
+  .fms-ref-header { font-family: var(--font-mono); font-weight: 500; font-size: 11px; text-transform: uppercase; color: var(--v-mute); background: transparent !important; }
+
+  .fms-guide { position: sticky; top: 64px; padding: 24px; }
+  .fms-steps { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .fms-step { display: flex; gap: 12px; align-items: flex-start; }
+  .fms-step-num { width: 24px; height: 24px; border-radius: var(--v-r-full); background: var(--v-ink); color: var(--v-canvas); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--font-mono); }
+  .fms-step-body { display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px; }
+  .fms-step-body strong { color: var(--v-ink); font-weight: 600; font-size: 13px; }
+  .fms-step-body span { color: var(--v-mute); }
+  .fms-more-link { width: 100%; justify-content: center; text-decoration: none; }
+
+  @media (max-width: 900px) { .fms-grid { grid-template-columns: 1fr; } .fms-guide { position: static; } }
+  @media (max-width: 640px) { .fms-section { padding: 64px 16px; } .fms-inputs { grid-template-columns: 1fr; } .fms-length-group { grid-column: span 1; } }
+</style>
+
+<script>
+  const FMS_DATA = {
+    men: {
+      cm: [24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],
+      us: [6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,13,14,15,16],
+      uk: [5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12.5,13.5,14.5,15.5],
+      eu: [39,39,40,40,41,41,42,42,43,43,44,44,45,46,47,48,49],
+      india: [5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,12,13,14,15],
+      jp: [24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],
+      inches: [9.3,9.5,9.6,9.8,9.9,10.1,10.3,10.4,10.6,10.8,10.9,11.1,11.3,11.6,11.9,12.2,12.5],
+    },
+    women: {
+      cm: [21,21.5,22,22.5,23,23,23.5,24,24,24.5,25,25,25.5,26,26,26.5,27],
+      us: [4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12],
+      uk: [2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+      eu: [35,35,35,36,36,37,37,38,38,39,39,40,40,41,41,42,42],
+      india: [2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
+      jp: [21,21.5,22,22.5,23,23,23.5,24,24,24.5,25,25,25.5,26,26,26.5,27],
+      inches: [8.2,8.3,8.5,8.8,8.9,9.1,9.3,9.4,9.5,9.7,9.9,10,10.2,10.3,10.5,10.7,10.9],
+    },
+    kids: {
+      cm: [11,12,13,13,14,14,15,15,16,17,17,18,19,20,21,22],
+      us: [1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y','3Y'],
+      uk: [0.5,1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y'],
+      eu: [17,18,19,20,21,22,23,25,26,27,28,30,31,32,33,35],
+      india: [1,2,3,3,4,5,5,6,7,8,9,10,11,12,13,1],
+      jp: [11,12,13,13,14,14,15,15,16,17,17,18,19,20,21,22],
+      inches: [4.3,4.7,5.1,5.5,5.9,6.1,6.3,6.5,6.7,6.9,7.1,7.3,7.7,7.9,8.3,8.7],
+    }
+  };
+
+  const lengthInput = document.getElementById('fms-length');
+  const unitSelect = document.getElementById('fms-unit');
+  const genderSelect = document.getElementById('fms-gender');
+  const resultsEl = document.getElementById('fms-results');
+  const widthNote = document.getElementById('fms-width-note');
+
+  function findClosestIndex(arr, val) {
+    let closest = 0, minDiff = Infinity;
+    arr.forEach((v, i) => { const d = Math.abs(Number(v) - val); if (d < minDiff) { minDiff = d; closest = i; } });
+    return closest;
+  }
+
+  function calculateSizes() {
+    const rawVal = parseFloat(lengthInput.value);
+    const unit = unitSelect.value;
+    const gender = genderSelect.value;
+    if (!rawVal || isNaN(rawVal)) { showPlaceholder(); return; }
+
+    const cmVal = unit === 'inches' ? rawVal * 2.54 : rawVal;
+    const data = FMS_DATA[gender];
+    const idx = findClosestIndex(data.cm, cmVal);
+    const systems = [
+      { key: 'us', label: gender === 'men' ? 'US M' : gender === 'women' ? 'US W' : 'US K' },
+      { key: 'uk', label: 'UK' }, { key: 'eu', label: 'EU' },
+      { key: 'india', label: 'India' }, { key: 'jp', label: 'JP' }, { key: 'inches', label: 'Inches' },
+    ];
+    const html = systems.map(s => `<div class="fms-result-item"><span class="fms-result-sys">${s.label}</span><span class="fms-result-val">${data[s.key]?.[idx] ?? '—'}</span></div>`).join('');
+    resultsEl.innerHTML = `<div style="width:100%"><div class="fms-result-grid">${html}</div></div>`;
+    if (widthNote) widthNote.hidden = false;
+  }
+
+  function showPlaceholder() {
+    resultsEl.innerHTML = '<p class="fms-placeholder">Enter your foot length above to see results</p>';
+    if (widthNote) widthNote.hidden = true;
+  }
+
+  lengthInput?.addEventListener('input', calculateSizes);
+  unitSelect?.addEventListener('change', () => {
+    const val = parseFloat(lengthInput.value);
+    if (!val || isNaN(val)) return;
+    if (unitSelect.value === 'inches') { lengthInput.value = String(Math.round((val / 2.54) * 10) / 10); lengthInput.min = '6'; lengthInput.max = '15'; }
+    else { lengthInput.value = String(Math.round(val * 2.54 * 10) / 10); lengthInput.min = '15'; lengthInput.max = '36'; }
+    calculateSizes();
+  });
+  genderSelect?.addEventListener('change', calculateSizes);
+</script>
