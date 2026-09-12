@@ -36,10 +36,10 @@ body {
   --v-hairline-soft: #f2f2f2;
 
   /* Text */
-  --v-ink: #171717;
-  --v-body: #4d4d4d;
-  --v-mute: #8f8f8f;
-  --v-faint: #a1a1a1;
+  --v-ink: #111827;
+  --v-body: #374151;
+  --v-mute: #4b5563;
+  --v-faint: #525252;
 
   /* Borders */
   --v-hairline: #ebebeb;
@@ -108,10 +108,10 @@ html.dark {
   --v-hairline-soft: #191919;
 
   /* Text */
-  --v-ink: #ededed;
-  --v-body: #a1a1a1;
-  --v-mute: #737373;
-  --v-faint: #444444;
+  --v-ink: #f9fafb;
+  --v-body: #d1d5db;
+  --v-mute: #9ca3af;
+  --v-faint: #9ca3af;
 
   /* Borders */
   --v-hairline: #262626;
@@ -214,9 +214,9 @@ html.dark {
 .mono-eyebrow {
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 16px;
-  letter-spacing: 0;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--v-mute);
 }
@@ -230,7 +230,7 @@ html.dark {
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
-  color: var(--v-mute);
+  color: var(--v-body);
 }
 
 /* ===================== Buttons ===================== */
@@ -472,10 +472,10 @@ html.dark {
 }
 .size-table td:first-child {
   text-align: left;
-  font-weight: 500;
-  font-size: 12px;
+  font-weight: 600;
+  font-size: 13px;
   font-family: var(--font-mono);
-  color: var(--v-mute);
+  color: var(--v-ink);
   background: var(--v-hairline-soft);
   position: sticky;
   left: 0;
@@ -777,9 +777,9 @@ html.dark {
   gap: 8px;
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  color: var(--v-mute);
+  color: var(--v-ink);
   margin-bottom: 8px;
 }
 .step-num {
