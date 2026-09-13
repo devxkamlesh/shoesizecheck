@@ -1,5 +1,5 @@
 ---
-// SizeConverter.astro — Interactive converter, Geist design
+// SizeConverter.astro — Interactive converter, Geist design (responsive redesign)
 ---
 
 <section id="converter" class="converter-section">
@@ -30,7 +30,7 @@
       <div class="converter-row">
 
         <!-- From -->
-        <div class="converter-field">
+        <div class="converter-field" id="field-from">
           <label class="step-label" for="from-system">
             <span class="step-num">1</span> From
           </label>
@@ -46,7 +46,7 @@
         </div>
 
         <!-- Size -->
-        <div class="converter-field">
+        <div class="converter-field" id="field-size">
           <label class="step-label" for="from-size">
             <span class="step-num">2</span> Size
           </label>
@@ -55,14 +55,16 @@
         </div>
 
         <!-- Swap -->
-        <button class="swap-btn" id="swap-btn" aria-label="Swap from and to systems" title="Swap systems">
-          <svg id="swap-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12M17 20l4-4M17 20l-4-4"/>
-          </svg>
-        </button>
+        <div class="swap-wrap">
+          <button class="swap-btn" id="swap-btn" aria-label="Swap from and to systems" title="Swap systems">
+            <svg id="swap-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12M17 20l4-4M17 20l-4-4"/>
+            </svg>
+          </button>
+        </div>
 
         <!-- To -->
-        <div class="converter-field">
+        <div class="converter-field" id="field-to">
           <label class="step-label" for="to-system">
             <span class="step-num">3</span> To
           </label>
@@ -138,12 +140,26 @@
     margin-bottom: 24px;
   }
 
+  /* === Desktop: horizontal row === */
   .converter-row {
     display: grid;
     grid-template-columns: 1fr 1fr auto 1fr;
     gap: 12px;
     align-items: end;
     margin-bottom: 24px;
+  }
+
+  .converter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .swap-wrap {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 1px;
   }
 
   .swap-btn {
@@ -158,28 +174,210 @@
     cursor: pointer;
     color: var(--v-ink);
     transition: background 0.15s ease, border-color 0.15s ease;
-    margin-bottom: 0;
-    align-self: end;
   }
   .swap-btn:hover { background: var(--v-hairline-soft); border-color: #ddd; }
 
   .converter-results {
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 0;
+    padding: 0;
   }
   .results-placeholder {
     color: var(--v-faint);
     font-size: 14px;
     margin: 0;
+    padding: 24px 0;
+    text-align: center;
   }
-  .results-grid {
+
+  /* ===================== Modern Conversion Results Cards ===================== */
+  .converter-results :global(.conv-grid) {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
     width: 100%;
+  }
+
+  .converter-results :global(.conv-card) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 14px 16px;
+    min-height: 84px;
+    box-shadow: var(--v-shadow-whisper);
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.18s ease,
+                background 0.18s ease,
+                box-shadow 0.18s ease;
+  }
+
+  .converter-results :global(.conv-card:hover) {
+    transform: translateY(-2px);
+    border-color: var(--v-link);
+    background: var(--v-elevated);
+    box-shadow: 0 4px 14px rgba(0, 112, 243, 0.08);
+  }
+
+  .converter-results :global(.conv-card-top) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .converter-results :global(.conv-card-sys) {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--v-ink);
+    text-transform: uppercase;
+  }
+
+  .converter-results :global(.conv-card-badge) {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--v-mute);
+    background: var(--v-hairline-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--v-hairline);
+    line-height: 1.2;
+  }
+
+  .converter-results :global(.conv-card-bottom) {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .converter-results :global(.conv-card-val) {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.6px;
+    line-height: 1;
+  }
+
+  .converter-results :global(.conv-card-unit) {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--v-mute);
+  }
+
+  /* Single Conversion Hero Card */
+  .converter-results :global(.conv-single-card) {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 22px 28px;
+    box-shadow: var(--v-shadow-whisper);
+    width: 100%;
+  }
+
+  .converter-results :global(.single-side) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .converter-results :global(.single-side-target) {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .converter-results :global(.single-tag) {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--v-hairline-soft);
+    color: var(--v-ink);
+    border: 1px solid var(--v-hairline);
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .converter-results :global(.single-tag.highlight) {
+    background: var(--v-link-soft);
+    color: var(--v-link);
+    border-color: rgba(0, 112, 243, 0.25);
+  }
+
+  .converter-results :global(.single-name) {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--v-mute);
+  }
+
+  .converter-results :global(.single-val-wrap) {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .converter-results :global(.single-val) {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.8px;
+    line-height: 1;
+  }
+
+  .converter-results :global(.single-val.highlight) {
+    color: var(--v-link);
+  }
+
+  .converter-results :global(.single-unit) {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--v-mute);
+  }
+
+  .converter-results :global(.single-unit.highlight) {
+    color: var(--v-link);
+  }
+
+  .converter-results :global(.single-arrow-col) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .converter-results :global(.single-arrow-circle) {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--v-r-full);
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--v-mute);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  .converter-results :global(.single-arrow-text) {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--v-mute);
   }
 
   .converter-actions {
@@ -190,21 +388,100 @@
     border-top: 1px solid var(--v-hairline);
   }
 
-  @media (max-width: 640px) {
-    .converter-section { padding: 64px 16px 56px; }
-    .converter-card { padding: 20px; }
+  /* === Tablet: 2-column with swap centered === */
+  @media (max-width: 768px) {
+    .converter-section { padding: 72px 20px 60px; }
+    .converter-card { padding: 24px; }
+    .hero-copy { margin-bottom: 32px; }
+
     .converter-row {
       grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    #field-from { grid-column: 1; grid-row: 1; }
+    #field-size { grid-column: 2; grid-row: 1; }
+    .swap-wrap {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-content: center;
+      padding: 4px 0;
+    }
+    #field-to {
+      grid-column: 1 / -1;
+      grid-row: 3;
+    }
+  }
+
+  /* === Mobile phone: single-column vertical stack === */
+  @media (max-width: 480px) {
+    .converter-section { padding: 56px 16px 48px; }
+    .converter-card { padding: 20px 16px; }
+
+    .hero-copy { margin-bottom: 24px; }
+    .hero-sub { font-size: 15px; }
+
+    .converter-tabs {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .converter-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    #field-from { grid-column: 1; grid-row: 1; }
+    #field-size { grid-column: 1; grid-row: 2; margin-top: 14px; }
+    .swap-wrap  {
+      grid-column: 1;
+      grid-row: 3;
+      justify-content: center;
+      padding: 12px 0;
+    }
+    #field-to   { grid-column: 1; grid-row: 4; }
+
+    .swap-btn {
+      width: 36px;
+      height: 36px;
+    }
+    .swap-btn svg {
+      width: 16px;
+      height: 16px;
+      transform: rotate(90deg);
+    }
+
+    /* Results: 2 columns on mobile */
+    .converter-results :global(.conv-grid) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .converter-results :global(.conv-card) {
+      padding: 12px 14px;
+      min-height: 76px;
+    }
+    .converter-results :global(.conv-card-val) {
+      font-size: 22px;
+    }
+    .converter-results :global(.conv-card-sys) {
+      font-size: 10.5px;
+    }
+    .converter-results :global(.conv-single-card) {
+      padding: 16px 18px;
       gap: 12px;
     }
-    .swap-btn {
-      grid-column: span 2;
-      justify-self: center;
+    .converter-results :global(.single-val) {
+      font-size: 26px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .converter-results :global(.conv-grid) {
+      grid-template-columns: 1fr;
     }
   }
 </style>
 
-<script>
+<script is:inline>
   const SIZE_DATA = {
     men: {
       us:     [6,   6.5, 7,   7.5, 8,   8.5, 9,   9.5, 10,  10.5,11,  11.5,12,  13,  14,  15,  16],
@@ -240,6 +517,16 @@
     jp: 'Japan', cm: 'CM', inches: 'Inches'
   };
 
+  const SYSTEM_BADGES = {
+    us: 'Size', uk: 'Size', eu: 'Size', india: 'Size',
+    jp: 'Size', cm: 'Length', inches: 'Length'
+  };
+
+  const SYSTEM_UNITS = {
+    cm: 'cm',
+    inches: 'in'
+  };
+
   let currentGender = 'men';
   const fromSelect = document.getElementById('from-system');
   const fromSize   = document.getElementById('from-size');
@@ -270,16 +557,60 @@
     if (idx === -1) return;
 
     const target = toSelect.value;
-    const systems = target === 'all'
-      ? Object.keys(data).filter(k => k !== sys)
-      : [target];
+    if (target === 'all') {
+      const systems = Object.keys(data).filter(k => k !== sys);
+      const html = systems.map(s => {
+        const v = data[s]?.[idx] ?? '—';
+        const label = SYSTEM_LABELS[s] || s.toUpperCase();
+        const badge = SYSTEM_BADGES[s] || 'Size';
+        const unit = SYSTEM_UNITS[s] ? `<span class="conv-card-unit">${SYSTEM_UNITS[s]}</span>` : '';
+        return `
+          <div class="conv-card">
+            <div class="conv-card-top">
+              <span class="conv-card-sys">${label}</span>
+              <span class="conv-card-badge">${badge}</span>
+            </div>
+            <div class="conv-card-bottom">
+              <span class="conv-card-val">${v}</span>${unit}
+            </div>
+          </div>
+        `;
+      }).join('');
 
-    const html = systems.map(s => {
-      const v = data[s]?.[idx] ?? '—';
-      return `<div class="result-badge"><span class="label">${SYSTEM_LABELS[s] || s}</span><span class="value">${v}</span></div>`;
-    }).join('');
+      results.innerHTML = `<div class="conv-grid">${html}</div>`;
+    } else {
+      const v = data[target]?.[idx] ?? '—';
+      const fromLabel = SYSTEM_LABELS[sys] || sys.toUpperCase();
+      const toLabel = SYSTEM_LABELS[target] || target.toUpperCase();
+      const fromUnit = SYSTEM_UNITS[sys] ? `<span class="single-unit">${SYSTEM_UNITS[sys]}</span>` : '';
+      const toUnit = SYSTEM_UNITS[target] ? `<span class="single-unit highlight">${SYSTEM_UNITS[target]}</span>` : '';
 
-    results.innerHTML = `<div class="results-grid">${html}</div>`;
+      results.innerHTML = `
+        <div class="conv-single-card">
+          <div class="single-side">
+            <span class="single-tag">${fromLabel}</span>
+            <span class="single-name">Input Size</span>
+            <div class="single-val-wrap">
+              <span class="single-val">${val}</span>${fromUnit}
+            </div>
+          </div>
+          <div class="single-arrow-col">
+            <span class="single-arrow-circle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+            <span class="single-arrow-text">EQUALS</span>
+          </div>
+          <div class="single-side single-side-target">
+            <span class="single-tag highlight">${toLabel}</span>
+            <span class="single-name">Converted Size</span>
+            <div class="single-val-wrap">
+              <span class="single-val highlight">${v}</span>${toUnit}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     if (actions) actions.hidden = false;
   }
 
@@ -321,19 +652,33 @@
 
   // Copy
   copyBtn?.addEventListener('click', () => {
-    const badges = results?.querySelectorAll('.result-badge');
-    if (!badges?.length) return;
-    const text = Array.from(badges).map(b => {
-      const label = b.querySelector('.label')?.textContent || '';
-      const value = b.querySelector('.value')?.textContent || '';
-      return `${label}: ${value}`;
-    }).join(' | ');
+    const cards = results?.querySelectorAll('.conv-card');
+    let text = '';
+    if (cards && cards.length > 0) {
+      text = Array.from(cards).map(b => {
+        const sys = b.querySelector('.conv-card-sys')?.textContent || '';
+        const val = b.querySelector('.conv-card-val')?.textContent || '';
+        const unit = b.querySelector('.conv-card-unit')?.textContent || '';
+        return `${sys}: ${val}${unit ? ' ' + unit : ''}`;
+      }).join(' | ');
+    } else {
+      const single = results?.querySelector('.conv-single-card');
+      if (single) {
+        const fromTag = single.querySelector('.single-side .single-tag')?.textContent || '';
+        const fromVal = single.querySelector('.single-side .single-val')?.textContent || '';
+        const toTag = single.querySelector('.single-side-target .single-tag')?.textContent || '';
+        const toVal = single.querySelector('.single-side-target .single-val')?.textContent || '';
+        text = `${fromTag} ${fromVal} = ${toTag} ${toVal}`;
+      }
+    }
+    if (!text) return;
+
     navigator.clipboard.writeText(text).then(() => {
       copyBtn.classList.add('copied');
       copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Copied!';
       setTimeout(() => {
         copyBtn.classList.remove('copied');
-        copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Result';
+        copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Result';
       }, 2000);
     });
   });
@@ -348,3 +693,4 @@
   // Init
   populateSizes();
 </script>
+

@@ -6,9 +6,10 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/shoe-size-in-cm/`;
-const pageTitle = 'Shoe Size in CM — Centimeters to Shoe Size Chart & UK Conversion | AllShoeSizeConverter';
+const pageTitle = 'Shoe Size in CM — Centimeters to Shoe Size Chart';
 const pageDescription = 'Convert foot length in centimeters to shoe size. Full CM to UK, US, EU, and India charts for men, women, and kids with UK shoe size in cm reference.';
 const ogImage = `${domain}/og-image.png`;
+
 
 const faqs = [
   {
@@ -60,7 +61,7 @@ const faqSchema = JSON.stringify({
 >
   <Fragment slot="head">
     <meta name="keywords" content="shoe size in cm, uk shoe size in cm, uk shoe size in cm child, shoe size in cm uk, kids shoe size in cm, what is 24 cm in shoe size, what is 25 cm in shoe size, how to measure shoe size in cm" />
-    <script type="application/ld+json" set:html={faqSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
   <Header />

@@ -12,8 +12,8 @@ import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
-const pageTitle = 'Shoe Size Converter – US, UK, EU & India Size Charts for Men, Women & Kids | AllShoeSizeConverter';
-const pageDescription = 'Free shoe size converter for Men, Women & Kids. Convert US, UK, EU, India, Japan, CM sizes instantly. Use our men to women and kids shoe size converter with accurate charts and brand-specific sizing.';
+const pageTitle = 'Shoe Size Converter – US, UK, EU & India Size Chart';
+const pageDescription = 'Free shoe size converter for men, women, and kids. Convert US, UK, EU, India, Japan, and CM sizes instantly with accurate charts and size guides.';
 const pageCanonical = `${domain}/`;
 const ogImage = `${domain}/og-image.png`;
 
@@ -60,8 +60,7 @@ const orgSchema = JSON.stringify({
   "@type": "Organization",
   "name": "AllShoeSizeConverter",
   "url": domain,
-  "logo": `${domain}/favicon.svg`,
-  "sameAs": []
+  "logo": `${domain}/favicon.svg`
 });
 
 const breadcrumbSchema = JSON.stringify({
@@ -95,21 +94,20 @@ const breadcrumbSchema = JSON.stringify({
     <link rel="alternate" type="text/markdown" href="/index.md" />
 
     <!-- Twitter extras -->
-    <meta name="twitter:site" content="@allshoeconvert" />
-    <meta name="twitter:creator" content="@allshoeconvert" />
     <meta name="twitter:label1" content="Tool" />
     <meta name="twitter:data1" content="Shoe Size Converter" />
     <meta name="twitter:label2" content="Systems" />
     <meta name="twitter:data2" content="US, UK, EU, India, Japan, CM" />
 
+
     <!-- Structured Data: WebApplication -->
-    <script type="application/ld+json" set:html={webAppSchema} />
+    <script is:inline type="application/ld+json" set:html={webAppSchema} />
     <!-- Structured Data: WebSite -->
-    <script type="application/ld+json" set:html={websiteSchema} />
+    <script is:inline type="application/ld+json" set:html={websiteSchema} />
     <!-- Structured Data: Organization -->
-    <script type="application/ld+json" set:html={orgSchema} />
+    <script is:inline type="application/ld+json" set:html={orgSchema} />
     <!-- Structured Data: BreadcrumbList -->
-    <script type="application/ld+json" set:html={breadcrumbSchema} />
+    <script is:inline type="application/ld+json" set:html={breadcrumbSchema} />
   </Fragment>
 
   <Header />

@@ -7,9 +7,10 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/shoe-size-by-foot-length/`;
-const pageTitle = 'Shoe Size by Foot Length — Men, Women & Kids Charts | AllShoeSizeConverter';
+const pageTitle = 'Shoe Size by Foot Length — Men, Women & Kids Chart';
 const pageDescription = 'Determine your shoe size by length of foot in cm or inches. Accurate charts for men, women, and kids covering US, UK, EU, India, and Japan.';
 const ogImage = `${domain}/og-image.png`;
+
 
 const faqs = [
   {
@@ -53,7 +54,7 @@ const faqSchema = JSON.stringify({
 >
   <Fragment slot="head">
     <meta name="keywords" content="shoe size by foot length, women's shoe size by foot length, shoe size by foot length uk, kids shoe size by foot length, child shoe size by foot length, how to determine shoe size by length of foot" />
-    <script type="application/ld+json" set:html={faqSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
   <Header />

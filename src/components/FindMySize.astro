@@ -104,11 +104,11 @@
   .fms-results { min-height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
   .fms-placeholder { color: var(--v-body); font-size: 14px; margin: 0; }
 
-  .fms-result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; width: 100%; }
-  .fms-result-item { display: flex; flex-direction: column; align-items: center; padding: 10px 6px; background: var(--v-canvas); border: 1px solid var(--v-hairline); border-radius: var(--v-r-md); transition: border-color 0.15s ease; }
-  .fms-result-item:hover { border-color: var(--v-link); }
-  .fms-result-sys { font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--v-mute); margin-bottom: 4px; }
-  .fms-result-val { font-size: 22px; font-weight: 600; font-family: var(--font-display); color: var(--v-ink); letter-spacing: -0.4px; }
+  .fms-results :global(.fms-result-grid) { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; width: 100%; }
+  .fms-results :global(.fms-result-item) { display: flex; flex-direction: column; align-items: center; padding: 10px 6px; background: var(--v-canvas); border: 1px solid var(--v-hairline); border-radius: var(--v-r-md); transition: border-color 0.15s ease; }
+  .fms-results :global(.fms-result-item:hover) { border-color: var(--v-link); }
+  .fms-results :global(.fms-result-sys) { font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--v-mute); margin-bottom: 4px; }
+  .fms-results :global(.fms-result-val) { font-size: 22px; font-weight: 600; font-family: var(--font-display); color: var(--v-ink); letter-spacing: -0.4px; }
 
   .fms-width-note { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--v-body); padding: 12px 16px; background: var(--v-hairline-soft); border-radius: var(--v-r-sm); line-height: 18px; }
   .fms-width-note svg { flex-shrink: 0; margin-top: 2px; color: var(--v-link); }
@@ -132,7 +132,7 @@
   @media (max-width: 640px) { .fms-section { padding: 64px 16px; } .fms-inputs { grid-template-columns: 1fr; } .fms-length-group { grid-column: span 1; } }
 </style>
 
-<script>
+<script is:inline>
   const FMS_DATA = {
     men: {
       cm: [24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],

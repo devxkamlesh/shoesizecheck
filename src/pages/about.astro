@@ -6,28 +6,9 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/about/`;
-const pageTitle = 'About Us — Precision Footwear Sizing & Mission | AllShoeSizeConverter';
-const pageDescription = 'Learn about AllShoeSizeConverter: our mission to eliminate international shoe sizing confusion, our mathematical standards, and our commitment to accurate footwear conversion.';
+const pageTitle = 'About Us — Precision Footwear Sizing & Standards';
+const pageDescription = 'Learn about AllShoeSizeConverter: our mission to eliminate footwear sizing confusion with mathematically verified international size charts and guides.';
 const ogImage = `${domain}/og-image.png`;
-
-const breadcrumbSchema = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": `${domain}/`
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "About Us",
-      "item": pageCanonical
-    }
-  ]
-});
 
 const aboutPageSchema = JSON.stringify({
   "@context": "https://schema.org",
@@ -58,8 +39,7 @@ const aboutPageSchema = JSON.stringify({
     <meta property="og:url" content={pageCanonical} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content={ogImage} />
-    <script type="application/ld+json" set:html={breadcrumbSchema} />
-    <script type="application/ld+json" set:html={aboutPageSchema} />
+    <script is:inline type="application/ld+json" set:html={aboutPageSchema} />
   </Fragment>
 
   <Header />

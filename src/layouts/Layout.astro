@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 import '../styles/global.css';
 
 interface Props {
@@ -9,8 +10,8 @@ interface Props {
 }
 
 const {
-  title = 'Shoe Size Converter – US, UK, EU & India Shoe Size Chart | AllShoeSizeConverter',
-  description = 'Free shoe size converter for Men, Women & Kids. Convert US, UK, EU, India, Japan, CM sizes instantly. Find your perfect fit with our accurate shoe size tool.',
+  title = 'Shoe Size Converter – US, UK, EU & India Size Chart',
+  description = 'Free shoe size converter for men, women, and kids. Convert US, UK, EU, India, Japan, and CM sizes instantly with accurate charts and size guides.',
   canonical = 'https://allshoesizeconverter.com',
   ogImage = 'https://allshoesizeconverter.com/og-image.png',
 } = Astro.props;
@@ -53,13 +54,10 @@ const {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Geist Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Self-hosted Geist Fonts via Astro Fonts API -->
+    <Font cssVariable="--font-geist" preload />
+    <Font cssVariable="--font-geist-mono" />
+
 
     <!-- Theme Script (prevent flash of light/dark mode) -->
     <script is:inline>

@@ -8,8 +8,8 @@ import { SIZE_DATA } from '../../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/country/india/`;
-const pageTitle = 'India Shoe Size Chart — Men, Women (Female), Kids & Bha Size Guide | AllShoeSizeConverter';
-const pageDescription = 'Comprehensive India shoe size chart & conversion guide. Explore shoe size chart india female, shoe size chart men, kids shoe size chart, and Indian shoe size chart tables.';
+const pageTitle = 'India Shoe Size Chart — Men, Women & Kids Size Guide';
+const pageDescription = 'Comprehensive India shoe size chart for men, female, and kids. Convert Indian shoe sizes to US, UK, and EU with official BIS Bha sizing standards.';
 const ogImage = `${domain}/og-image.png`;
 
 const faqs = [
@@ -60,25 +60,6 @@ const faqSchema = JSON.stringify({
   }))
 });
 
-const breadcrumbSchema = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": `${domain}/`
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "India Shoe Size Chart",
-      "item": pageCanonical
-    }
-  ]
-});
-
 const conversionLinks = [
   { label: 'India to US Shoe Size', href: '/india-to-us-shoe-size/' },
   { label: 'India to UK Shoe Size', href: '/india-to-uk-shoe-size/' },
@@ -93,6 +74,7 @@ const countryLinks = [
   { label: '🇪🇺 Europe', href: '/country/europe/' },
   { label: '🇯🇵 Japan', href: '/country/japan/' },
   { label: '🇦🇺 Australia', href: '/country/australia/' },
+  { label: '🇲🇽 Mexico', href: '/country/mexico/' },
 ];
 ---
 
@@ -120,8 +102,7 @@ const countryLinks = [
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={faqSchema} />
-    <script type="application/ld+json" set:html={breadcrumbSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
   <Header />
@@ -129,9 +110,10 @@ const countryLinks = [
   <main id="main-content">
     <Breadcrumbs items={[
       { label: 'Home', href: '/' },
-      { label: 'Countries', href: '/country/india/' },
+      { label: 'Countries', href: '/country/' },
       { label: '🇮🇳 India' },
     ]} />
+
 
     <!-- Hero Section -->
     <section class="page-hero">
@@ -693,7 +675,6 @@ const countryLinks = [
     const us = data.us?.[idx] ?? '—';
     const uk = data.uk?.[idx] ?? '—';
     const eu = data.eu?.[idx] ?? '—';
-    const jp = data.jp?.[idx] ?? '—';
     const cm = data.cm?.[idx] ?? '—';
     const inches = data.inches?.[idx] ?? '—';
 

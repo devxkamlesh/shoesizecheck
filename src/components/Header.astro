@@ -21,16 +21,63 @@
       </div>
     </a>
 
-    <!-- Desktop nav links -->
+    <!-- Desktop nav links with dropdowns -->
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="/country/us/" class="nav-link">US Sizes</a>
-      <a href="/country/uk/" class="nav-link">UK Sizes</a>
-      <a href="/country/europe/" class="nav-link">EU Sizes</a>
-      <a href="/country/india/" class="nav-link">India Sizes</a>
-      <a href="/kids-shoe-size-by-age/" class="nav-link">Kids by Age</a>
-      <a href="/mondopoint-shoe-size/" class="nav-link">Ski / Mondo</a>
-      <a href="/about/" class="nav-link">About</a>
+
+      <!-- Countries Dropdown -->
+      <div class="nav-dropdown">
+        <button class="nav-link nav-drop-trigger" aria-expanded="false" aria-haspopup="true">
+          Countries
+          <svg class="drop-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="nav-drop-panel" role="menu">
+          <a href="/country/" class="drop-item" role="menuitem">All Countries</a>
+          <div class="drop-divider"></div>
+          <a href="/country/us/" class="drop-item" role="menuitem">US Sizes</a>
+          <a href="/country/uk/" class="drop-item" role="menuitem">UK Sizes</a>
+          <a href="/country/europe/" class="drop-item" role="menuitem">EU Sizes</a>
+          <a href="/country/india/" class="drop-item" role="menuitem">India Sizes</a>
+          <a href="/country/japan/" class="drop-item" role="menuitem">Japan Sizes</a>
+          <a href="/country/australia/" class="drop-item" role="menuitem">Australia Sizes</a>
+          <a href="/country/mexico/" class="drop-item" role="menuitem">Mexico Sizes</a>
+          <a href="/country/china/" class="drop-item" role="menuitem">China Sizes</a>
+          <a href="/country/korea/" class="drop-item" role="menuitem">Korea Sizes</a>
+        </div>
+      </div>
+
+      <!-- Tools Dropdown -->
+      <div class="nav-dropdown">
+        <button class="nav-link nav-drop-trigger" aria-expanded="false" aria-haspopup="true">
+          Tools
+          <svg class="drop-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="nav-drop-panel" role="menu">
+          <a href="/kids-shoe-size-by-age/" class="drop-item" role="menuitem">Kids by Age</a>
+          <a href="/mondopoint-shoe-size/" class="drop-item" role="menuitem">Mondopoint / Ski Boots</a>
+          <a href="/shoe-size-by-foot-length/" class="drop-item" role="menuitem">Size by Foot Length</a>
+          <a href="/shoe-size-in-cm/" class="drop-item" role="menuitem">Shoe Size in CM</a>
+          <a href="/shoe-size-in-inches/" class="drop-item" role="menuitem">Shoe Size in Inches</a>
+          <a href="/what-is-my-shoe-size/" class="drop-item" role="menuitem">Find My True Size</a>
+        </div>
+      </div>
+
+      <!-- More Dropdown -->
+      <div class="nav-dropdown">
+        <button class="nav-link nav-drop-trigger" aria-expanded="false" aria-haspopup="true">
+          More
+          <svg class="drop-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="nav-drop-panel" role="menu">
+          <a href="/about/" class="drop-item" role="menuitem">About Us</a>
+          <a href="/contact/" class="drop-item" role="menuitem">Contact Us</a>
+          <div class="drop-divider"></div>
+          <a href="/privacy-policy/" class="drop-item" role="menuitem">Privacy Policy</a>
+          <a href="/terms/" class="drop-item" role="menuitem">Terms of Service</a>
+        </div>
+      </div>
+
     </nav>
+
 
     <!-- Desktop CTA & Theme Toggle -->
     <div class="nav-actions">
@@ -70,23 +117,26 @@
         <div class="mobile-group">
           <span class="mobile-group-title">Regional Sizing Standards</span>
           <div class="mobile-grid-links">
-            <a href="/country/us/" class="mobile-link"><span class="link-flag">🇺🇸</span> US Sizing</a>
-            <a href="/country/uk/" class="mobile-link"><span class="link-flag">🇬🇧</span> UK Sizing</a>
-            <a href="/country/europe/" class="mobile-link"><span class="link-flag">🇪🇺</span> EU Sizing</a>
-            <a href="/country/india/" class="mobile-link"><span class="link-flag">🇮🇳</span> India Sizing</a>
-            <a href="/country/japan/" class="mobile-link"><span class="link-flag">🇯🇵</span> Japan Sizing</a>
-            <a href="/country/australia/" class="mobile-link"><span class="link-flag">🇦🇺</span> Australia</a>
+            <a href="/country/" class="mobile-link">All Countries</a>
+            <a href="/country/us/" class="mobile-link">US Sizing</a>
+            <a href="/country/uk/" class="mobile-link">UK Sizing</a>
+            <a href="/country/europe/" class="mobile-link">EU Sizing</a>
+            <a href="/country/india/" class="mobile-link">India Sizing</a>
+            <a href="/country/japan/" class="mobile-link">Japan Sizing</a>
+            <a href="/country/australia/" class="mobile-link">Australia</a>
+            <a href="/country/mexico/" class="mobile-link">Mexico</a>
           </div>
         </div>
+
 
         <!-- Section 2: Tools & Calculators -->
         <div class="mobile-group">
           <span class="mobile-group-title">Specialty Calculators</span>
-          <a href="/kids-shoe-size-by-age/" class="mobile-link">👶 Kids &amp; Toddler by Age</a>
-          <a href="/mondopoint-shoe-size/" class="mobile-link">⛷️ Mondopoint Ski Boots</a>
-          <a href="/shoe-size-by-foot-length/" class="mobile-link">📏 Sizing by Foot Length</a>
-          <a href="/shoe-size-in-cm/" class="mobile-link">📐 Shoe Size in CM</a>
-          <a href="/what-is-my-shoe-size/" class="mobile-link">🔍 Find My True Size</a>
+          <a href="/kids-shoe-size-by-age/" class="mobile-link">Kids &amp; Toddler by Age</a>
+          <a href="/mondopoint-shoe-size/" class="mobile-link">Mondopoint Ski Boots</a>
+          <a href="/shoe-size-by-foot-length/" class="mobile-link">Sizing by Foot Length</a>
+          <a href="/shoe-size-in-cm/" class="mobile-link">Shoe Size in CM</a>
+          <a href="/what-is-my-shoe-size/" class="mobile-link">Find My True Size</a>
         </div>
 
         <!-- Section 3: Company & Information -->
@@ -185,14 +235,17 @@
   }
   .nav-tag {
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    padding: 2px 6px;
+    letter-spacing: 0.04em;
+    padding: 2px 7px;
     border-radius: var(--v-r-full);
     background: var(--v-hairline-soft);
-    color: var(--v-link);
+    color: var(--v-ink);
     border: 1px solid var(--v-hairline);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
   }
 
   /* Desktop links */
@@ -213,6 +266,82 @@
   .nav-link:hover {
     color: var(--v-ink);
     background: var(--v-hairline-soft);
+  }
+
+  /* Dropdown system */
+  .nav-dropdown {
+    position: relative;
+  }
+  .nav-drop-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .drop-chevron {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .nav-dropdown:hover .drop-chevron,
+  .nav-dropdown.open .drop-chevron {
+    transform: rotate(180deg);
+  }
+  .nav-drop-panel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    min-width: 200px;
+    padding: 14px 6px 6px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+    z-index: 100;
+  }
+  /* Invisible bridge that covers the gap between the trigger and panel */
+  .nav-drop-panel::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+  }
+  .nav-dropdown:hover .nav-drop-panel,
+  .nav-dropdown.open .nav-drop-panel,
+  .nav-drop-panel:focus-within {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+  .drop-item {
+    display: block;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--v-body);
+    text-decoration: none;
+    border-radius: var(--v-r-sm);
+    transition: color 0.12s ease, background 0.12s ease;
+    white-space: nowrap;
+  }
+  .drop-item:hover {
+    color: var(--v-ink);
+    background: var(--v-hairline-soft);
+  }
+  .drop-divider {
+    height: 1px;
+    background: var(--v-hairline);
+    margin: 4px 8px;
   }
 
   /* Desktop actions */
@@ -472,10 +601,51 @@
 
   // Close on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && btn?.getAttribute('aria-expanded') === 'true') {
-      closeMenu();
-      btn?.focus();
+    if (e.key === 'Escape') {
+      // Close mobile menu
+      if (btn?.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        btn?.focus();
+      }
+      // Close any open desktop dropdown
+      document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+        dd.classList.remove('open');
+        dd.querySelector('.nav-drop-trigger')?.setAttribute('aria-expanded', 'false');
+      });
     }
+  });
+
+  // Desktop Dropdown Logic — click toggle + click-outside close
+  document.querySelectorAll('.nav-drop-trigger').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const parent = trigger.closest('.nav-dropdown');
+      const isOpen = parent?.classList.contains('open');
+
+      // Close all other dropdowns first
+      document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+        dd.classList.remove('open');
+        dd.querySelector('.nav-drop-trigger')?.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        parent?.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Close dropdowns on click outside
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+      dd.classList.remove('open');
+      dd.querySelector('.nav-drop-trigger')?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Stop clicks inside panels from closing
+  document.querySelectorAll('.nav-drop-panel').forEach(panel => {
+    panel.addEventListener('click', (e) => e.stopPropagation());
   });
 
   // Theme Toggle Logic

@@ -6,28 +6,9 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/privacy-policy/`;
-const pageTitle = 'Privacy Policy | AllShoeSizeConverter';
+const pageTitle = 'Privacy Policy — Data & Cookie Protection';
 const pageDescription = 'Read the privacy policy of AllShoeSizeConverter. Learn how we handle client-side calculations, cookies, analytics, and your data protection rights.';
 const ogImage = `${domain}/og-image.png`;
-
-const breadcrumbSchema = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": `${domain}/`
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Privacy Policy",
-      "item": pageCanonical
-    }
-  ]
-});
 ---
 
 <Layout
@@ -43,7 +24,6 @@ const breadcrumbSchema = JSON.stringify({
     <meta property="og:url" content={pageCanonical} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content={ogImage} />
-    <script type="application/ld+json" set:html={breadcrumbSchema} />
   </Fragment>
 
   <Header />

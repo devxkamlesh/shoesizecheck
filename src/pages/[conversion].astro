@@ -39,12 +39,12 @@ const faqSchema = JSON.stringify({
 ---
 
 <Layout
-  title={`${conversion.title} | AllShoeSizeConverter`}
+  title={conversion.title}
   description={conversion.description}
   canonical={`${domain}/${conversion.slug}/`}
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={faqSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
   <Header />
   <main id="main-content">
@@ -244,37 +244,11 @@ const faqSchema = JSON.stringify({
   }
 </style>
 
-<script define:vars={{ from, to }}>
-  const SIZE_DATA = {
-    men: {
-      us:[6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,13,14,15,16],
-      uk:[5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12.5,13.5,14.5,15.5],
-      eu:[39,39,40,40,41,41,42,42,43,43,44,44,45,46,47,48,49],
-      india:[5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,12,13,14,15],
-      jp:[24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],
-      cm:[24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,31,32,33,34],
-      inches:[9.3,9.5,9.6,9.8,9.9,10.1,10.3,10.4,10.6,10.8,10.9,11.1,11.3,11.6,11.9,12.2,12.5],
-    },
-    women: {
-      us:[4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12],
-      uk:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
-      eu:[35,35,35,36,36,37,37,38,38,39,39,40,40,41,41,42,42],
-      india:[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10],
-      jp:[21,21.5,22,22.5,23,23,23.5,24,24,24.5,25,25,25.5,26,26,26.5,27],
-      cm:[21,21.5,22,22.5,23,23,23.5,24,24,24.5,25,25,25.5,26,26,26.5,27],
-      inches:[8.2,8.3,8.5,8.8,8.9,9.1,9.3,9.4,9.5,9.7,9.9,10,10.2,10.3,10.5,10.7,10.9],
-    },
-    kids: {
-      us:[1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y','3Y'],
-      uk:[0.5,1,2,3,4,5,6,7,8,9,10,11,12,13,'1Y','2Y'],
-      eu:[17,18,19,20,21,22,23,25,26,27,28,30,31,32,33,35],
-      india:[1,2,3,3,4,5,5,6,7,8,9,10,11,12,13,1],
-      jp:[11,12,13,13,14,14,15,15,16,17,17,18,19,20,21,22],
-      cm:[11,12,13,13,14,14,15,15,16,17,17,18,19,20,21,22],
-      inches:[4.3,4.7,5.1,5.5,5.9,6.1,6.3,6.5,6.7,6.9,7.1,7.3,7.7,7.9,8.3,8.7],
-    }
-  };
-  const LABELS = {us:'US',uk:'UK',eu:'EU',india:'India',jp:'Japan',cm:'CM',inches:'Inches'};
+<script is:inline define:vars={{ from, to, sizeData: SIZE_DATA, labels: SYSTEM_LABELS }}>
+  // @ts-nocheck
+  const SIZE_DATA = sizeData;
+  const LABELS = labels;
+
 
   const sizeSelect = document.getElementById('conv-size');
   const genderSelect = document.getElementById('conv-gender');

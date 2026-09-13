@@ -104,7 +104,7 @@ export const COUNTRIES: CountryData[] = [
       { q: 'How do US kids shoe sizes work?', a: 'US kids sizes run from 0C (infant) through 13C, then restart at 1Y (Youth). Youth sizes overlap with small adult sizes — a Youth 7 is approximately a Women\'s 8.5.' },
     ],
     relatedConversions: ['us-to-eu-shoe-size', 'us-to-uk-shoe-size', 'us-to-india-shoe-size', 'us-to-japan-shoe-size', 'us-to-cm-shoe-size'],
-    relatedCountries: ['uk', 'europe', 'india', 'japan'],
+    relatedCountries: ['uk', 'europe', 'india', 'japan', 'mexico'],
   },
   {
     slug: 'uk',
@@ -129,7 +129,7 @@ export const COUNTRIES: CountryData[] = [
       { q: 'Are UK and Australian shoe sizes the same?', a: 'Practically yes. Australian shoe sizes follow the UK system with minimal deviation. A UK 9 is an Australian 9 for men.' },
     ],
     relatedConversions: ['uk-to-us-shoe-size', 'uk-to-eu-shoe-size', 'uk-to-india-shoe-size'],
-    relatedCountries: ['us', 'australia', 'india', 'europe'],
+    relatedCountries: ['us', 'australia', 'india', 'europe', 'mexico'],
   },
   {
     slug: 'india',
@@ -155,7 +155,7 @@ export const COUNTRIES: CountryData[] = [
       { q: 'What is India shoe size 6 in EU?', a: 'India 6 for men is approximately EU 40. India 6 for women is approximately EU 39.' },
     ],
     relatedConversions: ['india-to-us-shoe-size', 'india-to-uk-shoe-size', 'india-to-eu-shoe-size'],
-    relatedCountries: ['us', 'uk', 'europe', 'japan'],
+    relatedCountries: ['us', 'uk', 'europe', 'japan', 'mexico'],
   },
   {
     slug: 'europe',
@@ -180,8 +180,9 @@ export const COUNTRIES: CountryData[] = [
       { q: 'What is my EU shoe size?', a: 'Measure your foot in cm and multiply by 1.5, then add 2. For example: 27 cm × 1.5 + 2 = 42.5, so your EU size is approximately 42–43.' },
     ],
     relatedConversions: ['eu-to-us-shoe-size', 'eu-to-uk-shoe-size', 'eu-to-india-shoe-size', 'eu-to-cm-shoe-size'],
-    relatedCountries: ['us', 'uk', 'india', 'japan'],
+    relatedCountries: ['us', 'uk', 'india', 'japan', 'mexico'],
   },
+
   {
     slug: 'japan',
     name: 'Japan',
@@ -413,7 +414,7 @@ export const CONVERSIONS: ConversionData[] = [
       { q: 'What is US 10 in CM?', a: 'US Men\'s 10 corresponds to approximately 28 cm foot length.' },
       { q: 'What is US 8 women\'s in CM?', a: 'US Women\'s 8 corresponds to approximately 24 cm foot length.' },
     ],
-    relatedConversions: ['us-to-eu-shoe-size', 'us-to-japan-shoe-size'],
+    relatedConversions: ['us-to-eu-shoe-size', 'us-to-japan-shoe-size', 'eu-to-cm-shoe-size'],
   },
   // EU →
   {
@@ -431,13 +432,13 @@ export const CONVERSIONS: ConversionData[] = [
       { q: 'What is EU 42 in US?', a: 'EU 42 = US Men\'s 9 approximately. For women, EU 42 ≈ US 11.' },
       { q: 'What is EU 40 in US?', a: 'EU 40 = US Men\'s 7 or US Women\'s 9.5 approximately.' },
     ],
-    relatedConversions: ['us-to-eu-shoe-size', 'eu-to-uk-shoe-size', 'eu-to-india-shoe-size'],
+    relatedConversions: ['us-to-eu-shoe-size', 'eu-to-uk-shoe-size', 'eu-to-india-shoe-size', 'eu-to-cm-shoe-size'],
   },
   {
     slug: 'eu-to-uk-shoe-size',
     fromSystem: 'eu', toSystem: 'uk', fromLabel: 'EU', toLabel: 'UK',
     title: 'EU to UK Shoe Size Conversion – Chart & Calculator',
-    description: 'Convert EU shoe sizes to UK sizes. Full chart for men, women and kids.',
+    description: 'Convert European (EU) shoe sizes to British (UK) sizes instantly. Full conversion chart for men, women, and kids with accurate sizing guidelines.',
     h1: 'EU to UK Shoe Size Converter',
     intro: 'The EU and UK systems use completely different measurement principles — EU uses the Paris Point while UK uses the barleycorn. This converter bridges both systems accurately.',
     formula: 'Men: UK ≈ EU − 33.5 (EU 42 → UK 8.5). Women: UK ≈ EU − 33 (EU 38 → UK 5).',
@@ -450,6 +451,7 @@ export const CONVERSIONS: ConversionData[] = [
     ],
     relatedConversions: ['uk-to-eu-shoe-size', 'eu-to-us-shoe-size', 'eu-to-india-shoe-size'],
   },
+
   {
     slug: 'eu-to-india-shoe-size',
     fromSystem: 'eu', toSystem: 'india', fromLabel: 'EU', toLabel: 'India',
@@ -506,7 +508,7 @@ export const CONVERSIONS: ConversionData[] = [
     slug: 'uk-to-eu-shoe-size',
     fromSystem: 'uk', toSystem: 'eu', fromLabel: 'UK', toLabel: 'EU',
     title: 'UK to EU Shoe Size Conversion – Chart & Calculator',
-    description: 'Convert UK shoe sizes to EU sizes. Full chart for men, women and kids.',
+    description: 'Convert British (UK) shoe sizes to European (EU) sizes instantly. Full conversion chart for men, women, and kids with Paris Point sizing guidelines.',
     h1: 'UK to EU Shoe Size Converter',
     intro: 'Converting UK to EU involves bridging two fundamentally different systems. Use this converter for accurate results.',
     formula: 'Men: EU ≈ UK + 33.5 (UK 8.5 → EU 42). Women: EU ≈ UK + 33 (UK 5 → EU 38).',
@@ -517,8 +519,9 @@ export const CONVERSIONS: ConversionData[] = [
       { q: 'What is UK 8 in EU?', a: 'UK 8 = EU 41–42 for men.' },
       { q: 'What is UK 5 in EU women\'s?', a: 'UK 5 = EU 37–38 for women.' },
     ],
-    relatedConversions: ['eu-to-uk-shoe-size', 'uk-to-us-shoe-size', 'uk-to-india-shoe-size'],
+    relatedConversions: ['eu-to-uk-shoe-size', 'uk-to-us-shoe-size', 'uk-to-india-shoe-size', 'eu-to-cm-shoe-size'],
   },
+
   {
     slug: 'uk-to-india-shoe-size',
     fromSystem: 'uk', toSystem: 'india', fromLabel: 'UK', toLabel: 'India',

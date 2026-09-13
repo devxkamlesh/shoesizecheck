@@ -6,9 +6,10 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/shoe-size-in-inches/`;
-const pageTitle = 'Shoe Size in Inches — Foot Length to Shoe Size Chart & Calculator | AllShoeSizeConverter';
+const pageTitle = 'Shoe Size in Inches — Foot Length to Shoe Size Chart';
 const pageDescription = 'Convert foot length in inches to shoe size. Full shoe size in inches charts for men, women, and kids covering US, UK, EU, and India sizes.';
 const ogImage = `${domain}/og-image.png`;
+
 
 const faqs = [
   {
@@ -60,7 +61,7 @@ const faqSchema = JSON.stringify({
 >
   <Fragment slot="head">
     <meta name="keywords" content="shoe size in inches, women's shoe size in inches, kids shoe size in inches, uk shoe size in inches, is shoe size in inches, what is 10 inches in shoe size, how many inches in a shoe size, how big is a size 9 shoe in inches" />
-    <script type="application/ld+json" set:html={faqSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
   <Header />
@@ -284,7 +285,7 @@ const faqSchema = JSON.stringify({
   }
 </style>
 
-<script>
+<script is:inline>
   const inchesInput = document.getElementById('inches-input');
   const genderSelect = document.getElementById('inches-gender');
   const resultEl = document.getElementById('inches-result');

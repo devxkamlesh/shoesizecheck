@@ -6,9 +6,10 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/kids-shoe-size-by-age/`;
-const pageTitle = 'Kids & Toddler Shoe Size Chart by Age — Baby to Youth Sizing | AllShoeSizeConverter';
-const pageDescription = 'Find the right shoe size for babies, toddlers, and kids by age from 0 to 12 years. Interactive age-to-size calculator, foot length in cm/inches, and 2T vs 3T guide.';
+const pageTitle = 'Kids Shoe Size Chart by Age — Baby & Toddler Sizing';
+const pageDescription = 'Shoe size chart for babies, toddlers, and kids by age. Interactive calculator, foot length in cm and inches, and growth milestone guides.';
 const ogImage = `${domain}/og-image.png`;
+
 
 const faqs = [
   {
@@ -56,7 +57,7 @@ const faqSchema = JSON.stringify({
 >
   <Fragment slot="head">
     <meta name="keywords" content="kids shoe size by age, shoe size for 1 year old, toddler shoe size chart, baby shoe size by months, shoe size 2t vs 3t, child shoe size chart, youth shoe size by age, what shoe size is my 2 year old" />
-    <script type="application/ld+json" set:html={faqSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
   <Header />
@@ -678,7 +679,7 @@ const faqSchema = JSON.stringify({
   }
 </style>
 
-<script>
+<script is:inline>
   // Child Age Database
   const ageData = {
     '0-3m': {
@@ -823,9 +824,9 @@ const faqSchema = JSON.stringify({
     }
   };
 
-  const ageSelect = document.getElementById('child-age-select') as HTMLSelectElement;
-  const lengthInput = document.getElementById('child-length-input') as HTMLInputElement;
-  const unitSelect = document.getElementById('child-length-unit') as HTMLSelectElement;
+  const ageSelect = document.getElementById('child-age-select');
+  const lengthInput = document.getElementById('child-length-input');
+  const unitSelect = document.getElementById('child-length-unit');
 
   const stageBadge = document.getElementById('res-stage-badge');
   const growthRate = document.getElementById('res-growth-rate');

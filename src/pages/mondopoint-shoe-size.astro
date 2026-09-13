@@ -6,9 +6,10 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/mondopoint-shoe-size/`;
-const pageTitle = 'Mondopoint Ski Boot & Snowboard Size Chart — Conversion Guide | AllShoeSizeConverter';
-const pageDescription = 'Convert Mondopoint to US, UK, and EU shoe sizes for ski and snowboard boots. Interactive Mondopoint calculator, shell sizing guide, and boot last width tables.';
+const pageTitle = 'Mondopoint Ski Boot Size Chart & Conversion Guide';
+const pageDescription = 'Convert Mondopoint to US, UK, and EU shoe sizes for ski and snowboard boots. Interactive calculator, shell sizing, and boot last width tables.';
 const ogImage = `${domain}/og-image.png`;
+
 
 const faqs = [
   {
@@ -56,7 +57,7 @@ const faqSchema = JSON.stringify({
 >
   <Fragment slot="head">
     <meta name="keywords" content="mondopoint shoe size, mondopoint ski boot size chart, mondopoint conversion, ski boot size converter, snowboard boot sizing mondopoint, how to measure foot for ski boots, mondopoint to us shoe size, mondopoint to eu, ski boot last width" />
-    <script type="application/ld+json" set:html={faqSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
   <Header />

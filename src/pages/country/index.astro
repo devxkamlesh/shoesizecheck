@@ -1,0 +1,440 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Footer from '../../components/Footer.astro';
+import { COUNTRIES } from '../../data/shoe-sizes';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/country/`;
+const pageTitle = 'Shoe Size by Country — International Size Charts';
+const pageDescription = 'Compare shoe sizes by country across US, UK, EU, India, Japan, Australia, China, Korea, and Mexico with international conversion charts and guides.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'Which countries share the same shoe sizing system?',
+    a: 'Several countries share identical or near-identical footwear sizing systems. The United Kingdom and India both use the British barleycorn scale. Australia uses UK sizing for men and US sizing for women. China has officially adopted European (EU/Paris Point) sizing. The United States and Canada use the identical US sizing system.'
+  },
+  {
+    q: 'What is the most universal shoe sizing standard?',
+    a: 'Mondopoint (ISO 9407), which measures anatomical foot length directly in centimeters (used in Japan) or millimeters (used in South Korea and global ski boots), is the most objective and universal standard. Unlike imperial or continental systems, it represents actual foot length rather than arbitrary numbers.'
+  },
+  {
+    q: 'How do European (EU) sizes compare to US and UK sizes?',
+    a: 'European sizing is unisex and steps by Paris Points (2/3 cm per size). For men, EU sizes run roughly 33 numbers higher than US (EU 42 ≈ US 9 ≈ UK 8.5). For women, EU sizes run roughly 31 numbers higher than US (EU 39 ≈ US 8 ≈ UK 6).'
+  },
+  {
+    q: 'Why do Indian shoe sizes follow UK sizing?',
+    a: 'Historically, footwear manufacturing standards in India adopted the British imperial barleycorn sizing system. Today, legacy brands like Bata India, Woodland, Liberty, and Metro all use UK numbers. In addition, the Bureau of Indian Standards (BIS) and CSIR-CLRI have introduced the "Bha" standard to reflect anatomical foot morphology in India.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` },
+  })),
+});
+
+// Comparison table rows (Men standard sizes)
+const tableRows = [
+  { us: 7, uk: 6.5, eu: 40, in: 6, jp: 25, au: 6.5, mx: 5.5, cm: 25.0, inch: 9.6 },
+  { us: 8, uk: 7.5, eu: 41, in: 7, jp: 26, au: 7.5, mx: 6.5, cm: 26.0, inch: 9.9 },
+  { us: 9, uk: 8.5, eu: 42, in: 8, jp: 27, au: 8.5, mx: 7.5, cm: 27.0, inch: 10.3 },
+  { us: 10, uk: 9.5, eu: 43, in: 9, jp: 28, au: 9.5, mx: 8.5, cm: 28.0, inch: 10.6 },
+  { us: 11, uk: 10.5, eu: 44, in: 10, jp: 29, au: 10.5, mx: 9.5, cm: 29.0, inch: 10.9 },
+  { us: 12, uk: 11.5, eu: 45, in: 11, jp: 30, au: 11.5, mx: 10.5, cm: 30.0, inch: 11.3 },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="shoe size by country, international shoe size chart, shoe sizes worldwide, us shoe size, uk shoe size, eu shoe size, indian shoe size, mexico shoe size, shoe size conversion" />
+    <meta property="og:title" content="Shoe Size by Country — International Size Charts" />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Countries' },
+    ]} />
+
+    <!-- Hero -->
+    <section class="country-hero">
+      <div class="hero-inner">
+        <p class="mono-eyebrow">Global Footwear Standards Directory</p>
+        <h1 class="display-xl">Shoe Size by Country</h1>
+        <p class="hero-lead">
+          Explore official footwear sizing systems across nine major regions. Compare international standards, conversion offsets, and localized last specifications.
+        </p>
+      </div>
+    </section>
+
+    <!-- Country Directory Grid -->
+    <section class="directory-section">
+      <div class="section-inner">
+        <h2 class="section-heading">Regional Sizing Guides</h2>
+        <div class="country-cards-grid">
+          {COUNTRIES.map(c => (
+            <a href={`/country/${c.slug}/`} class="country-dir-card">
+              <div class="card-header">
+                <span class="country-flag">{c.flag}</span>
+                <div class="country-meta">
+                  <h3 class="country-title">{c.name}</h3>
+                  <span class="system-tag">{c.systemLabel} Standard</span>
+                </div>
+              </div>
+              <p class="country-desc">{c.description}</p>
+              <div class="card-action">
+                <span>View {c.name} Size Chart</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Global Cross-Comparison Table -->
+    <section class="table-section">
+      <div class="section-inner">
+        <h2 class="section-heading">International Sizing Comparison (Men's Reference)</h2>
+        <p class="table-sub">Direct comparison of common adult sizes across primary global standards.</p>
+        <div class="table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>US</th>
+                <th>UK</th>
+                <th>EU</th>
+                <th>India</th>
+                <th>Japan</th>
+                <th>Australia</th>
+                <th>Mexico</th>
+                <th>Foot (CM)</th>
+                <th>Foot (Inches)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tableRows.map(r => (
+                <tr>
+                  <td class="primary-cell">US {r.us}</td>
+                  <td>UK {r.uk}</td>
+                  <td>EU {r.eu}</td>
+                  <td>India {r.in}</td>
+                  <td>{r.jp} cm</td>
+                  <td>AU {r.au}</td>
+                  <td>MX {r.mx}</td>
+                  <td>{r.cm} cm</td>
+                  <td>{r.inch}"</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Informational Guide -->
+    <section class="guide-section">
+      <div class="section-inner">
+        <article class="guide-content">
+          <h2 class="guide-title">Understanding Global Footwear Sizing Systems</h2>
+          <p class="guide-p">
+            International shoe sizing can seem unnecessarily convoluted because different nations developed their footwear manufacturing industries independently before global e-commerce existed. Today, three main mathematical systems dominate worldwide footwear production:
+          </p>
+          <div class="systems-grid">
+            <div class="system-box">
+              <h3>1. The Barleycorn System (US, UK, Australia, India)</h3>
+              <p>Originated in medieval England, this standard uses a barleycorn (one-third of an inch or approx. 8.46 mm) as the full size increment, with half-sizes equal to one-sixth of an inch (approx. 4.23 mm). While the UK, US, Australia, and India all use this step size, their zero-points and gender offsets differ.</p>
+            </div>
+            <div class="system-box">
+              <h3>2. The Paris Point System (Europe, China)</h3>
+              <p>Adopted throughout continental Europe and modern China, the Paris Point measures exactly two-thirds of a centimeter (approx. 6.67 mm). EU sizes are unisex, meaning the numbered size represents the exact same inner shoe length for men, women, and children.</p>
+            </div>
+            <div class="system-box">
+              <h3>3. The Mondopoint System (Japan, Korea, Ski Boots)</h3>
+              <p>Standardized by ISO 9407, Mondopoint defines shoe size by true foot length in centimeters (Japan) or millimeters (South Korea). It provides completely transparent, unskewed sizing that eliminates brand confusion.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="faq-section">
+      <div class="section-inner">
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          {faqs.map(f => (
+            <details class="faq-item">
+              <summary class="faq-q">{f.q}</summary>
+              <div class="faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .country-hero {
+    padding: 64px 24px 44px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .hero-lead {
+    font-size: 16px;
+    color: var(--v-body);
+    line-height: 26px;
+    margin-top: 14px;
+  }
+
+  .directory-section, .table-section, .guide-section, .faq-section {
+    padding: 64px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .table-section { background: var(--v-elevated); }
+  .faq-section { background: var(--v-elevated); }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-heading {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+
+  /* Country Cards Grid */
+  .country-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .country-dir-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .country-dir-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--v-link);
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  .country-flag {
+    font-size: 32px;
+    line-height: 1;
+  }
+  .country-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .country-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin: 0;
+  }
+  .system-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--v-mute);
+  }
+  .country-desc {
+    font-size: 13.5px;
+    color: var(--v-body);
+    line-height: 20px;
+    margin: 0 0 20px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--v-link);
+    margin-top: auto;
+  }
+  .card-action svg {
+    transition: transform 0.15s ease;
+  }
+  .country-dir-card:hover .card-action svg {
+    transform: translateX(3px);
+  }
+
+  /* Table */
+  .table-sub {
+    font-size: 14px;
+    color: var(--v-mute);
+    margin: -16px 0 24px;
+  }
+  .table-container {
+    overflow-x: auto;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-canvas);
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .comparison-table th {
+    background: var(--v-table-head);
+    color: var(--v-table-head-text);
+    padding: 12px 16px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .comparison-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-ink);
+    white-space: nowrap;
+  }
+  .comparison-table tr:hover td {
+    background: var(--v-table-hover);
+  }
+  .primary-cell {
+    font-weight: 600;
+    color: var(--v-link);
+  }
+
+  /* Educational guide */
+  .guide-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--v-ink);
+    margin-bottom: 14px;
+  }
+  .guide-p {
+    font-size: 14.5px;
+    color: var(--v-body);
+    line-height: 24px;
+    max-width: 900px;
+    margin-bottom: 28px;
+  }
+  .systems-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .system-box {
+    padding: 20px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+  }
+  .system-box h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin: 0 0 10px;
+  }
+  .system-box p {
+    font-size: 13px;
+    color: var(--v-body);
+    line-height: 20px;
+    margin: 0;
+  }
+
+  /* FAQ */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 860px;
+  }
+  .faq-item {
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-canvas);
+    overflow: hidden;
+  }
+  .faq-q {
+    padding: 16px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--v-ink);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q::after {
+    content: '+';
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--v-mute);
+  }
+  .faq-item[open] .faq-q::after {
+    content: '−';
+  }
+  .faq-a {
+    padding: 0 20px 16px;
+    font-size: 14px;
+    color: var(--v-body);
+    line-height: 22px;
+  }
+  .faq-a p { margin: 0; }
+
+  @media (max-width: 960px) {
+    .country-cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .systems-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .country-cards-grid { grid-template-columns: 1fr; }
+    .country-hero { padding: 48px 16px 32px; }
+    .directory-section, .table-section, .guide-section, .faq-section { padding: 44px 16px; }
+  }
+</style>

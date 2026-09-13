@@ -7,9 +7,10 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/what-is-my-shoe-size/`;
-const pageTitle = 'What Is My Shoe Size? — Shoe Size Calculator & Conversion Guide | AllShoeSizeConverter';
+const pageTitle = 'What Is My Shoe Size? — Foot Size Calculator Guide';
 const pageDescription = 'Find out what your shoe size is in US, UK, EU, and India. Enter your foot length in cm or inches to get accurate sizes for men, women, kids, and babies.';
 const ogImage = `${domain}/og-image.png`;
+
 
 const faqs = [
   {
@@ -61,7 +62,7 @@ const faqSchema = JSON.stringify({
 >
   <Fragment slot="head">
     <meta name="keywords" content="what is my shoe size, what is my uk shoe size, what is my eu shoe size, what size shoe is my 1 year old, foot length to shoe size, how to know my shoe size, what shoe size am i" />
-    <script type="application/ld+json" set:html={faqSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
   <Header />
