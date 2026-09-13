@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Footer from '../../components/Footer.astro';
+import CountrySystemGraph from '../../components/CountrySystemGraph.astro';
 import { COUNTRIES } from '../../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
@@ -85,6 +86,9 @@ const tableRows = [
         </p>
       </div>
     </section>
+
+    <!-- Technical System Topology Network Graph -->
+    <CountrySystemGraph />
 
     <!-- Country Directory -->
     <section class="directory-section">

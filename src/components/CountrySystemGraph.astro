@@ -1,0 +1,599 @@
+---
+// CountrySystemGraph.astro — Technical node-graph visualization of international shoe sizing systems
+import { COUNTRIES } from '../data/shoe-sizes';
+
+interface SystemCluster {
+  id: string;
+  name: string;
+  code: string;
+  unit: string;
+  formula: string;
+  origin: string;
+  color: string;
+  countries: {
+    slug: string;
+    code: string;
+    name: string;
+    flag: string;
+    relation: string;
+    tag: string;
+    offset: string;
+  }[];
+}
+
+const clusters: SystemCluster[] = [
+  {
+    id: 'barleycorn',
+    name: 'US & UK Imperial Sizing System',
+    code: 'INCH-BASED SIZING',
+    unit: '1/3 Inch Steps (8.46 mm)',
+    formula: 'Each full shoe size increases by 1/3 inch (8.46 mm)',
+    origin: 'Used in US, UK, India, Australia & Mexico',
+    color: '#0070f3',
+    countries: [
+      { slug: 'uk', code: 'UK', name: 'United Kingdom', flag: '🇬🇧', relation: 'Base UK reference sizing standard', tag: 'UK Baseline', offset: 'UK Reference' },
+      { slug: 'us', code: 'US', name: 'United States', flag: '🇺🇸', relation: 'Runs 0.5 size higher than UK Men, 2 higher for Women', tag: 'UK + 0.5 (Men)', offset: '+0.5 Men / +2 Women' },
+      { slug: 'india', code: 'IND', name: 'India (BIS Bha)', flag: '🇮🇳', relation: 'Uses standard UK sizing with BIS Bha morphology', tag: 'Identical to UK', offset: '1:1 Match with UK' },
+      { slug: 'australia', code: 'AUS', name: 'Australia', flag: '🇦🇺', relation: 'Men use UK shoe sizes; Women use US shoe sizes', tag: 'UK Men / US Women', offset: 'UK & US Hybrid' },
+      { slug: 'mexico', code: 'MEX', name: 'Mexico', flag: '🇲🇽', relation: 'Punto system runs approx. 2 sizes lower than US Men', tag: 'Punto Standard', offset: '-2.0 vs US Men' },
+    ]
+  },
+  {
+    id: 'paris-point',
+    name: 'European (EU) Paris Point System',
+    code: 'CONTINENTAL SIZING',
+    unit: '2/3 CM Steps (6.67 mm)',
+    formula: 'Unisex sizing — each size equals 2/3 cm (6.67 mm)',
+    origin: 'Used across European Union & China',
+    color: '#7928ca',
+    countries: [
+      { slug: 'europe', code: 'EU', name: 'European Union', flag: '🇪🇺', relation: 'Unisex shoe size scale for Men, Women & Kids', tag: 'Paris Point Core', offset: 'Unisex Standard' },
+      { slug: 'china', code: 'CHN', name: 'China (GB/T)', flag: '🇨🇳', relation: 'Adopts European shoe size numbers directly', tag: 'Matches EU Sizes', offset: '1:1 Match with EU' },
+    ]
+  },
+  {
+    id: 'mondopoint',
+    name: 'Mondopoint (Metric Foot Length)',
+    code: 'METRIC FOOT LENGTH',
+    unit: 'Actual Foot Size (ISO 9407)',
+    formula: 'Shoe size directly equals foot length in cm or mm',
+    origin: 'Used in Japan, South Korea & Ski Boots',
+    color: '#10b981',
+    countries: [
+      { slug: 'japan', code: 'JPN', name: 'Japan', flag: '🇯🇵', relation: 'Shoe size equals foot length measured in centimeters', tag: 'Foot in CM', offset: 'e.g. 27.0 cm' },
+      { slug: 'korea', code: 'KOR', name: 'South Korea', flag: '🇰🇷', relation: 'Shoe size equals foot length measured in millimeters', tag: 'Foot in MM', offset: 'e.g. 270 mm' },
+    ]
+  }
+];
+---
+
+<section class="tech-graph-section" id="system-topology">
+  <div class="tech-graph-inner">
+    <!-- Top HUD Bar -->
+    <div class="graph-hud">
+      <div class="hud-left">
+        <span class="hud-indicator">
+          <span class="pulse-dot"></span>
+          SHOE SIZE COMPARISON
+        </span>
+        <span class="hud-title">How International Shoe Sizes Connect</span>
+      </div>
+      <div class="hud-right">
+        <span class="hud-meta">9 Countries • 3 Major Sizing Standards</span>
+      </div>
+    </div>
+
+    <!-- Graph Canvas -->
+    <div class="graph-canvas" id="graphCanvas">
+      <!-- Background Circuit Grid -->
+      <div class="circuit-grid" aria-hidden="true"></div>
+
+      <!-- Main Columns / Clusters -->
+      <div class="clusters-row">
+        {clusters.map((cluster) => (
+          <div class="cluster-col" data-cluster={cluster.id} style={`--cluster-color: ${cluster.color}`}>
+            <!-- Cluster Hub Node -->
+            <div class="hub-node" tabindex="0" role="button" aria-expanded="false">
+              <div class="hub-header">
+                <span class="hub-code">{cluster.code}</span>
+                <span class="hub-pill">{cluster.unit}</span>
+              </div>
+              <h3 class="hub-title">{cluster.name}</h3>
+              <p class="hub-formula"><span>{cluster.formula}</span></p>
+              <div class="hub-origin">{cluster.origin}</div>
+              <div class="hub-port-bottom"></div>
+            </div>
+
+            <!-- Connector Spine -->
+            <div class="cluster-spine">
+              <div class="spine-line"></div>
+            </div>
+
+            <!-- Country Child Nodes -->
+            <div class="child-nodes-list">
+              {cluster.countries.map((c) => (
+                <a 
+                  href={`/country/${c.slug}/`} 
+                  class="country-node" 
+                  data-country={c.slug}
+                  data-cluster={cluster.id}
+                  data-name={c.name}
+                  data-relation={c.relation}
+                  data-offset={c.offset}
+                >
+                  <div class="node-port-left"></div>
+                  <div class="node-content">
+                    <div class="node-top">
+                      <span class="node-flag">{c.flag}</span>
+                      <div class="node-meta">
+                        <span class="node-code">{c.code}</span>
+                        <h4 class="node-name">{c.name}</h4>
+                      </div>
+                      <span class="node-tag">{c.tag}</span>
+                    </div>
+                    <div class="node-bottom">
+                      <span class="node-relation">{c.relation}</span>
+                      <span class="node-offset">{c.offset}</span>
+                    </div>
+                  </div>
+                  <div class="node-arrow" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Sizing Inspector Footer Panel -->
+      <div class="graph-inspector" id="graphInspector">
+        <div class="inspector-badge">
+          <span class="terminal-prompt">●</span> SIZING DETAILS:
+        </div>
+        <div class="inspector-data" id="inspectorData">
+          <span class="inspector-prompt">Click or hover over any country above to see how its shoe sizes convert to other regions.</span>
+        </div>
+        <div class="inspector-action" id="inspectorAction">
+          <span class="hint-text">Instant international conversions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initGraph() {
+    const nodes = document.querySelectorAll('.country-node');
+    const inspectorData = document.getElementById('inspectorData');
+    const inspectorAction = document.getElementById('inspectorAction');
+
+    nodes.forEach(node => {
+      const el = node as HTMLElement;
+      const name = el.dataset.name || '';
+      const relation = el.dataset.relation || '';
+      const offset = el.dataset.offset || '';
+      const slug = el.dataset.country || '';
+
+      const updateInspector = () => {
+        if (inspectorData) {
+          inspectorData.innerHTML = `
+            <span class="inspect-name">${name}</span>
+            <span class="inspect-sep">•</span>
+            <span class="inspect-rel">${relation}</span>
+            <span class="inspect-sep">•</span>
+            <span class="inspect-val">Comparison: <strong>${offset}</strong></span>
+          `;
+        }
+        if (inspectorAction) {
+          inspectorAction.innerHTML = `
+            <a href="/country/${slug}/" class="inspect-link">
+              View ${name} Size Chart →
+            </a>
+          `;
+        }
+      };
+
+      node.addEventListener('mouseenter', updateInspector);
+      node.addEventListener('focus', updateInspector);
+    });
+  }
+
+  // Run on initial load and View Transitions
+  initGraph();
+  document.addEventListener('astro:page-load', initGraph);
+</script>
+
+<style>
+  .tech-graph-section {
+    padding: 32px 24px 44px;
+    border-bottom: 1px solid var(--v-hairline);
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 70%);
+  }
+  .tech-graph-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  /* HUD Header */
+  .graph-hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-bottom: none;
+    border-radius: var(--v-r-md) var(--v-r-md) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .hud-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hud-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--v-link);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--v-link);
+    box-shadow: 0 0 6px var(--v-link);
+    animation: techPulse 2s infinite ease-in-out;
+  }
+  @keyframes techPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+  .hud-title {
+    color: var(--v-ink);
+    font-weight: 500;
+  }
+  .hud-meta {
+    color: var(--v-mute);
+    letter-spacing: 0.04em;
+  }
+
+  /* Canvas */
+  .graph-canvas {
+    position: relative;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: 0 0 var(--v-r-md) var(--v-r-md);
+    overflow: hidden;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .circuit-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-size: 24px 24px;
+    background-image: 
+      linear-gradient(to right, var(--v-hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--v-hairline) 1px, transparent 1px);
+    opacity: 0.45;
+  }
+
+  /* Clusters Row */
+  .clusters-row {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.15fr 0.9fr 0.9fr;
+    gap: 18px;
+    padding: 24px;
+  }
+  .cluster-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hub Node */
+  .hub-node {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-top: 2px solid var(--cluster-color);
+    border-radius: var(--v-r-md);
+    padding: 14px 16px;
+    position: relative;
+    box-shadow: var(--v-shadow-whisper);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .hub-node:hover {
+    border-color: var(--cluster-color);
+    transform: translateY(-1px);
+  }
+  .hub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .hub-code {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--cluster-color);
+    letter-spacing: 0.05em;
+  }
+  .hub-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--v-ink);
+  }
+  .hub-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .hub-formula {
+    margin: 0 0 6px;
+  }
+  .hub-formula span {
+    font-size: 12px;
+    line-height: 17px;
+    color: var(--v-body);
+    display: block;
+  }
+  .hub-origin {
+    font-size: 11px;
+    color: var(--v-mute);
+    font-weight: 500;
+  }
+  .hub-port-bottom {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--cluster-color);
+    border-radius: 50%;
+    border: 2px solid var(--v-elevated);
+  }
+
+  /* Connector Spine */
+  .cluster-spine {
+    display: flex;
+    justify-content: center;
+    height: 18px;
+    position: relative;
+  }
+  .spine-line {
+    width: 2px;
+    height: 100%;
+    background: var(--cluster-color);
+    opacity: 0.45;
+  }
+
+  /* Child Nodes List */
+  .child-nodes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .country-node {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 9px 12px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  .country-node:hover {
+    background: var(--v-elevated);
+    border-color: var(--cluster-color);
+    transform: translateX(3px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .node-port-left {
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cluster-color);
+    opacity: 0.6;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .country-node:hover .node-port-left {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.3);
+  }
+  .node-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .node-top {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .node-flag {
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .node-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    min-width: 0;
+  }
+  .node-code {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--v-mute);
+  }
+  .node-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .node-tag {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--v-mute);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .node-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+  }
+  .node-relation {
+    color: var(--v-body);
+    font-size: 10.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 8px;
+  }
+  .node-offset {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--cluster-color);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .node-arrow {
+    color: var(--v-mute);
+    margin-left: 6px;
+    opacity: 0.5;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    flex-shrink: 0;
+  }
+  .country-node:hover .node-arrow {
+    opacity: 1;
+    transform: translateX(2px);
+    color: var(--cluster-color);
+  }
+
+  /* Inspector Bar */
+  .graph-inspector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .inspector-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--v-mute);
+    flex-shrink: 0;
+  }
+  .terminal-prompt {
+    color: var(--v-link);
+  }
+  .inspector-data {
+    flex: 1;
+    margin: 0 16px;
+    color: var(--v-body);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .inspector-prompt {
+    color: var(--v-mute);
+  }
+  :global(.inspect-name) {
+    color: var(--v-ink);
+    font-weight: 700;
+  }
+  :global(.inspect-sep) {
+    color: var(--v-hairline);
+    margin: 0 6px;
+  }
+  :global(.inspect-rel) {
+    color: var(--v-body);
+  }
+  :global(.inspect-val) {
+    color: var(--v-link);
+  }
+  .inspector-action {
+    flex-shrink: 0;
+  }
+  .hint-text {
+    color: var(--v-mute);
+    font-size: 10.5px;
+  }
+  :global(.inspect-link) {
+    color: var(--v-link);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  :global(.inspect-link:hover) {
+    text-decoration: underline;
+  }
+
+  /* Responsive layout */
+  @media (max-width: 990px) {
+    .clusters-row {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .graph-hud {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .graph-inspector {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .inspector-data {
+      margin: 0;
+      width: 100%;
+    }
+  }
+  @media (max-width: 600px) {
+    .tech-graph-section {
+      padding: 20px 12px 32px;
+    }
+    .clusters-row {
+      padding: 14px;
+    }
+  }
+</style>
