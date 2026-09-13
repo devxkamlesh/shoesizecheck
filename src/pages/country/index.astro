@@ -86,27 +86,26 @@ const tableRows = [
       </div>
     </section>
 
-    <!-- Country Directory Grid -->
+    <!-- Country Directory -->
     <section class="directory-section">
       <div class="section-inner">
-        <h2 class="section-heading">Regional Sizing Guides</h2>
-        <div class="country-cards-grid">
+        <h2 class="section-heading">All Countries</h2>
+        <div class="country-list">
           {COUNTRIES.map(c => (
-            <a href={`/country/${c.slug}/`} class="country-dir-card">
-              <div class="card-header">
-                <span class="country-flag">{c.flag}</span>
-                <div class="country-meta">
-                  <h3 class="country-title">{c.name}</h3>
-                  <span class="system-tag">{c.systemLabel} Standard</span>
+            <a href={`/country/${c.slug}/`} class="country-row">
+              <div class="country-left">
+                <span class="country-code">{c.flag}</span>
+                <div class="country-info">
+                  <h3 class="country-name">{c.name}</h3>
+                  <span class="country-system">{c.systemLabel} Standard</span>
                 </div>
               </div>
               <p class="country-desc">{c.description}</p>
-              <div class="card-action">
-                <span>View {c.name} Size Chart</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
+              <span class="row-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6"/>
                 </svg>
-              </div>
+              </span>
             </a>
           ))}
         </div>
@@ -116,8 +115,8 @@ const tableRows = [
     <!-- Global Cross-Comparison Table -->
     <section class="table-section">
       <div class="section-inner">
-        <h2 class="section-heading">International Sizing Comparison (Men's Reference)</h2>
-        <p class="table-sub">Direct comparison of common adult sizes across primary global standards.</p>
+        <h2 class="section-heading">Quick Comparison (Men's)</h2>
+        <p class="table-sub">Common adult sizes across primary global standards.</p>
         <div class="table-container">
           <table class="comparison-table">
             <thead>
@@ -129,21 +128,21 @@ const tableRows = [
                 <th>Japan</th>
                 <th>Australia</th>
                 <th>Mexico</th>
-                <th>Foot (CM)</th>
-                <th>Foot (Inches)</th>
+                <th>CM</th>
+                <th>Inches</th>
               </tr>
             </thead>
             <tbody>
               {tableRows.map(r => (
                 <tr>
-                  <td class="primary-cell">US {r.us}</td>
-                  <td>UK {r.uk}</td>
-                  <td>EU {r.eu}</td>
-                  <td>India {r.in}</td>
-                  <td>{r.jp} cm</td>
-                  <td>AU {r.au}</td>
-                  <td>MX {r.mx}</td>
-                  <td>{r.cm} cm</td>
+                  <td class="primary-cell">{r.us}</td>
+                  <td>{r.uk}</td>
+                  <td>{r.eu}</td>
+                  <td>{r.in}</td>
+                  <td>{r.jp}</td>
+                  <td>{r.au}</td>
+                  <td>{r.mx}</td>
+                  <td>{r.cm}</td>
                   <td>{r.inch}"</td>
                 </tr>
               ))}
@@ -153,33 +152,33 @@ const tableRows = [
       </div>
     </section>
 
-    <!-- Informational Guide -->
+    <!-- Sizing Systems Guide -->
     <section class="guide-section">
       <div class="section-inner">
         <article class="guide-content">
-          <h2 class="guide-title">Understanding Global Footwear Sizing Systems</h2>
-          <p class="guide-p">
-            International shoe sizing can seem unnecessarily convoluted because different nations developed their footwear manufacturing industries independently before global e-commerce existed. Today, three main mathematical systems dominate worldwide footwear production:
-          </p>
-          <div class="systems-grid">
-            <div class="system-box">
-              <h3>1. The Barleycorn System (US, UK, Australia, India)</h3>
-              <p>Originated in medieval England, this standard uses a barleycorn (one-third of an inch or approx. 8.46 mm) as the full size increment, with half-sizes equal to one-sixth of an inch (approx. 4.23 mm). While the UK, US, Australia, and India all use this step size, their zero-points and gender offsets differ.</p>
+          <h2 class="section-heading">How Sizing Systems Work</h2>
+          <div class="systems-list">
+            <div class="system-item">
+              <h3>Barleycorn System</h3>
+              <p class="system-countries">US, UK, Australia, India</p>
+              <p>Each full size equals 1/3 inch (~8.46 mm). Half sizes are 1/6 inch (~4.23 mm). Different countries use different starting points, which is why US 9 ≠ UK 9.</p>
             </div>
-            <div class="system-box">
-              <h3>2. The Paris Point System (Europe, China)</h3>
-              <p>Adopted throughout continental Europe and modern China, the Paris Point measures exactly two-thirds of a centimeter (approx. 6.67 mm). EU sizes are unisex, meaning the numbered size represents the exact same inner shoe length for men, women, and children.</p>
+            <div class="system-item">
+              <h3>Paris Point System</h3>
+              <p class="system-countries">Europe, China</p>
+              <p>Each size equals 2/3 cm (~6.67 mm). Sizes are unisex — EU 42 means the same footbed length for men and women.</p>
             </div>
-            <div class="system-box">
-              <h3>3. The Mondopoint System (Japan, Korea, Ski Boots)</h3>
-              <p>Standardized by ISO 9407, Mondopoint defines shoe size by true foot length in centimeters (Japan) or millimeters (South Korea). It provides completely transparent, unskewed sizing that eliminates brand confusion.</p>
+            <div class="system-item">
+              <h3>Mondopoint System</h3>
+              <p class="system-countries">Japan, Korea, Ski Boots</p>
+              <p>Shoe size equals actual foot length in centimeters (Japan) or millimeters (Korea). The most transparent standard — ISO 9407.</p>
             </div>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- FAQ Accordion -->
+    <!-- FAQ -->
     <section class="faq-section">
       <div class="section-inner">
         <h2 class="section-heading">Frequently Asked Questions</h2>
@@ -199,121 +198,124 @@ const tableRows = [
 </Layout>
 
 <style>
+  /* Hero */
   .country-hero {
-    padding: 64px 24px 44px;
+    padding: 56px 24px 40px;
     text-align: center;
-    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
     border-bottom: 1px solid var(--v-hairline);
   }
   .hero-inner {
-    max-width: 800px;
+    max-width: 640px;
     margin: 0 auto;
   }
   .hero-lead {
-    font-size: 16px;
+    font-size: 15px;
     color: var(--v-body);
-    line-height: 26px;
-    margin-top: 14px;
+    line-height: 24px;
+    margin-top: 12px;
   }
 
-  .directory-section, .table-section, .guide-section, .faq-section {
-    padding: 64px 24px;
+  /* Sections */
+  .directory-section,
+  .table-section,
+  .guide-section,
+  .faq-section {
+    padding: 56px 24px;
     border-bottom: 1px solid var(--v-hairline);
   }
   .table-section { background: var(--v-elevated); }
   .faq-section { background: var(--v-elevated); }
 
   .section-inner {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
   }
   .section-heading {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--v-ink);
-    letter-spacing: -0.02em;
-    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
   }
 
-  /* Country Cards Grid */
-  .country-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  .country-dir-card {
+  /* Country List */
+  .country-list {
     display: flex;
     flex-direction: column;
-    padding: 24px;
-    background: var(--v-elevated);
     border: 1px solid var(--v-hairline);
     border-radius: var(--v-r-md);
-    text-decoration: none;
-    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    overflow: hidden;
+    background: var(--v-elevated);
   }
-  .country-dir-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--v-link);
-    box-shadow: var(--v-shadow-whisper);
-  }
-  .card-header {
+  .country-row {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 12px;
+    gap: 16px;
+    padding: 16px 20px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--v-hairline);
+    transition: background 0.12s ease;
   }
-  .country-flag {
-    font-size: 32px;
+  .country-row:last-child {
+    border-bottom: none;
+  }
+  .country-row:hover {
+    background: var(--v-table-hover, rgba(0,0,0,0.02));
+  }
+  .country-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    min-width: 200px;
+  }
+  .country-code {
+    font-size: 24px;
     line-height: 1;
   }
-  .country-meta {
+  .country-info {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
   }
-  .country-title {
-    font-size: 17px;
+  .country-name {
+    font-size: 15px;
     font-weight: 600;
     color: var(--v-ink);
     margin: 0;
   }
-  .system-tag {
+  .country-system {
     font-family: var(--font-mono);
     font-size: 11px;
     color: var(--v-mute);
+    letter-spacing: 0.02em;
   }
   .country-desc {
-    font-size: 13.5px;
-    color: var(--v-body);
-    line-height: 20px;
-    margin: 0 0 20px;
     flex: 1;
+    font-size: 13px;
+    color: var(--v-body);
+    line-height: 19px;
+    margin: 0;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .card-action {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 600;
+  .row-arrow {
+    flex-shrink: 0;
+    color: var(--v-mute);
+    transition: color 0.12s ease, transform 0.12s ease;
+  }
+  .country-row:hover .row-arrow {
     color: var(--v-link);
-    margin-top: auto;
-  }
-  .card-action svg {
-    transition: transform 0.15s ease;
-  }
-  .country-dir-card:hover .card-action svg {
-    transform: translateX(3px);
+    transform: translateX(2px);
   }
 
   /* Table */
   .table-sub {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--v-mute);
-    margin: -16px 0 24px;
+    margin: -14px 0 20px;
   }
   .table-container {
     overflow-x: auto;
@@ -324,21 +326,27 @@ const tableRows = [
   .comparison-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 13.5px;
+    font-size: 13px;
     text-align: left;
   }
   .comparison-table th {
     background: var(--v-table-head);
     color: var(--v-table-head-text);
-    padding: 12px 16px;
+    padding: 10px 14px;
     font-weight: 600;
     white-space: nowrap;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
   .comparison-table td {
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--v-hairline);
     color: var(--v-ink);
     white-space: nowrap;
+  }
+  .comparison-table tr:last-child td {
+    border-bottom: none;
   }
   .comparison-table tr:hover td {
     background: var(--v-table-hover);
@@ -348,41 +356,35 @@ const tableRows = [
     color: var(--v-link);
   }
 
-  /* Educational guide */
-  .guide-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--v-ink);
-    margin-bottom: 14px;
+  /* Systems Guide */
+  .systems-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
-  .guide-p {
-    font-size: 14.5px;
-    color: var(--v-body);
-    line-height: 24px;
-    max-width: 900px;
-    margin-bottom: 28px;
-  }
-  .systems-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  .system-box {
+  .system-item {
     padding: 20px;
     background: var(--v-elevated);
     border: 1px solid var(--v-hairline);
     border-radius: var(--v-r-md);
   }
-  .system-box h3 {
+  .system-item h3 {
     font-size: 15px;
     font-weight: 600;
     color: var(--v-ink);
-    margin: 0 0 10px;
+    margin: 0 0 4px;
   }
-  .system-box p {
-    font-size: 13px;
+  .system-countries {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--v-mute);
+    margin: 0 0 10px;
+    letter-spacing: 0.02em;
+  }
+  .system-item p:last-child {
+    font-size: 13.5px;
     color: var(--v-body);
-    line-height: 20px;
+    line-height: 21px;
     margin: 0;
   }
 
@@ -390,18 +392,21 @@ const tableRows = [
   .faq-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-width: 860px;
-  }
-  .faq-item {
+    gap: 0;
     border: 1px solid var(--v-hairline);
     border-radius: var(--v-r-md);
-    background: var(--v-canvas);
     overflow: hidden;
+    background: var(--v-canvas);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .faq-item:last-child {
+    border-bottom: none;
   }
   .faq-q {
-    padding: 16px 20px;
-    font-size: 15px;
+    padding: 14px 20px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--v-ink);
     cursor: pointer;
@@ -413,28 +418,54 @@ const tableRows = [
   .faq-q::-webkit-details-marker { display: none; }
   .faq-q::after {
     content: '+';
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--v-mute);
+    flex-shrink: 0;
+    margin-left: 12px;
   }
   .faq-item[open] .faq-q::after {
     content: '−';
   }
   .faq-a {
-    padding: 0 20px 16px;
-    font-size: 14px;
+    padding: 0 20px 14px;
+    font-size: 13.5px;
     color: var(--v-body);
-    line-height: 22px;
+    line-height: 21px;
   }
   .faq-a p { margin: 0; }
 
-  @media (max-width: 960px) {
-    .country-cards-grid { grid-template-columns: repeat(2, 1fr); }
-    .systems-grid { grid-template-columns: 1fr; }
+  /* Responsive */
+  @media (max-width: 768px) {
+    .country-row {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .country-left {
+      min-width: unset;
+    }
+    .country-desc {
+      width: 100%;
+      padding-left: 36px;
+      -webkit-line-clamp: 2;
+    }
+    .row-arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .country-row {
+      position: relative;
+      padding-right: 44px;
+    }
   }
   @media (max-width: 600px) {
-    .country-cards-grid { grid-template-columns: 1fr; }
-    .country-hero { padding: 48px 16px 32px; }
-    .directory-section, .table-section, .guide-section, .faq-section { padding: 44px 16px; }
+    .country-hero { padding: 40px 16px 28px; }
+    .directory-section,
+    .table-section,
+    .guide-section,
+    .faq-section { padding: 40px 16px; }
+    .section-heading { font-size: 18px; }
   }
 </style>
