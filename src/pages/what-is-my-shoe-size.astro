@@ -15,31 +15,51 @@ const ogImage = `${domain}/og-image.png`;
 const faqs = [
   {
     q: 'What is my UK shoe size if I know my US size?',
-    a: 'For men, your UK shoe size is usually 0.5 to 1 full size smaller than your US size (a US Men\'s 9 is roughly a UK 8.5). For women, your UK size is approximately 2 sizes smaller than your US size (a US Women\'s 8 is a UK 6). In India, standard sizing matches UK sizes directly.'
+    a: 'For men, your UK shoe size is usually 0.5 to 1 full size smaller than your US size (a US Men\'s 9 is roughly a UK 8.5). For women, your UK size is approximately 2 sizes smaller than your US size (a US Women\'s 8 is a UK 6). In India, standard footwear sizes match UK sizes directly.'
   },
   {
-    q: 'What is my EU shoe size?',
-    a: 'European sizing is unisex and uses the Paris Point standard (each size is 2/3 of a centimeter). For US men, add approximately 33 to your size (US Men\'s 9 = EU 42). For US women, add roughly 31 to 31.5 (US Women\'s 8 = EU 39). An adult foot measuring 26 cm fits EU 41 in both men\'s and women\'s shoes.'
+    q: 'What is my EU shoe size (European shoe size)?',
+    a: 'European sizing is unisex and uses the Paris Point standard (each size is 2/3 of a centimeter, or 6.67 mm). For US men, add approximately 33 to your size (US Men\'s 9 = EU 42). For US women, add roughly 31 to 31.5 (US Women\'s 8 = EU 39). An adult foot measuring 26 cm fits EU 41 in both men\'s and women\'s footwear.'
   },
   {
-    q: 'If my foot is 26 cm long, what size shoe am I?',
+    q: 'If my foot is 9 inches long, what shoe size am I?',
+    a: 'A 9-inch foot (~22.9 cm) corresponds to US Women\'s 6, US Men\'s 4.5, UK 4, EU 36.5 to 37, and India 4. In centimeter sizing, this represents size 23.'
+  },
+  {
+    q: 'If my foot is 10 inches long, what shoe size am I?',
+    a: 'Ten inches equals 25.4 centimeters. That corresponds to US Men\'s 7.5 to 8, US Women\'s 9 to 9.5, UK 7, EU 40.5 to 41, and India 7. If your foot is 10.5 inches (~26.7 cm), you fit a US Men\'s 9 to 9.5 or US Women\'s 10.5 to 11.'
+  },
+  {
+    q: 'My foot is 24 cm long, what size shoe am I?',
+    a: 'A 24 cm foot length corresponds to US Men\'s 6, US Women\'s 7.5, UK 5.5, EU 38, India 5, and Japan 24. It is one of the most common standard adult female shoe sizes globally.'
+  },
+  {
+    q: 'My foot is 25 cm long, what size shoe am I?',
+    a: 'A 25 cm foot length corresponds to US Men\'s 7, US Women\'s 8.5, UK 6.5, EU 40, India 6, and Japan 25. In centimeter-based athletic sneakers, this provides an ideal true-to-size fit.'
+  },
+  {
+    q: 'If my foot is 26 cm long, what shoe size am I?',
     a: 'A 26 cm foot length corresponds to US Men\'s 8, US Women\'s 9.5, UK 7.5, EU 41, and India 7. In Japan and Mondopoint sizing, this is labeled directly as size 26.'
   },
   {
     q: 'If my foot is 27 cm long, what size shoe am I?',
-    a: 'A 27 cm foot length corresponds to US Men\'s 9, US Women\'s 10.5, UK 8.5, EU 42, and India 8. It is one of the most widely manufactured adult shoe sizes in the world.'
+    a: 'A 27 cm foot length corresponds to US Men\'s 9, US Women\'s 10.5, UK 8.5, EU 42, and India 8. It is one of the most widely manufactured adult men\'s shoe sizes in the world.'
   },
   {
-    q: 'If my foot is 24 cm or 25 cm long, what shoe size am I?',
-    a: 'A 24 cm foot equals US Men\'s 6, US Women\'s 7.5, UK 5.5, EU 38, or India 5. A 25 cm foot equals US Men\'s 7, US Women\'s 8.5, UK 6.5, EU 40, or India 6.'
+    q: 'If my foot is 28 cm long, what shoe size am I?',
+    a: 'A 28 cm foot length corresponds to US Men\'s 10, US Women\'s 11.5, UK 9.5, EU 43.5 to 44, India 9.5, and Japan 28. It represents an average large adult shoe profile.'
   },
   {
-    q: 'If my foot is 10 inches long, what shoe size is that?',
-    a: 'Ten inches equals 25.4 centimeters. That corresponds to US Men\'s 7.5 to 8, US Women\'s 9 to 9.5, UK 7, and EU 40.5 to 41. If your foot is 9 inches (~22.9 cm), you fit approximately a US Women\'s 6 or Men\'s 4.5.'
+    q: 'What size shoe is my baby or 1-year-old?',
+    a: 'Most 1-year-old babies wear between a US size 3C and 4.5C (UK 2.5–4, EU 18–20), which corresponds to a foot length between 10.5 cm and 11.7 cm (4.1 to 4.6 inches). Because infant feet grow by up to half a size every 2 to 3 months, always leave approximately 10 mm of growth room.'
   },
   {
-    q: 'What shoe size is my 1-year-old baby?',
-    a: 'Most 1-year-old toddlers wear between a US size 3C and 4.5C, which corresponds to a foot length between 10.8 cm and 11.7 cm (4.25 to 4.6 inches), or EU 19 to 20. Because baby feet grow quickly, keep about 1 cm (half a thumb width) of extra room at the front.'
+    q: 'How do I know what is my shoe size accurately at home?',
+    a: 'Stand on a blank sheet of paper against a flat wall in the late afternoon. Mark the tip of your longest toe while holding your pen completely vertical. Measure the distance in centimeters or inches from the wall edge to the mark. Compare your measurement to our live sizing table and size up to the larger foot.'
+  },
+  {
+    q: 'What can I do if my shoes are too big?',
+    a: 'If a pair of shoes is slightly too large (by 0.5 size), you can insert a cushioned high-density foam or leather insole, wear thicker performance socks, or use silicone heel grip inserts. If the shoes are more than a full size too large, return or exchange them to prevent foot slippage, blisters, and unnatural gait.'
   }
 ];
 
@@ -49,7 +69,7 @@ const faqSchema = JSON.stringify({
   "mainEntity": faqs.map(f => ({
     "@type": "Question",
     "name": f.q,
-    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` },
   })),
 });
 ---
@@ -61,7 +81,7 @@ const faqSchema = JSON.stringify({
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="what is my shoe size, what is my uk shoe size, what is my eu shoe size, what size shoe is my 1 year old, foot length to shoe size, how to know my shoe size, what shoe size am i" />
+    <meta name="keywords" content="what is my shoe size, what is my uk shoe size, what is my eu shoe size, what size shoe is my 1 year old, foot length to shoe size, how to know my shoe size, what shoe size am i, if my foot is 10 inches long what shoe size, my foot is 26 cm long what size shoe am i" />
     <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
@@ -134,6 +154,16 @@ const faqSchema = JSON.stringify({
             <p>The simplest system available: the number is literally your foot length in centimeters. A 27 cm foot takes a JP 27.</p>
           </div>
         </div>
+
+        <h2 class="heading-md">Common Foot Length Quick Reference</h2>
+        <p>If you have already measured your feet, refer to this quick reference to identify your starting size:</p>
+        <ul>
+          <li><strong>24 cm (~9.4 inches):</strong> US Women's 7.5 | US Men's 6 | UK 5.5 | EU 38 | India 5</li>
+          <li><strong>25 cm (~9.8 inches):</strong> US Women's 8.5 | US Men's 7 | UK 6.5 | EU 40 | India 6</li>
+          <li><strong>26 cm (~10.2 inches):</strong> US Women's 9.5 | US Men's 8 | UK 7.5 | EU 41 | India 7</li>
+          <li><strong>27 cm (~10.6 inches):</strong> US Women's 10.5 | US Men's 9 | UK 8.5 | EU 42 | India 8</li>
+          <li><strong>28 cm (~11.0 inches):</strong> US Women's 11.5 | US Men's 10 | UK 9.5 | EU 43.5–44 | India 9.5</li>
+        </ul>
 
         <h2 class="heading-md">When Should You Size Up or Down?</h2>
         <p>Shoe fit is not solely about foot length — shoe purpose, upper material, and foot width dictate how much breathing room you need:</p>

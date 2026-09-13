@@ -14,31 +14,35 @@ const ogImage = `${domain}/og-image.png`;
 const faqs = [
   {
     q: 'What does CM mean in shoe size?',
-    a: 'CM stands for centimeters and measures your foot length from the back of the heel to the tip of your longest toe. In Japanese and Mondopoint sizing, the shoe size is literally your foot measurement in centimeters — for instance, a JP 26 is made for a 26 cm foot.'
+    a: 'CM stands for centimeters and measures your bare foot length from the back of the heel to the tip of your longest toe. In Japanese and Mondopoint sizing, the shoe size is literally your foot measurement in centimeters — for instance, a JP 26 is engineered precisely for a 26 cm foot.'
   },
   {
     q: 'How to measure shoe size in CM?',
-    a: 'Stand barefoot with your heel against a flat wall on a sheet of paper. Mark the tip of your longest toe with a pen held completely upright. Use a ruler to measure the distance in centimeters from the edge of the paper to the mark. Always measure both feet and use the larger number.'
+    a: 'Stand barefoot with your heel against a flat wall on a sheet of paper. Mark the tip of your longest toe with a pen held completely vertical. Use a ruler to measure the distance in centimeters from the edge of the paper to the mark. Always measure both feet in the late afternoon and use the larger number.'
   },
   {
     q: 'How much is half a shoe size in CM?',
-    a: 'In the US and UK sizing systems, half a shoe size equals approximately 0.42 cm (4.23 mm or 1/6 inch). In the European Paris Point system, each full size equals 0.67 cm (6.67 mm).'
+    a: 'In the US and UK shoe sizing systems, half a shoe size equals approximately 0.42 cm (4.23 mm or 1/6 inch). In the European Paris Point system, each full size equals 0.67 cm (6.67 mm).'
   },
   {
-    q: 'What is 24 cm and 24.5 cm in shoe size?',
-    a: 'A 24 cm foot equals US Men\'s 6, US Women\'s 7.5, UK 5.5, and EU 38. A 24.5 cm foot equals US Men\'s 6.5, US Women\'s 8, UK 6, and EU 39.'
+    q: 'What is 24 cm in shoe size?',
+    a: 'A 24 cm foot equals US Men\'s 6, US Women\'s 7.5, UK 5.5, EU 38, India 5, and Japan 24. It is one of the most common standard adult female shoe sizes worldwide.'
+  },
+  {
+    q: 'What is 24.5 cm in shoe size?',
+    a: 'A 24.5 cm foot corresponds to US Men\'s 6.5, US Women\'s 8, UK 6, EU 39, India 6, and Japan 24.5.'
   },
   {
     q: 'What is 25 cm in shoe size?',
-    a: 'A 25 cm foot equals US Men\'s 7, US Women\'s 8.5, UK 6.5, EU 40, and India 6.'
+    a: 'A 25 cm foot equals US Men\'s 7, US Women\'s 8.5, UK 6.5, EU 40, India 6.5, and Japan 25.'
   },
   {
-    q: 'What is UK shoe size in CM for adults and children?',
-    a: 'For adults, UK 6 is ~24.5 cm, UK 7 is ~25.5 cm, UK 8 is ~26.5 cm, and UK 9 is ~27.5 cm. For children (child sizes), UK 4 is ~12.5 cm, UK 7 is ~15 cm, UK 10 is ~17.5 cm, and UK 13 is ~20 cm.'
+    q: 'What size shoe width is considered wide in CM?',
+    a: 'Shoe width is measured across the ball of the foot. For an adult foot around 26 cm long, standard medium width (D for men, B for women) is roughly 9.8 to 10.0 cm across. Any foot width above 10.4 cm falls into wide categories (EE or EEEE in men, D or EE in women).'
   },
   {
-    q: 'What shoe size width is considered wide in CM?',
-    a: 'Shoe width is measured across the ball of the foot. For an adult foot around 26 cm long, standard medium width (D for men, B for women) is roughly 9.8 to 10 cm across. Any foot width above 10.4 cm falls into wide categories (EE or EEEE in men, D or EE in women).'
+    q: 'What is UK shoe size in CM for children (child)?',
+    a: 'For UK child shoe sizes, UK 3 to 4 child is ~11.5 to 12.5 cm (toddler), UK 6 to 7 child is ~14.2 to 15.0 cm, UK 9 to 10 child is ~16.7 to 17.5 cm, and UK 12 to 13 child is ~19.2 to 20.0 cm. Always add 10 to 12 mm for healthy growing room.'
   }
 ];
 
@@ -48,7 +52,7 @@ const faqSchema = JSON.stringify({
   "mainEntity": faqs.map(f => ({
     "@type": "Question",
     "name": f.q,
-    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` },
   })),
 });
 ---
