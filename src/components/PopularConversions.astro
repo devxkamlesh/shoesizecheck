@@ -1,31 +1,44 @@
 ---
-// PopularConversions.astro — Quick conversion cards, Geist design
-const conversions = [
-  { from: 'US', to: 'EU',    emoji: '🇺🇸→🇪🇺', href: '/us-to-eu-shoe-size/' },
-  { from: 'US', to: 'UK',    emoji: '🇺🇸→🇬🇧', href: '/us-to-uk-shoe-size/' },
-  { from: 'US', to: 'India', emoji: '🇺🇸→🇮🇳', href: '/us-to-india-shoe-size/' },
-  { from: 'EU', to: 'US',    emoji: '🇪🇺→🇺🇸', href: '/eu-to-us-shoe-size/' },
-  { from: 'UK', to: 'US',    emoji: '🇬🇧→🇺🇸', href: '/uk-to-us-shoe-size/' },
-  { from: 'India', to: 'US', emoji: '🇮🇳→🇺🇸', href: '/india-to-us-shoe-size/' },
-  { from: 'EU', to: 'UK',    emoji: '🇪🇺→🇬🇧', href: '/eu-to-uk-shoe-size/' },
-  { from: 'EU', to: 'CM',    emoji: '🇪🇺→📏', href: '/eu-to-cm-shoe-size/' },
-  { from: 'CM', to: 'All',   emoji: '📏',        href: '/shoe-size-in-cm/' },
-];
+// PopularConversions.astro — Clean, simple quick shoe size conversion cards
+interface ConversionItem {
+  title: string;
+  subtitle: string;
+  href: string;
+}
 
+const conversions: ConversionItem[] = [
+  { title: 'US to EU', subtitle: 'American to European sizes', href: '/us-to-eu-shoe-size/' },
+  { title: 'US to UK', subtitle: 'American to British sizes', href: '/us-to-uk-shoe-size/' },
+  { title: 'US to India', subtitle: 'American to Indian sizes', href: '/us-to-india-shoe-size/' },
+  { title: 'EU to US', subtitle: 'European to American sizes', href: '/eu-to-us-shoe-size/' },
+  { title: 'UK to US', subtitle: 'British to American sizes', href: '/uk-to-us-shoe-size/' },
+  { title: 'India to US', subtitle: 'Indian to American sizes', href: '/india-to-us-shoe-size/' },
+  { title: 'EU to UK', subtitle: 'European to British sizes', href: '/eu-to-uk-shoe-size/' },
+  { title: 'US to CM', subtitle: 'US sizes to Centimeters', href: '/us-to-cm-shoe-size/' },
+  { title: 'EU to CM', subtitle: 'EU sizes to Centimeters', href: '/eu-to-cm-shoe-size/' },
+];
 ---
 
 <section class="pop-section">
   <div class="pop-inner">
-    <p class="mono-eyebrow">Popular Conversions</p>
-    <h2 class="heading-lg">Quick Shoe Size Conversions</h2>
-    <p class="pop-sub body-lg">Jump to the most commonly searched shoe size conversion. Each page includes a dedicated converter and full chart.</p>
+    <div class="pop-header">
+      <p class="pop-eyebrow">POPULAR CONVERSIONS</p>
+      <h2 class="pop-heading">Quick Shoe Size Conversions</h2>
+      <p class="pop-sub">Jump to the most commonly searched shoe size conversions. Each page includes a dedicated converter and full chart.</p>
+    </div>
 
     <div class="pop-grid">
       {conversions.map(c => (
-        <a href={c.href} class="pop-card">
-          <span class="pop-emoji">{c.emoji}</span>
-          <span class="pop-label">{c.from} → {c.to}</span>
-          <svg class="pop-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <a href={c.href} class="conv-card">
+          <div class="conv-text">
+            <span class="conv-title">{c.title}</span>
+            <span class="conv-desc">{c.subtitle}</span>
+          </div>
+          <span class="conv-arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
         </a>
       ))}
     </div>
@@ -34,7 +47,7 @@ const conversions = [
 
 <style>
   .pop-section {
-    padding: 96px 24px;
+    padding: 64px 24px;
     background: var(--v-elevated);
     border-top: 1px solid var(--v-hairline);
   }
@@ -42,54 +55,97 @@ const conversions = [
     max-width: 1200px;
     margin: 0 auto;
   }
+  .pop-header {
+    margin-bottom: 28px;
+  }
+  .pop-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--v-mute);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+  .pop-heading {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+  }
   .pop-sub {
-    margin: 8px 0 32px;
-    max-width: 540px;
+    font-size: 15px;
+    color: var(--v-body);
+    line-height: 24px;
+    max-width: 580px;
+    margin: 0;
   }
 
   .pop-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 
-  .pop-card {
+  .conv-card {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
     padding: 16px 20px;
     background: var(--v-canvas);
     border: 1px solid var(--v-hairline);
     border-radius: var(--v-r-md);
     text-decoration: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    position: relative;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   }
-  .pop-card:hover {
-    border-color: #ddd;
+  .conv-card:hover {
+    border-color: var(--v-link);
+    background: var(--v-elevated);
     box-shadow: var(--v-shadow-whisper);
+    transform: translateY(-1px);
   }
-  .pop-emoji { font-size: 20px; flex-shrink: 0; }
-  .pop-label {
-    font-size: 14px;
-    font-weight: 500;
+  .conv-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .conv-title {
+    font-size: 15px;
+    font-weight: 600;
     color: var(--v-ink);
-    letter-spacing: -0.28px;
+    letter-spacing: -0.01em;
   }
-  .pop-arrow {
-    position: absolute;
-    right: 16px;
-    color: var(--v-faint);
+  .conv-desc {
+    font-size: 12.5px;
+    color: var(--v-mute);
+  }
+  .conv-arrow {
+    color: var(--v-mute);
+    display: flex;
+    align-items: center;
     transition: color 0.15s ease, transform 0.15s ease;
   }
-  .pop-card:hover .pop-arrow {
-    color: var(--v-ink);
-    transform: translateX(2px);
+  .conv-card:hover .conv-arrow {
+    color: var(--v-link);
+    transform: translateX(3px);
   }
 
-  @media (max-width: 900px) { .pop-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) {
-    .pop-section { padding: 64px 16px; }
-    .pop-grid { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    .pop-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .pop-section {
+      padding: 44px 16px;
+    }
+    .pop-heading {
+      font-size: 22px;
+    }
+    .pop-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
   }
 </style>
