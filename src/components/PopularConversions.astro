@@ -28,8 +28,8 @@ const conversions: ConversionItem[] = [
         <p class="pop-sub">Jump to the most commonly searched shoe size conversions. Each page includes a dedicated converter and full chart.</p>
       </div>
       <a href="/converters/" class="pop-view-all">
-        <span>View all 15+ converters</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <span>View all 16 converters</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
@@ -77,24 +77,23 @@ const conversions: ConversionItem[] = [
   .pop-view-all {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-size: 13.5px;
     font-weight: 600;
-    color: var(--v-link);
+    color: var(--v-canvas);
     text-decoration: none;
-    padding: 8px 14px;
-    border: 1px solid var(--v-hairline);
+    padding: 8px 18px;
+    border: 1px solid var(--v-ink);
     border-radius: var(--v-r-full);
-    background: var(--v-canvas);
+    background: var(--v-ink);
     transition: all 0.15s ease;
     white-space: nowrap;
     margin-bottom: 4px;
   }
   .pop-view-all:hover {
-    background: var(--v-elevated);
-    border-color: var(--v-link);
-    box-shadow: var(--v-shadow-whisper);
+    opacity: 0.88;
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
   .pop-eyebrow {
     font-family: var(--font-mono);

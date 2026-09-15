@@ -46,9 +46,9 @@ body {
   --v-hairline: #ebebeb;
 
   /* Accent */
-  --v-link: #0070f3;
-  --v-link-deep: #0761d1;
-  --v-link-soft: rgba(0, 112, 243, 0.08);
+  --v-link: #0055d4;
+  --v-link-deep: #0044ab;
+  --v-link-soft: rgba(0, 85, 212, 0.08);
 
   /* Tables & Interactive */
   --v-table-head: #171717;
