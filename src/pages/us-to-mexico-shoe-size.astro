@@ -1,0 +1,900 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/us-to-mexico-shoe-size/`;
+const pageTitle = 'US to Mexico Shoe Size Converter — American to Mexico Chart';
+const pageDescription = 'Convert US shoe sizes to Mexico sizes instantly. Complete US to Mexican conversion chart for men, women, and kids with Punto Calzado, boots & brand guides.';
+const ogImage = `${domain}/og-image.png`;
+
+// Men's table data (US, Mexico, Punto CM, Inches, EU, UK)
+const menSizes = [
+  { us: 6.0, mx: '5.0', cm: 24.0, inch: 9.4, eu: 38.5, uk: 5.5 },
+  { us: 6.5, mx: '5.5', cm: 24.5, inch: 9.6, eu: 39.0, uk: 6.0 },
+  { us: 7.0, mx: '5.5', cm: 25.0, inch: 9.8, eu: 40.0, uk: 6.5 },
+  { us: 7.5, mx: '6.0', cm: 25.5, inch: 10.0, eu: 40.5, uk: 7.0 },
+  { us: 8.0, mx: '6.5', cm: 26.0, inch: 10.2, eu: 41.0, uk: 7.5 },
+  { us: 8.5, mx: '7.0', cm: 26.5, inch: 10.4, eu: 41.5, uk: 8.0 },
+  { us: 9.0, mx: '7.5', cm: 27.0, inch: 10.6, eu: 42.0, uk: 8.5 },
+  { us: 9.5, mx: '8.0', cm: 27.5, inch: 10.8, eu: 42.5, uk: 9.0 },
+  { us: 10.0, mx: '8.5', cm: 28.0, inch: 11.0, eu: 43.0, uk: 9.5 },
+  { us: 10.5, mx: '9.0', cm: 28.5, inch: 11.2, eu: 44.0, uk: 10.0 },
+  { us: 11.0, mx: '9.5', cm: 29.0, inch: 11.4, eu: 44.5, uk: 10.5 },
+  { us: 11.5, mx: '10.0', cm: 29.5, inch: 11.6, eu: 45.0, uk: 11.0 },
+  { us: 12.0, mx: '10.5', cm: 30.0, inch: 11.8, eu: 46.0, uk: 11.5 },
+  { us: 13.0, mx: '11.5', cm: 31.0, inch: 12.2, eu: 47.0, uk: 12.5 },
+];
+
+// Women's table data (US, Mexico, Punto CM, Inches, EU, UK)
+const womenSizes = [
+  { us: 5.0, mx: '2.0', cm: 22.0, inch: 8.7, eu: 35.5, uk: 3.0 },
+  { us: 5.5, mx: '2.5', cm: 22.5, inch: 8.9, eu: 36.0, uk: 3.5 },
+  { us: 6.0, mx: '3.0', cm: 23.0, inch: 9.1, eu: 36.5, uk: 4.0 },
+  { us: 6.5, mx: '3.5', cm: 23.5, inch: 9.3, eu: 37.0, uk: 4.5 },
+  { us: 7.0, mx: '4.0', cm: 24.0, inch: 9.4, eu: 37.5, uk: 5.0 },
+  { us: 7.5, mx: '4.5', cm: 24.5, inch: 9.6, eu: 38.0, uk: 5.5 },
+  { us: 8.0, mx: '5.0', cm: 25.0, inch: 9.8, eu: 38.5, uk: 6.0 },
+  { us: 8.5, mx: '5.5', cm: 25.5, inch: 10.0, eu: 39.0, uk: 6.5 },
+  { us: 9.0, mx: '6.0', cm: 26.0, inch: 10.2, eu: 40.0, uk: 7.0 },
+  { us: 9.5, mx: '6.5', cm: 26.5, inch: 10.4, eu: 40.5, uk: 7.5 },
+  { us: 10.0, mx: '7.0', cm: 27.0, inch: 10.6, eu: 41.0, uk: 8.0 },
+  { us: 10.5, mx: '7.5', cm: 27.5, inch: 10.8, eu: 42.0, uk: 8.5 },
+  { us: 11.0, mx: '8.0', cm: 28.0, inch: 11.0, eu: 42.5, uk: 9.0 },
+];
+
+// Kids' table data (US, Mexico, Punto CM, Inches, EU, UK, Stage)
+const kidsSizes = [
+  { us: '4C', mx: '11.0', cm: 11.0, inch: 4.3, eu: 19, uk: '3.5C', stage: 'Toddler' },
+  { us: '6C', mx: '13.0', cm: 13.0, inch: 5.1, eu: 22, uk: '5.5C', stage: 'Toddler' },
+  { us: '8C', mx: '14.5', cm: 14.5, inch: 5.7, eu: 24, uk: '7.5C', stage: 'Toddler' },
+  { us: '10C', mx: '16.5', cm: 16.5, inch: 6.5, eu: 27, uk: '9.5C', stage: 'Little Kid' },
+  { us: '12C', mx: '18.0', cm: 18.0, inch: 7.1, eu: 30, uk: '11.5C', stage: 'Little Kid' },
+  { us: '13C', mx: '19.0', cm: 19.0, inch: 7.5, eu: 31, uk: '12.5C', stage: 'Little Kid' },
+  { us: '1Y', mx: '20.0', cm: 20.0, inch: 7.9, eu: 32, uk: '13.5C', stage: 'Big Kid' },
+  { us: '2Y', mx: '20.5', cm: 20.5, inch: 8.1, eu: 33, uk: '1.5Y', stage: 'Big Kid' },
+  { us: '3Y', mx: '21.5', cm: 21.5, inch: 8.5, eu: 34.5, uk: '2.5Y', stage: 'Big Kid' },
+  { us: '4Y', mx: '22.5', cm: 22.5, inch: 8.9, eu: 36, uk: '3.5Y', stage: 'Big Kid' },
+  { us: '5Y', mx: '23.5', cm: 23.5, inch: 9.3, eu: 37, uk: '4.5Y', stage: 'Big Kid' },
+];
+
+const faqs = [
+  {
+    q: 'How do US shoe sizes convert to Mexican shoe sizes?',
+    a: 'To convert US shoe sizes to Mexico, subtract approximately 1.5 from American men\'s sizes (e.g., US Men\'s 9.5 equals Mexico 8 / Punto 27.5 cm; US Men\'s 8 equals Mexico 6.5). For American women\'s sizes, subtract approximately 3.0 from your US size (e.g., US Women\'s 8 equals Mexico 5 / Punto 25 cm). In Mexican retail, sizes are also commonly designated by their full centimetre length (Puntos).'
+  },
+  {
+    q: 'What does "Punto Calzado" mean in Mexican footwear sizing?',
+    a: 'Punto Calzado (or simply "Puntos") is the official metric footwear sizing standard in Mexico. One punto equals exactly one centimetre of foot length. For example, a shoe marked "Punto 27" is manufactured specifically for a foot that measures 27.0 centimetres from heel to longest toe.'
+  },
+  {
+    q: 'Why is size 28 in Mexico called "Talla 8"?',
+    a: 'In colloquial everyday shopping across Mexican shoe stores and mercados, retail clerks and consumers drop the leading digit "2". Therefore, a Punto 28 (28.0 cm footbed) is referred to as "Talla 8", a Punto 27 is called "Talla 7", and a Punto 26.5 is called "Talla 6.5".'
+  },
+  {
+    q: 'How do Mexican cowboy boots and dress shoes fit compared to US sizes?',
+    a: 'Authentic handcrafted Mexican leather boots—such as those made in León, Guanajuato by brands like Cuadra, Flexi, and Los Altos—are constructed using premium full-grain leathers and traditional Goodyear welts. Snip-toe and J-toe pointed western boots fit snug across the instep; US buyers with wider feet frequently size up by half a size for comfort.'
+  },
+  {
+    q: 'What is a Mexican women\'s size 5 in US shoe sizing?',
+    a: 'A Mexican women\'s size 5 (Talla 5, or Punto 25.0 cm) corresponds to an American US Women\'s 8.0 (European EU 38.5, UK 6.0). It is designed for an anatomical foot length measuring 25.0 centimetres.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` }
+  }))
+});
+
+const relatedLinks = [
+  { label: 'All Converters Directory', href: '/converters/' },
+  { label: 'Mexico Shoe Size Chart & Guide', href: '/country/mexico/' },
+  { label: 'US to CM Shoe Size Converter', href: '/us-to-cm-shoe-size/' },
+  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
+  { label: 'US to UK Shoe Size Converter', href: '/us-to-uk-shoe-size/' },
+  { label: 'United States Sizing Guide', href: '/country/us/' },
+  { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="american shoe size to mexico, conversion shoe size mexico to us, size shoes us to mexico, convert shoe size us to mexico, mexican and us shoe sizes, mexican to us shoe sizes, mexico conversion shoe size, mexico shoe size to us size, mexico to us shoe conversion, shoe conversion mexico to us, shoe size from usa to mexico, shoe size in mexico, shoe size in us to mexico, shoes sizes mexico usa, size shoes us mexico" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Converters', href: '/converters/' },
+      { label: 'US to Mexico Shoe Size' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">American Imperial to Mexican Punto Calzado</p>
+        <h1 class="display-xl">US to Mexico Shoe Size Converter</h1>
+        <p class="hero-sub body-lg">
+          Convert American (US) shoe sizes to Mexican sizes instantly. Calculate your exact Mexican fit across men's, women's, and children's shoes and boots with our interactive calculator, Punto Calzado tables, and sizing guide.
+        </p>
+
+        <div class="quick-stat-row">
+          <div class="stat-badge">
+            <span class="badge-label">Men's Formula:</span>
+            <span class="badge-val">Mexico ≈ US − 1.5</span>
+          </div>
+          <div class="stat-badge">
+            <span class="badge-label">Women's Formula:</span>
+            <span class="badge-val">Mexico ≈ US − 3.0</span>
+          </div>
+          <div class="stat-badge">
+            <span class="badge-label">Metric Basis:</span>
+            <span class="badge-val">1 Punto = 1.0 CM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Calculator -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated conv-card">
+          <div class="conv-card-header">
+            <h2 class="heading-md">Convert American (US) to Mexican (MX) Size</h2>
+            <p class="conv-card-sub">Select your gender and American size to calculate your corresponding Mexican shoe size, Punto Calzado (CM), and international sizes.</p>
+          </div>
+
+          <div class="conv-row">
+            <div class="conv-field">
+              <label class="step-label" for="conv-gender">
+                <span class="step-num">1</span> Category
+              </label>
+              <select id="conv-gender" class="form-select" aria-label="Select category">
+                <option value="men" selected>Men's Sizes</option>
+                <option value="women">Women's Sizes</option>
+                <option value="kids">Kids' Sizes</option>
+              </select>
+            </div>
+
+            <div class="conv-field">
+              <label class="step-label" for="conv-size">
+                <span class="step-num">2</span> American (US) Size
+              </label>
+              <select id="conv-size" class="form-select" aria-label="Select American shoe size">
+                <option value="" disabled>Select US size</option>
+                {menSizes.map(s => <option value={String(s.us)} selected={s.us === 9.5 ? true : undefined}>{s.us} US Men</option>)}
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="conv-result-box" id="conv-result" aria-live="polite">
+            <div class="conv-result-card">
+              <div class="conv-col">
+                <span class="conv-sys">United States (US)</span>
+                <span class="conv-val" id="res-us">9.5</span>
+                <span class="conv-note" id="res-us-sub">Men's Standard</span>
+              </div>
+              <div class="conv-arrow-wrap" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="conv-col conv-target">
+                <span class="conv-sys">Mexico (MX)</span>
+                <span class="conv-val" id="res-mx">8.0</span>
+                <span class="conv-note" id="res-mx-sub">Talla 8 / Punto 27.5</span>
+              </div>
+              <div class="conv-col conv-aux">
+                <span class="conv-sys">Footbed Length</span>
+                <span class="conv-val-sm" id="res-cm">27.5 cm</span>
+                <span class="conv-note" id="res-intl">10.8 inches · EU 42.5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benchmark Cards -->
+    <section class="snapshot-band">
+      <div class="page-inner">
+        <h2 class="section-title">Popular US to Mexico Shoe Size Benchmarks</h2>
+        <p class="section-sub">Quick reference for the most widely searched adult shoe sizes when converting American to Mexican footwear.</p>
+
+        <div class="snapshot-grid">
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 8 Men → MX 6.5</span>
+              <span class="snap-detail">Punto 26.0 cm · EU 41 · UK 7.5</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 9 Men → MX 7.5</span>
+              <span class="snap-detail">Punto 27.0 cm · EU 42 · UK 8.5</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 9.5 Men → MX 8.0</span>
+              <span class="snap-detail">Punto 27.5 cm (Talla 8) · EU 42.5</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 10 Men → MX 8.5</span>
+              <span class="snap-detail">Punto 28.0 cm · EU 43 · UK 9.5</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 7 Women → MX 4.0</span>
+              <span class="snap-detail">Punto 24.0 cm · EU 37.5 · UK 5.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 8 Women → MX 5.0</span>
+              <span class="snap-detail">Punto 25.0 cm · EU 38.5 · UK 6.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Conversion Tables -->
+    <section class="charts-band">
+      <div class="page-inner">
+        <h2 class="section-title">Complete US to Mexico Shoe Size Conversion Charts</h2>
+        <p class="section-sub">Comprehensive sizing matrices covering men's, women's, and children's categories with Mexican Talla, centimetre, and international equivalents.</p>
+
+        <!-- Tabs -->
+        <div class="table-tabs" role="tablist" aria-label="Footwear Category Tables">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-target="panel-men">Men's Sizes</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="panel-women">Women's Sizes</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="panel-kids">Kids' Sizes</button>
+        </div>
+
+        <!-- Men's Panel -->
+        <div id="panel-men" class="table-panel active" role="tabpanel">
+          <h3 class="table-heading">Men's US to Mexico Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th>US Men Size</th>
+                  <th>Mexico (Talla)</th>
+                  <th>Punto Calzado (CM)</th>
+                  <th>Inches</th>
+                  <th>EU Size</th>
+                  <th>UK Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                {menSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>MX {r.mx}</strong></td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}″</td>
+                    <td>EU {r.eu}</td>
+                    <td>UK {r.uk}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Women's Panel -->
+        <div id="panel-women" class="table-panel" role="tabpanel" style="display: none;">
+          <h3 class="table-heading">Women's US to Mexico Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th>US Women Size</th>
+                  <th>Mexico (Talla)</th>
+                  <th>Punto Calzado (CM)</th>
+                  <th>Inches</th>
+                  <th>EU Size</th>
+                  <th>UK Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                {womenSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>MX {r.mx}</strong></td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}″</td>
+                    <td>EU {r.eu}</td>
+                    <td>UK {r.uk}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Kids' Panel -->
+        <div id="panel-kids" class="table-panel" role="tabpanel" style="display: none;">
+          <h3 class="table-heading">Kids' US to Mexico Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th>US Kids Size</th>
+                  <th>Mexico Talla (CM)</th>
+                  <th>Inches</th>
+                  <th>EU Size</th>
+                  <th>UK Size</th>
+                  <th>Stage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kidsSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>MX {r.mx}</strong></td>
+                    <td>{r.inch}″</td>
+                    <td>EU {r.eu}</td>
+                    <td>UK {r.uk}</td>
+                    <td>{r.stage}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Editorial Guide -->
+    <section class="editorial-band">
+      <div class="page-inner prose-article">
+        <h2 class="editorial-main-title">The Complete US to Mexico Shoe Sizing Guide: Punto Calzado, Cowboy Boots &amp; Formulas</h2>
+
+        <p class="lead-paragraph">
+          Whether you are traveling to Mexico, purchasing authentic leather cowboy boots from the shoemaking capital of León, Guanajuato, or shopping cross-border online, understanding <strong>american shoe size to mexico</strong> conversion is essential. Because Mexico utilizes the metric <em>Punto Calzado</em> system alongside colloquial numbering conventions, learning the exact formulas ensures you achieve a flawless fit.
+        </p>
+
+        <h3>1. How Mexican Shoe Sizing Works: The Punto Calzado Standard</h3>
+        <p>
+          Unlike the United States, which measures footwear in imperial barleycorns (1/3 of an inch), official Mexican footwear sizing is based directly on foot length in centimetres. In Mexico, footwear measurement is officially designated as <strong>Punto Calzado</strong> (or simply <em>Puntos</em>), where each punto corresponds to one centimetre (CM).
+        </p>
+        <p>
+          A shoe marked as "Punto 27" or "Talla 27" indicates that the shoe last was sculpted for an anatomical foot length of exactly 27.0 centimetres. Because centimetres represent a static physical unit, calculating your <strong>shoe size in mexico</strong> eliminates ambiguous scale shifts.
+        </p>
+
+        <h3>2. Men's Conversion: Subtracting 1.5 from US Sizing (`Mexico ≈ US − 1.5`)</h3>
+        <p>
+          For men, <strong>convert shoe size us to mexico</strong> by subtracting approximately 1.5 sizes from your standard American shoe size:
+        </p>
+        <ul>
+          <li><strong>US 7 to Mexico</strong> = MX 5.5 (approx. 25.0 cm foot length)</li>
+          <li><strong>US 8 to Mexico</strong> = MX 6.5 (approx. 26.0 cm foot length)</li>
+          <li><strong>US 9 to Mexico</strong> = MX 7.5 (approx. 27.0 cm foot length)</li>
+          <li><strong>US 9.5 to Mexico</strong> = MX 8.0 (the popular <strong>mexico shoe size to us size</strong> benchmark for 27.5 cm)</li>
+          <li><strong>US 10 to Mexico</strong> = MX 8.5 (approx. 28.0 cm foot length)</li>
+          <li><strong>US 10.5 to Mexico</strong> = MX 9.0 (approx. 28.5 cm foot length)</li>
+          <li><strong>US 11 to Mexico</strong> = MX 9.5 (approx. 29.0 cm foot length)</li>
+        </ul>
+        <p>
+          This offset represents the mathematical bridge between American imperial lasts and Mexican metric footbeds.
+        </p>
+
+        <h3>3. Women's Conversion: Subtracting 3.0 from US Sizing (`Mexico ≈ US − 3.0`)</h3>
+        <p>
+          In women's footwear, American sizing begins further down the scale. To calculate <strong>mexican to us shoe sizes</strong> for women, subtract approximately 3.0 sizes:
+        </p>
+        <ul>
+          <li><strong>US 5 Women</strong> = Mexico 2.0 (Punto 22.0 cm)</li>
+          <li><strong>US 6 Women</strong> = Mexico 3.0 (Punto 23.0 cm)</li>
+          <li><strong>US 7 Women</strong> = Mexico 4.0 (Punto 24.0 cm)</li>
+          <li><strong>US 8 Women</strong> = Mexico 5.0 (Punto 25.0 cm)</li>
+          <li><strong>US 9 Women</strong> = Mexico 6.0 (Punto 26.0 cm)</li>
+          <li><strong>US 10 Women</strong> = Mexico 7.0 (Punto 27.0 cm)</li>
+        </ul>
+        <p>
+          In Mexican boutique footwear stores, women's shoes are often labeled directly with their centimetre footbed length (e.g., "24 cm" instead of "Talla 4").
+        </p>
+
+        <h3>4. The Dropped-Digit Convention: "Talla 7" vs "Talla 27"</h3>
+        <p>
+          A common source of confusion for international shoppers looking at <strong>shoes sizes mexico usa</strong> is the dropped-digit naming convention. In everyday Mexican commerce, vendors and retail staff frequently drop the leading digit "2":
+        </p>
+        <ul>
+          <li><strong>Punto 28 cm</strong> is colloquially known as <strong>Talla 8</strong> (or <em>size 8 en Mexico</em>).</li>
+          <li><strong>Punto 27 cm</strong> is called <strong>Talla 7</strong>.</li>
+          <li><strong>Punto 26.5 cm</strong> is called <strong>Talla 6.5</strong> or <strong>6 y medio</strong>.</li>
+        </ul>
+        <p>
+          Whether a shoe box is stamped "28" or "8", both indicate the exact same 28.0 centimetre last.
+        </p>
+
+        <h3>5. Handcrafted Boots from León: Cuadra, Flexi, and Western Lasts</h3>
+        <p>
+          León, Guanajuato produces a massive share of the world's finest handcrafted leather western boots. Renowned Mexican bootmakers—such as <strong>Cuadra, Los Altos, Flexi, and Franco Cuadra</strong>—utilize traditional cowhide, ostrich, and caiman leathers built over structured wooden lasts.
+        </p>
+        <p>
+          When shopping for authentic Mexican cowboy boots:
+        </p>
+        <ul>
+          <li><strong>Pointed Toe Shapes (Snip / J-Toe):</strong> Because pointed toe profiles taper sharply at the front, your toes will sit further back in the shoe cavity. US buyers with average or wide feet should order a half-size larger than their measured Mexican size to allow adequate forefoot clearance.</li>
+          <li><strong>Instep Fit:</strong> Traditional cowboy boots feature no laces; the boot is held on your foot entirely by the instep fit. A new Mexican boot should feel snug across the instep with slight heel slip (about 1/4 inch) before breaking in and molding to your foot.</li>
+          <li><strong>Flexi Casual Shoes:</strong> Flexi brand casual shoes and loafers fit true to metric length and offer generous forefoot width, making them ideal for standard daily wear.</li>
+        </ul>
+
+        <h3>6. Cross-Border Buying Tips: Measuring Foot Length for US &amp; Mexican Sizing</h3>
+        <p>
+          When navigating <strong>conversion shoe size mexico to us</strong> or looking up <strong>shoe size from usa to mexico</strong>, taking a physical foot measurement in centimeters provides the ultimate reassurance. To ensure seamless shopping:
+        </p>
+        <ul>
+          <li><strong>Trace Your Bare Foot:</strong> Place a blank sheet of paper against a flat wall, stand with your heel touching the wall, and mark the outermost tip of your longest toe. Measure the distance in centimeters to get your exact <em>Punto</em> number.</li>
+          <li><strong>Check the Label Format:</strong> On imported boots sold in Texas, California, and online, size tags often list both sizes (e.g., "US 9.5 / MEX 8.0"). If only one number appears on a Mexican-made shoe and it is between 22 and 31, it is almost certainly the Mexican Punto length in centimeters.</li>
+          <li><strong>Account for Sock Thickness:</strong> Western boot socks are typically thicker than dress socks. Factor in approximately 0.5 cm of extra space if you intend to wear heavy winter or work socks.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-sub">Clear answers to top questions about converting US shoe sizes to Mexican sizes.</p>
+
+        <div class="faq-accordion-list">
+          {faqs.map((f, i) => (
+            <details class="faq-item" open={i === 0 ? true : undefined}>
+              <summary class="faq-question">
+                <span>{f.q}</span>
+                <span class="faq-chevron" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-answer">
+                <p>{f.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <RelatedLinks title="Related Shoe Size Converters & Regional Guides" links={relatedLinks} />
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Client-side Interactive Engine Script -->
+<script is:inline define:vars={{ menSizes, womenSizes, kidsSizes }}>
+  // @ts-nocheck
+  (function() {
+    const MEN = menSizes;
+    const WOMEN = womenSizes;
+    const KIDS = kidsSizes;
+
+    const genderSelect = document.getElementById('conv-gender');
+    const sizeSelect = document.getElementById('conv-size');
+    const resUs = document.getElementById('res-us');
+    const resUsSub = document.getElementById('res-us-sub');
+    const resMx = document.getElementById('res-mx');
+    const resMxSub = document.getElementById('res-mx-sub');
+    const resCm = document.getElementById('res-cm');
+    const resIntl = document.getElementById('res-intl');
+
+    function populateSizes() {
+      const gender = genderSelect?.value || 'men';
+      let data = MEN;
+      if (gender === 'women') data = WOMEN;
+      if (gender === 'kids') data = KIDS;
+
+      if (!sizeSelect) return;
+      sizeSelect.innerHTML = '';
+
+      data.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = String(item.us);
+        opt.textContent = `${item.us} US ${gender === 'men' ? 'Men' : gender === 'women' ? 'Women' : ''}`;
+        if (gender === 'men' && item.us === 9.5) opt.selected = true;
+        if (gender === 'women' && item.us === 8.0) opt.selected = true;
+        if (gender === 'kids' && item.us === '10C') opt.selected = true;
+        sizeSelect.appendChild(opt);
+      });
+
+      updateConversion();
+    }
+
+    function updateConversion() {
+      const gender = genderSelect?.value || 'men';
+      const val = sizeSelect?.value;
+      if (!val) return;
+
+      let list = MEN;
+      if (gender === 'women') list = WOMEN;
+      if (gender === 'kids') list = KIDS;
+
+      const match = list.find(item => String(item.us) === String(val));
+      if (!match) return;
+
+      if (resUs) resUs.textContent = String(match.us);
+      if (resUsSub) resUsSub.textContent = gender === 'men' ? "US Men's Standard" : gender === 'women' ? "US Women's Standard" : "US Kids' Standard";
+      if (resMx) resMx.textContent = String(match.mx);
+      if (resMxSub) resMxSub.textContent = `Talla ${match.mx} / Punto ${match.cm}`;
+      if (resCm) resCm.textContent = `${match.cm} cm`;
+      if (resIntl) resIntl.textContent = match.inch ? `${match.inch} inches · EU ${match.eu}` : `EU ${match.eu} · ${match.stage || 'Youth'}`;
+    }
+
+    genderSelect?.addEventListener('change', populateSizes);
+    sizeSelect?.addEventListener('change', updateConversion);
+
+    // Tab Controller
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.table-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-target');
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        panels.forEach(p => {
+          if (p.id === target) {
+            p.style.display = 'block';
+            p.classList.add('active');
+          } else {
+            p.style.display = 'none';
+            p.classList.remove('active');
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Hero */
+  .page-hero {
+    padding: 56px 24px 36px;
+    background: var(--v-canvas);
+    border-bottom: 1px solid var(--v-hairline);
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1) 0%, transparent 70%);
+  }
+  .page-inner { max-width: 960px; margin: 0 auto; }
+  .mono-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--v-link);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .display-xl {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+  }
+  .hero-sub { font-size: 16px; color: var(--v-body); line-height: 26px; max-width: 680px; margin: 0 auto 24px; }
+
+  /* Quick Stat Badges */
+  .quick-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    font-size: 12.5px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .badge-label { color: var(--v-mute); }
+  .badge-val { font-family: var(--font-mono); font-weight: 700; color: var(--v-ink); }
+
+  /* Converter Band */
+  .converter-band { padding: 40px 24px 56px; background: var(--v-canvas); }
+  .conv-card {
+    padding: 32px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    box-shadow: var(--v-shadow-floating);
+  }
+  .conv-card-header { margin-bottom: 24px; }
+  .heading-md { font-size: 22px; font-weight: 700; color: var(--v-ink); letter-spacing: -0.02em; margin: 0 0 6px; }
+  .conv-card-sub { font-size: 14px; color: var(--v-mute); margin: 0; }
+
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .step-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin-bottom: 8px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--v-link);
+    color: #ffffff;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    border-radius: var(--v-r-full);
+  }
+  .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--v-ink);
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .form-select:focus { border-color: var(--v-link); box-shadow: 0 0 0 3px var(--v-link-soft); }
+
+  /* Result Output Card */
+  .conv-result-box {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 24px 28px;
+  }
+  .conv-result-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .conv-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    text-align: center;
+  }
+  .conv-sys {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--v-mute);
+    letter-spacing: 0.05em;
+  }
+  .conv-val {
+    font-size: 38px;
+    font-weight: 800;
+    font-family: var(--font-display);
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .conv-target .conv-val { color: var(--v-link); }
+  .conv-val-sm { font-size: 22px; font-weight: 700; font-family: var(--font-display); color: var(--v-ink); }
+  .conv-note { font-size: 12px; color: var(--v-faint); }
+  .conv-arrow-wrap { color: var(--v-mute); display: flex; align-items: center; justify-content: center; }
+  .conv-aux { border-left: 1px solid var(--v-hairline); padding-left: 20px; }
+
+  /* Snapshot Grid */
+  .snapshot-band {
+    padding: 56px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--v-ink); letter-spacing: -0.02em; margin: 0 0 6px; }
+  .section-sub { font-size: 14.5px; color: var(--v-body); margin: 0 0 28px; }
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .snap-card {
+    padding: 18px 20px;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .snap-card:hover { transform: translateY(-2px); border-color: var(--v-link); }
+  .snap-tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: var(--v-link); text-transform: uppercase; }
+  .snap-main { font-size: 18px; font-weight: 700; color: var(--v-ink); display: block; }
+  .snap-detail { font-size: 12.5px; color: var(--v-mute); display: block; }
+
+  /* Charts Band */
+  .charts-band {
+    padding: 56px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .table-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 12px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 8px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--v-body);
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--v-ink); border-color: var(--v-link); }
+  .tab-btn.active { background: var(--v-link); color: #ffffff; border-color: var(--v-link); }
+  .table-heading { font-size: 18px; font-weight: 700; color: var(--v-ink); margin: 0 0 16px; }
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-elevated);
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .size-table thead tr { background: var(--v-table-head); color: var(--v-table-head-text); }
+  .size-table th, .size-table td { padding: 12px 18px; border-bottom: 1px solid var(--v-hairline); }
+  .size-table tbody tr:hover { background: var(--v-table-hover); }
+  .primary-cell strong { color: var(--v-ink); }
+  .highlight-cell strong { color: var(--v-link-deep); }
+
+  /* Editorial SEO Prose */
+  .editorial-band {
+    padding: 64px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .prose-article { max-width: 820px; margin: 0 auto; }
+  .editorial-main-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 20px;
+  }
+  .lead-paragraph { font-size: 16px; line-height: 28px; color: var(--v-body); margin-bottom: 24px; }
+  .prose-article h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.01em;
+    margin: 36px 0 12px;
+  }
+  .prose-article p { font-size: 15px; line-height: 26px; color: var(--v-body); margin: 0 0 18px; }
+  .prose-article ul, .prose-article ol { margin: 0 0 24px; padding-left: 22px; }
+  .prose-article li { font-size: 14.5px; line-height: 24px; color: var(--v-body); margin-bottom: 10px; }
+  .prose-article strong { color: var(--v-ink); }
+
+  /* FAQ Section */
+  .faq-band {
+    padding: 64px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .faq-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] { border-color: var(--v-link); }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-chevron { color: var(--v-mute); transition: transform 0.2s ease; }
+  .faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--v-link); }
+  .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 14.5px;
+    line-height: 25px;
+    color: var(--v-body);
+    border-top: 1px dashed var(--v-hairline);
+    padding-top: 14px;
+  }
+  .faq-answer p { margin: 0; }
+
+  @media (max-width: 768px) {
+    .conv-row { grid-template-columns: 1fr; }
+    .conv-result-card { flex-direction: column; gap: 16px; }
+    .conv-arrow-wrap { transform: rotate(90deg); }
+    .conv-aux { border-left: none; border-top: 1px solid var(--v-hairline); padding-left: 0; padding-top: 14px; width: 100%; }
+    .snapshot-grid { grid-template-columns: 1fr; }
+    .converter-band, .snapshot-band, .charts-band, .editorial-band, .faq-band { padding: 40px 16px; }
+  }
+</style>

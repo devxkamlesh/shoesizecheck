@@ -414,7 +414,24 @@ export const CONVERSIONS: ConversionData[] = [
       { q: 'What is US 10 in CM?', a: 'US Men\'s 10 corresponds to approximately 28 cm foot length.' },
       { q: 'What is US 8 women\'s in CM?', a: 'US Women\'s 8 corresponds to approximately 24 cm foot length.' },
     ],
-    relatedConversions: ['us-to-eu-shoe-size', 'us-to-japan-shoe-size', 'eu-to-cm-shoe-size'],
+    relatedConversions: ['us-to-eu-shoe-size', 'us-to-japan-shoe-size', 'eu-to-cm-shoe-size', 'us-to-mexico-shoe-size'],
+  },
+  {
+    slug: 'us-to-mexico-shoe-size',
+    fromSystem: 'us', toSystem: 'mexico', fromLabel: 'US', toLabel: 'Mexico',
+    title: 'US to Mexico Shoe Size Conversion – Chart & Calculator',
+    description: 'Convert US shoe sizes to Mexico sizes instantly. Full US to Mexico conversion chart for men, women and kids with Punto Calzado guidelines.',
+    h1: 'US to Mexico Shoe Size Converter',
+    intro: 'Converting US shoe sizes to Mexican footwear sizes is essential for cross-border shopping and authentic Mexican leather boots from León. Mexico uses the metric Punto Calzado system.',
+    formula: 'Men: Mexico ≈ US − 1.5 (US 9.5 → Mexico 8 / Punto 27.5 cm). Women: Mexico ≈ US − 3 (US 8 → Mexico 5 / Punto 25 cm).',
+    menExamples: ['US 7 → MX 5.5', 'US 8 → MX 6.5', 'US 9 → MX 7.5', 'US 9.5 → MX 8.0', 'US 10 → MX 8.5', 'US 11 → MX 9.5'],
+    womenExamples: ['US 5 → MX 2', 'US 6 → MX 3', 'US 7 → MX 4', 'US 8 → MX 5', 'US 9 → MX 6', 'US 10 → MX 7'],
+    tips: ['Mexican sizes are based on foot length in centimetres (Punto Calzado)', 'In Mexico, sizes are colloquially called by their single digit (e.g., Talla 7 for 27 cm)', 'Handcrafted Mexican cowboy boots often require half a size up for pointed toes'],
+    faqs: [
+      { q: 'What is US shoe size 9 in Mexico?', a: 'A US Men\'s 9 corresponds to approximately Mexico 7.5 (Punto 27.0–27.5 cm). For women, a US 9 is approximately Mexico 6 (Punto 26 cm).' },
+      { q: 'What is Mexico shoe size 8 in US?', a: 'Mexico size 8 (Talla 8 or Punto 28) corresponds to US Men\'s 9.5 to 10.0.' },
+    ],
+    relatedConversions: ['us-to-eu-shoe-size', 'us-to-uk-shoe-size', 'us-to-cm-shoe-size'],
   },
   // EU →
   {

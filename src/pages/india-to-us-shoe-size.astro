@@ -1,0 +1,961 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/india-to-us-shoe-size/`;
+const pageTitle = 'India to US Shoe Size Converter — Indian to US Chart';
+const pageDescription = 'Convert Indian shoe sizes to US sizes instantly. Comprehensive India to US conversion chart for men, women, and kids with Bata to US formulas & guides.';
+const ogImage = `${domain}/og-image.png`;
+
+// Men's table data (India/UK, US, EU, CM, Inches)
+const menSizes = [
+  { india: 5.0, us: 6.0, eu: 38.5, cm: 24.0, inch: 9.4 },
+  { india: 5.5, us: 6.5, eu: 39.0, cm: 24.5, inch: 9.6 },
+  { india: 6.0, us: 7.0, eu: 40.0, cm: 25.0, inch: 9.8 },
+  { india: 6.5, us: 7.5, eu: 40.5, cm: 25.5, inch: 10.0 },
+  { india: 7.0, us: 8.0, eu: 41.0, cm: 26.0, inch: 10.2 },
+  { india: 7.5, us: 8.5, eu: 41.5, cm: 26.5, inch: 10.4 },
+  { india: 8.0, us: 9.0, eu: 42.0, cm: 27.0, inch: 10.6 },
+  { india: 8.5, us: 9.5, eu: 42.5, cm: 27.5, inch: 10.8 },
+  { india: 9.0, us: 10.0, eu: 43.0, cm: 28.0, inch: 11.0 },
+  { india: 9.5, us: 10.5, eu: 44.0, cm: 28.5, inch: 11.2 },
+  { india: 10.0, us: 11.0, eu: 44.5, cm: 29.0, inch: 11.4 },
+  { india: 10.5, us: 11.5, eu: 45.0, cm: 29.5, inch: 11.6 },
+  { india: 11.0, us: 12.0, eu: 46.0, cm: 30.0, inch: 11.8 },
+  { india: 12.0, us: 13.0, eu: 47.0, cm: 31.0, inch: 12.2 },
+];
+
+// Women's table data (India/UK, US, EU, CM, Inches)
+const womenSizes = [
+  { india: 3.0, us: 5.0, eu: 35.5, cm: 22.0, inch: 8.7 },
+  { india: 3.5, us: 5.5, eu: 36.0, cm: 22.5, inch: 8.9 },
+  { india: 4.0, us: 6.0, eu: 36.5, cm: 23.0, inch: 9.1 },
+  { india: 4.5, us: 6.5, eu: 37.0, cm: 23.5, inch: 9.3 },
+  { india: 5.0, us: 7.0, eu: 38.0, cm: 24.0, inch: 9.4 },
+  { india: 5.5, us: 7.5, eu: 38.5, cm: 24.5, inch: 9.6 },
+  { india: 6.0, us: 8.0, eu: 39.0, cm: 25.0, inch: 9.8 },
+  { india: 6.5, us: 8.5, eu: 40.0, cm: 25.5, inch: 10.0 },
+  { india: 7.0, us: 9.0, eu: 40.5, cm: 26.0, inch: 10.2 },
+  { india: 7.5, us: 9.5, eu: 41.0, cm: 26.5, inch: 10.4 },
+  { india: 8.0, us: 10.0, eu: 42.0, cm: 27.0, inch: 10.6 },
+  { india: 8.5, us: 10.5, eu: 42.5, cm: 27.5, inch: 10.8 },
+  { india: 9.0, us: 11.0, eu: 43.0, cm: 28.0, inch: 11.0 },
+];
+
+// Kids' table data (India/UK, US, EU, CM, Stage)
+const kidsSizes = [
+  { india: '3.5C', us: '4C', eu: 19, cm: 11.5, stage: 'Toddler' },
+  { india: '5.5C', us: '6C', eu: 22, cm: 13.0, stage: 'Toddler' },
+  { india: '7.5C', us: '8C', eu: 24, cm: 14.5, stage: 'Toddler' },
+  { india: '9.5C', us: '10C', eu: 27, cm: 16.5, stage: 'Little Kid' },
+  { india: '11.5C', us: '12C', eu: 30, cm: 18.0, stage: 'Little Kid' },
+  { india: '12.5C', us: '13C', eu: 31, cm: 19.0, stage: 'Little Kid' },
+  { india: '13.5C', us: '1Y', eu: 32, cm: 20.0, stage: 'Big Kid' },
+  { india: '1.5Y', us: '2Y', eu: 33, cm: 20.5, stage: 'Big Kid' },
+  { india: '2.5Y', us: '3Y', eu: 34.5, cm: 21.5, stage: 'Big Kid' },
+  { india: '3.5Y', us: '4Y', eu: 36, cm: 22.5, stage: 'Big Kid' },
+  { india: '4.5Y', us: '5Y', eu: 37, cm: 23.5, stage: 'Big Kid' },
+];
+
+const faqs = [
+  {
+    q: 'What is UK size 8 in India, and how does it convert to US sizing?',
+    a: 'In Indian footwear retail, UK size 8 and Indian size 8 are identical in length. When converting an Indian / UK size 8 to American footwear, it translates to a US Men\'s size 9.0 (fitting a 27.0 cm footbed, European EU 42). For women, an Indian size 8 translates to an American US Women\'s size 10.0.'
+  },
+  {
+    q: 'How do I convert an Indian shoe size to US size for men and women?',
+    a: 'To convert an Indian shoe size to US, add 1 full size for men (US = India + 1; for example, India 7 becomes US Men 8, and India 8 becomes US Men 9). For women, add 2 full sizes (US = India + 2; for example, India 5 becomes US Women 7, and India 6 becomes US Women 8). Always refer to a comprehensive indian shoe size chart when ordering from US stores.'
+  },
+  {
+    q: 'What is shoe size 38 or 42 in India when converting to US sizes?',
+    a: 'Shoe sizes 38 and 42 refer to European (EU) sizing commonly shown on shoe boxes in India. A shoe size 38 in India corresponds to Indian size 5 (or a 24.0 cm footbed), which converts to US Women 7.0. A 42 foot size in India corresponds to Indian size 8 for men (27.0 cm footbed), which converts to US Men 9.0.'
+  },
+  {
+    q: 'What does EU 36, 37, 39, 43, 44, or 45 shoe size mean in India?',
+    a: 'These represent standard European sizing benchmarks widely searched on Indian online portals. EU 36 in India is Indian size 3.5 (US Women 5.5, 22.5 cm); EU 37 is Indian 4.5 (US Women 6.5, 23.5 cm); EU 39 is Indian 6 (US Women 8, 25.0 cm); EU 43 is Indian 9 (US Men 10, 28.0 cm); EU 44 is Indian 9.5–10 (US Men 10.5–11, 28.5–29.0 cm); and EU 45 is Indian 10.5–11 (US Men 11.5–12, 29.5–30.0 cm).'
+  },
+  {
+    q: 'How does Indian foot width compare to American shoe width?',
+    a: 'According to extensive anthropometric foot surveys conducted by CSIR-CLRI across India, Indian feet exhibit broader ball girth and metatarsal spread compared to standard American "Medium" (D for men, B for women) lasts. When ordering US footwear brands, consider opting for "Wide" (EE for men, D for women) or going up half a size if you have broad forefeet.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` }
+  }))
+});
+
+const relatedLinks = [
+  { label: 'All Converters Directory', href: '/converters/' },
+  { label: 'US to India Shoe Size Converter', href: '/us-to-india-shoe-size/' },
+  { label: 'India to UK Shoe Size Converter', href: '/india-to-uk-shoe-size/' },
+  { label: 'India to EU Shoe Size Converter', href: '/india-to-eu-shoe-size/' },
+  { label: 'UK to US Shoe Size Converter', href: '/uk-to-us-shoe-size/' },
+  { label: 'EU to US Shoe Size Converter', href: '/eu-to-us-shoe-size/' },
+  { label: 'India Shoe Sizing Guide', href: '/country/india/' },
+  { label: 'United States Shoe Sizing Guide', href: '/country/us/' },
+  { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="indian shoe size chart, indian size chart shoes, india foot size, india footwear size, indian shoe size chart women, foot size chart india, uk size 8 in india, shoe size of us and india, shoe size us and india, 36 shoe size in india, 37 size in shoes in india, 38 foot size in india, shoe size 38 in india, 39 eu size in india, shoe size 41 in india, 42 foot size in india, 43 shoe size india, shoe size 44 in india, 45 shoe size in india" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <!-- Breadcrumbs -->
+    <div class="page-inner pt-4">
+      <Breadcrumbs items={[
+        { label: 'Home', href: '/' },
+        { label: 'Converters', href: '/converters/' },
+        { label: 'India to US', href: '/india-to-us-shoe-size/' }
+      ]} />
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-band">
+      <div class="page-inner hero-content">
+        <span class="badge-pill">International Footwear Converter</span>
+        <h1 class="hero-title">India to US Shoe Size Converter</h1>
+        <p class="hero-sub">Convert Indian shoe sizes to American (US) sizes effortlessly. Compare detailed men's, women's, and kids' conversion charts with Bata equivalents, European benchmarks, and anatomical footbed measurements in centimetres.</p>
+        
+        <div class="hero-stats">
+          <div class="stat-pill">
+            <span class="stat-label">Men's Formula</span>
+            <span class="stat-val">US = India + 1</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-label">Women's Formula</span>
+            <span class="stat-val">US = India + 2</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-label">Reference System</span>
+            <span class="stat-val">UK English Barleycorn</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Calculator -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated conv-card">
+          <div class="conv-card-header">
+            <h2 class="heading-md">Convert India to US Shoe Size</h2>
+            <p class="conv-card-sub">Select your gender and Indian (IND / UK) footwear size to compute your exact American (US) size, European sizing, and footbed length in centimetres.</p>
+          </div>
+
+          <div class="conv-row">
+            <div class="conv-field">
+              <label class="step-label" for="conv-gender">
+                <span class="step-num">1</span> Category
+              </label>
+              <select id="conv-gender" class="form-select" aria-label="Select category">
+                <option value="men" selected>Men's Sizes</option>
+                <option value="women">Women's Sizes</option>
+                <option value="kids">Kids' Sizes</option>
+              </select>
+            </div>
+
+            <div class="conv-field">
+              <label class="step-label" for="conv-size">
+                <span class="step-num">2</span> Indian (IND / UK) Size
+              </label>
+              <select id="conv-size" class="form-select" aria-label="Select Indian shoe size">
+                <option value="" disabled>Select Indian size</option>
+                {menSizes.map(s => <option value={String(s.india)} selected={s.india === 8.0 ? true : undefined}>{s.india} India</option>)}
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="conv-result-box" id="conv-result" aria-live="polite">
+            <div class="conv-result-card">
+              <div class="conv-col">
+                <span class="conv-sys">India (IND / UK)</span>
+                <span class="conv-val" id="res-in">8.0</span>
+                <span class="conv-note" id="res-in-sub">Men's Standard</span>
+              </div>
+              <div class="conv-arrow-wrap" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="conv-col conv-target">
+                <span class="conv-sys">United States (US)</span>
+                <span class="conv-val" id="res-us">9.0</span>
+                <span class="conv-note" id="res-us-sub">US Men's Equivalent</span>
+              </div>
+              <div class="conv-col conv-aux">
+                <span class="conv-sys">Footbed & European</span>
+                <span class="conv-val-sm" id="res-cm">27.0 cm · EU 42</span>
+                <span class="conv-note" id="res-in-meas">10.6 inches</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benchmark Cards -->
+    <section class="snapshot-band">
+      <div class="page-inner">
+        <h2 class="section-title">Popular Indian to US Shoe Size Benchmarks</h2>
+        <p class="section-sub">Quick reference for the most commonly searched Indian and UK sizes when converting to American footwear.</p>
+
+        <div class="snapshot-grid">
+          <div class="snap-card">
+            <span class="snap-tag">Men's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">India 8 Men → US 9.0</span>
+              <span class="snap-detail">Foot length: 27.0 cm · EU 42 · uk size 8 in india · 42 foot size</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">India 7 Men → US 8.0</span>
+              <span class="snap-detail">Foot length: 26.0 cm · EU 41 · shoe size 41 in india</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">India 9 Men → US 10.0</span>
+              <span class="snap-detail">Foot length: 28.0 cm · EU 43 · 43 shoe size india</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">India 5 Women → US 7.0</span>
+              <span class="snap-detail">Foot length: 24.0 cm · EU 38 · 38 foot size in india · shoe size 38</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">India 4 Women → US 6.0</span>
+              <span class="snap-detail">Foot length: 23.0 cm · EU 36.5 · 36 shoe size / 37 size in shoes</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">India 6 Women → US 8.0</span>
+              <span class="snap-detail">Foot length: 25.0 cm · EU 39 · 39 eu size in india</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Charts Section -->
+    <section class="charts-band">
+      <div class="page-inner">
+        <h2 class="section-title">Comprehensive Indian to US Footwear Size Chart</h2>
+        <p class="section-sub">Accurate cross-comparison tables detailing conversions from Indian (IND) and UK sizes to American (US) sizes, European numbers, and footbed centimetres.</p>
+
+        <div class="table-tabs" role="tablist">
+          <button class="tab-btn active" data-target="tab-men" role="tab" aria-selected="true">Men's India to US Chart</button>
+          <button class="tab-btn" data-target="tab-women" role="tab" aria-selected="false">Women's India to US Chart</button>
+          <button class="tab-btn" data-target="tab-kids" role="tab" aria-selected="false">Kids' India to US Chart</button>
+        </div>
+
+        <!-- Men's Table -->
+        <div class="table-panel active" id="tab-men" role="tabpanel">
+          <h3 class="table-heading">Men's Indian to US Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Men Indian to US shoe size chart">
+              <thead>
+                <tr>
+                  <th>India Size (UK)</th>
+                  <th>US Men Size</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {menSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>India {r.india.toFixed(1)}</strong></td>
+                    <td class="highlight-cell"><strong>US {r.us.toFixed(1)}</strong></td>
+                    <td>EU {r.eu}</td>
+                    <td>{r.cm.toFixed(1)} cm</td>
+                    <td>{r.inch.toFixed(1)}"</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Women's Table -->
+        <div class="table-panel" id="tab-women" role="tabpanel">
+          <h3 class="table-heading">Women's Indian to US Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Women Indian to US shoe size chart">
+              <thead>
+                <tr>
+                  <th>India Size (UK)</th>
+                  <th>US Women Size</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {womenSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>India {r.india.toFixed(1)}</strong></td>
+                    <td class="highlight-cell"><strong>US {r.us.toFixed(1)}</strong></td>
+                    <td>EU {r.eu}</td>
+                    <td>{r.cm.toFixed(1)} cm</td>
+                    <td>{r.inch.toFixed(1)}"</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Kids' Table -->
+        <div class="table-panel" id="tab-kids" role="tabpanel">
+          <h3 class="table-heading">Kids' & Youth Indian to US Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Kids Indian to US shoe size chart">
+              <thead>
+                <tr>
+                  <th>India Kids Size</th>
+                  <th>US Kids Size</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Age Stage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kidsSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>India {r.india}</strong></td>
+                    <td class="highlight-cell"><strong>US {r.us}</strong></td>
+                    <td>EU {r.eu}</td>
+                    <td>{r.cm.toFixed(1)} cm</td>
+                    <td>{r.stage}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial SEO Prose Section -->
+    <article class="editorial-band">
+      <div class="page-inner prose-article">
+        <h2 class="editorial-main-title">Complete Guide to Indian Shoe Sizes and Converting to US Footwear</h2>
+        
+        <p class="lead-paragraph">
+          If you are shopping online from American retailers like Amazon US, Nike, Nordstrom, or StockX, knowing your exact <strong>india footwear size</strong> translated into the American sizing system is critical. Sizing conventions in India have a distinctive historical origin rooted in the British imperial scale, but modern shoppers must frequently compare domestic numbers against American and European metrics. Whether you wear Bata, Red Tape, Liberty, or Mochi, this in-depth guide explains how an <strong>indian shoe size chart</strong> functions and how to convert your footwear size to US shoes with complete confidence.
+        </p>
+
+        <h3>How an Indian Shoe Size Chart Works</h3>
+        <p>
+          Historically, shoe manufacturing across India was standardized around the British English scale. Under this system, shoe sizes increment by one barleycorn (1/3 of an inch, or 8.46 mm) per full size, and 1/6 of an inch (4.23 mm) for half sizes. Because of this heritage, an <strong>indian size chart shoes</strong> listing is identical in length to the United Kingdom standard.
+        </p>
+        <p>
+          Consequently, a query like <strong>uk size 8 in india</strong> refers to an Indian size 8. If an Indian shoemaker stamps an "8" on a leather oxford or casual loafer, that shoe is designed to fit a 27.0-centimetre footbed—the exact anatomical length of a UK 8 and a European 42. However, the United States system calculates numbers differently, meaning your Indian size must be converted before purchasing American sneakers or dress shoes.
+        </p>
+
+        <h3>Core Formulas: Converting Indian Shoe Sizes to US Sizes</h3>
+        <p>
+          Converting your domestic size from an <strong>india foot size</strong> to an American US size depends strictly on whether you are buying men's or women's footwear:
+        </p>
+        <ul>
+          <li><strong>Men's Conversion (US = India + 1):</strong> American men's footwear is labeled 1 full size higher than Indian sizing. For example, if you wear an Indian size 7, your US size is 8.0 (26.0 cm, EU 41). If your Indian size is 8, you will order an American US 9.0 (27.0 cm, EU 42). If your Indian size is 9, your American size is US 10.0 (28.0 cm, EU 43).</li>
+          <li><strong>Women's Conversion (US = India + 2):</strong> On an <strong>indian shoe size chart women</strong>, American women's sizes run 2 full numbers larger. If you wear an Indian size 5 in domestic sandals or pumps, your American size is US 7.0 (24.0 cm, EU 38). An Indian size 6 converts to an American US 8.0 (25.0 cm, EU 39).</li>
+          <li><strong>Children's Sizing:</strong> Indian children's footwear corresponds to UK youth sizing, which is roughly 0.5 to 1 size smaller than American children's numbering (e.g., India 9.5C child equals US 10C, approximately 16.5 cm).</li>
+        </ul>
+
+        <h3>Demystifying Common European Sizing Queries in India</h3>
+        <p>
+          Shoppers in India often encounter European numbers on multi-brand platforms like Myntra, Flipkart, Ajio, and Nykaa. Here is how popular European size searches relate to Indian and US sizing:
+        </p>
+        <ul>
+          <li><strong>36 shoe size in india:</strong> European 36 corresponds to Indian size 3 to 3.5 for women (fitting a 22.5 cm foot length), converting to an American US Women 5.5.</li>
+          <li><strong>37 size in shoes in india:</strong> European 37 matches Indian size 4 to 4.5 (23.5 cm foot length), converting to an American US Women 6.5.</li>
+          <li><strong>38 foot size in india & shoe size 38 in india:</strong> European 38 represents Indian size 5 for women (24.0 cm foot length), converting directly to American US Women 7.0.</li>
+          <li><strong>39 eu size in india:</strong> European 39 equals Indian size 6 for women (25.0 cm foot length), which corresponds to American US Women 8.0 or US Men 6.5.</li>
+          <li><strong>Shoe size 41 in india:</strong> European 41 corresponds to Indian size 7 for men (26.0 cm foot length), translating to American US Men 8.0.</li>
+          <li><strong>42 foot size in india:</strong> European 42 matches Indian size 8 for men (27.0 cm foot length), which converts to American US Men 9.0.</li>
+          <li><strong>43 shoe size india:</strong> European 43 equals Indian size 9 for men (28.0 cm foot length), translating to American US Men 10.0.</li>
+          <li><strong>Shoe size 44 in india:</strong> European 44 represents Indian size 9.5 to 10 for men (28.5 to 29.0 cm foot length), corresponding to American US Men 10.5 to 11.0.</li>
+          <li><strong>45 shoe size in india:</strong> European 45 corresponds to Indian size 10.5 to 11 for men (29.5 to 30.0 cm foot length), mapping to American US Men 11.5 to 12.0.</li>
+        </ul>
+
+        <h3>Foot Width and the New Indian "Bha" Sizing Standard</h3>
+        <p>
+          One crucial factor when converting from an Indian size to an American shoe is width. The Council of Scientific and Industrial Research - Central Leather Research Institute (CSIR-CLRI) conducted a comprehensive 3D foot scanning survey across 30 states in India. The findings demonstrated that Indian feet are on average 5% to 8% broader at the ball and forefoot than typical Western feet.
+        </p>
+        <p>
+          To address this, the Bureau of Indian Standards (BIS) formulated the "Bha" size standard. While length follows familiar metric benchmarks, Indian lasts provide greater room across the metatarsal heads. When ordering from US brands, which default to "D" width for men and "B" width for women, individuals with broader feet often experience tightness. Choosing a "Wide" (EE for men, D for women) or sizing up by half a size ensures optimal comfort.
+        </p>
+
+        <h3>Step-by-Step: Measuring Foot Size at Home with an India Footwear Guide</h3>
+        <p>
+          Before ordering footwear from overseas, follow these steps to measure your foot and consult our <strong>foot size chart india</strong>:
+        </p>
+        <ol>
+          <li>Place a blank sheet of white paper on a hard, even floor against a perpendicular wall.</li>
+          <li>Stand straight with your heel lightly touching the wall. Place your full body weight on your foot, wearing your typical everyday socks.</li>
+          <li>Have someone mark the furthest tip of your longest toe (which may be your big toe or second toe) with a pencil held perpendicular to the floor.</li>
+          <li>Measure the distance from the wall edge of the paper to the toe mark using a millimetre ruler.</li>
+          <li>Compare your measurement against the centimetre column in our charts above to identify your exact Indian, US, and European sizes.</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- FAQ Accordion Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="section-title">Frequently Asked Questions: India to US Sizing</h2>
+        <p class="section-sub">Helpful answers to the most common questions regarding converting Indian shoe sizes to American standards.</p>
+
+        <div class="faq-accordion-list">
+          {faqs.map((f, i) => (
+            <details class="faq-item" open={i === 0}>
+              <summary class="faq-question">
+                <span>{f.q}</span>
+                <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>{f.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Links Band -->
+    <RelatedLinks title="Related Shoe Size Converters & Regional Guides" links={relatedLinks} />
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Client-side Interactive Engine Script -->
+<script is:inline define:vars={{ menSizes, womenSizes, kidsSizes }}>
+  // @ts-nocheck
+  (function() {
+    const MEN = menSizes;
+    const WOMEN = womenSizes;
+    const KIDS = kidsSizes;
+
+    const genderSelect = document.getElementById('conv-gender');
+    const sizeSelect = document.getElementById('conv-size');
+    const resIn = document.getElementById('res-in');
+    const resInSub = document.getElementById('res-in-sub');
+    const resUs = document.getElementById('res-us');
+    const resUsSub = document.getElementById('res-us-sub');
+    const resCm = document.getElementById('res-cm');
+    const resInMeas = document.getElementById('res-in-meas');
+
+    function populateSizes() {
+      const gender = genderSelect?.value || 'men';
+      let data = MEN;
+      if (gender === 'women') data = WOMEN;
+      if (gender === 'kids') data = KIDS;
+
+      if (!sizeSelect) return;
+      sizeSelect.innerHTML = '';
+
+      data.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = String(item.india);
+        opt.textContent = `${item.india} India`;
+        if (gender === 'men' && item.india === 8.0) opt.selected = true;
+        if (gender === 'women' && item.india === 5.0) opt.selected = true;
+        if (gender === 'kids' && item.india === '9.5C') opt.selected = true;
+        sizeSelect.appendChild(opt);
+      });
+
+      updateConversion();
+    }
+
+    function updateConversion() {
+      const gender = genderSelect?.value || 'men';
+      const val = sizeSelect?.value;
+      if (!val) return;
+
+      let list = MEN;
+      let label = "US Men's Size";
+      if (gender === 'women') { list = WOMEN; label = "US Women's Size"; }
+      if (gender === 'kids') { list = KIDS; label = "US Kids' Size"; }
+
+      const match = list.find(item => String(item.india) === String(val));
+      if (!match) return;
+
+      if (resIn) resIn.textContent = String(match.india);
+      if (resInSub) resInSub.textContent = gender === 'kids' ? "India Kids' Size" : (gender === 'women' ? "India Women's Size" : "India Men's Size");
+      if (resUs) resUs.textContent = String(match.us);
+      if (resUsSub) resUsSub.textContent = label;
+      if (resCm) resCm.textContent = `${match.cm.toFixed(1)} cm · EU ${match.eu}`;
+      if (resInMeas) resInMeas.textContent = match.inch ? `${match.inch.toFixed(1)} inches` : `${match.stage || 'Metric'}`;
+    }
+
+    genderSelect?.addEventListener('change', populateSizes);
+    sizeSelect?.addEventListener('change', updateConversion);
+
+    // Tab Controller
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.table-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-target');
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        panels.forEach(p => {
+          if (p.id === target) {
+            p.classList.add('active');
+          } else {
+            p.classList.remove('active');
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Layout tokens */
+  .page-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .pt-4 { padding-top: 16px; }
+
+  /* Hero Band */
+  .hero-band {
+    padding: 48px 24px 36px;
+    background: linear-gradient(180deg, var(--v-elevated) 0%, var(--v-canvas) 100%);
+    border-bottom: 1px solid var(--v-hairline);
+    text-align: center;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .badge-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: var(--v-r-full);
+    background: var(--v-badge-bg);
+    color: var(--v-link-deep);
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-size: clamp(30px, 4.5vw, 42px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--v-ink);
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+  .hero-sub {
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--v-body);
+    margin: 0 0 28px;
+    max-width: 720px;
+  }
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+  .stat-pill {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    padding: 10px 18px;
+    border-radius: var(--v-r-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 140px;
+  }
+  .stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--v-mute);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .stat-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--v-ink);
+  }
+
+  /* Converter Band */
+  .converter-band {
+    padding: 40px 24px;
+    background: var(--v-canvas);
+  }
+  .conv-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .conv-card-header {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .heading-md {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--v-ink);
+    margin: 0 0 8px;
+  }
+  .conv-card-sub {
+    font-size: 14px;
+    color: var(--v-body);
+    margin: 0;
+  }
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .conv-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .step-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: var(--v-link);
+    color: #ffffff;
+    border-radius: var(--v-r-full);
+    font-size: 12px;
+  }
+  .form-select {
+    height: 48px;
+    padding: 0 16px;
+    border-radius: var(--v-r-md);
+    border: 1px solid var(--v-hairline);
+    background: var(--v-elevated);
+    color: var(--v-ink);
+    font-size: 15px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+  }
+  .form-select:focus {
+    outline: none;
+    border-color: var(--v-link);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  /* Result Box */
+  .conv-result-box {
+    margin-top: 8px;
+  }
+  .conv-result-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 24px 32px;
+    gap: 20px;
+  }
+  .conv-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .conv-sys {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--v-mute);
+  }
+  .conv-val {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--v-ink);
+    line-height: 1.1;
+  }
+  .conv-val-sm {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--v-ink);
+  }
+  .conv-target .conv-val {
+    color: var(--v-link-deep);
+  }
+  .conv-note {
+    font-size: 13px;
+    color: var(--v-body);
+  }
+  .conv-arrow-wrap {
+    color: var(--v-mute);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conv-aux {
+    border-left: 1px solid var(--v-hairline);
+    padding-left: 24px;
+  }
+
+  /* Benchmarks Band */
+  .snapshot-band {
+    padding: 48px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--v-ink);
+    text-align: center;
+    margin: 0 0 8px;
+  }
+  .section-sub {
+    font-size: 14.5px;
+    color: var(--v-body);
+    text-align: center;
+    margin: 0 0 32px;
+  }
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .snap-card {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .snap-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--v-link-deep);
+  }
+  .snap-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .snap-main {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--v-ink);
+  }
+  .snap-detail {
+    font-size: 13px;
+    color: var(--v-body);
+  }
+
+  /* Master Charts */
+  .charts-band {
+    padding: 56px 24px;
+    background: var(--v-canvas);
+  }
+  .table-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 12px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 8px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--v-body);
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--v-ink); border-color: var(--v-link); }
+  .tab-btn.active { background: var(--v-link); color: #ffffff; border-color: var(--v-link); }
+  .table-panel { display: none; }
+  .table-panel.active { display: block; }
+  .table-heading { font-size: 18px; font-weight: 700; color: var(--v-ink); margin: 0 0 16px; }
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-elevated);
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .size-table thead tr { background: var(--v-table-head); color: var(--v-table-head-text); }
+  .size-table th, .size-table td { padding: 12px 18px; border-bottom: 1px solid var(--v-hairline); }
+  .size-table tbody tr:hover { background: var(--v-table-hover); }
+  .primary-cell strong { color: var(--v-ink); }
+  .highlight-cell strong { color: var(--v-link-deep); }
+
+  /* Editorial SEO Prose */
+  .editorial-band {
+    padding: 64px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .prose-article { max-width: 820px; margin: 0 auto; }
+  .editorial-main-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 20px;
+  }
+  .lead-paragraph { font-size: 16px; line-height: 28px; color: var(--v-body); margin-bottom: 24px; }
+  .prose-article h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.01em;
+    margin: 36px 0 12px;
+  }
+  .prose-article p { font-size: 15px; line-height: 26px; color: var(--v-body); margin: 0 0 18px; }
+  .prose-article ul, .prose-article ol { margin: 0 0 24px; padding-left: 22px; }
+  .prose-article li { font-size: 14.5px; line-height: 24px; color: var(--v-body); margin-bottom: 10px; }
+  .prose-article strong { color: var(--v-ink); }
+
+  /* FAQ Section */
+  .faq-band {
+    padding: 64px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .faq-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] { border-color: var(--v-link); }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-chevron { color: var(--v-mute); transition: transform 0.2s ease; }
+  .faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--v-link); }
+  .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 14.5px;
+    line-height: 25px;
+    color: var(--v-body);
+    border-top: 1px dashed var(--v-hairline);
+    padding-top: 14px;
+  }
+  .faq-answer p { margin: 0; }
+
+  @media (max-width: 768px) {
+    .conv-row { grid-template-columns: 1fr; }
+    .conv-result-card { flex-direction: column; gap: 16px; }
+    .conv-arrow-wrap { transform: rotate(90deg); }
+    .conv-aux { border-left: none; border-top: 1px solid var(--v-hairline); padding-left: 0; padding-top: 14px; width: 100%; }
+    .snapshot-grid { grid-template-columns: 1fr; }
+    .converter-band, .snapshot-band, .charts-band, .editorial-band, .faq-band { padding: 40px 16px; }
+  }
+</style>

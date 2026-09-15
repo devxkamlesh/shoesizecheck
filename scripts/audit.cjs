@@ -49,6 +49,9 @@ for (const [fromRoute, html] of Object.entries(pages)) {
 let issues = 0;
 
 for (const [route, html] of Object.entries(pages)) {
+  if (html.includes('http-equiv="refresh"') || html.includes('http-equiv="Refresh"')) {
+    continue;
+  }
   const titleMatch = html.match(/<title>([^<]*)<\/title>/);
   const descMatch = html.match(/<meta name="description" content="([^"]*)"/);
   const bcCount = (html.match(/"@type":\s*"BreadcrumbList"/g) || []).length;

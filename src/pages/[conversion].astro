@@ -8,7 +8,26 @@ import { CONVERSIONS, SIZE_DATA, SYSTEM_LABELS } from '../data/shoe-sizes';
 import type { ConversionData } from '../data/shoe-sizes';
 
 export function getStaticPaths() {
-  return CONVERSIONS.map(c => ({
+  const DEDICATED_CONVERSIONS = [
+    'us-to-eu-shoe-size',
+    'eu-to-us-shoe-size',
+    'eu-to-india-shoe-size',
+    'india-to-eu-shoe-size',
+    'uk-to-india-shoe-size',
+    'india-to-uk-shoe-size',
+    'us-to-uk-shoe-size',
+    'uk-to-us-shoe-size',
+    'us-to-cm-shoe-size',
+    'us-to-mexico-shoe-size',
+    'us-to-india-shoe-size',
+    'india-to-us-shoe-size',
+    'us-to-japan-shoe-size',
+    'eu-to-cm-shoe-size',
+    'uk-to-eu-shoe-size',
+    'eu-to-uk-shoe-size',
+  ];
+
+  return CONVERSIONS.filter(c => !DEDICATED_CONVERSIONS.includes(c.slug)).map(c => ({
     params: { conversion: c.slug },
     props: { conversion: c },
   }));
@@ -51,6 +70,7 @@ const faqSchema = JSON.stringify({
 
     <Breadcrumbs items={[
       { label: 'Home', href: '/' },
+      { label: 'Converters', href: '/converters/' },
       { label: conversion.h1 },
     ]} />
 

@@ -1,0 +1,990 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/us-to-japan-shoe-size/`;
+const pageTitle = 'US to Japan Shoe Size Converter — US to Japanese Chart';
+const pageDescription = 'Convert US shoe sizes to Japanese sizes instantly. Complete US to Japan shoe size chart for men, women, and kids with JP cm sizing, Onitsuka & Nike tips.';
+const ogImage = `${domain}/og-image.png`;
+
+// Men's table data (US, Japan CM / JP, EU, UK, Inches)
+const menSizes = [
+  { us: 6.0, jp: 24.0, eu: 38.5, uk: 5.5, inch: 9.4 },
+  { us: 6.5, jp: 24.5, eu: 39.0, uk: 6.0, inch: 9.6 },
+  { us: 7.0, jp: 25.0, eu: 40.0, uk: 6.5, inch: 9.8 },
+  { us: 7.5, jp: 25.5, eu: 40.5, uk: 7.0, inch: 10.0 },
+  { us: 8.0, jp: 26.0, eu: 41.0, uk: 7.5, inch: 10.2 },
+  { us: 8.5, jp: 26.5, eu: 41.5, uk: 8.0, inch: 10.4 },
+  { us: 9.0, jp: 27.0, eu: 42.0, uk: 8.5, inch: 10.6 },
+  { us: 9.5, jp: 27.5, eu: 42.5, uk: 9.0, inch: 10.8 },
+  { us: 10.0, jp: 28.0, eu: 43.0, uk: 9.5, inch: 11.0 },
+  { us: 10.5, jp: 28.5, eu: 44.0, uk: 10.0, inch: 11.2 },
+  { us: 11.0, jp: 29.0, eu: 44.5, uk: 10.5, inch: 11.4 },
+  { us: 11.5, jp: 29.5, eu: 45.0, uk: 11.0, inch: 11.6 },
+  { us: 12.0, jp: 30.0, eu: 46.0, uk: 11.5, inch: 11.8 },
+  { us: 13.0, jp: 31.0, eu: 47.0, uk: 12.5, inch: 12.2 },
+];
+
+// Women's table data (US, Japan CM / JP, EU, UK, Inches)
+const womenSizes = [
+  { us: 5.0, jp: 22.0, eu: 35.5, uk: 3.0, inch: 8.7 },
+  { us: 5.5, jp: 22.5, eu: 36.0, uk: 3.5, inch: 8.9 },
+  { us: 6.0, jp: 23.0, eu: 36.5, uk: 4.0, inch: 9.1 },
+  { us: 6.5, jp: 23.5, eu: 37.0, uk: 4.5, inch: 9.3 },
+  { us: 7.0, jp: 24.0, eu: 38.0, uk: 5.0, inch: 9.4 },
+  { us: 7.5, jp: 24.5, eu: 38.5, uk: 5.5, inch: 9.6 },
+  { us: 8.0, jp: 25.0, eu: 39.0, uk: 6.0, inch: 9.8 },
+  { us: 8.5, jp: 25.5, eu: 40.0, uk: 6.5, inch: 10.0 },
+  { us: 9.0, jp: 26.0, eu: 40.5, uk: 7.0, inch: 10.2 },
+  { us: 9.5, jp: 26.5, eu: 41.0, uk: 7.5, inch: 10.4 },
+  { us: 10.0, jp: 27.0, eu: 42.0, uk: 8.0, inch: 10.6 },
+  { us: 10.5, jp: 27.5, eu: 42.5, uk: 8.5, inch: 10.8 },
+  { us: 11.0, jp: 28.0, eu: 43.0, uk: 9.0, inch: 11.0 },
+];
+
+// Kids' table data (US, Japan CM / JP, EU, Stage)
+const kidsSizes = [
+  { us: '4C', jp: 11.5, eu: 19, stage: 'Toddler' },
+  { us: '6C', jp: 13.0, eu: 22, stage: 'Toddler' },
+  { us: '8C', jp: 14.5, eu: 24, stage: 'Toddler' },
+  { us: '10C', jp: 16.5, eu: 27, stage: 'Little Kid' },
+  { us: '12C', jp: 18.0, eu: 30, stage: 'Little Kid' },
+  { us: '13C', jp: 19.0, eu: 31, stage: 'Little Kid' },
+  { us: '1Y', jp: 20.0, eu: 32, stage: 'Big Kid' },
+  { us: '2Y', jp: 20.5, eu: 33, stage: 'Big Kid' },
+  { us: '3Y', jp: 21.5, eu: 34.5, stage: 'Big Kid' },
+  { us: '4Y', jp: 22.5, eu: 36, stage: 'Big Kid' },
+  { us: '5Y', jp: 23.5, eu: 37, stage: 'Big Kid' },
+];
+
+const faqs = [
+  {
+    q: 'How do I convert US shoe size to Japan shoe size?',
+    a: 'Japan shoe sizing is metric and directly equals anatomical footbed length in centimetres (CM). For American men, convert your size by adding 18 to your US size (for example, US Men 9.0 + 18 = 27.0 cm / 270 JP). For American women, add 17 to your US size (for example, US Women 7.5 + 17 = 24.5 cm / 245 JP). Always verify foot length directly in cm for the most reliable fit.'
+  },
+  {
+    q: 'What is 24.5 Japan shoe size to US?',
+    a: 'A 24.5 Japan shoe size equals a foot length of 24.5 centimetres. In American footwear, a 24.5 JP translates to an American US Women\'s 7.5 or an American US Men\'s 6.5 (European EU 38.5, UK 5.5). This is one of the most popular women\'s footwear sizes sold across Japan.'
+  },
+  {
+    q: 'What is 9.5 US and 10.5 shoe size in Japan?',
+    a: 'An American Men\'s US 9.5 corresponds to a 27.5 cm (27.5 JP / 275 mm) in Japan, equivalent to European EU 42.5. An American Men\'s US 10.5 corresponds to a 28.5 cm (28.5 JP / 285 mm) in Japan, equivalent to European EU 44.0. Both sizes are readily available in major Japanese sneaker boutiques such as Atmos, Mita Sneakers, and ABC-Mart.'
+  },
+  {
+    q: 'What do EU shoe sizes like 38 and 41 equal in Japan?',
+    a: 'A European EU 38 corresponds to 24.0 cm (24.0 JP) in Japanese footwear, which equals a US Women\'s 7.0 or US Men\'s 6.0. An EU 41 corresponds to 26.0 cm (26.0 JP) in Japanese sizing, which equals an American US Men\'s 8.0 or US Women\'s 9.0.'
+  },
+  {
+    q: 'How do Japanese shoe widths (2E, 3E, 4E) differ from American footwear widths?',
+    a: 'Under the Japanese Industrial Standard (JIS S 5037), the baseline standard width for adult men\'s footwear in Japan is 2E (EE), whereas standard American men\'s footwear defaults to D width (Medium). Japanese lasts are sculpted with wider forefoot ball girth and higher instep clearance to match East Asian foot morphology. If you have narrow feet, consider selecting D width or sizing down half a centimeter when buying Japanese heritage footwear.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` }
+  }))
+});
+
+const relatedLinks = [
+  { label: 'All Converters Directory', href: '/converters/' },
+  { label: 'Japan Shoe Sizing Guide', href: '/country/japan/' },
+  { label: 'United States Shoe Sizing Guide', href: '/country/us/' },
+  { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
+  { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
+  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
+  { label: 'US to UK Shoe Size Converter', href: '/us-to-uk-shoe-size/' },
+  { label: 'US to India Shoe Size Converter', href: '/us-to-india-shoe-size/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="us to japan shoe size, shoe size conversion japan, american shoe size to japan, american shoe size to japanese, japan shoe size, japan shoe size to american, japan shoe size to us, japan size to us size shoes, japan to american shoe size, jp size shoes, shoe size chart us to japan, shoe size conversion japan to us, shoe size conversion japan us, shoe size japanese to us, shoe size us to jp, 10.5 shoe size in japan, 24.5 japan shoe size to us, 38 shoe size in japan, 41 shoe size in japan, 9.5 us to japan size, eu shoe size to japan, japan foot size to us, japan shoe size chart, japan shoe size cm, japan shoe size to europe, japan shoe size to us shoe size, japan shoe size to us women's, japan shoe sizing to us, japan us shoe size chart" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <!-- Breadcrumbs -->
+    <div class="page-inner pt-4">
+      <Breadcrumbs items={[
+        { label: 'Home', href: '/' },
+        { label: 'Converters', href: '/converters/' },
+        { label: 'US to Japan', href: '/us-to-japan-shoe-size/' }
+      ]} />
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-band">
+      <div class="page-inner hero-content">
+        <span class="badge-pill">Metric Footwear Sizing</span>
+        <h1 class="hero-title">US to Japan Shoe Size Converter</h1>
+        <p class="hero-sub">Convert American shoe sizes to Japanese shoe sizes instantly. Explore comprehensive conversion tables, JIS metric centimeters, brand fit guides for Onitsuka Tiger, ASICS, and Nike, plus dual-unit width breakdowns.</p>
+        
+        <div class="hero-stats">
+          <div class="stat-pill">
+            <span class="stat-label">Men's Standard</span>
+            <span class="stat-val">US 9.0 = 27.0 cm (JP)</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-label">Women's Standard</span>
+            <span class="stat-val">US 7.5 = 24.5 cm (JP)</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-label">System Standard</span>
+            <span class="stat-val">JIS Metric (CM / MM)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Calculator -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated conv-card">
+          <div class="conv-card-header">
+            <h2 class="heading-md">Convert US to Japan Shoe Size</h2>
+            <p class="conv-card-sub">Select your gender category and American (US) shoe size to compute your exact Japanese size in centimetres, Mondopoint millimeters, and European equivalents.</p>
+          </div>
+
+          <div class="conv-row">
+            <div class="conv-field">
+              <label class="step-label" for="conv-gender">
+                <span class="step-num">1</span> Category
+              </label>
+              <select id="conv-gender" class="form-select" aria-label="Select category">
+                <option value="men" selected>Men's Sizes</option>
+                <option value="women">Women's Sizes</option>
+                <option value="kids">Kids' Sizes</option>
+              </select>
+            </div>
+
+            <div class="conv-field">
+              <label class="step-label" for="conv-size">
+                <span class="step-num">2</span> American (US) Size
+              </label>
+              <select id="conv-size" class="form-select" aria-label="Select US shoe size">
+                <option value="" disabled>Select US size</option>
+                {menSizes.map(s => <option value={String(s.us)} selected={s.us === 9.0 ? true : undefined}>{s.us} US</option>)}
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="conv-result-box" id="conv-result" aria-live="polite">
+            <div class="conv-result-card">
+              <div class="conv-col">
+                <span class="conv-sys">United States (US)</span>
+                <span class="conv-val" id="res-us">9.0</span>
+                <span class="conv-note" id="res-us-sub">Men's Standard</span>
+              </div>
+              <div class="conv-arrow-wrap" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="conv-col conv-target">
+                <span class="conv-sys">Japan (JP / CM)</span>
+                <span class="conv-val" id="res-jp">27.0</span>
+                <span class="conv-note" id="res-jp-sub">Centimetres (270 mm)</span>
+              </div>
+              <div class="conv-col conv-aux">
+                <span class="conv-sys">European & UK Equiv.</span>
+                <span class="conv-val-sm" id="res-aux">EU 42.0 · UK 8.5</span>
+                <span class="conv-note" id="res-inch">10.6 inches</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benchmark Cards -->
+    <section class="snapshot-band">
+      <div class="page-inner">
+        <h2 class="section-title">Popular US to Japan Shoe Size Benchmarks</h2>
+        <p class="section-sub">Essential size translations frequently searched when purchasing Japanese footwear or converting between American and Japanese standards.</p>
+
+        <div class="snapshot-grid">
+          <div class="snap-card">
+            <span class="snap-tag">Men's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">9.5 US to Japan Size → 27.5 cm</span>
+              <span class="snap-detail">JP 27.5 · 275 mm · EU 42.5 · UK 9.0 · 10.8 inches</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">10.5 Shoe Size in Japan → 28.5 cm</span>
+              <span class="snap-detail">JP 28.5 · 285 mm · EU 44.0 · UK 10.0 · 11.2 inches</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">24.5 Japan Shoe Size to US → US 7.5 W</span>
+              <span class="snap-detail">24.5 cm · US Men 6.5 · EU 38.5 · UK 5.5 · 9.6 inches</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">EU to JP Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">38 Shoe Size in Japan → 24.0 cm</span>
+              <span class="snap-detail">EU 38.0 · US Women 7.0 · US Men 6.0 · 240 mm</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">EU to JP Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">41 Shoe Size in Japan → 26.0 cm</span>
+              <span class="snap-detail">EU 41.0 · US Men 8.0 · US Women 9.0 · 260 mm</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men's Benchmark</span>
+            <div class="snap-body">
+              <span class="snap-main">US 9 Men to Japan → 27.0 cm</span>
+              <span class="snap-detail">JP 27.0 · 270 mm · EU 42.0 · UK 8.5 · shoe size us to jp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Charts Section -->
+    <section class="charts-band">
+      <div class="page-inner">
+        <h2 class="section-title">Comprehensive US to Japan Shoe Size Chart</h2>
+        <p class="section-sub">Cross-comparison tables showing exact correlations between American US sizes, Japanese centimetre sizes, European metrics, and imperial measurements.</p>
+
+        <div class="table-tabs" role="tablist">
+          <button class="tab-btn active" data-target="tab-men" role="tab" aria-selected="true">Men's US to Japan Chart</button>
+          <button class="tab-btn" data-target="tab-women" role="tab" aria-selected="false">Women's US to Japan Chart</button>
+          <button class="tab-btn" data-target="tab-kids" role="tab" aria-selected="false">Kids' US to Japan Chart</button>
+        </div>
+
+        <!-- Men's Table -->
+        <div class="table-panel active" id="tab-men" role="tabpanel">
+          <h3 class="table-heading">Men's US to Japan Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Men US to Japan shoe size chart">
+              <thead>
+                <tr>
+                  <th>US Men Size</th>
+                  <th>Japan Size (CM)</th>
+                  <th>Mondopoint (MM)</th>
+                  <th>EU Size</th>
+                  <th>UK Size</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {menSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us.toFixed(1)}</strong></td>
+                    <td class="highlight-cell"><strong>{r.jp.toFixed(1)} cm (JP)</strong></td>
+                    <td>{Math.round(r.jp * 10)} mm</td>
+                    <td>EU {r.eu.toFixed(1)}</td>
+                    <td>UK {r.uk.toFixed(1)}</td>
+                    <td>{r.inch.toFixed(1)}"</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Women's Table -->
+        <div class="table-panel" id="tab-women" role="tabpanel">
+          <h3 class="table-heading">Women's US to Japan Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Women US to Japan shoe size chart">
+              <thead>
+                <tr>
+                  <th>US Women Size</th>
+                  <th>Japan Size (CM)</th>
+                  <th>Mondopoint (MM)</th>
+                  <th>EU Size</th>
+                  <th>UK Size</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {womenSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us.toFixed(1)}</strong></td>
+                    <td class="highlight-cell"><strong>{r.jp.toFixed(1)} cm (JP)</strong></td>
+                    <td>{Math.round(r.jp * 10)} mm</td>
+                    <td>EU {r.eu.toFixed(1)}</td>
+                    <td>UK {r.uk.toFixed(1)}</td>
+                    <td>{r.inch.toFixed(1)}"</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Kids' Table -->
+        <div class="table-panel" id="tab-kids" role="tabpanel">
+          <h3 class="table-heading">Kids' & Youth US to Japan Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Kids US to Japan shoe size chart">
+              <thead>
+                <tr>
+                  <th>US Kids Size</th>
+                  <th>Japan Size (CM)</th>
+                  <th>Mondopoint (MM)</th>
+                  <th>EU Size</th>
+                  <th>Stage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kidsSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>{r.jp.toFixed(1)} cm (JP)</strong></td>
+                    <td>{Math.round(r.jp * 10)} mm</td>
+                    <td>EU {r.eu}</td>
+                    <td>{r.stage}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial SEO Prose Section -->
+    <article class="editorial-band">
+      <div class="page-inner prose-article">
+        <h2 class="editorial-main-title">How to Convert US to Japan Shoe Size: Complete Footwear Guide</h2>
+        
+        <p class="lead-paragraph">
+          Whether you are shopping for world-renowned Japanese athletic sneakers from ASICS and Onitsuka Tiger, seeking artisanal leather boots from Visvim or Hender Scheme, or purchasing international footwear while exploring Tokyo’s Harajuku and Shibuya fashion districts, calculating your accurate <strong>us to japan shoe size</strong> is essential. Unlike Western sizing systems that rely on arbitrary whole numbers, the Japanese system is wonderfully intuitive and purely metric. This comprehensive guide covers everything you need to know about <strong>shoe size conversion japan</strong>, brand differences, width considerations, and footbed measurements.
+        </p>
+
+        <h3>Understanding Japan Shoe Size: The JIS S 5037 Metric Standard</h3>
+        <p>
+          The official foundation of Japanese footwear is codified under the Japanese Industrial Standard (JIS S 5037). Under this standard, <strong>japan shoe size cm</strong> represents the actual physical length of your foot in centimetres (or millimetres under the international Mondopoint standard). When you examine a pair of <strong>jp size shoes</strong>, a size stamped as "27.0" means the inner shoe last is engineered to accommodate a foot that measures precisely 27.0 centimetres from heel to the tip of the longest toe.
+        </p>
+        <p>
+          Because of this scientific approach, there is no guesswork involving arbitrary sizing scales. A 27.0 cm footbed is 27.0 cm regardless of whether the footwear is designed for men or women. However, because American shoe sizes are segmented into distinct men's and women's scales, converting an <strong>american shoe size to japan</strong> requires understanding gender-specific conversion formulas.
+        </p>
+
+        <h3>Core Formulas: American Shoe Size to Japanese Conversions</h3>
+        <p>
+          To convert your shoe size from an American number to a <strong>japan shoe size chart</strong>, apply these proven formulas:
+        </p>
+        <ul>
+          <li><strong>Men's Conversion (Japan CM ≈ US Men + 18):</strong> For adult American men's footwear, adding 18 to your US shoe size gives a reliable approximation of your Japanese centimetre size. For example, a US Men's 7.0 + 18 = 25.0 cm (JP 25.0); a US Men's 9.0 + 18 = 27.0 cm (JP 27.0). If you are looking up <strong>9.5 us to japan size</strong>, a US Men's 9.5 translates to 27.5 cm (JP 27.5 / 275 mm). Similarly, a <strong>10.5 shoe size in japan</strong> corresponds to 28.5 cm (JP 28.5 / 285 mm).</li>
+          <li><strong>Women's Conversion (Japan CM ≈ US Women + 17):</strong> Because American women's sizes run approximately 1.5 numbers smaller in footbed length than men's sizes, women add 17 to their US size. For example, a US Women's 6.0 + 17 = 23.0 cm (JP 23.0); a US Women's 7.0 + 17 = 24.0 cm (JP 24.0); and a US Women's 7.5 + 17 = 24.5 cm (JP 24.5).</li>
+          <li><strong>Children's Sizing:</strong> Japanese children's footwear increments by 0.5 cm intervals (e.g., 12.0 cm, 12.5 cm, 13.0 cm up to 21.0 cm). An American toddler 6C translates to approximately 13.0 cm, while a little kid 10C corresponds to 16.5 cm.</li>
+        </ul>
+
+        <h3>Reverse Conversions: Japan Shoe Size to US & American Equivalence</h3>
+        <p>
+          International shoppers frequently buy directly from Japanese retailers like Rakuten, Mercari Japan, or Yahoo Auctions and need to translate <strong>japan shoe size to american</strong> numbers. Understanding <strong>japan size to us size shoes</strong> prevents costly international returns:
+        </p>
+        <ul>
+          <li><strong>24.5 japan shoe size to us:</strong> A Japanese size 24.5 (24.5 cm) converts to an American US Women's 7.5 or an American US Men's 6.5 (European EU 38.5). This is one of the most widely manufactured sizes in Japan.</li>
+          <li><strong>26.0 cm in US sizing:</strong> Converts to an American US Men's 8.0 or US Women's 9.0 (European EU 41).</li>
+          <li><strong>27.0 cm in US sizing:</strong> Converts to an American US Men's 9.0 or US Women's 10.0 (European EU 42).</li>
+          <li><strong>28.0 cm in US sizing:</strong> Converts to an American US Men's 10.0 or US Women's 11.0 (European EU 43).</li>
+        </ul>
+
+        <h3>European & Global Cross-Comparisons: EU Shoe Size to Japan</h3>
+        <p>
+          If you frequently wear European fashion brands, understanding <strong>eu shoe size to japan</strong> and <strong>japan shoe size to europe</strong> is invaluable. European sizes are built on the Paris Point system (2/3 of a centimeter per increment):
+        </p>
+        <ul>
+          <li><strong>38 shoe size in japan:</strong> European size 38 maps directly to 24.0 cm in Japanese sizing, corresponding to an American US Women's 7.0 or US Men's 6.0.</li>
+          <li><strong>41 shoe size in japan:</strong> European size 41 corresponds to 26.0 cm in Japanese sizing, translating to an American US Men's 8.0 or US Women's 9.0.</li>
+          <li><strong>EU 42 to Japan:</strong> Translates to 27.0 cm (US Men's 9.0).</li>
+          <li><strong>EU 43 to Japan:</strong> Translates to 28.0 cm (US Men's 10.0).</li>
+          <li><strong>EU 44 to Japan:</strong> Translates to 28.5 cm (US Men's 10.5).</li>
+        </ul>
+
+        <h3>Japanese Footwear Brands & Width Standards (2E, 3E, 4E)</h3>
+        <p>
+          When executing a <strong>shoe size conversion japan us</strong>, foot width is just as critical as foot length. Anatomical research demonstrates that East Asian feet typically feature a broader ball girth and higher instep clearance compared to Western foot morphology.
+        </p>
+        <p>
+          Consequently, the Japanese Industrial Standard classifies widths using a letter grading system:
+        </p>
+        <ul>
+          <li><strong>D Width:</strong> Considered narrow or standard athletic in Japan, but standard medium for American men.</li>
+          <li><strong>E Width:</strong> Moderately wide for Westerners, standard for Japanese women.</li>
+          <li><strong>2E (EE) Width:</strong> The baseline standard for adult men's footwear in Japan. American men purchasing domestic Japanese shoes will notice a delightfully roomy toe box.</li>
+          <li><strong>3E (EEE) and 4E (EEEE) Widths:</strong> Widely available wide and extra-wide options across Japanese brands like ASICS, Mizuno, and Moonstar.</li>
+        </ul>
+        <p>
+          When purchasing iconic Japanese sneakers like the Onitsuka Tiger Mexico 66, ASICS Gel-Kayano, or Comme des Garçons collaborations, check whether the model utilizes a retro slim last (like the Mexico 66, which fits true to size in length but snug in width) or a modern performance last.
+        </p>
+
+        <h3>Step-by-Step: Measuring Your Foot for a Japan Shoe Size Chart</h3>
+        <p>
+          Because Japanese sizing is literally your foot length in centimetres, you can find your exact size in under two minutes at home:
+        </p>
+        <ol>
+          <li>Place a blank sheet of paper on a hard, uncarpeted floor against a flat wall.</li>
+          <li>Stand on the paper with your heel lightly touching the wall, wearing the socks you plan to wear with your shoes.</li>
+          <li>Mark the tip of your longest toe on the paper with a pencil held vertically.</li>
+          <li>Measure the distance from the edge of the paper to your pencil mark in centimetres using a metric ruler.</li>
+          <li>The measured centimetres represent your baseline <strong>japan foot size to us</strong>. If your foot measures 26.8 cm, round up to 27.0 cm (JP 27.0, US Men's 9.0) to ensure comfortable toe clearance.</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- FAQ Accordion Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="section-title">Frequently Asked Questions: US to Japan Sizing</h2>
+        <p class="section-sub">Expert answers to common queries about Japanese footwear sizing, metric centimeters, and American conversions.</p>
+
+        <div class="faq-accordion-list">
+          {faqs.map((f, i) => (
+            <details class="faq-item" open={i === 0}>
+              <summary class="faq-question">
+                <span>{f.q}</span>
+                <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>{f.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Links Band -->
+    <RelatedLinks title="Related Shoe Size Converters & Regional Guides" links={relatedLinks} />
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Client-side Interactive Engine Script -->
+<script is:inline define:vars={{ menSizes, womenSizes, kidsSizes }}>
+  // @ts-nocheck
+  (function() {
+    const MEN = menSizes;
+    const WOMEN = womenSizes;
+    const KIDS = kidsSizes;
+
+    const genderSelect = document.getElementById('conv-gender');
+    const sizeSelect = document.getElementById('conv-size');
+    const resUs = document.getElementById('res-us');
+    const resUsSub = document.getElementById('res-us-sub');
+    const resJp = document.getElementById('res-jp');
+    const resJpSub = document.getElementById('res-jp-sub');
+    const resAux = document.getElementById('res-aux');
+    const resInch = document.getElementById('res-inch');
+
+    function populateSizes() {
+      const gender = genderSelect?.value || 'men';
+      let data = MEN;
+      if (gender === 'women') data = WOMEN;
+      if (gender === 'kids') data = KIDS;
+
+      if (!sizeSelect) return;
+      sizeSelect.innerHTML = '';
+
+      data.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = String(item.us);
+        opt.textContent = `${item.us} US`;
+        if (gender === 'men' && item.us === 9.0) opt.selected = true;
+        if (gender === 'women' && item.us === 7.5) opt.selected = true;
+        if (gender === 'kids' && item.us === '10C') opt.selected = true;
+        sizeSelect.appendChild(opt);
+      });
+
+      updateConversion();
+    }
+
+    function updateConversion() {
+      const gender = genderSelect?.value || 'men';
+      const val = sizeSelect?.value;
+      if (!val) return;
+
+      let list = MEN;
+      let label = "US Men's Size";
+      if (gender === 'women') { list = WOMEN; label = "US Women's Size"; }
+      if (gender === 'kids') { list = KIDS; label = "US Kids' Size"; }
+
+      const match = list.find(item => String(item.us) === String(val));
+      if (!match) return;
+
+      const mm = Math.round(match.jp * 10);
+
+      if (resUs) resUs.textContent = String(match.us);
+      if (resUsSub) resUsSub.textContent = label;
+      if (resJp) resJp.textContent = match.jp.toFixed(1);
+      if (resJpSub) resJpSub.textContent = `Centimetres (${mm} mm)`;
+      if (resAux) {
+        if (gender === 'kids') {
+          resAux.textContent = `EU ${match.eu} · ${match.stage}`;
+        } else {
+          resAux.textContent = `EU ${match.eu.toFixed(1)} · UK ${match.uk.toFixed(1)}`;
+        }
+      }
+      if (resInch) {
+        resInch.textContent = match.inch ? `${match.inch.toFixed(1)} inches` : 'Metric';
+      }
+    }
+
+    genderSelect?.addEventListener('change', populateSizes);
+    sizeSelect?.addEventListener('change', updateConversion);
+
+    // Tab Controller
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.table-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-target');
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        panels.forEach(p => {
+          if (p.id === target) {
+            p.classList.add('active');
+          } else {
+            p.classList.remove('active');
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Layout tokens */
+  .page-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .pt-4 { padding-top: 16px; }
+
+  /* Hero Band */
+  .hero-band {
+    padding: 48px 24px 36px;
+    background: linear-gradient(180deg, var(--v-elevated) 0%, var(--v-canvas) 100%);
+    border-bottom: 1px solid var(--v-hairline);
+    text-align: center;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .badge-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: var(--v-r-full);
+    background: var(--v-badge-bg);
+    color: var(--v-link-deep);
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-size: clamp(30px, 4.5vw, 42px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--v-ink);
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+  .hero-sub {
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--v-body);
+    margin: 0 0 28px;
+    max-width: 720px;
+  }
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+  .stat-pill {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    padding: 10px 18px;
+    border-radius: var(--v-r-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 140px;
+  }
+  .stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--v-mute);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .stat-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--v-ink);
+  }
+
+  /* Converter Band */
+  .converter-band {
+    padding: 40px 24px;
+    background: var(--v-canvas);
+  }
+  .conv-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .conv-card-header {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .heading-md {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--v-ink);
+    margin: 0 0 8px;
+  }
+  .conv-card-sub {
+    font-size: 14px;
+    color: var(--v-body);
+    margin: 0;
+  }
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .conv-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .step-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: var(--v-link);
+    color: #ffffff;
+    border-radius: var(--v-r-full);
+    font-size: 12px;
+  }
+  .form-select {
+    height: 48px;
+    padding: 0 16px;
+    border-radius: var(--v-r-md);
+    border: 1px solid var(--v-hairline);
+    background: var(--v-elevated);
+    color: var(--v-ink);
+    font-size: 15px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+  }
+  .form-select:focus {
+    outline: none;
+    border-color: var(--v-link);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  /* Result Box */
+  .conv-result-box {
+    margin-top: 8px;
+  }
+  .conv-result-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 24px 32px;
+    gap: 20px;
+  }
+  .conv-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .conv-sys {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--v-mute);
+  }
+  .conv-val {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--v-ink);
+    line-height: 1.1;
+  }
+  .conv-val-sm {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--v-ink);
+  }
+  .conv-target .conv-val {
+    color: var(--v-link-deep);
+  }
+  .conv-note {
+    font-size: 13px;
+    color: var(--v-body);
+  }
+  .conv-arrow-wrap {
+    color: var(--v-mute);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conv-aux {
+    border-left: 1px solid var(--v-hairline);
+    padding-left: 24px;
+  }
+
+  /* Benchmarks Band */
+  .snapshot-band {
+    padding: 48px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--v-ink);
+    text-align: center;
+    margin: 0 0 8px;
+  }
+  .section-sub {
+    font-size: 14.5px;
+    color: var(--v-body);
+    text-align: center;
+    margin: 0 0 32px;
+  }
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .snap-card {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .snap-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--v-link-deep);
+  }
+  .snap-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .snap-main {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--v-ink);
+  }
+  .snap-detail {
+    font-size: 13px;
+    color: var(--v-body);
+  }
+
+  /* Master Charts */
+  .charts-band {
+    padding: 56px 24px;
+    background: var(--v-canvas);
+  }
+  .table-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 12px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 8px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--v-body);
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--v-ink); border-color: var(--v-link); }
+  .tab-btn.active { background: var(--v-link); color: #ffffff; border-color: var(--v-link); }
+  .table-panel { display: none; }
+  .table-panel.active { display: block; }
+  .table-heading { font-size: 18px; font-weight: 700; color: var(--v-ink); margin: 0 0 16px; }
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-elevated);
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .size-table thead tr { background: var(--v-table-head); color: var(--v-table-head-text); }
+  .size-table th, .size-table td { padding: 12px 18px; border-bottom: 1px solid var(--v-hairline); }
+  .size-table tbody tr:hover { background: var(--v-table-hover); }
+  .primary-cell strong { color: var(--v-ink); }
+  .highlight-cell strong { color: var(--v-link-deep); }
+
+  /* Editorial SEO Prose */
+  .editorial-band {
+    padding: 64px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .prose-article { max-width: 820px; margin: 0 auto; }
+  .editorial-main-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 20px;
+  }
+  .lead-paragraph { font-size: 16px; line-height: 28px; color: var(--v-body); margin-bottom: 24px; }
+  .prose-article h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.01em;
+    margin: 36px 0 12px;
+  }
+  .prose-article p { font-size: 15px; line-height: 26px; color: var(--v-body); margin: 0 0 18px; }
+  .prose-article ul, .prose-article ol { margin: 0 0 24px; padding-left: 22px; }
+  .prose-article li { font-size: 14.5px; line-height: 24px; color: var(--v-body); margin-bottom: 10px; }
+  .prose-article strong { color: var(--v-ink); }
+
+  /* FAQ Section */
+  .faq-band {
+    padding: 64px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .faq-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] { border-color: var(--v-link); }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-chevron { color: var(--v-mute); transition: transform 0.2s ease; }
+  .faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--v-link); }
+  .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 14.5px;
+    line-height: 25px;
+    color: var(--v-body);
+    border-top: 1px dashed var(--v-hairline);
+    padding-top: 14px;
+  }
+  .faq-answer p { margin: 0; }
+
+  @media (max-width: 768px) {
+    .conv-row { grid-template-columns: 1fr; }
+    .conv-result-card { flex-direction: column; gap: 16px; }
+    .conv-arrow-wrap { transform: rotate(90deg); }
+    .conv-aux { border-left: none; border-top: 1px solid var(--v-hairline); padding-left: 0; padding-top: 14px; width: 100%; }
+    .snapshot-grid { grid-template-columns: 1fr; }
+    .converter-band, .snapshot-band, .charts-band, .editorial-band, .faq-band { padding: 40px 16px; }
+  }
+</style>

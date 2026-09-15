@@ -1,0 +1,890 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Footer from '../../components/Footer.astro';
+import { CONVERSIONS } from '../../data/shoe-sizes';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/converters/`;
+const pageTitle = 'Shoe Size Converters — International Sizing Charts & Tools';
+const pageDescription = 'Directory of international shoe size converters between US, UK, EU, India, Japan, and CM. Quick conversion tools, formula cheat sheets, and comparison charts.';
+const ogImage = `${domain}/og-image.png`;
+
+// Group conversions by origin system
+const usConversions = CONVERSIONS.filter(c => c.fromSystem === 'us');
+const euConversions = CONVERSIONS.filter(c => c.fromSystem === 'eu');
+const ukConversions = CONVERSIONS.filter(c => c.fromSystem === 'uk');
+const indiaConversions = CONVERSIONS.filter(c => c.fromSystem === 'india');
+
+const faqs = [
+  {
+    q: 'What is the most common shoe size conversion?',
+    a: 'The most frequently searched conversions worldwide are US to EU and US to UK. Because European sizing uses unisex Paris Points (2/3 cm increments) and US/UK systems use barleycorns (1/3 inch) with gender-specific offsets, exact charts are essential for cross-border shopping.'
+  },
+  {
+    q: 'Why are US and UK shoe sizes different if both use inches?',
+    a: 'While both the US and UK systems use the historical barleycorn (1/3 inch) per size, they start their baseline scales at different numbers. For men, US sizes are typically 0.5 size larger than UK (US 10 = UK 9.5). For women, US sizes are 2 full sizes larger than UK (US 8 = UK 6).'
+  },
+  {
+    q: 'How do I convert European (EU) shoe sizes accurately?',
+    a: 'EU sizes do not differentiate between men and women. For men, subtract roughly 33 from your EU size to find your approximate US size (EU 42 ≈ US 9). For women, subtract roughly 31 (EU 39 ≈ US 8). Always check centimetre (CM) footbed measurements when in doubt.'
+  },
+  {
+    q: 'What is the difference between Indian and UK shoe sizes?',
+    a: 'Practically speaking, Indian and UK footwear sizes are identical for adult men and women because Indian shoemaking standards adopted the British barleycorn system. India size 8 equals UK size 8. However, Indian lasts often feature slightly broader forefoot proportions.'
+  },
+  {
+    q: 'What is the most reliable measurement when converting sizes?',
+    a: 'Foot length in centimeters (CM) or millimeters (Mondopoint) is the most reliable and objective measurement. CM eliminates brand inconsistencies and regional conversion discrepancies between US, UK, and EU labels.'
+  }
+];
+
+const collectionSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": pageCanonical,
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": CONVERSIONS.length,
+    "itemListElement": CONVERSIONS.map((c, idx) => ({
+      "@type": "ListItem",
+      "position": idx + 1,
+      "name": c.h1,
+      "url": `${domain}/${c.slug}/`
+    }))
+  }
+});
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` }
+  }))
+});
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="shoe size converters, shoe size conversion chart, us to eu shoe size, us to uk shoe size, shoe size calculator, convert shoe size, international shoe sizing" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={collectionSchema} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Converters' },
+    ]} />
+
+    <!-- Hero -->
+    <section class="conv-hero">
+      <div class="hero-inner">
+        <p class="mono-eyebrow">Interactive Sizing Engine & Directory</p>
+        <h1 class="display-xl">Shoe Size Converters</h1>
+        <p class="hero-lead">
+          Instant pair-to-pair shoe size converters across major international standards. Select your conversion below to view interactive calculators, mathematical formulas, and gender-specific charts.
+        </p>
+
+        <!-- Quick Stats Badge Bar -->
+        <div class="stats-bar" aria-label="Key features">
+          <div class="stat-pill">
+            <span class="stat-num">15</span>
+            <span class="stat-txt">Direct Converters</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-num">6</span>
+            <span class="stat-txt">Global Standards</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-num">100%</span>
+            <span class="stat-txt">Instant Math</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Search / Filter Bar -->
+    <section class="filter-section" aria-label="Search and filter converters">
+      <div class="filter-inner">
+        <div class="search-box">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input
+            type="text"
+            id="converter-search"
+            class="search-input"
+            placeholder="Search converter (e.g., 'US to EU', 'Japan', 'India', 'CM')..."
+            aria-label="Filter converters by name or standard"
+          />
+          <button id="clear-search" class="clear-btn" aria-label="Clear search query" style="display: none;">
+            &times;
+          </button>
+        </div>
+
+        <!-- Filter category buttons -->
+        <div class="filter-pills" role="tablist" aria-label="Filter by standard">
+          <button class="pill-btn active" data-filter="all" role="tab" aria-selected="true">All Converters ({CONVERSIONS.length})</button>
+          <button class="pill-btn" data-filter="us" role="tab" aria-selected="false">From US ({usConversions.length})</button>
+          <button class="pill-btn" data-filter="eu" role="tab" aria-selected="false">From EU ({euConversions.length})</button>
+          <button class="pill-btn" data-filter="uk" role="tab" aria-selected="false">From UK ({ukConversions.length})</button>
+          <button class="pill-btn" data-filter="india" role="tab" aria-selected="false">From India ({indiaConversions.length})</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Converters Directory Section -->
+    <section class="directory-section" id="converters-container">
+      <div class="section-inner">
+
+        <!-- US Group -->
+        <div class="group-block" data-group="us">
+          <div class="group-header">
+            <div class="group-badge">US</div>
+            <div>
+              <h2 class="group-title">From United States (US Sizing)</h2>
+              <p class="group-sub">American barleycorn sizing conversions to international equivalents.</p>
+            </div>
+          </div>
+          <div class="cards-grid">
+            {usConversions.map(c => (
+              <a href={`/${c.slug}/`} class="c-card" data-slug={c.slug} data-keywords={`${c.fromLabel} to ${c.toLabel} ${c.h1} ${c.description}`}>
+                <div class="card-top">
+                  <span class="route-tag">{c.fromLabel} → {c.toLabel}</span>
+                  <span class="card-arrow" aria-hidden="true">→</span>
+                </div>
+                <h3 class="card-title">{c.h1}</h3>
+                <p class="card-desc">{c.description}</p>
+                <div class="card-footer">
+                  <span class="formula-snippet">{c.formula.split('.')[0]}.</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- EU Group -->
+        <div class="group-block" data-group="eu">
+          <div class="group-header">
+            <div class="group-badge">EU</div>
+            <div>
+              <h2 class="group-title">From European Union (EU / Paris Point)</h2>
+              <p class="group-sub">Continental European unisex sizing converted to global standards.</p>
+            </div>
+          </div>
+          <div class="cards-grid">
+            {euConversions.map(c => (
+              <a href={`/${c.slug}/`} class="c-card" data-slug={c.slug} data-keywords={`${c.fromLabel} to ${c.toLabel} ${c.h1} ${c.description}`}>
+                <div class="card-top">
+                  <span class="route-tag">{c.fromLabel} → {c.toLabel}</span>
+                  <span class="card-arrow" aria-hidden="true">→</span>
+                </div>
+                <h3 class="card-title">{c.h1}</h3>
+                <p class="card-desc">{c.description}</p>
+                <div class="card-footer">
+                  <span class="formula-snippet">{c.formula.split('.')[0]}.</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- UK Group -->
+        <div class="group-block" data-group="uk">
+          <div class="group-header">
+            <div class="group-badge">UK</div>
+            <div>
+              <h2 class="group-title">From United Kingdom (UK Sizing)</h2>
+              <p class="group-sub">British barleycorn standard conversions for men, women, and kids.</p>
+            </div>
+          </div>
+          <div class="cards-grid">
+            {ukConversions.map(c => (
+              <a href={`/${c.slug}/`} class="c-card" data-slug={c.slug} data-keywords={`${c.fromLabel} to ${c.toLabel} ${c.h1} ${c.description}`}>
+                <div class="card-top">
+                  <span class="route-tag">{c.fromLabel} → {c.toLabel}</span>
+                  <span class="card-arrow" aria-hidden="true">→</span>
+                </div>
+                <h3 class="card-title">{c.h1}</h3>
+                <p class="card-desc">{c.description}</p>
+                <div class="card-footer">
+                  <span class="formula-snippet">{c.formula.split('.')[0]}.</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- India Group -->
+        <div class="group-block" data-group="india">
+          <div class="group-header">
+            <div class="group-badge">IN</div>
+            <div>
+              <h2 class="group-title">From India (India Sizing)</h2>
+              <p class="group-sub">Indian BIS and Commonwealth sizing conversions to US, UK, and European standards.</p>
+            </div>
+          </div>
+          <div class="cards-grid">
+            {indiaConversions.map(c => (
+              <a href={`/${c.slug}/`} class="c-card" data-slug={c.slug} data-keywords={`${c.fromLabel} to ${c.toLabel} ${c.h1} ${c.description}`}>
+                <div class="card-top">
+                  <span class="route-tag">{c.fromLabel} → {c.toLabel}</span>
+                  <span class="card-arrow" aria-hidden="true">→</span>
+                </div>
+                <h3 class="card-title">{c.h1}</h3>
+                <p class="card-desc">{c.description}</p>
+                <div class="card-footer">
+                  <span class="formula-snippet">{c.formula.split('.')[0]}.</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Empty state if search yields no results -->
+        <div id="no-results" class="no-results-card" style="display: none;">
+          <p class="no-res-title">No matching converters found</p>
+          <p class="no-res-sub">Try searching for a different country standard or click "All Converters" above.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Quick Mathematical Cheat Sheet Table -->
+    <section class="formula-section">
+      <div class="section-inner">
+        <h2 class="section-heading">Quick Mathematical Formulas Cheat Sheet</h2>
+        <p class="table-sub">Standard mathematical conversion rules between international shoe sizing systems.</p>
+        <div class="table-container">
+          <table class="formula-table">
+            <thead>
+              <tr>
+                <th>Conversion Direction</th>
+                <th>Men's Formula</th>
+                <th>Women's Formula</th>
+                <th>Primary Unit</th>
+                <th>Key Rule</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="primary-cell"><strong>US → UK</strong></td>
+                <td><code>UK = US − 0.5</code></td>
+                <td><code>UK = US − 2.0</code></td>
+                <td>1/3 in (Barleycorn)</td>
+                <td>Half-size shift between systems</td>
+              </tr>
+              <tr>
+                <td class="primary-cell"><strong>US → EU</strong></td>
+                <td><code>EU ≈ US + 33</code></td>
+                <td><code>EU ≈ US + 31</code></td>
+                <td>2/3 cm (Paris Point)</td>
+                <td>EU is completely unisex</td>
+              </tr>
+              <tr>
+                <td class="primary-cell"><strong>US → India</strong></td>
+                <td><code>India ≈ US − 1.0</code></td>
+                <td><code>India ≈ US − 2.0</code></td>
+                <td>1/3 in (Barleycorn)</td>
+                <td>Follows UK scale directly</td>
+              </tr>
+              <tr>
+                <td class="primary-cell"><strong>US → Japan</strong></td>
+                <td><code>JP = Exact Foot CM</code></td>
+                <td><code>JP = Exact Foot CM</code></td>
+                <td>Centimeters (CM)</td>
+                <td>Number equals footbed length</td>
+              </tr>
+              <tr>
+                <td class="primary-cell"><strong>UK → US</strong></td>
+                <td><code>US = UK + 0.5</code></td>
+                <td><code>US = UK + 2.0</code></td>
+                <td>1/3 in (Barleycorn)</td>
+                <td>Men: add 0.5; Women: add 2.0</td>
+              </tr>
+              <tr>
+                <td class="primary-cell"><strong>UK → EU</strong></td>
+                <td><code>EU ≈ UK + 33.5</code></td>
+                <td><code>EU ≈ UK + 33.0</code></td>
+                <td>2/3 cm (Paris Point)</td>
+                <td>UK 8 = EU 42 Men</td>
+              </tr>
+              <tr>
+                <td class="primary-cell"><strong>UK ↔ India</strong></td>
+                <td><code>India = UK (1:1)</code></td>
+                <td><code>India = UK (1:1)</code></td>
+                <td>1/3 in (Barleycorn)</td>
+                <td>Direct identical equivalence</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Educational Sizing Guide Content -->
+    <section class="guide-section">
+      <div class="section-inner">
+        <article class="guide-content">
+          <h2 class="section-heading">How to Use Direct Shoe Size Converters</h2>
+          <div class="prose-text">
+            <p>
+              Navigating international footwear sizing can be challenging because global shoemakers use fundamentally different mathematical bases. While American and British systems measure length using the historic <strong>barleycorn</strong> (one-third of an inch), European manufacturers build lasts based on the <strong>Paris Point</strong> (two-thirds of a centimeter), and Asian countries utilize direct metric foot measurement in centimeters or millimeters.
+            </p>
+            <p>
+              When shopping online across borders—whether purchasing sneakers from American distributors, luxury boots from Italy, heritage brogues from Northamptonshire, or athletic shoes manufactured in East Asia—relying on a single direct pair-to-pair converter ensures you account for both length increments and gender-specific baseline offsets.
+            </p>
+            <h3>Key Tips for Flawless International Conversions</h3>
+            <ul>
+              <li><strong>Prioritize Footbed Length in CM:</strong> If a brand's sizing label includes centimeters (often listed as CM or JPN), compare your bare foot length directly against this figure rather than relying on converted numerical sizes.</li>
+              <li><strong>Understand Unisex EU Sizing:</strong> In the European system, an EU 42 is identically sized whether made for a man or a woman. However, in the US system, a men's 9 is significantly larger than a women's 9.</li>
+              <li><strong>Allow for Toe Box Clearance:</strong> Add approximately 1.0 cm to 1.5 cm of toe room beyond your absolute anatomical foot length when choosing enclosed boots or running shoes.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="faq-section">
+      <div class="section-inner">
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          {faqs.map(f => (
+            <details class="faq-item">
+              <summary class="faq-q">{f.q}</summary>
+              <div class="faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Client-side Interactive Filter Script -->
+<script is:inline>
+  (function() {
+    const searchInput = document.getElementById('converter-search');
+    const clearBtn = document.getElementById('clear-search');
+    const pills = document.querySelectorAll('.pill-btn');
+    const cards = document.querySelectorAll('.c-card');
+    const groups = document.querySelectorAll('.group-block');
+    const noResults = document.getElementById('no-results');
+
+    let currentFilter = 'all';
+    let currentQuery = '';
+
+    function applyFilters() {
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cardSlug = card.getAttribute('data-slug') || '';
+        const cardKeywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const parentGroup = card.closest('.group-block')?.getAttribute('data-group') || '';
+
+        const matchesPill = currentFilter === 'all' || parentGroup === currentFilter;
+        const matchesQuery = !currentQuery || cardKeywords.includes(currentQuery) || cardSlug.includes(currentQuery);
+
+        if (matchesPill && matchesQuery) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show or hide empty groups
+      groups.forEach(group => {
+        const groupCards = group.querySelectorAll('.c-card');
+        let hasVisibleInGroup = false;
+        groupCards.forEach(c => {
+          if (c.style.display !== 'none') hasVisibleInGroup = true;
+        });
+        group.style.display = hasVisibleInGroup ? 'block' : 'none';
+      });
+
+      // No results check
+      if (noResults) {
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentQuery = e.target.value.trim().toLowerCase();
+        if (clearBtn) clearBtn.style.display = currentQuery ? 'block' : 'none';
+        applyFilters();
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (searchInput) {
+          searchInput.value = '';
+          currentQuery = '';
+          clearBtn.style.display = 'none';
+          applyFilters();
+          searchInput.focus();
+        }
+      });
+    }
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => {
+          p.classList.remove('active');
+          p.setAttribute('aria-selected', 'false');
+        });
+        pill.classList.add('active');
+        pill.setAttribute('aria-selected', 'true');
+        currentFilter = pill.getAttribute('data-filter') || 'all';
+        applyFilters();
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Hero */
+  .conv-hero {
+    padding: 56px 24px 36px;
+    text-align: center;
+    border-bottom: 1px solid var(--v-hairline);
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1) 0%, transparent 70%);
+  }
+  .hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .mono-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--v-link);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .display-xl {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 14px;
+  }
+  .hero-lead {
+    font-size: 16px;
+    color: var(--v-body);
+    line-height: 26px;
+    margin: 0 0 24px;
+  }
+
+  /* Stats Bar */
+  .stats-bar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .stat-num {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--v-ink);
+  }
+  .stat-txt {
+    font-size: 12.5px;
+    color: var(--v-mute);
+  }
+
+  /* Filter Toolbar */
+  .filter-section {
+    padding: 24px 24px;
+    background: var(--v-elevated);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .filter-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--v-mute);
+    pointer-events: none;
+  }
+  .search-input {
+    width: 100%;
+    padding: 12px 38px 12px 42px;
+    font-size: 14px;
+    color: var(--v-ink);
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .search-input:focus {
+    border-color: var(--v-link);
+    box-shadow: 0 0 0 3px var(--v-link-soft);
+  }
+  .clear-btn {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--v-mute);
+    cursor: pointer;
+    line-height: 1;
+  }
+  .filter-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .pill-btn {
+    padding: 6px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--v-body);
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .pill-btn:hover {
+    color: var(--v-ink);
+    border-color: var(--v-link);
+  }
+  .pill-btn.active {
+    background: var(--v-link);
+    color: #ffffff;
+    border-color: var(--v-link);
+  }
+
+  /* Directory & Groups */
+  .directory-section {
+    padding: 48px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .section-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  .group-block {
+    margin-bottom: 44px;
+  }
+  .group-block:last-child {
+    margin-bottom: 0;
+  }
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .group-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--v-r-sm);
+    background: var(--v-ink);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .group-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 0 0 2px;
+  }
+  .group-sub {
+    font-size: 13px;
+    color: var(--v-mute);
+    margin: 0;
+  }
+
+  /* Converter Cards Grid */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 16px;
+  }
+  .c-card {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .c-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--v-link);
+    box-shadow: var(--v-shadow-floating);
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .route-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--v-link);
+    background: var(--v-link-soft);
+    padding: 3px 8px;
+    border-radius: var(--v-r-sm);
+    letter-spacing: 0.04em;
+  }
+  .card-arrow {
+    color: var(--v-mute);
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+  .c-card:hover .card-arrow {
+    color: var(--v-link);
+    transform: translateX(4px);
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--v-ink);
+    line-height: 1.35;
+    margin: 0 0 8px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--v-body);
+    line-height: 20px;
+    margin: 0 0 14px;
+    flex-grow: 1;
+  }
+  .card-footer {
+    border-top: 1px dashed var(--v-hairline);
+    padding-top: 10px;
+  }
+  .formula-snippet {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--v-faint);
+  }
+
+  /* No Results */
+  .no-results-card {
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--v-elevated);
+    border: 1px dashed var(--v-hairline);
+    border-radius: var(--v-r-md);
+  }
+  .no-res-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 0 0 6px;
+  }
+  .no-res-sub {
+    font-size: 13.5px;
+    color: var(--v-mute);
+    margin: 0;
+  }
+
+  /* Formula Table */
+  .formula-section,
+  .guide-section,
+  .faq-section {
+    padding: 56px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .formula-section { background: var(--v-elevated); }
+  .faq-section { background: var(--v-elevated); }
+
+  .section-heading {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+  }
+  .table-sub {
+    font-size: 14px;
+    color: var(--v-body);
+    margin: 0 0 20px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-canvas);
+  }
+  .formula-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .formula-table thead tr {
+    background: var(--v-table-head);
+    color: var(--v-table-head-text);
+  }
+  .formula-table th,
+  .formula-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .formula-table tbody tr:hover {
+    background: var(--v-table-hover);
+  }
+  .formula-table code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    background: rgba(0, 112, 243, 0.08);
+    color: var(--v-link-deep);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Guide / Prose */
+  .guide-content {
+    max-width: 800px;
+  }
+  .prose-text p {
+    font-size: 15px;
+    line-height: 26px;
+    color: var(--v-body);
+    margin: 0 0 16px;
+  }
+  .prose-text h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 28px 0 12px;
+  }
+  .prose-text ul {
+    margin: 0 0 20px;
+    padding-left: 20px;
+  }
+  .prose-text li {
+    font-size: 14.5px;
+    line-height: 24px;
+    color: var(--v-body);
+    margin-bottom: 8px;
+  }
+
+  /* FAQ */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 800px;
+  }
+  .faq-item {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] {
+    border-color: var(--v-link);
+  }
+  .faq-q {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--v-ink);
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+    user-select: none;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-q::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 18px;
+    color: var(--v-mute);
+    transition: transform 0.15s ease;
+  }
+  .faq-item[open] .faq-q::after {
+    content: '−';
+  }
+  .faq-a {
+    padding: 0 20px 16px;
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--v-body);
+  }
+  .faq-a p {
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .display-xl { font-size: 28px; }
+    .hero-lead { font-size: 14.5px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .filter-pills { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+    .formula-section, .guide-section, .faq-section, .directory-section { padding: 40px 16px; }
+  }
+</style>

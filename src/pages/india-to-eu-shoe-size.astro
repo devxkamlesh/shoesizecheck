@@ -1,0 +1,844 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/india-to-eu-shoe-size/`;
+const pageTitle = 'India to EU Shoe Size Converter — Indian to European Chart';
+const pageDescription = 'Convert Indian shoe sizes to European (EU) sizes instantly. Full India to EU size charts for men, women, and kids with Bata, Woodland & brand fit tips.';
+const ogImage = `${domain}/og-image.png`;
+
+// Men's table data (India, EU, UK, US, CM, Inches)
+const menSizes = [
+  { india: 5.5, eu: 39, uk: 5.5, us: 6.5, cm: 24.5, inch: 9.6 },
+  { india: 6.0, eu: 40, uk: 6.0, us: 7.0, cm: 25.0, inch: 9.8 },
+  { india: 6.5, eu: 40.5, uk: 6.5, us: 7.5, cm: 25.5, inch: 10.0 },
+  { india: 7.0, eu: 41, uk: 7.0, us: 8.0, cm: 26.0, inch: 10.2 },
+  { india: 7.5, eu: 41.5, uk: 7.5, us: 8.5, cm: 26.5, inch: 10.4 },
+  { india: 8.0, eu: 42, uk: 8.0, us: 9.0, cm: 27.0, inch: 10.6 },
+  { india: 8.5, eu: 42.5, uk: 8.5, us: 9.5, cm: 27.5, inch: 10.8 },
+  { india: 9.0, eu: 43, uk: 9.0, us: 10.0, cm: 28.0, inch: 11.0 },
+  { india: 9.5, eu: 44, uk: 9.5, us: 10.5, cm: 28.5, inch: 11.2 },
+  { india: 10.0, eu: 44.5, uk: 10.0, us: 11.0, cm: 29.0, inch: 11.4 },
+  { india: 10.5, eu: 45, uk: 10.5, us: 11.5, cm: 29.5, inch: 11.6 },
+  { india: 11.0, eu: 46, uk: 11.0, us: 12.0, cm: 30.0, inch: 11.8 },
+  { india: 12.0, eu: 47, uk: 12.0, us: 13.0, cm: 31.0, inch: 12.2 },
+];
+
+// Women's table data (India, EU, UK, US, CM, Inches)
+const womenSizes = [
+  { india: 2.5, eu: 35, uk: 2.5, us: 4.5, cm: 21.5, inch: 8.5 },
+  { india: 3.5, eu: 36, uk: 3.5, us: 5.5, cm: 22.5, inch: 8.9 },
+  { india: 4.5, eu: 37, uk: 4.5, us: 6.5, cm: 23.5, inch: 9.3 },
+  { india: 5.0, eu: 38, uk: 5.0, us: 7.0, cm: 24.0, inch: 9.4 },
+  { india: 5.5, eu: 38.5, uk: 5.5, us: 7.5, cm: 24.5, inch: 9.6 },
+  { india: 6.0, eu: 39, uk: 6.0, us: 8.0, cm: 25.0, inch: 9.8 },
+  { india: 6.5, eu: 40, uk: 6.5, us: 8.5, cm: 25.5, inch: 10.0 },
+  { india: 7.0, eu: 40.5, uk: 7.0, us: 9.0, cm: 26.0, inch: 10.2 },
+  { india: 7.5, eu: 41, uk: 7.5, us: 9.5, cm: 26.5, inch: 10.4 },
+  { india: 8.0, eu: 42, uk: 8.0, us: 10.0, cm: 27.0, inch: 10.6 },
+];
+
+// Kids' table data (India, EU, CM)
+const kidsSizes = [
+  { india: '2C', eu: 19, cm: 11.5, stage: 'Toddler' },
+  { india: '4C', eu: 21, cm: 12.5, stage: 'Toddler' },
+  { india: '6C', eu: 23, cm: 14.0, stage: 'Toddler' },
+  { india: '8C', eu: 25, cm: 15.5, stage: 'Little Kid' },
+  { india: '9.5C', eu: 27, cm: 16.5, stage: 'Little Kid' },
+  { india: '11C', eu: 29, cm: 17.5, stage: 'Little Kid' },
+  { india: '12.5C', eu: 31, cm: 19.0, stage: 'Little Kid' },
+  { india: '1Y', eu: 33, cm: 20.5, stage: 'Big Kid' },
+  { india: '2.5Y', eu: 35, cm: 22.0, stage: 'Big Kid' },
+];
+
+const faqs = [
+  {
+    q: 'What is Indian shoe size 8 in EU?',
+    a: 'Indian size 8 for men equals EU size 42 (approximately 27.0 cm foot length). For women, Indian size 8 corresponds to EU 41.5 to 42.'
+  },
+  {
+    q: 'What is India shoe size 7 in EU?',
+    a: 'Indian size 7 for men corresponds to EU size 41 (fitting a 26.0 cm foot length). For women, Indian size 7 corresponds to EU 40 to 40.5.'
+  },
+  {
+    q: 'How does Bata or Red Tape shoe size convert to European size?',
+    a: 'Domestic Indian brands like Bata, Red Tape, Liberty, Woodland, and Metro use Indian/UK sizing. Simply add 34 to your men\'s Bata size to find your EU size (e.g., Bata 8 = EU 42; Bata 9 = EU 43).'
+  },
+  {
+    q: 'Why do I need to size up when buying European shoes in India?',
+    a: 'European lasts are traditionally built on standard medium width profiles that taper slightly toward the toe box. Because Indian feet frequently feature broader forefeet, sizing up by half or one European size ensures a comfortable, pinch-free fit.'
+  },
+  {
+    q: 'How do Indian women\'s shoe sizes convert to European sizes?',
+    a: 'To convert Indian women\'s shoe sizes to European standards, add approximately 33 to your Indian size (e.g., India 5 + 33 = EU 38; India 6 + 33 = EU 39).'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` }
+  }))
+});
+
+const relatedLinks = [
+  { label: 'All Converters Directory', href: '/converters/' },
+  { label: 'EU to India Shoe Size Converter', href: '/eu-to-india-shoe-size/' },
+  { label: 'India to US Shoe Size Converter', href: '/india-to-us-shoe-size/' },
+  { label: 'India to UK Shoe Size Converter', href: '/india-to-uk-shoe-size/' },
+  { label: 'India Shoe Sizing Guide', href: '/country/india/' },
+  { label: 'European Shoe Sizing Guide', href: '/country/europe/' },
+  { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="india to eu shoe size, indian shoe size to european, india shoe size to eu, convert indian shoe size to eu, bata shoe size to eu, india 8 in eu shoe size, india 7 in eu size, india to eu shoe size chart, indian to european foot size, indian size to eu shoe converter" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Converters', href: '/converters/' },
+      { label: 'India to EU Shoe Size' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Bata & Indian Sizing to Continental Paris Point</p>
+        <h1 class="display-xl">India to EU Shoe Size Converter</h1>
+        <p class="hero-sub body-lg">
+          Convert Indian footwear sizes to European (EU) standards accurately. Designed for Indian buyers purchasing imported footwear, luxury European leather, and international sneaker drops.
+        </p>
+
+        <div class="quick-stat-row">
+          <div class="stat-badge">
+            <span class="badge-label">Men Formula:</span>
+            <span class="badge-val">EU ≈ India + 34</span>
+          </div>
+          <div class="stat-badge">
+            <span class="badge-label">Women Formula:</span>
+            <span class="badge-val">EU ≈ India + 33</span>
+          </div>
+          <div class="stat-badge">
+            <span class="badge-label">Indian Reference:</span>
+            <span class="badge-val">Bata / Red Tape Scale</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Calculator -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated conv-card">
+          <div class="conv-card-header">
+            <h2 class="heading-md">Convert Indian Size to European (EU) Size</h2>
+            <p class="conv-card-sub">Select your gender category and Indian shoe size to compute the exact European (EU) size and foot length in centimeters.</p>
+          </div>
+
+          <div class="conv-row">
+            <div class="conv-field">
+              <label class="step-label" for="conv-gender">
+                <span class="step-num">1</span> Category
+              </label>
+              <select id="conv-gender" class="form-select" aria-label="Select category">
+                <option value="men" selected>Men's Footwear</option>
+                <option value="women">Women's Footwear</option>
+                <option value="kids">Kids' Footwear</option>
+              </select>
+            </div>
+
+            <div class="conv-field">
+              <label class="step-label" for="conv-size">
+                <span class="step-num">2</span> Indian (IND / UK) Size
+              </label>
+              <select id="conv-size" class="form-select" aria-label="Select Indian shoe size">
+                <option value="" disabled>Select India size</option>
+                {menSizes.map(s => <option value={String(s.india)} selected={s.india === 8.0 ? true : undefined}>{s.india} India (UK)</option>)}
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="conv-result-box" id="conv-result" aria-live="polite">
+            <div class="conv-result-card">
+              <div class="conv-col">
+                <span class="conv-sys">India (IND / UK)</span>
+                <span class="conv-val" id="res-in">8</span>
+                <span class="conv-note" id="res-in-sub">Men's Standard</span>
+              </div>
+              <div class="conv-arrow-wrap" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="conv-col conv-target">
+                <span class="conv-sys">European Union (EU)</span>
+                <span class="conv-val" id="res-eu">42</span>
+                <span class="conv-note" id="res-eu-sub">Paris Point Unisex</span>
+              </div>
+              <div class="conv-col conv-aux">
+                <span class="conv-sys">Footbed Length</span>
+                <span class="conv-val-sm" id="res-cm">27.0 cm</span>
+                <span class="conv-note" id="res-in-meas">10.6 inches</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benchmark Cards -->
+    <section class="snapshot-band">
+      <div class="page-inner">
+        <h2 class="section-title">Popular Indian to European Shoe Size Benchmarks</h2>
+        <p class="section-sub">Quick conversions for the most common domestic Indian footwear sizes.</p>
+
+        <div class="snapshot-grid">
+          <div class="snap-card">
+            <span class="snap-tag">Men Standard</span>
+            <div class="snap-body">
+              <span class="snap-main">India 7 → EU 41</span>
+              <span class="snap-detail">Foot length: 26.0 cm · US 8.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Standard</span>
+            <div class="snap-body">
+              <span class="snap-main">India 8 → EU 42</span>
+              <span class="snap-detail">Foot length: 27.0 cm · US 9.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Standard</span>
+            <div class="snap-body">
+              <span class="snap-main">India 9 → EU 43</span>
+              <span class="snap-detail">Foot length: 28.0 cm · US 10.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Standard</span>
+            <div class="snap-body">
+              <span class="snap-main">India 5 → EU 38</span>
+              <span class="snap-detail">Foot length: 24.0 cm · US 7.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Standard</span>
+            <div class="snap-body">
+              <span class="snap-main">India 6 → EU 39</span>
+              <span class="snap-detail">Foot length: 25.0 cm · US 8.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Standard</span>
+            <div class="snap-body">
+              <span class="snap-main">India 7 → EU 40.5</span>
+              <span class="snap-detail">Foot length: 26.0 cm · US 9.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Charts Section -->
+    <section class="charts-band">
+      <div class="page-inner">
+        <h2 class="section-title">India to EU Shoe Size Chart</h2>
+        <p class="section-sub">Comprehensive cross-reference tables connecting Indian domestic sizes with European Paris Points and centimeter footbed measurements.</p>
+
+        <div class="table-tabs" role="tablist">
+          <button class="tab-btn active" data-target="tab-men" role="tab" aria-selected="true">Men's India to EU Chart</button>
+          <button class="tab-btn" data-target="tab-women" role="tab" aria-selected="false">Women's India to EU Chart</button>
+          <button class="tab-btn" data-target="tab-kids" role="tab" aria-selected="false">Kids' India to EU Chart</button>
+        </div>
+
+        <!-- Men's Table -->
+        <div class="table-panel active" id="tab-men" role="tabpanel">
+          <h3 class="table-heading">Men's Indian to European Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Men India to EU shoe size chart">
+              <thead>
+                <tr>
+                  <th>India Size (UK)</th>
+                  <th>EU Size</th>
+                  <th>US Size</th>
+                  <th>Footbed (CM)</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {menSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>India {r.india}</strong></td>
+                    <td class="highlight-cell"><strong>EU {r.eu}</strong></td>
+                    <td>US {r.us}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}"</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Women's Table -->
+        <div class="table-panel" id="tab-women" role="tabpanel" style="display: none;">
+          <h3 class="table-heading">Women's Indian to European Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Women India to EU shoe size chart">
+              <thead>
+                <tr>
+                  <th>India Size (UK)</th>
+                  <th>EU Size</th>
+                  <th>US Size</th>
+                  <th>Footbed (CM)</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {womenSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>India {r.india}</strong></td>
+                    <td class="highlight-cell"><strong>EU {r.eu}</strong></td>
+                    <td>US {r.us}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}"</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Kids' Table -->
+        <div class="table-panel" id="tab-kids" role="tabpanel" style="display: none;">
+          <h3 class="table-heading">Kids' Indian to European Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Kids India to EU shoe size chart">
+              <thead>
+                <tr>
+                  <th>India Size</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Stage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kidsSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>India {r.india}</strong></td>
+                    <td class="highlight-cell"><strong>EU {r.eu}</strong></td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.stage}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Editorial Guide -->
+    <section class="editorial-band">
+      <div class="page-inner prose-article">
+        <h2 class="editorial-main-title">Converting Indian Shoe Sizes to European Sizes: The Definitive Guide</h2>
+
+        <p class="lead-paragraph">
+          Whether you are buying German athletic sneakers from Adidas or Puma, Spanish footwear from Zara, or luxury dress shoes from Italian craftsmen, you need to accurately translate your <strong>india to eu shoe size</strong>. Many Indian shoppers who know their exact shoe size in heritage domestic brands like Bata, Liberty, Red Tape, or Woodland find themselves bewildered by European Paris Point numbers like 41, 42, and 43. This guide breaks down the mathematics, brand conversions, and width considerations for Indian consumers.
+        </p>
+
+        <h3>1. The Heritage of Indian Footwear Sizing</h3>
+        <p>
+          Traditional Indian footwear sizing is historically aligned with the British barleycorn system (1/3 inch per full size). Because domestic manufacturers like Bata India, Woodland, Red Tape, and Metro use this system, an Indian size 8 is practically identical in length to a British UK 8.
+        </p>
+        <p>
+          However, European footwear is constructed using the Paris Point (2/3 cm or 6.67 mm). To <strong>convert indian shoe size to eu</strong>:
+        </p>
+        <ul>
+          <li><strong>For Men:</strong> Add approximately 34 to your Indian size. A men's <strong>india 8 in eu shoe size</strong> is EU 42. An <strong>india 7 in eu size</strong> translates to EU 41.</li>
+          <li><strong>For Women:</strong> Add approximately 33 to your Indian size. An Indian women's size 5 corresponds to EU 38, while size 6 corresponds to EU 39.</li>
+        </ul>
+
+        <h3>2. Bata Shoe Size to EU Conversions</h3>
+        <p>
+          Bata is one of the most widely referenced footwear benchmarks across India. If you wear a Bata size 8, your <strong>bata shoe size to eu</strong> is EU 42 for men. For women, a Bata size 5 equals an EU 38. Because Bata uppers are constructed with roomier forefoot dimensions suited to the Indian climate, imported European dress shoes may feel slightly snugger across the toes in the same equivalent size.
+        </p>
+
+        <h3>3. Accounting for Indian Foot Anatomy and Width</h3>
+        <p>
+          Extensive research conducted across India by the Central Leather Research Institute (CSIR-CLRI) revealed that Indian feet are on average broader at the ball of the foot and possess higher instep arches compared to narrower European lasts.
+        </p>
+        <p>
+          If you have wider feet or are purchasing European slip-on leather shoes, chelsea boots, or formal brogues, podiatrists recommend sizing up by one European size. For instance, if your true length corresponds to EU 42, choosing an EU 42.5 or 43 provides the necessary lateral forefoot volume without uncomfortable friction.
+        </p>
+
+        <h3>4. How to Measure Your Foot Length in CM</h3>
+        <p>
+          To ensure 100% precision when consulting our <strong>india to eu shoe size chart</strong>:
+        </p>
+        <ol>
+          <li>Place your bare foot on a sheet of paper against a flat wall.</li>
+          <li>Mark the tip of your longest toe with a vertical pen.</li>
+          <li>Measure the distance in centimeters (CM). A 27.0 cm foot length equals Indian size 8 and European size 42.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-sub">Authoritative answers to common Indian to European shoe size conversion questions.</p>
+
+        <div class="faq-accordion-list">
+          {faqs.map((f, i) => (
+            <details class="faq-item" open={i === 0 ? true : undefined}>
+              <summary class="faq-question">
+                <span>{f.q}</span>
+                <span class="faq-chevron" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-answer">
+                <p>{f.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <RelatedLinks title="Related Shoe Size Converters & Regional Guides" links={relatedLinks} />
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Client-side Interactive Engine Script -->
+<script is:inline define:vars={{ menSizes, womenSizes, kidsSizes }}>
+  // @ts-nocheck
+  (function() {
+    const MEN = menSizes;
+    const WOMEN = womenSizes;
+    const KIDS = kidsSizes;
+
+    const genderSelect = document.getElementById('conv-gender');
+    const sizeSelect = document.getElementById('conv-size');
+    const resIn = document.getElementById('res-in');
+    const resInSub = document.getElementById('res-in-sub');
+    const resEu = document.getElementById('res-eu');
+    const resEuSub = document.getElementById('res-eu-sub');
+    const resCm = document.getElementById('res-cm');
+    const resInMeas = document.getElementById('res-in-meas');
+
+    function populateSizes() {
+      const gender = genderSelect?.value || 'men';
+      let data = MEN;
+      if (gender === 'women') data = WOMEN;
+      if (gender === 'kids') data = KIDS;
+
+      if (!sizeSelect) return;
+      sizeSelect.innerHTML = '';
+
+      data.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = String(item.india);
+        opt.textContent = `${item.india} India (UK)`;
+        if (gender === 'men' && item.india === 8.0) opt.selected = true;
+        if (gender === 'women' && item.india === 5.0) opt.selected = true;
+        if (gender === 'kids' && item.india === '9.5C') opt.selected = true;
+        sizeSelect.appendChild(opt);
+      });
+
+      updateConversion();
+    }
+
+    function updateConversion() {
+      const gender = genderSelect?.value || 'men';
+      const val = sizeSelect?.value;
+      if (!val) return;
+
+      let list = MEN;
+      let label = "Men's Standard";
+      if (gender === 'women') { list = WOMEN; label = "Women's Standard"; }
+      if (gender === 'kids') { list = KIDS; label = "Kids' Standard"; }
+
+      const match = list.find(item => String(item.india) === String(val));
+      if (!match) return;
+
+      if (resIn) resIn.textContent = String(match.india);
+      if (resInSub) resInSub.textContent = label;
+      if (resEu) resEu.textContent = String(match.eu);
+      if (resEuSub) resEuSub.textContent = "Paris Point Unisex";
+      if (resCm) resCm.textContent = `${match.cm} cm`;
+      if (resInMeas) resInMeas.textContent = match.inch ? `${match.inch} inches` : `${match.stage || 'Metric'}`;
+    }
+
+    genderSelect?.addEventListener('change', populateSizes);
+    sizeSelect?.addEventListener('change', updateConversion);
+
+    // Tab Controller
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.table-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-target');
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        panels.forEach(p => {
+          if (p.id === target) {
+            p.style.display = 'block';
+            p.classList.add('active');
+          } else {
+            p.style.display = 'none';
+            p.classList.remove('active');
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Hero */
+  .page-hero {
+    padding: 56px 24px 36px;
+    background: var(--v-canvas);
+    border-bottom: 1px solid var(--v-hairline);
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1) 0%, transparent 70%);
+  }
+  .page-inner { max-width: 960px; margin: 0 auto; }
+  .mono-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--v-link);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .display-xl {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+  }
+  .hero-sub { font-size: 16px; color: var(--v-body); line-height: 26px; max-width: 680px; margin: 0 auto 24px; }
+
+  /* Quick Stat Badges */
+  .quick-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    font-size: 12.5px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .badge-label { color: var(--v-mute); }
+  .badge-val { font-family: var(--font-mono); font-weight: 700; color: var(--v-ink); }
+
+  /* Converter Band */
+  .converter-band { padding: 40px 24px 56px; background: var(--v-canvas); }
+  .conv-card {
+    padding: 32px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    box-shadow: var(--v-shadow-floating);
+  }
+  .conv-card-header { margin-bottom: 24px; }
+  .heading-md { font-size: 22px; font-weight: 700; color: var(--v-ink); letter-spacing: -0.02em; margin: 0 0 6px; }
+  .conv-card-sub { font-size: 14px; color: var(--v-mute); margin: 0; }
+
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .step-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin-bottom: 8px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--v-link);
+    color: #ffffff;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    border-radius: var(--v-r-full);
+  }
+  .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--v-ink);
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .form-select:focus { border-color: var(--v-link); box-shadow: 0 0 0 3px var(--v-link-soft); }
+
+  /* Result Output Card */
+  .conv-result-box {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 24px 28px;
+  }
+  .conv-result-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .conv-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    text-align: center;
+  }
+  .conv-sys {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--v-mute);
+    letter-spacing: 0.05em;
+  }
+  .conv-val {
+    font-size: 38px;
+    font-weight: 800;
+    font-family: var(--font-display);
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .conv-target .conv-val { color: var(--v-link); }
+  .conv-val-sm { font-size: 22px; font-weight: 700; font-family: var(--font-display); color: var(--v-ink); }
+  .conv-note { font-size: 12px; color: var(--v-faint); }
+  .conv-arrow-wrap { color: var(--v-mute); display: flex; align-items: center; justify-content: center; }
+  .conv-aux { border-left: 1px solid var(--v-hairline); padding-left: 20px; }
+
+  /* Snapshot Grid */
+  .snapshot-band {
+    padding: 56px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--v-ink); letter-spacing: -0.02em; margin: 0 0 6px; }
+  .section-sub { font-size: 14.5px; color: var(--v-body); margin: 0 0 28px; }
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .snap-card {
+    padding: 18px 20px;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .snap-card:hover { transform: translateY(-2px); border-color: var(--v-link); }
+  .snap-tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: var(--v-link); text-transform: uppercase; }
+  .snap-main { font-size: 18px; font-weight: 700; color: var(--v-ink); display: block; }
+  .snap-detail { font-size: 12.5px; color: var(--v-mute); display: block; }
+
+  /* Charts Band */
+  .charts-band {
+    padding: 56px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .table-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 12px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 8px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--v-body);
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--v-ink); border-color: var(--v-link); }
+  .tab-btn.active { background: var(--v-link); color: #ffffff; border-color: var(--v-link); }
+  .table-heading { font-size: 18px; font-weight: 700; color: var(--v-ink); margin: 0 0 16px; }
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-elevated);
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .size-table thead tr { background: var(--v-table-head); color: var(--v-table-head-text); }
+  .size-table th, .size-table td { padding: 12px 18px; border-bottom: 1px solid var(--v-hairline); }
+  .size-table tbody tr:hover { background: var(--v-table-hover); }
+  .primary-cell strong { color: var(--v-ink); }
+  .highlight-cell strong { color: var(--v-link-deep); }
+
+  /* Editorial SEO Prose */
+  .editorial-band {
+    padding: 64px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .prose-article { max-width: 820px; margin: 0 auto; }
+  .editorial-main-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 20px;
+  }
+  .lead-paragraph { font-size: 16px; line-height: 28px; color: var(--v-body); margin-bottom: 24px; }
+  .prose-article h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.01em;
+    margin: 36px 0 12px;
+  }
+  .prose-article p { font-size: 15px; line-height: 26px; color: var(--v-body); margin: 0 0 18px; }
+  .prose-article ul, .prose-article ol { margin: 0 0 24px; padding-left: 22px; }
+  .prose-article li { font-size: 14.5px; line-height: 24px; color: var(--v-body); margin-bottom: 10px; }
+  .prose-article strong { color: var(--v-ink); }
+
+  /* FAQ Section */
+  .faq-band {
+    padding: 64px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .faq-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] { border-color: var(--v-link); }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-chevron { color: var(--v-mute); transition: transform 0.2s ease; }
+  .faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--v-link); }
+  .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 14.5px;
+    line-height: 25px;
+    color: var(--v-body);
+    border-top: 1px dashed var(--v-hairline);
+    padding-top: 14px;
+  }
+  .faq-answer p { margin: 0; }
+
+  @media (max-width: 768px) {
+    .conv-row { grid-template-columns: 1fr; }
+    .conv-result-card { flex-direction: column; gap: 16px; }
+    .conv-arrow-wrap { transform: rotate(90deg); }
+    .conv-aux { border-left: none; border-top: 1px solid var(--v-hairline); padding-left: 0; padding-top: 14px; width: 100%; }
+    .snapshot-grid { grid-template-columns: 1fr; }
+    .converter-band, .snapshot-band, .charts-band, .editorial-band, .faq-band { padding: 40px 16px; }
+  }
+</style>

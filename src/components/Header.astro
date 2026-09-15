@@ -24,6 +24,25 @@
     <!-- Desktop nav links with dropdowns -->
     <nav class="nav-links" aria-label="Main navigation">
 
+      <!-- Converters Dropdown -->
+      <div class="nav-dropdown">
+        <button class="nav-link nav-drop-trigger" aria-expanded="false" aria-haspopup="true">
+          Converters
+          <svg class="drop-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="nav-drop-panel" role="menu">
+          <a href="/converters/" class="drop-item" role="menuitem">All Converters</a>
+          <div class="drop-divider"></div>
+          <a href="/us-to-eu-shoe-size/" class="drop-item" role="menuitem">US to EU</a>
+          <a href="/us-to-uk-shoe-size/" class="drop-item" role="menuitem">US to UK</a>
+          <a href="/us-to-india-shoe-size/" class="drop-item" role="menuitem">US to India</a>
+          <a href="/us-to-japan-shoe-size/" class="drop-item" role="menuitem">US to Japan</a>
+          <a href="/eu-to-us-shoe-size/" class="drop-item" role="menuitem">EU to US</a>
+          <a href="/uk-to-us-shoe-size/" class="drop-item" role="menuitem">UK to US</a>
+          <a href="/india-to-us-shoe-size/" class="drop-item" role="menuitem">India to US</a>
+        </div>
+      </div>
+
       <!-- Countries Dropdown -->
       <div class="nav-dropdown">
         <button class="nav-link nav-drop-trigger" aria-expanded="false" aria-haspopup="true">
@@ -118,17 +137,25 @@
 
         <!-- Quick Conversions Row -->
         <div class="quick-pill-grid">
+          <a href="/converters/" class="quick-pill">All Converters</a>
           <a href="/us-to-eu-shoe-size/" class="quick-pill">US → EU</a>
           <a href="/us-to-uk-shoe-size/" class="quick-pill">US → UK</a>
-          <a href="/eu-to-us-shoe-size/" class="quick-pill">EU → US</a>
           <a href="/shoe-size-in-cm/" class="quick-pill">Size in CM</a>
         </div>
 
         <!-- Simple Core Navigation List -->
         <div class="mobile-main-links">
+          <a href="/converters/" class="mobile-nav-item">
+            <div class="item-text">
+              <span class="item-title">Shoe Size Converters</span>
+              <span class="item-desc">Browse all 15+ conversion tools</span>
+            </div>
+            <svg class="item-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+
           <a href="/#converter" class="mobile-nav-item">
             <div class="item-text">
-              <span class="item-title">Shoe Size Converter</span>
+              <span class="item-title">Interactive Converter</span>
               <span class="item-desc">Instant cross-system calculation</span>
             </div>
             <svg class="item-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>

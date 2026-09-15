@@ -1,0 +1,1025 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/us-to-eu-shoe-size/`;
+const pageTitle = 'US to EU Shoe Size Converter — European Size Chart';
+const pageDescription = 'Convert US to EU shoe sizes instantly. Accurate European shoe size charts for men, women, and kids with formula guides and brand conversion tips.';
+const ogImage = `${domain}/og-image.png`;
+
+// Men's table data (US, EU, UK, CM, Inches)
+const menSizes = [
+  { us: 6.0, eu: 39, uk: 5.5, cm: 24.0, inch: 9.4 },
+  { us: 6.5, eu: 39.5, uk: 6.0, cm: 24.5, inch: 9.6 },
+  { us: 7.0, eu: 40, uk: 6.5, cm: 25.0, inch: 9.8 },
+  { us: 7.5, eu: 40.5, uk: 7.0, cm: 25.5, inch: 10.0 },
+  { us: 8.0, eu: 41, uk: 7.5, cm: 26.0, inch: 10.2 },
+  { us: 8.5, eu: 41.5, uk: 8.0, cm: 26.5, inch: 10.4 },
+  { us: 9.0, eu: 42, uk: 8.5, cm: 27.0, inch: 10.6 },
+  { us: 9.5, eu: 42.5, uk: 9.0, cm: 27.5, inch: 10.8 },
+  { us: 10.0, eu: 43, uk: 9.5, cm: 28.0, inch: 11.0 },
+  { us: 10.5, eu: 44, uk: 10.0, cm: 28.5, inch: 11.2 },
+  { us: 11.0, eu: 44.5, uk: 10.5, cm: 29.0, inch: 11.4 },
+  { us: 11.5, eu: 45, uk: 11.0, cm: 29.5, inch: 11.6 },
+  { us: 12.0, eu: 46, uk: 11.5, cm: 30.0, inch: 11.8 },
+  { us: 13.0, eu: 47, uk: 12.5, cm: 31.0, inch: 12.2 },
+  { us: 14.0, eu: 48, uk: 13.5, cm: 32.0, inch: 12.6 },
+];
+
+// Women's table data (US, EU, UK, CM, Inches)
+const womenSizes = [
+  { us: 5.0, eu: 35.5, uk: 3.0, cm: 22.0, inch: 8.7 },
+  { us: 5.5, eu: 36.0, uk: 3.5, cm: 22.5, inch: 8.9 },
+  { us: 6.0, eu: 36.5, uk: 4.0, cm: 23.0, inch: 9.1 },
+  { us: 6.5, eu: 37.0, uk: 4.5, cm: 23.5, inch: 9.3 },
+  { us: 7.0, eu: 37.5, uk: 5.0, cm: 24.0, inch: 9.4 },
+  { us: 7.5, eu: 38.0, uk: 5.5, cm: 24.5, inch: 9.6 },
+  { us: 8.0, eu: 38.5, uk: 6.0, cm: 25.0, inch: 9.8 },
+  { us: 8.5, eu: 39.0, uk: 6.5, cm: 25.5, inch: 10.0 },
+  { us: 9.0, eu: 39.5, uk: 7.0, cm: 26.0, inch: 10.2 },
+  { us: 9.5, eu: 40.0, uk: 7.5, cm: 26.5, inch: 10.4 },
+  { us: 10.0, eu: 40.5, uk: 8.0, cm: 27.0, inch: 10.6 },
+  { us: 10.5, eu: 41.0, uk: 8.5, cm: 27.5, inch: 10.8 },
+  { us: 11.0, eu: 42.0, uk: 9.0, cm: 28.0, inch: 11.0 },
+  { us: 12.0, eu: 43.0, uk: 10.0, cm: 29.0, inch: 11.4 },
+];
+
+// Kids' table data (US, EU, CM)
+const kidsSizes = [
+  { us: '4C', eu: 19, cm: 11.5, stage: 'Toddler' },
+  { us: '5C', eu: 20, cm: 12.0, stage: 'Toddler' },
+  { us: '6C', eu: 22, cm: 13.0, stage: 'Toddler' },
+  { us: '7C', eu: 23, cm: 14.0, stage: 'Toddler' },
+  { us: '8C', eu: 24, cm: 15.0, stage: 'Toddler' },
+  { us: '9C', eu: 25, cm: 15.5, stage: 'Little Kid' },
+  { us: '10C', eu: 27, cm: 16.5, stage: 'Little Kid' },
+  { us: '11C', eu: 28, cm: 17.0, stage: 'Little Kid' },
+  { us: '12C', eu: 30, cm: 18.0, stage: 'Little Kid' },
+  { us: '13C', eu: 31, cm: 19.0, stage: 'Little Kid' },
+  { us: '1Y', eu: 32, cm: 20.0, stage: 'Big Kid' },
+  { us: '2Y', eu: 33, cm: 20.5, stage: 'Big Kid' },
+  { us: '3Y', eu: 34, cm: 21.5, stage: 'Big Kid' },
+  { us: '4Y', eu: 36, cm: 22.5, stage: 'Big Kid' },
+  { us: '5Y', eu: 37, cm: 23.5, stage: 'Big Kid' },
+];
+
+const faqs = [
+  {
+    q: 'What is the EU shoe size to US?',
+    a: 'To convert an EU shoe size to US, determine whether you need men\'s or women\'s sizing because EU is unisex while US is gender-specific. For men, subtract roughly 33 from your EU size (for example, EU 42 − 33 ≈ US Men\'s 9). For women, subtract roughly 30.5 to 31 (for example, EU 38 − 31 ≈ US Women\'s 7). Check foot length in centimeters (CM) for precision across different shoemakers.'
+  },
+  {
+    q: 'What is EU to US shoe size?',
+    a: 'An EU to US shoe size conversion translates continental European shoe sizes (based on the Paris Point system, where each size equals 2/3 cm) into the American shoe size scale (based on 1/3 inch barleycorns). Common adult benchmarks include EU 38 = US Women\'s 7.5 to 8, EU 40 = US Men\'s 7 or US Women\'s 9.5, EU 42 = US Men\'s 9, and EU 43 = US Men\'s 10.'
+  },
+  {
+    q: 'How do I convert my shoe size from EU to US?',
+    a: 'You can convert your shoe size from EU to US by following three simple steps: 1) Select your gender, since US women\'s sizes run roughly 1.5 sizes higher than US men\'s for the same foot length; 2) Use the standard mathematical offset: US Men ≈ EU − 33, while US Women ≈ EU − 30.5; 3) Verify your barefoot length in centimeters against our official European shoe size chart to account for variations between athletic brands and European luxury leather shoemakers.'
+  },
+  {
+    q: 'What is EU shoe size to US for women and men?',
+    a: 'Because the European sizing system is unisex, a single EU number represents different US sizes depending on gender. For instance, EU 39 equals approximately a US Men\'s 6.5, but equals a US Women\'s 8.5. Similarly, EU 41 translates to a US Men\'s 8, but corresponds to a US Women\'s 10 to 10.5.'
+  },
+  {
+    q: 'What are the US to EU shoe size conversions?',
+    a: 'Key US to EU shoe size conversions include: For Men: US 7 = EU 40, US 8 = EU 41, US 9 = EU 42, US 10 = EU 43, US 11 = EU 44, US 12 = EU 45. For Women: US 6 = EU 36.5, US 7 = EU 37.5, US 8 = EU 38.5, US 9 = EU 39.5, US 10 = EU 40.5. These direct correlations represent the most accurate standard last measurements across global footwear manufacturers.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` }
+  }))
+});
+
+const relatedLinks = [
+  { label: 'All Converters Directory', href: '/converters/' },
+  { label: 'EU to US Shoe Size Converter', href: '/eu-to-us-shoe-size/' },
+  { label: 'US to UK Shoe Size Converter', href: '/us-to-uk-shoe-size/' },
+  { label: 'US to CM Shoe Size Calculator', href: '/us-to-cm-shoe-size/' },
+  { label: 'European Shoe Sizing Guide', href: '/country/europe/' },
+  { label: 'United States Shoe Sizing Guide', href: '/country/us/' },
+  { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
+  { label: 'Mondopoint Ski Boot Sizing', href: '/mondopoint-shoe-size/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="US to EU Shoe Size, us to eu shoe size, eu shoe size to us, european shoe size chart, eu size to us, euro shoe size to us women's, us to euro shoe size, european shoe size to american, us to european shoe size, american shoe size to european, european size to us, european shoe size guide, american shoe size to eu, european foot size to us, euro shoe sizes, eu foot size to us, us foot size to eu, eu size shoes, european us shoe size chart, eu to american shoe size, us and eu shoe sizes, us and european shoe sizes" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Converters', href: '/converters/' },
+      { label: 'US to EU Shoe Size' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Interactive Conversion Engine · Paris Point vs. Barleycorn</p>
+        <h1 class="display-xl">US to EU Shoe Size Converter</h1>
+        <p class="hero-sub body-lg">
+          Instantly convert American shoe size to European standards across men’s, women’s, and kids’ collections. Access comprehensive European shoe size charts, mathematical conversion formulas, and brand fit guidelines.
+        </p>
+
+        <!-- Quick conversion pills -->
+        <div class="quick-stat-row">
+          <div class="stat-badge">
+            <span class="badge-label">Men Formula:</span>
+            <span class="badge-val">EU ≈ US + 33</span>
+          </div>
+          <div class="stat-badge">
+            <span class="badge-label">Women Formula:</span>
+            <span class="badge-val">EU ≈ US + 30.5</span>
+          </div>
+          <div class="stat-badge">
+            <span class="badge-label">EU Unit:</span>
+            <span class="badge-val">Paris Point (2/3 cm)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Converter Tool Component -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated conv-card">
+          <div class="conv-card-header">
+            <h2 class="heading-md">Convert US to EU Shoe Size</h2>
+            <p class="conv-card-sub">Select your gender and US shoe size below to calculate exact European (EU) and metric centimeter (CM) equivalents.</p>
+          </div>
+
+          <div class="conv-row">
+            <div class="conv-field">
+              <label class="step-label" for="conv-gender">
+                <span class="step-num">1</span> Category / Gender
+              </label>
+              <select id="conv-gender" class="form-select" aria-label="Select gender or category">
+                <option value="men" selected>Men's Sizes</option>
+                <option value="women">Women's Sizes</option>
+                <option value="kids">Kids' Sizes</option>
+              </select>
+            </div>
+
+            <div class="conv-field">
+              <label class="step-label" for="conv-size">
+                <span class="step-num">2</span> American (US) Size
+              </label>
+              <select id="conv-size" class="form-select" aria-label="Select US shoe size">
+                <option value="" disabled>Select US size</option>
+                {menSizes.map(s => <option value={String(s.us)} selected={s.us === 9.0 ? true : undefined}>{s.us} US</option>)}
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="conv-result-box" id="conv-result" aria-live="polite">
+            <div class="conv-result-card">
+              <div class="conv-col">
+                <span class="conv-sys">United States (US)</span>
+                <span class="conv-val" id="res-us">9</span>
+                <span class="conv-note" id="res-us-sub">Men's Standard</span>
+              </div>
+              <div class="conv-arrow-wrap" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="conv-col conv-target">
+                <span class="conv-sys">European Union (EU)</span>
+                <span class="conv-val" id="res-eu">42</span>
+                <span class="conv-note" id="res-eu-sub">Paris Point Unisex</span>
+              </div>
+              <div class="conv-col conv-aux">
+                <span class="conv-sys">Footbed Length</span>
+                <span class="conv-val-sm" id="res-cm">27.0 cm</span>
+                <span class="conv-note" id="res-in">10.6 inches</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Conversion Snapshot Cards -->
+    <section class="snapshot-band">
+      <div class="page-inner">
+        <h2 class="section-title">Most Common US to European Shoe Size Conversions</h2>
+        <p class="section-sub">Quick-reference benchmarks for the most frequently searched adult shoe sizes.</p>
+
+        <div class="snapshot-grid">
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 9 → EU 42</span>
+              <span class="snap-detail">Foot length: 27.0 cm · UK 8.5</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 10 → EU 43</span>
+              <span class="snap-detail">Foot length: 28.0 cm · UK 9.5</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 10.5 → EU 44</span>
+              <span class="snap-detail">Foot length: 28.5 cm · UK 10.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 7 → EU 37.5</span>
+              <span class="snap-detail">Foot length: 24.0 cm · UK 5.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 8 → EU 38.5</span>
+              <span class="snap-detail">Foot length: 25.0 cm · UK 6.0</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 9 → EU 39.5</span>
+              <span class="snap-detail">Foot length: 26.0 cm · UK 7.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Conversion Charts Section -->
+    <section class="charts-band">
+      <div class="page-inner">
+        <h2 class="section-title">Comprehensive European Shoe Size Chart</h2>
+        <p class="section-sub">Full conversion tables cross-referencing US, EU, UK, centimeters (CM), and inches across all categories.</p>
+
+        <!-- Tab Controls for Tables -->
+        <div class="table-tabs" role="tablist">
+          <button class="tab-btn active" data-target="tab-men" role="tab" aria-selected="true">Men's US to EU Chart</button>
+          <button class="tab-btn" data-target="tab-women" role="tab" aria-selected="false">Women's US to EU Chart</button>
+          <button class="tab-btn" data-target="tab-kids" role="tab" aria-selected="false">Kids' US to EU Chart</button>
+        </div>
+
+        <!-- Men's Table -->
+        <div class="table-panel active" id="tab-men" role="tabpanel">
+          <h3 class="table-heading">Men's European US Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Men US to EU shoe size conversion chart">
+              <thead>
+                <tr>
+                  <th>US Size</th>
+                  <th>EU Size</th>
+                  <th>UK Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Foot Length (Inches)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {menSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>EU {r.eu}</strong></td>
+                    <td>UK {r.uk}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}"</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Women's Table -->
+        <div class="table-panel" id="tab-women" role="tabpanel" style="display: none;">
+          <h3 class="table-heading">Women's European US Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Women US to EU shoe size conversion chart">
+              <thead>
+                <tr>
+                  <th>US Size</th>
+                  <th>EU Size</th>
+                  <th>UK Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Foot Length (Inches)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {womenSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>EU {r.eu}</strong></td>
+                    <td>UK {r.uk}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}"</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Kids' Table -->
+        <div class="table-panel" id="tab-kids" role="tabpanel" style="display: none;">
+          <h3 class="table-heading">Kids' European US Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table" aria-label="Kids US to EU shoe size conversion chart">
+              <thead>
+                <tr>
+                  <th>US Size</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Growth Stage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kidsSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>EU {r.eu}</strong></td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.stage}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Deep-Dive SEO Editorial Content (800 - 1200 Words) -->
+    <section class="editorial-band">
+      <div class="page-inner prose-article">
+
+        <h2 class="editorial-main-title">European Shoe Size Guide: Everything You Need to Know About US to EU Conversions</h2>
+
+        <p class="lead-paragraph">
+          Whether you are purchasing designer loafers from Milan, ordering heritage running shoes from European athletic retailers, or cross-border shopping on global marketplaces, understanding the relationship between <strong>US to EU shoe size</strong> systems is crucial for avoiding costly returns and ill-fitting footwear. While international trade has made acquiring foreign footwear effortless, footwear manufacturers across the globe have yet to adopt a single universal standard. Navigating the difference between an <strong>american shoe size to european</strong> equivalent requires understanding the mathematical, anatomical, and structural distinctions that separate both systems.
+        </p>
+
+        <h3>1. The Underlying Mathematics: Barleycorn vs. Paris Point</h3>
+        <p>
+          The primary reason <strong>us and eu shoe sizes</strong> cannot be converted through simple whole-number subtraction lies in the historical measurement units used to construct shoe lasts. In the United States, footwear sizing is rooted in the British imperial system, which employs the <strong>barleycorn</strong> as its core unit of increment. One barleycorn equals exactly one-third of an inch (approximately 8.46 millimeters). A full US shoe size step represents an increase of 1/3 inch, while a half-size step represents 1/6 of an inch (4.23 mm).
+        </p>
+        <p>
+          Conversely, continental Europe adopted the <strong>Paris Point</strong> (or <em>point de Paris</em>) during the Napoleonic era. One Paris Point equals two-thirds of a centimeter, or approximately 6.67 millimeters. Because one Paris Point (6.67 mm) is noticeably smaller than one American full size (8.46 mm), the scales progress at entirely different intervals. As sizes scale upward, the numerical difference between <strong>euro shoe sizes</strong> and American sizes gradually shifts, which is why static conversion rules must incorporate calibrated size charts rather than arbitrary guesswork.
+        </p>
+
+        <h3>2. Gender Discrepancies: Why the European System is Unisex</h3>
+        <p>
+          One of the greatest points of confusion when converting <strong>european shoe size to american</strong> footwear is gender classification. In the European system, <strong>eu size shoes</strong> are fundamentally unisex. An EU size 42 is manufactured to the exact same anatomical footbed length regardless of whether it is marketed toward men or women. While women’s European models may occasionally feature a slightly narrower last through the heel and instep, the longitudinal millimeter measurement remains identical.
+        </p>
+        <p>
+          In sharp contrast, American sizing establishes completely separate baseline scales for men and women. In the US, a men’s size 8 is built for an anatomical foot length of approximately 26.0 cm, whereas a women’s size 8 corresponds to a foot length of roughly 24.5 to 25.0 cm—a full 1.5 sizes smaller. Consequently, when calculating <strong>euro shoe size to us women's</strong> equivalents, you must utilize an adjusted offset. An EU 39 represents a US Men’s 6.5, yet corresponds to a US Women’s 8.5. Failing to account for this gender offset is the single most common cause of sizing errors in international e-commerce.
+        </p>
+
+        <h3>3. Mathematical Rules of Thumb: Quick Conversion Formulas</h3>
+        <p>
+          While consulting a verified <strong>european shoe size chart</strong> is the gold standard for accuracy, remembering these quick mathematical rules of thumb will help when converting your <strong>us foot size to eu</strong>:
+        </p>
+        <ul>
+          <li><strong>For Men (US to Euro Shoe Size):</strong> Add approximately 33 to your American men’s size. For example, a US Men’s 9 + 33 = EU 42. A US Men’s 10 + 33 = EU 43.</li>
+          <li><strong>For Women (US to European Shoe Size):</strong> Add approximately 30.5 to 31 to your American women’s size. For example, a US Women’s 7.5 + 31 = EU 38.5 (or EU 38–39).</li>
+          <li><strong>For Converting EU to American Shoe Size:</strong> For an <strong>eu to american shoe size</strong> conversion, subtract 33 for men (EU 44 − 33 = US 11) or subtract 30.5 to 31 for women (EU 38 − 31 = US 7).</li>
+        </ul>
+
+        <h3>4. Brand-Specific Variations: Athletic Sneakers vs. European Luxury Lasts</h3>
+        <p>
+          When converting <strong>american shoe size to eu</strong>, brand origin and footwear typology matter. Sportswear giants and luxury houses often interpret <strong>us and european shoe sizes</strong> differently:
+        </p>
+        <ul>
+          <li><strong>Nike &amp; Jordan:</strong> As an American brand, Nike uses US sizing as its core baseline. In Nike men’s shoes, US 9 converts to EU 42.5, US 9.5 to EU 43, and US 10 to EU 44.</li>
+          <li><strong>Adidas &amp; Puma:</strong> As German manufacturers, Adidas and Puma base patterns on the Paris Point, featuring fractional third-sizes (EU 42 2/3, EU 43 1/3) on tongue labels.</li>
+          <li><strong>Birkenstock &amp; European Clogs:</strong> Birkenstock utilizes true European unisex sizing (EU 41 = 26.5 cm). Getting the exact EU number ensures your toes stay comfortably inside the cork footbed rim.</li>
+          <li><strong>Italian Luxury &amp; Designer Boots (Gucci, Prada):</strong> Italian leather shoes often run large; shoppers wearing US 10 in sneakers frequently take an EU 42 (US 9 equivalent) in formal welted shoes.</li>
+        </ul>
+
+        <h3>5. How to Measure European Foot Size to US Accurately</h3>
+        <p>
+          If you are uncertain about your size, measuring your barefoot length in centimeters is the most accurate method to determine your true <strong>european foot size to us</strong> and verify your <strong>european size to us</strong>:
+        </p>
+        <ol>
+          <li><strong>Position Your Heel:</strong> Place a blank sheet of paper on a hard floor against a vertical wall. Stand upright with your heel flat against the wall.</li>
+          <li><strong>Mark Your Longest Toe:</strong> With a pencil held straight up, mark the furthest point of your longest toe on the paper.</li>
+          <li><strong>Measure in Centimeters:</strong> Measure the distance from the edge to the pencil mark. Cross-reference this number with our <strong>european shoe size guide</strong> above. For example, 27.0 cm foot length corresponds to EU 42 or US Men’s 9.</li>
+        </ol>
+
+        <h3>6. The Half-Size Dilemma and Width Considerations</h3>
+        <p>
+          When evaluating <strong>eu size to us</strong> translations, note that many European fashion retailers only manufacture whole integer sizes (38, 39, 40, 41, 42). If your calculated US size falls between two European numbers:
+        </p>
+        <ul>
+          <li><strong>Running Shoes &amp; Boots:</strong> Size up to the next full European size to allow 0.5–1.0 cm of toe clearance for natural foot movement and thicker socks.</li>
+          <li><strong>Unlined Leather Loafers &amp; Flats:</strong> Size down to the closer size, as leather uppers naturally stretch to fit your foot shape over time.</li>
+          <li><strong>Width Profiles:</strong> European lasts typically use standard medium widths ("D" for men, "B" for women). Wide-foot wearers (E to EE) should size up one half to full EU size for comfort.</li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- FAQ Accordion Section with Schema Matching -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-sub">Direct answers to the most common questions regarding US and European shoe sizing conversions.</p>
+
+        <div class="faq-accordion-list">
+          {faqs.map((f, i) => (
+            <details class="faq-item" open={i === 0 ? true : undefined}>
+              <summary class="faq-question">
+                <span>{f.q}</span>
+                <span class="faq-chevron" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-answer">
+                <p>{f.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Links & Cross-Converters -->
+    <RelatedLinks title="Related Shoe Size Converters & Regional Guides" links={relatedLinks} />
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Client-side Interactive Engine Script -->
+<script is:inline define:vars={{ menSizes, womenSizes, kidsSizes }}>
+  // @ts-nocheck
+  (function() {
+    const MEN = menSizes;
+    const WOMEN = womenSizes;
+    const KIDS = kidsSizes;
+
+    const genderSelect = document.getElementById('conv-gender');
+    const sizeSelect = document.getElementById('conv-size');
+    const resUs = document.getElementById('res-us');
+    const resUsSub = document.getElementById('res-us-sub');
+    const resEu = document.getElementById('res-eu');
+    const resEuSub = document.getElementById('res-eu-sub');
+    const resCm = document.getElementById('res-cm');
+    const resIn = document.getElementById('res-in');
+
+    function populateSizes() {
+      const gender = genderSelect?.value || 'men';
+      let data = MEN;
+      if (gender === 'women') data = WOMEN;
+      if (gender === 'kids') data = KIDS;
+
+      if (!sizeSelect) return;
+      sizeSelect.innerHTML = '';
+
+      data.forEach((item, idx) => {
+        const opt = document.createElement('option');
+        opt.value = String(item.us);
+        opt.textContent = `${item.us} US`;
+        // default select middle size
+        if (gender === 'men' && item.us === 9.0) opt.selected = true;
+        if (gender === 'women' && item.us === 8.0) opt.selected = true;
+        if (gender === 'kids' && item.us === '10C') opt.selected = true;
+        sizeSelect.appendChild(opt);
+      });
+
+      updateConversion();
+    }
+
+    function updateConversion() {
+      const gender = genderSelect?.value || 'men';
+      const val = sizeSelect?.value;
+      if (!val) return;
+
+      let list = MEN;
+      let label = "Men's Standard";
+      if (gender === 'women') { list = WOMEN; label = "Women's Standard"; }
+      if (gender === 'kids') { list = KIDS; label = "Kids' Standard"; }
+
+      const match = list.find(item => String(item.us) === String(val));
+      if (!match) return;
+
+      if (resUs) resUs.textContent = String(match.us);
+      if (resUsSub) resUsSub.textContent = label;
+      if (resEu) resEu.textContent = String(match.eu);
+      if (resEuSub) resEuSub.textContent = "Paris Point Unisex";
+      if (resCm) resCm.textContent = `${match.cm} cm`;
+      if (resIn) resIn.textContent = match.inch ? `${match.inch} inches` : `${match.stage || 'Metric'}`;
+    }
+
+    genderSelect?.addEventListener('change', populateSizes);
+    sizeSelect?.addEventListener('change', updateConversion);
+
+    // Interactive Tab Controller for Tables
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.table-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-target');
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        panels.forEach(p => {
+          if (p.id === target) {
+            p.style.display = 'block';
+            p.classList.add('active');
+          } else {
+            p.style.display = 'none';
+            p.classList.remove('active');
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Hero */
+  .page-hero {
+    padding: 56px 24px 36px;
+    background: var(--v-canvas);
+    border-bottom: 1px solid var(--v-hairline);
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1) 0%, transparent 70%);
+  }
+  .page-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .mono-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--v-link);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .display-xl {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--v-body);
+    line-height: 26px;
+    max-width: 680px;
+    margin: 0 auto 24px;
+  }
+
+  /* Quick Stat Badges */
+  .quick-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    font-size: 12.5px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .badge-label {
+    color: var(--v-mute);
+  }
+  .badge-val {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--v-ink);
+  }
+
+  /* Converter Band */
+  .converter-band {
+    padding: 40px 24px 56px;
+    background: var(--v-canvas);
+  }
+  .conv-card {
+    padding: 32px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    box-shadow: var(--v-shadow-floating);
+  }
+  .conv-card-header {
+    margin-bottom: 24px;
+  }
+  .heading-md {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+  }
+  .conv-card-sub {
+    font-size: 14px;
+    color: var(--v-mute);
+    margin: 0;
+  }
+
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .step-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin-bottom: 8px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--v-link);
+    color: #ffffff;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    border-radius: var(--v-r-full);
+  }
+  .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--v-ink);
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .form-select:focus {
+    border-color: var(--v-link);
+    box-shadow: 0 0 0 3px var(--v-link-soft);
+  }
+
+  /* Result Output Card */
+  .conv-result-box {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 24px 28px;
+  }
+  .conv-result-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .conv-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    text-align: center;
+  }
+  .conv-sys {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--v-mute);
+    letter-spacing: 0.05em;
+  }
+  .conv-val {
+    font-size: 38px;
+    font-weight: 800;
+    font-family: var(--font-display);
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .conv-target .conv-val {
+    color: var(--v-link);
+  }
+  .conv-val-sm {
+    font-size: 22px;
+    font-weight: 700;
+    font-family: var(--font-display);
+    color: var(--v-ink);
+  }
+  .conv-note {
+    font-size: 12px;
+    color: var(--v-faint);
+  }
+  .conv-arrow-wrap {
+    color: var(--v-mute);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conv-aux {
+    border-left: 1px solid var(--v-hairline);
+    padding-left: 20px;
+  }
+
+  /* Snapshot Grid */
+  .snapshot-band {
+    padding: 56px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+  }
+  .section-sub {
+    font-size: 14.5px;
+    color: var(--v-body);
+    margin: 0 0 28px;
+  }
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .snap-card {
+    padding: 18px 20px;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .snap-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--v-link);
+  }
+  .snap-tag {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--v-link);
+    text-transform: uppercase;
+  }
+  .snap-main {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--v-ink);
+    display: block;
+  }
+  .snap-detail {
+    font-size: 12.5px;
+    color: var(--v-mute);
+    display: block;
+  }
+
+  /* Charts Band & Tables */
+  .charts-band {
+    padding: 56px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .table-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 12px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 8px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--v-body);
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover {
+    color: var(--v-ink);
+    border-color: var(--v-link);
+  }
+  .tab-btn.active {
+    background: var(--v-link);
+    color: #ffffff;
+    border-color: var(--v-link);
+  }
+  .table-heading {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 0 0 16px;
+  }
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-elevated);
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .size-table thead tr {
+    background: var(--v-table-head);
+    color: var(--v-table-head-text);
+  }
+  .size-table th,
+  .size-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .size-table tbody tr:hover {
+    background: var(--v-table-hover);
+  }
+  .primary-cell strong {
+    color: var(--v-ink);
+  }
+  .highlight-cell strong {
+    color: var(--v-link-deep);
+  }
+
+  /* Editorial SEO Prose (800 - 1200 words) */
+  .editorial-band {
+    padding: 64px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .prose-article {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .editorial-main-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 20px;
+  }
+  .lead-paragraph {
+    font-size: 16px;
+    line-height: 28px;
+    color: var(--v-body);
+    margin-bottom: 24px;
+  }
+  .prose-article h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.01em;
+    margin: 36px 0 12px;
+  }
+  .prose-article p {
+    font-size: 15px;
+    line-height: 26px;
+    color: var(--v-body);
+    margin: 0 0 18px;
+  }
+  .prose-article ul,
+  .prose-article ol {
+    margin: 0 0 24px;
+    padding-left: 22px;
+  }
+  .prose-article li {
+    font-size: 14.5px;
+    line-height: 24px;
+    color: var(--v-body);
+    margin-bottom: 10px;
+  }
+  .prose-article strong {
+    color: var(--v-ink);
+  }
+
+  /* FAQ Section */
+  .faq-band {
+    padding: 64px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .faq-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] {
+    border-color: var(--v-link);
+  }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    color: var(--v-mute);
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--v-link);
+  }
+  .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 14.5px;
+    line-height: 25px;
+    color: var(--v-body);
+    border-top: 1px dashed var(--v-hairline);
+    padding-top: 14px;
+  }
+  .faq-answer p {
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .conv-row { grid-template-columns: 1fr; }
+    .conv-result-card { flex-direction: column; gap: 16px; }
+    .conv-arrow-wrap { transform: rotate(90deg); }
+    .conv-aux { border-left: none; border-top: 1px solid var(--v-hairline); padding-left: 0; padding-top: 14px; width: 100%; }
+    .snapshot-grid { grid-template-columns: 1fr; }
+    .converter-band, .snapshot-band, .charts-band, .editorial-band, .faq-band { padding: 40px 16px; }
+  }
+</style>

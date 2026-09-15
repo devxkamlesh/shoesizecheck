@@ -1,0 +1,881 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/us-to-uk-shoe-size/`;
+const pageTitle = 'US to UK Shoe Size Converter — American to British Chart';
+const pageDescription = 'Convert US shoe sizes to UK sizes instantly. Accurate US to UK conversion chart for men, women, and kids with shoe size guides, formulas, and brand tips.';
+const ogImage = `${domain}/og-image.png`;
+
+// Men's table data (US, UK, EU, CM, Inches)
+const menSizes = [
+  { us: 6.0, uk: 5.5, eu: 38.5, cm: 24.0, inch: 9.4 },
+  { us: 6.5, uk: 6.0, eu: 39.0, cm: 24.5, inch: 9.6 },
+  { us: 7.0, uk: 6.5, eu: 40.0, cm: 25.0, inch: 9.8 },
+  { us: 7.5, uk: 7.0, eu: 40.5, cm: 25.5, inch: 10.0 },
+  { us: 8.0, uk: 7.5, eu: 41.0, cm: 26.0, inch: 10.2 },
+  { us: 8.5, uk: 8.0, eu: 41.5, cm: 26.5, inch: 10.4 },
+  { us: 9.0, uk: 8.5, eu: 42.0, cm: 27.0, inch: 10.6 },
+  { us: 9.5, uk: 9.0, eu: 42.5, cm: 27.5, inch: 10.8 },
+  { us: 10.0, uk: 9.5, eu: 43.0, cm: 28.0, inch: 11.0 },
+  { us: 10.5, uk: 10.0, eu: 44.0, cm: 28.5, inch: 11.2 },
+  { us: 11.0, uk: 10.5, eu: 44.5, cm: 29.0, inch: 11.4 },
+  { us: 11.5, uk: 11.0, eu: 45.0, cm: 29.5, inch: 11.6 },
+  { us: 12.0, uk: 11.5, eu: 46.0, cm: 30.0, inch: 11.8 },
+  { us: 13.0, uk: 12.5, eu: 47.0, cm: 31.0, inch: 12.2 },
+];
+
+// Women's table data (US, UK, EU, CM, Inches)
+const womenSizes = [
+  { us: 5.0, uk: 3.0, eu: 35.5, cm: 22.0, inch: 8.7 },
+  { us: 5.5, uk: 3.5, eu: 36.0, cm: 22.5, inch: 8.9 },
+  { us: 6.0, uk: 4.0, eu: 36.5, cm: 23.0, inch: 9.1 },
+  { us: 6.5, uk: 4.5, eu: 37.0, cm: 23.5, inch: 9.3 },
+  { us: 7.0, uk: 5.0, eu: 37.5, cm: 24.0, inch: 9.4 },
+  { us: 7.5, uk: 5.5, eu: 38.0, cm: 24.5, inch: 9.6 },
+  { us: 8.0, uk: 6.0, eu: 38.5, cm: 25.0, inch: 9.8 },
+  { us: 8.5, uk: 6.5, eu: 39.0, cm: 25.5, inch: 10.0 },
+  { us: 9.0, uk: 7.0, eu: 40.0, cm: 26.0, inch: 10.2 },
+  { us: 9.5, uk: 7.5, eu: 40.5, cm: 26.5, inch: 10.4 },
+  { us: 10.0, uk: 8.0, eu: 41.0, cm: 27.0, inch: 10.6 },
+  { us: 10.5, uk: 8.5, eu: 42.0, cm: 27.5, inch: 10.8 },
+  { us: 11.0, uk: 9.0, eu: 42.5, cm: 28.0, inch: 11.0 },
+];
+
+// Kids' table data (US, UK, EU, CM, Stage)
+const kidsSizes = [
+  { us: '4C', uk: '3.5C', eu: 19, cm: 11.5, stage: 'Toddler' },
+  { us: '6C', uk: '5.5C', eu: 22, cm: 13.0, stage: 'Toddler' },
+  { us: '8C', uk: '7.5C', eu: 24, cm: 14.5, stage: 'Toddler' },
+  { us: '10C', uk: '9.5C', eu: 27, cm: 16.5, stage: 'Little Kid' },
+  { us: '12C', uk: '11.5C', eu: 30, cm: 18.0, stage: 'Little Kid' },
+  { us: '13C', uk: '12.5C', eu: 31, cm: 19.0, stage: 'Little Kid' },
+  { us: '1Y', uk: '13.5C', eu: 32, cm: 20.0, stage: 'Big Kid' },
+  { us: '2Y', uk: '1.5Y', eu: 33, cm: 20.5, stage: 'Big Kid' },
+  { us: '3Y', uk: '2.5Y', eu: 34.5, cm: 21.5, stage: 'Big Kid' },
+  { us: '4Y', uk: '3.5Y', eu: 36, cm: 22.5, stage: 'Big Kid' },
+  { us: '5Y', uk: '4.5Y', eu: 37, cm: 23.5, stage: 'Big Kid' },
+];
+
+const faqs = [
+  {
+    q: 'What is the formula to convert US shoe sizes to UK?',
+    a: 'To convert US shoe size to UK, subtract 0.5 from American men\'s sizes (UK = US − 0.5; for example, US 10 Men = UK 9.5). For American women\'s sizes, subtract 2 full sizes (UK = US − 2; for example, US 8 Women = UK 6). For children\'s footwear, UK sizes are typically 0.5 to 1 size smaller than US.'
+  },
+  {
+    q: 'How do US women\'s shoe sizes compare to UK women\'s sizes?',
+    a: 'US women\'s shoe sizes are exactly 2 sizes larger than British UK women\'s sizes because their sizing scales start from different reference points. An American woman wearing a US 7 will wear a UK 5 (approx. 24.0 cm footbed), and a US 8 woman corresponds to a UK 6 (approx. 25.0 cm footbed).'
+  },
+  {
+    q: 'Why are US shoe sizes different from UK sizes if both use inches?',
+    a: 'Both the American and British systems share the historical imperial barleycorn standard (1/3 inch per full size step). However, the US scale begins its size 1 at a 3 11/12 inch last length for children, whereas the UK scale begins at 4 inches. Over successive adult size increments, this historical offset produces a 0.5-size gap in men\'s footwear and a 2-size gap in women\'s footwear.'
+  },
+  {
+    q: 'How do I convert half sizes from US to UK footwear?',
+    a: 'Both systems use identical 1/6 inch (4.23 mm) increments for half sizes. In men\'s sizing, the half size drops by exactly 0.5 (e.g., US 9.5 becomes UK 9.0; US 8.5 becomes UK 8.0). In women\'s sizing, subtract 2 from the half size (e.g., US 8.5 becomes UK 6.5; US 7.5 becomes UK 5.5).'
+  },
+  {
+    q: 'Do athletic sneaker brands (Nike, Adidas) fit the same across US and UK sizes?',
+    a: 'Most global sneaker brands maintain consistent international labeling on shoe box tongues. For example, Nike Men\'s US 10 always corresponds to UK 9.5 and EU 44. Adidas Men\'s US 10 corresponds to UK 9.5 and EU 44. However, to eliminate fitting discrepancies caused by differing last geometries, always check the centimetre (CM) or Japanese (JP) footbed measurement.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` }
+  }))
+});
+
+const relatedLinks = [
+  { label: 'All Converters Directory', href: '/converters/' },
+  { label: 'UK to US Shoe Size Converter', href: '/uk-to-us-shoe-size/' },
+  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
+  { label: 'US to India Shoe Size Converter', href: '/us-to-india-shoe-size/' },
+  { label: 'United States Shoe Sizing Guide', href: '/country/us/' },
+  { label: 'United Kingdom Shoe Sizing Guide', href: '/country/uk/' },
+  { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="us to uk shoe size, convert us shoe size to uk, convert us to uk shoe size, american shoe size to uk, us foot size to uk, us size to uk, us to uk size conversion, us to uk women's sizes, us women's shoe size to uk, us men's shoe size to uk, us and uk shoe size, us uk shoe size chart, us shoe size to uk shoe size, us feet size to uk, shoe size guide us to uk, size 8 american to uk, us 8 is what size in uk, 10 us size in uk, 8 us in uk size, 6 us size to uk, 9.5 us to uk, us 9 to uk, us 8.5 to uk, 8.5 us to uk, us 7.5 to uk, us 7 to uk, us 10.5 to uk, us 11 to uk, us 6 shoe size to uk, us size 4 in uk, us eu uk shoe size, american and uk shoe sizes" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Converters', href: '/converters/' },
+      { label: 'US to UK Shoe Size' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">Precise Barleycorn Offset Conversion</p>
+        <h1 class="display-xl">US to UK Shoe Size Converter</h1>
+        <p class="hero-sub body-lg">
+          Convert American (US) shoe sizes to British (UK) sizes instantly. Use our interactive calculator, explore verified conversion charts for men, women, and kids, and master the exact math behind cross-Atlantic footwear sizing.
+        </p>
+
+        <div class="quick-stat-row">
+          <div class="stat-badge">
+            <span class="badge-label">Men's Offset:</span>
+            <span class="badge-val">UK = US − 0.5</span>
+          </div>
+          <div class="stat-badge">
+            <span class="badge-label">Women's Offset:</span>
+            <span class="badge-val">UK = US − 2.0</span>
+          </div>
+          <div class="stat-badge">
+            <span class="badge-label">Base Step:</span>
+            <span class="badge-val">1/3 Inch (Barleycorn)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Calculator -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated conv-card">
+          <div class="conv-card-header">
+            <h2 class="heading-md">Convert American (US) to British (UK) Size</h2>
+            <p class="conv-card-sub">Select your gender and American size to instantly calculate your matching UK shoe size, EU equivalent, and exact foot length.</p>
+          </div>
+
+          <div class="conv-row">
+            <div class="conv-field">
+              <label class="step-label" for="conv-gender">
+                <span class="step-num">1</span> Category
+              </label>
+              <select id="conv-gender" class="form-select" aria-label="Select category">
+                <option value="men" selected>Men's Sizes</option>
+                <option value="women">Women's Sizes</option>
+                <option value="kids">Kids' Sizes</option>
+              </select>
+            </div>
+
+            <div class="conv-field">
+              <label class="step-label" for="conv-size">
+                <span class="step-num">2</span> American (US) Size
+              </label>
+              <select id="conv-size" class="form-select" aria-label="Select American shoe size">
+                <option value="" disabled>Select US size</option>
+                {menSizes.map(s => <option value={String(s.us)} selected={s.us === 9.0 ? true : undefined}>{s.us} US Men</option>)}
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="conv-result-box" id="conv-result" aria-live="polite">
+            <div class="conv-result-card">
+              <div class="conv-col">
+                <span class="conv-sys">United States (US)</span>
+                <span class="conv-val" id="res-us">9</span>
+                <span class="conv-note" id="res-us-sub">Men's Standard</span>
+              </div>
+              <div class="conv-arrow-wrap" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="conv-col conv-target">
+                <span class="conv-sys">United Kingdom (UK)</span>
+                <span class="conv-val" id="res-uk">8.5</span>
+                <span class="conv-note" id="res-uk-sub">UK = US − 0.5</span>
+              </div>
+              <div class="conv-col conv-aux">
+                <span class="conv-sys">Footbed Length</span>
+                <span class="conv-val-sm" id="res-cm">27.0 cm</span>
+                <span class="conv-note" id="res-in-meas">10.6 inches · EU 42</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benchmark Cards -->
+    <section class="snapshot-band">
+      <div class="page-inner">
+        <h2 class="section-title">Popular US to UK Shoe Size Benchmarks</h2>
+        <p class="section-sub">Quick reference for the most commonly searched adult sizes when converting American to British footwear.</p>
+
+        <div class="snapshot-grid">
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 8 → UK 7.5</span>
+              <span class="snap-detail">Foot length: 26.0 cm · EU 41 · 10.2″</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 9 → UK 8.5</span>
+              <span class="snap-detail">Foot length: 27.0 cm · EU 42 · 10.6″</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 10 → UK 9.5</span>
+              <span class="snap-detail">Foot length: 28.0 cm · EU 43 · 11.0″</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Men Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 11 → UK 10.5</span>
+              <span class="snap-detail">Foot length: 29.0 cm · EU 44.5 · 11.4″</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 7 → UK 5</span>
+              <span class="snap-detail">Foot length: 24.0 cm · EU 37.5 · 9.4″</span>
+            </div>
+          </div>
+          <div class="snap-card">
+            <span class="snap-tag">Women Popular</span>
+            <div class="snap-body">
+              <span class="snap-main">US 8 → UK 6</span>
+              <span class="snap-detail">Foot length: 25.0 cm · EU 38.5 · 9.8″</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Conversion Tables -->
+    <section class="charts-band">
+      <div class="page-inner">
+        <h2 class="section-title">Complete US to UK Shoe Size Conversion Charts</h2>
+        <p class="section-sub">Comprehensive US to UK size chart covering men's, women's, and children's categories with European and metric equivalents.</p>
+
+        <!-- Tabs -->
+        <div class="table-tabs" role="tablist" aria-label="Footwear Category Tables">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-target="panel-men">Men's Sizes</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="panel-women">Women's Sizes</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="panel-kids">Kids' Sizes</button>
+        </div>
+
+        <!-- Men's Panel -->
+        <div id="panel-men" class="table-panel active" role="tabpanel">
+          <h3 class="table-heading">Men's US to UK Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th>US Men Size</th>
+                  <th>UK Size</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {menSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>UK {r.uk}</strong></td>
+                    <td>EU {r.eu}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}″</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Women's Panel -->
+        <div id="panel-women" class="table-panel" role="tabpanel" style="display: none;">
+          <h3 class="table-heading">Women's US to UK Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th>US Women Size</th>
+                  <th>UK Size</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {womenSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>UK {r.uk}</strong></td>
+                    <td>EU {r.eu}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}″</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Kids' Panel -->
+        <div id="panel-kids" class="table-panel" role="tabpanel" style="display: none;">
+          <h3 class="table-heading">Kids' US to UK Shoe Size Chart</h3>
+          <div class="table-wrapper">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th>US Kids Size</th>
+                  <th>UK Kids Size</th>
+                  <th>EU Size</th>
+                  <th>Footbed (CM)</th>
+                  <th>Development Stage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kidsSizes.map(r => (
+                  <tr>
+                    <td class="primary-cell"><strong>US {r.us}</strong></td>
+                    <td class="highlight-cell"><strong>UK {r.uk}</strong></td>
+                    <td>EU {r.eu}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.stage}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Editorial Guide -->
+    <section class="editorial-band">
+      <div class="page-inner prose-article">
+        <h2 class="editorial-main-title">The Complete US to UK Shoe Size Guide: Formulas, Widths, &amp; Brand Insights</h2>
+
+        <p class="lead-paragraph">
+          Whether you are an American shopping on British online storefronts like ASOS, Clarks, or End Clothing, or looking to purchase imported European and British leather boots, mastering <strong>us to uk shoe size</strong> conversion is essential. While both the American and British sizing systems share the imperial unit of the barleycorn, key historical offsets mean that converting between them requires specific calculations depending on gender and footwear type.
+        </p>
+
+        <h3>1. The Shared Barleycorn Heritage &amp; Why US/UK Sizes Differ</h3>
+        <p>
+          Both the United States and the United Kingdom base their shoe sizing on an imperial unit called the <strong>barleycorn</strong>, introduced in medieval England by King Edward II. In shoemaking geometry, one full shoe size equals exactly one-third of an inch (8.46 millimeters), while a half-size step represents one-sixth of an inch (4.23 mm).
+        </p>
+        <p>
+          If both systems share identical linear increments, why do <strong>american shoe size to uk</strong> conversions differ? The variance lies entirely in their respective zero points. When standardizing last lengths in the 19th century, American manufacturers placed their baseline size 1 at 3 11/12 inches, while British lasts commenced at 4 inches. Over successive gradations, this creates a consistent half-size offset in men's footwear and a two-size offset in women's footwear.
+        </p>
+
+        <h3>2. Converting American Men's Sizes to British Footwear (`UK = US − 0.5`)</h3>
+        <p>
+          For men, <strong>convert us shoe size to uk</strong> by subtracting 0.5 from your normal American sneaker or dress shoe size. Because the stepping increment is identical, this formula holds consistent across the entire adult spectrum:
+        </p>
+        <ul>
+          <li><strong>US 7 to UK</strong> = UK 6.5 (approx. 25.0 cm foot length)</li>
+          <li><strong>US 7.5 to UK</strong> = UK 7.0 (approx. 25.5 cm foot length)</li>
+          <li><strong>US 8 to UK</strong> (or <strong>size 8 american to uk</strong>) = UK 7.5 (approx. 26.0 cm foot length)</li>
+          <li><strong>US 8.5 to uk</strong> (or <strong>8.5 us to uk</strong>) = UK 8.0 (approx. 26.5 cm foot length)</li>
+          <li><strong>US 9 to UK</strong> = UK 8.5 (approx. 27.0 cm foot length)</li>
+          <li><strong>9.5 us to uk</strong> = UK 9.0 (approx. 27.5 cm foot length)</li>
+          <li><strong>10 us size in uk</strong> = UK 9.5 (approx. 28.0 cm foot length)</li>
+          <li><strong>US 10.5 to uk</strong> = UK 10.0 (approx. 28.5 cm foot length)</li>
+          <li><strong>US 11 to uk</strong> = UK 10.5 (approx. 29.0 cm foot length)</li>
+        </ul>
+        <p>
+          If you are wondering <strong>us 8 is what size in uk</strong> or what <strong>8 us in uk size</strong> translates to in men's models, the answer is UK 7.5.
+        </p>
+
+        <h3>3. Converting American Women's Sizes to British Footwear (`UK = US − 2`)</h3>
+        <p>
+          In women's footwear, the scaling discrepancy is more pronounced. American women's shoe sizes start three full sizes ahead of men's sizing, while British women's sizing uses the exact same baseline scale as British men's sizing. As a result, when looking at <strong>us to uk women's sizes</strong> or determining <strong>us women's shoe size to uk</strong>, you must subtract two full sizes:
+        </p>
+        <ul>
+          <li><strong>US size 4 in uk</strong> (women's) = UK 2.0 (approx. 21.0 cm)</li>
+          <li><strong>6 us size to uk</strong> (or <strong>us 6 shoe size to uk</strong>) = UK 4.0 (approx. 23.0 cm)</li>
+          <li><strong>US 7 Women to UK</strong> = UK 5.0 (approx. 24.0 cm)</li>
+          <li><strong>US 8 Women to UK</strong> = UK 6.0 (approx. 25.0 cm)</li>
+          <li><strong>US 9 Women to UK</strong> = UK 7.0 (approx. 26.0 cm)</li>
+        </ul>
+        <p>
+          This two-size reduction ensures that women's pumps, loafers, sandals, and boots maintain the correct heel-to-ball proportion.
+        </p>
+
+        <h3>4. Width Standards: American (D/B) vs British (F/G) Lasts</h3>
+        <p>
+          Finding the right <strong>us foot size to uk</strong> match involves evaluating foot width in addition to linear length. The two countries label width fittings differently:
+        </p>
+        <ul>
+          <li><strong>Men's Width:</strong> In the US, standard medium width is marked as 'D', with narrow as 'B' or 'C', and wide as 'E', 'EE', or '2E'. In the UK, standard medium width is designated as 'F' (or 'Fitting 5'), with wide fittings labeled 'G' (or 'Fitting 6') and extra-wide labeled 'H'.</li>
+          <li><strong>Women's Width:</strong> In the US, standard medium width is 'B', narrow is '2A', and wide is 'D'. In the UK, women's standard width is 'D', with wide fittings marked as 'E' or 'EEE'.</li>
+        </ul>
+        <p>
+          If you have broader American feet and are ordering handcrafted British Goodyear-welted dress shoes (such as Church's, Tricker's, or Loake), choosing a British 'G' fitting will provide the necessary room across your metatarsals.
+        </p>
+
+        <h3>5. Brand-Specific Conversion Tips (Nike, Adidas, Clarks)</h3>
+        <p>
+          Major athletic brands manufacture for global distribution, so checking the inner tongue label is a quick way to verify <strong>us eu uk shoe size</strong> data:
+        </p>
+        <ul>
+          <li><strong>Nike &amp; Jordan:</strong> Strictly follow the standard formula. A men's US 10 corresponds to UK 9.5 and EU 44. A women's US 8 is UK 5.5 in Nike, representing a 2.5-size difference due to brand-specific last molds.</li>
+          <li><strong>Adidas:</strong> Uses one-third fractional European increments. For men, US 9 translates to UK 8.5 and EU 42 2/3.</li>
+          <li><strong>Clarks &amp; Dr. Martens:</strong> As British heritage marques, their native lasts are UK-centric. When purchasing in North America, they convert back to US by adding 0.5 (men's) or 1 to 2 (women's).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-sub">Comprehensive, expert answers to key questions about converting US shoe sizes to UK sizes.</p>
+
+        <div class="faq-accordion-list">
+          {faqs.map((f, i) => (
+            <details class="faq-item" open={i === 0 ? true : undefined}>
+              <summary class="faq-question">
+                <span>{f.q}</span>
+                <span class="faq-chevron" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-answer">
+                <p>{f.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <RelatedLinks title="Related Shoe Size Converters & Regional Guides" links={relatedLinks} />
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Client-side Interactive Engine Script -->
+<script is:inline define:vars={{ menSizes, womenSizes, kidsSizes }}>
+  // @ts-nocheck
+  (function() {
+    const MEN = menSizes;
+    const WOMEN = womenSizes;
+    const KIDS = kidsSizes;
+
+    const genderSelect = document.getElementById('conv-gender');
+    const sizeSelect = document.getElementById('conv-size');
+    const resUs = document.getElementById('res-us');
+    const resUsSub = document.getElementById('res-us-sub');
+    const resUk = document.getElementById('res-uk');
+    const resUkSub = document.getElementById('res-uk-sub');
+    const resCm = document.getElementById('res-cm');
+    const resInMeas = document.getElementById('res-in-meas');
+
+    function populateSizes() {
+      const gender = genderSelect?.value || 'men';
+      let data = MEN;
+      if (gender === 'women') data = WOMEN;
+      if (gender === 'kids') data = KIDS;
+
+      if (!sizeSelect) return;
+      sizeSelect.innerHTML = '';
+
+      data.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = String(item.us);
+        opt.textContent = `${item.us} US ${gender === 'men' ? 'Men' : gender === 'women' ? 'Women' : ''}`;
+        if (gender === 'men' && item.us === 9.0) opt.selected = true;
+        if (gender === 'women' && item.us === 8.0) opt.selected = true;
+        if (gender === 'kids' && item.us === '10C') opt.selected = true;
+        sizeSelect.appendChild(opt);
+      });
+
+      updateConversion();
+    }
+
+    function updateConversion() {
+      const gender = genderSelect?.value || 'men';
+      const val = sizeSelect?.value;
+      if (!val) return;
+
+      let list = MEN;
+      if (gender === 'women') list = WOMEN;
+      if (gender === 'kids') list = KIDS;
+
+      const match = list.find(item => String(item.us) === String(val));
+      if (!match) return;
+
+      if (resUs) resUs.textContent = String(match.us);
+      if (resUsSub) resUsSub.textContent = gender === 'men' ? "US Men's Standard" : gender === 'women' ? "US Women's Standard" : "US Kids' Standard";
+      if (resUk) resUk.textContent = String(match.uk);
+      if (resUkSub) resUkSub.textContent = gender === 'men' ? "UK = US − 0.5" : gender === 'women' ? "UK = US − 2.0" : "British Children's";
+      if (resCm) resCm.textContent = `${match.cm} cm`;
+      if (resInMeas) resInMeas.textContent = match.inch ? `${match.inch} inches · EU ${match.eu}` : `EU ${match.eu} · ${match.stage || 'Youth'}`;
+    }
+
+    genderSelect?.addEventListener('change', populateSizes);
+    sizeSelect?.addEventListener('change', updateConversion);
+
+    // Tab Controller
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.table-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-target');
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        panels.forEach(p => {
+          if (p.id === target) {
+            p.style.display = 'block';
+            p.classList.add('active');
+          } else {
+            p.style.display = 'none';
+            p.classList.remove('active');
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Hero */
+  .page-hero {
+    padding: 56px 24px 36px;
+    background: var(--v-canvas);
+    border-bottom: 1px solid var(--v-hairline);
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1) 0%, transparent 70%);
+  }
+  .page-inner { max-width: 960px; margin: 0 auto; }
+  .mono-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--v-link);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .display-xl {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+  }
+  .hero-sub { font-size: 16px; color: var(--v-body); line-height: 26px; max-width: 680px; margin: 0 auto 24px; }
+
+  /* Quick Stat Badges */
+  .quick-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    font-size: 12.5px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .badge-label { color: var(--v-mute); }
+  .badge-val { font-family: var(--font-mono); font-weight: 700; color: var(--v-ink); }
+
+  /* Converter Band */
+  .converter-band { padding: 40px 24px 56px; background: var(--v-canvas); }
+  .conv-card {
+    padding: 32px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    box-shadow: var(--v-shadow-floating);
+  }
+  .conv-card-header { margin-bottom: 24px; }
+  .heading-md { font-size: 22px; font-weight: 700; color: var(--v-ink); letter-spacing: -0.02em; margin: 0 0 6px; }
+  .conv-card-sub { font-size: 14px; color: var(--v-mute); margin: 0; }
+
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .step-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--v-ink);
+    margin-bottom: 8px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--v-link);
+    color: #ffffff;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    border-radius: var(--v-r-full);
+  }
+  .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--v-ink);
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .form-select:focus { border-color: var(--v-link); box-shadow: 0 0 0 3px var(--v-link-soft); }
+
+  /* Result Output Card */
+  .conv-result-box {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 24px 28px;
+  }
+  .conv-result-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .conv-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    text-align: center;
+  }
+  .conv-sys {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--v-mute);
+    letter-spacing: 0.05em;
+  }
+  .conv-val {
+    font-size: 38px;
+    font-weight: 800;
+    font-family: var(--font-display);
+    color: var(--v-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .conv-target .conv-val { color: var(--v-link); }
+  .conv-val-sm { font-size: 22px; font-weight: 700; font-family: var(--font-display); color: var(--v-ink); }
+  .conv-note { font-size: 12px; color: var(--v-faint); }
+  .conv-arrow-wrap { color: var(--v-mute); display: flex; align-items: center; justify-content: center; }
+  .conv-aux { border-left: 1px solid var(--v-hairline); padding-left: 20px; }
+
+  /* Snapshot Grid */
+  .snapshot-band {
+    padding: 56px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--v-ink); letter-spacing: -0.02em; margin: 0 0 6px; }
+  .section-sub { font-size: 14.5px; color: var(--v-body); margin: 0 0 28px; }
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .snap-card {
+    padding: 18px 20px;
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .snap-card:hover { transform: translateY(-2px); border-color: var(--v-link); }
+  .snap-tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: var(--v-link); text-transform: uppercase; }
+  .snap-main { font-size: 18px; font-weight: 700; color: var(--v-ink); display: block; }
+  .snap-detail { font-size: 12.5px; color: var(--v-mute); display: block; }
+
+  /* Charts Band */
+  .charts-band {
+    padding: 56px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .table-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 12px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 8px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--v-body);
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--v-ink); border-color: var(--v-link); }
+  .tab-btn.active { background: var(--v-link); color: #ffffff; border-color: var(--v-link); }
+  .table-heading { font-size: 18px; font-weight: 700; color: var(--v-ink); margin: 0 0 16px; }
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-elevated);
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    text-align: left;
+  }
+  .size-table thead tr { background: var(--v-table-head); color: var(--v-table-head-text); }
+  .size-table th, .size-table td { padding: 12px 18px; border-bottom: 1px solid var(--v-hairline); }
+  .size-table tbody tr:hover { background: var(--v-table-hover); }
+  .primary-cell strong { color: var(--v-ink); }
+  .highlight-cell strong { color: var(--v-link-deep); }
+
+  /* Editorial SEO Prose */
+  .editorial-band {
+    padding: 64px 24px;
+    background: var(--v-elevated);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .prose-article { max-width: 820px; margin: 0 auto; }
+  .editorial-main-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--v-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 20px;
+  }
+  .lead-paragraph { font-size: 16px; line-height: 28px; color: var(--v-body); margin-bottom: 24px; }
+  .prose-article h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--v-ink);
+    letter-spacing: -0.01em;
+    margin: 36px 0 12px;
+  }
+  .prose-article p { font-size: 15px; line-height: 26px; color: var(--v-body); margin: 0 0 18px; }
+  .prose-article ul, .prose-article ol { margin: 0 0 24px; padding-left: 22px; }
+  .prose-article li { font-size: 14.5px; line-height: 24px; color: var(--v-body); margin-bottom: 10px; }
+  .prose-article strong { color: var(--v-ink); }
+
+  /* FAQ Section */
+  .faq-band {
+    padding: 64px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .faq-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .faq-item[open] { border-color: var(--v-link); }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--v-ink);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-chevron { color: var(--v-mute); transition: transform 0.2s ease; }
+  .faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--v-link); }
+  .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 14.5px;
+    line-height: 25px;
+    color: var(--v-body);
+    border-top: 1px dashed var(--v-hairline);
+    padding-top: 14px;
+  }
+  .faq-answer p { margin: 0; }
+
+  @media (max-width: 768px) {
+    .conv-row { grid-template-columns: 1fr; }
+    .conv-result-card { flex-direction: column; gap: 16px; }
+    .conv-arrow-wrap { transform: rotate(90deg); }
+    .conv-aux { border-left: none; border-top: 1px solid var(--v-hairline); padding-left: 0; padding-top: 14px; width: 100%; }
+    .snapshot-grid { grid-template-columns: 1fr; }
+    .converter-band, .snapshot-band, .charts-band, .editorial-band, .faq-band { padding: 40px 16px; }
+  }
+</style>

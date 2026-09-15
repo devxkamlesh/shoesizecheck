@@ -20,6 +20,9 @@ export default defineConfig({
       weights: [400, 500],
     },
   ],
+  redirects: {
+    '/us-to-maxico-shoe-size': '/us-to-mexico-shoe-size/',
+  },
   vite: {
     plugins: [tailwindcss()],
   },

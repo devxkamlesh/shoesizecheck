@@ -22,9 +22,17 @@ const conversions: ConversionItem[] = [
 <section class="pop-section">
   <div class="pop-inner">
     <div class="pop-header">
-      <p class="pop-eyebrow">POPULAR CONVERSIONS</p>
-      <h2 class="pop-heading">Quick Shoe Size Conversions</h2>
-      <p class="pop-sub">Jump to the most commonly searched shoe size conversions. Each page includes a dedicated converter and full chart.</p>
+      <div class="pop-header-left">
+        <p class="pop-eyebrow">POPULAR CONVERSIONS</p>
+        <h2 class="pop-heading">Quick Shoe Size Conversions</h2>
+        <p class="pop-sub">Jump to the most commonly searched shoe size conversions. Each page includes a dedicated converter and full chart.</p>
+      </div>
+      <a href="/converters/" class="pop-view-all">
+        <span>View all 15+ converters</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
 
     <div class="pop-grid">
@@ -56,7 +64,37 @@ const conversions: ConversionItem[] = [
     margin: 0 auto;
   }
   .pop-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
     margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .pop-header-left {
+    max-width: 620px;
+  }
+  .pop-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--v-link);
+    text-decoration: none;
+    padding: 8px 14px;
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    background: var(--v-canvas);
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    margin-bottom: 4px;
+  }
+  .pop-view-all:hover {
+    background: var(--v-elevated);
+    border-color: var(--v-link);
+    box-shadow: var(--v-shadow-whisper);
+    transform: translateY(-1px);
   }
   .pop-eyebrow {
     font-family: var(--font-mono);
