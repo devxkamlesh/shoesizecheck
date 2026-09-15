@@ -1,26 +1,34 @@
-# AllShoeSizeConverter LLM Information
-> Machine-readable summary for AI agents and search systems per RFC 9727 & llms.txt standard.
+# AllShoeSizeConverter
 
-## Overview
-AllShoeSizeConverter is a precision footwear sizing tool providing verified conversion tables, measurement guides, and real-time calculators across international standards.
+> Free shoe size converter and international footwear conversion charts covering US, UK, EU, India, Japan, CM, and Mondopoint sizing for men, women, and kids.
 
-## Primary Sizing Systems Supported
-- **US**: United States Men's, Women's, and Children's sizing based on barleycorn increments.
-- **UK**: British Men's, Women's, and Children's sizing with Clarks width fittings (D, E, F, G, H).
-- **EU**: European Paris Points (2/3 cm per size).
-- **India**: Indian Standard (matching UK length dimensions with wider toe box).
-- **Mondopoint**: Metric millimeter standard (ISO 9407) used for ski boots, snowboard boots, and military footwear.
-- **Kids & Toddlers by Age**: Age-to-size milestone charts from newborn (UK 0 / US 0.5C) to 12 years.
+AllShoeSizeConverter is an authoritative footwear sizing utility providing verified conversion tables, foot measurement calculators, brand fitting guides, and age-based children's charts.
 
-## Core Endpoints & Guides
-- Homepage: https://allshoesizeconverter.com/
-- US Shoe Size Chart: https://allshoesizeconverter.com/country/us/
-- UK Shoe Size Chart: https://allshoesizeconverter.com/country/uk/
-- India Shoe Size Chart: https://allshoesizeconverter.com/country/india/
-- Kids Shoe Size by Age: https://allshoesizeconverter.com/kids-shoe-size-by-age/
-- Mondopoint Sizing: https://allshoesizeconverter.com/mondopoint-shoe-size/
-- Foot Measurement Guide: https://allshoesizeconverter.com/shoe-size-by-foot-length/
-- About Us: https://allshoesizeconverter.com/about/
-- Contact Us: https://allshoesizeconverter.com/contact/
-- Privacy Policy: https://allshoesizeconverter.com/privacy-policy/
-- Terms & Conditions: https://allshoesizeconverter.com/terms/
+## Core Tools & Converters
+
+- [Shoe Size Converter Homepage](https://allshoesizeconverter.com/): Interactive shoe size converter across US, UK, EU, India, Japan, CM, and inches.
+- [All Shoe Size Converters Hub](https://allshoesizeconverter.com/converters/): Complete directory of 15+ specialized pair conversion tools.
+- [US to EU Shoe Size Converter](https://allshoesizeconverter.com/us-to-eu-shoe-size/): Complete US to EU shoe size conversion chart and calculator.
+- [US to UK Shoe Size Converter](https://allshoesizeconverter.com/us-to-uk-shoe-size/): Convert US men's, women's, and kids shoe sizes to UK sizes.
+- [US to India Shoe Size Converter](https://allshoesizeconverter.com/us-to-india-shoe-size/): Conversion chart between US and Indian standard shoe sizes.
+- [US to Japan Shoe Size Converter](https://allshoesizeconverter.com/us-to-japan-shoe-size/): Convert US shoe sizes to Japanese centimeter sizes.
+- [EU to US Shoe Size Converter](https://allshoesizeconverter.com/eu-to-us-shoe-size/): Convert European shoe sizes to US men and women standards.
+- [UK to US Shoe Size Converter](https://allshoesizeconverter.com/uk-to-us-shoe-size/): British to US footwear size conversion guide.
+- [Find My Shoe Size by Foot Length](https://allshoesizeconverter.com/shoe-size-by-foot-length/): Interactive calculator to find shoe size from foot length in cm or inches.
+- [Kids Shoe Size by Age Chart](https://allshoesizeconverter.com/kids-shoe-size-by-age/): Children's shoe size guide from newborn baby to 12-year-old youth.
+- [Mondopoint Shoe Size Guide](https://allshoesizeconverter.com/mondopoint-shoe-size/): Millimeter sizing standard for ski boots and technical footwear.
+
+## Regional Size Guides
+
+- [All Countries Sizing Hub](https://allshoesizeconverter.com/country/): Comprehensive international footwear sizing standards by region.
+- [US Shoe Size Chart](https://allshoesizeconverter.com/country/us/): Detailed United States footwear sizing standards and width fittings.
+- [UK Shoe Size Chart](https://allshoesizeconverter.com/country/uk/): British footwear sizing standards and width letters.
+- [EU Shoe Size Chart](https://allshoesizeconverter.com/country/europe/): European Paris Point shoe sizing standards.
+- [India Shoe Size Chart](https://allshoesizeconverter.com/country/india/): Indian standard shoe sizes and width guidance.
+
+## Information & Legal
+
+- [About Us](https://allshoesizeconverter.com/about/): Background, editorial methodology, and sizing accuracy standards.
+- [Contact Us](https://allshoesizeconverter.com/contact/): Support, feedback, and sizing inquiry contact form.
+- [Privacy Policy](https://allshoesizeconverter.com/privacy-policy/): Privacy policy and data handling information.
+- [Terms of Service](https://allshoesizeconverter.com/terms/): Terms of use and sizing disclaimer.

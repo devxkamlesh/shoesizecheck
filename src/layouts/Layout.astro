@@ -25,14 +25,34 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-    <!-- Google tag (gtag.js) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-EEM0XTBELZ"></script>
+    <!-- Preconnect / DNS-prefetch for Google Analytics -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    <!-- Google tag (gtag.js) - Non-blocking idle/interaction loader for mobile performance -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-EEM0XTBELZ');
+
+      function initGtag() {
+        if (window.__gtagLoaded) return;
+        window.__gtagLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-EEM0XTBELZ';
+        document.head.appendChild(s);
+      }
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(function() { setTimeout(initGtag, 1000); }, { timeout: 3000 });
+      } else {
+        window.addEventListener('load', function() { setTimeout(initGtag, 1000); });
+      }
+      ['touchstart', 'scroll', 'mousemove', 'keydown'].forEach(function(ev) {
+        window.addEventListener(ev, initGtag, { once: true, passive: true });
+      });
     </script>
 
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
