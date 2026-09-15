@@ -68,8 +68,9 @@ for (const [route, html] of Object.entries(pages)) {
   else if (desc.length > 160) errors.push(`Description too long (${desc.length} > 160 chars)`);
   else if (desc.length < 80) errors.push(`Description too short (${desc.length} < 80 chars)`);
 
+  const isErrorPage = route.includes('404') || route.includes('500');
   if (bcCount > 1) errors.push(`Duplicate BreadcrumbList schema (${bcCount})`);
-  if (inLinks === 0 && route !== '/') errors.push(`Orphan page (0 inbound links)`);
+  if (inLinks === 0 && route !== '/' && !isErrorPage) errors.push(`Orphan page (0 inbound links)`);
 
   const status = errors.length === 0 ? '✓ PASS' : '✗ FAIL';
   if (errors.length > 0) issues += errors.length;

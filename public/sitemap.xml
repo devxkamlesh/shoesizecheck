@@ -1,59 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
-  <url><loc>https://allshoesizeconverter.com/</loc><lastmod>2026-09-12</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://allshoesizeconverter.com/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
 
-  <!-- Phase 2 Pages -->
-  <url><loc>https://allshoesizeconverter.com/what-is-my-shoe-size/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/kids-shoe-size-by-age/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/mondopoint-shoe-size/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/shoe-size-by-foot-length/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/shoe-size-in-cm/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://allshoesizeconverter.com/shoe-size-in-inches/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-
-  <!-- Country Pages -->
-  <url><loc>https://allshoesizeconverter.com/country/</loc><lastmod>2026-09-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/country/us/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-
-  <url><loc>https://allshoesizeconverter.com/country/uk/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/country/india/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/country/europe/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/country/japan/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://allshoesizeconverter.com/country/china/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://allshoesizeconverter.com/country/korea/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://allshoesizeconverter.com/country/australia/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://allshoesizeconverter.com/country/mexico/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-  <!-- Converters Hub Page -->
+  <!-- Master Hub Pillar -->
   <url><loc>https://allshoesizeconverter.com/converters/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
 
-  <!-- US Conversion Pages -->
-  <url><loc>https://allshoesizeconverter.com/us-to-eu-shoe-size/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/us-to-uk-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <!-- 16 Quick Converters -->
+  <url><loc>https://allshoesizeconverter.com/us-to-eu-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://allshoesizeconverter.com/eu-to-us-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://allshoesizeconverter.com/us-to-uk-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://allshoesizeconverter.com/uk-to-us-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
   <url><loc>https://allshoesizeconverter.com/us-to-india-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/india-to-us-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://allshoesizeconverter.com/us-to-japan-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://allshoesizeconverter.com/us-to-cm-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://allshoesizeconverter.com/us-to-mexico-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
-
-  <!-- EU Conversion Pages -->
-  <url><loc>https://allshoesizeconverter.com/eu-to-us-shoe-size/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://allshoesizeconverter.com/eu-to-cm-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/uk-to-eu-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://allshoesizeconverter.com/eu-to-uk-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://allshoesizeconverter.com/eu-to-india-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://allshoesizeconverter.com/eu-to-cm-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
-
-  <!-- UK Conversion Pages -->
-  <url><loc>https://allshoesizeconverter.com/uk-to-us-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://allshoesizeconverter.com/uk-to-eu-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://allshoesizeconverter.com/uk-to-india-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
-
-  <!-- India Conversion Pages -->
-  <url><loc>https://allshoesizeconverter.com/india-to-us-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://allshoesizeconverter.com/india-to-uk-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://allshoesizeconverter.com/india-to-eu-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/uk-to-india-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/india-to-uk-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+
+  <!-- Sizing Measurement Guides -->
+  <url><loc>https://allshoesizeconverter.com/what-is-my-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/kids-shoe-size-by-age/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/mondopoint-shoe-size/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/shoe-size-by-foot-length/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/shoe-size-in-cm/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/shoe-size-in-inches/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
+  <!-- Regional & Country Hubs -->
+  <url><loc>https://allshoesizeconverter.com/country/</loc><lastmod>2026-09-15</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/us/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/uk/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/india/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/europe/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/japan/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/china/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/korea/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/australia/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://allshoesizeconverter.com/country/mexico/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
 
   <!-- Company & Legal Pages -->
-  <url><loc>https://allshoesizeconverter.com/about/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://allshoesizeconverter.com/contact/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://allshoesizeconverter.com/privacy-policy/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://allshoesizeconverter.com/terms/</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://allshoesizeconverter.com/about/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://allshoesizeconverter.com/contact/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://allshoesizeconverter.com/privacy-policy/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
+  <url><loc>https://allshoesizeconverter.com/terms/</loc><lastmod>2026-09-15</lastmod><changefreq>monthly</changefreq><priority>0.50</priority></url>
 </urlset>

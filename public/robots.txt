@@ -1,4 +1,13 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
 
+# Disallow standalone error pages
+Disallow: /404.html
+Disallow: /500.html
+
+# Host
+Host: https://allshoesizeconverter.com
+
+# Sitemaps
 Sitemap: https://allshoesizeconverter.com/sitemap.xml

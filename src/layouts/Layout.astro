@@ -7,6 +7,7 @@ interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  robots?: string;
 }
 
 const {
@@ -14,6 +15,7 @@ const {
   description = 'Free shoe size converter for men, women, and kids. Convert US, UK, EU, India, Japan, and CM sizes instantly with accurate charts and size guides.',
   canonical = 'https://allshoesizeconverter.com',
   ogImage = 'https://allshoesizeconverter.com/og-image.png',
+  robots = 'index, follow',
 } = Astro.props;
 ---
 
@@ -22,6 +24,17 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-EEM0XTBELZ"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EEM0XTBELZ');
+    </script>
+
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -34,7 +47,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
