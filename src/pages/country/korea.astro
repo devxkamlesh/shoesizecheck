@@ -1,0 +1,807 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Footer from '../../components/Footer.astro';
+import { SIZE_DATA } from '../../data/shoe-sizes';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/country/korea/`;
+const pageTitle = 'Korea Shoe Size Chart — Korean MM Sizing & Footwear Guide';
+const pageDescription = 'Comprehensive Korea shoe size chart for men, women, and kids. Convert Korean millimetre sizes (KR mm) to US, UK, EU, and CM with Musinsa and brand guides.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'How does a Korea shoe size work?',
+    a: 'In South Korea, shoe size is based directly on anatomical foot length measured in millimetres (MM) according to national standard KS M 6681. For example, a Korea shoe size of 260 means the shoe is engineered for a foot measuring exactly 260 millimetres (26.0 centimetres). Sizes increase in standard 5 mm increments (e.g., 250, 255, 260, 265, 270 mm).'
+  },
+  {
+    q: 'What is foot size in Korea compared to US shoe sizes?',
+    a: 'For men, a Korea shoe size of 260 converts to US Men\'s 8.0, 265 equals US Men\'s 8.5, 270 equals US Men\'s 9.0, and 280 equals US Men\'s 10.0. For women, a Korea size 230 converts to US Women\'s 6.0, 235 equals US Women\'s 6.5, 240 equals US Women\'s 7.0, and 250 equals US Women\'s 8.0.'
+  },
+  {
+    q: 'How do you convert Korea shoe sizes to Japanese or centimetre sizes?',
+    a: 'Converting between Korean and Japanese shoe sizing is effortless because both follow metric Mondopoint standards. South Korea measures in millimetres, while Japan measures in centimetres. Simply divide the Korean millimetre size by 10 to obtain the Japanese/centimetre size: KR 270 mm = JP 27.0 cm; KR 240 mm = JP 24.0 cm.'
+  },
+  {
+    q: 'How do childrens shoe sizes work in Korea?',
+    a: 'Childrens shoe sizes in South Korea follow the exact same metric millimetre system as adult footwear. Infant first-walker sizes begin at 110 mm (11.0 cm), toddler sizes run from 120 mm to 150 mm (12.0 to 15.0 cm), and young youth sizes span from 160 mm to 220 mm (16.0 to 22.0 cm). Parents simply measure their child\'s foot in millimetres to find their exact size.'
+  },
+  {
+    q: 'How do popular Korean footwear brands like Fila Korea, Pro-Specs, and MLB Korea fit?',
+    a: 'Fila Korea chunky lifestyle sneakers (such as the Disruptor and Ray Tracer) fit true to Korean millimetre length, though wearers with wider feet frequently choose a half-size up (5 mm larger) for thicker sock comfort. Pro-Specs athletic shoes are designed specifically for East Asian foot shapes with generous forefoot room and secure heel lock.'
+  },
+  {
+    q: 'Are Korean shoe sizes unisex in length?',
+    a: 'Yes, nominal length in Korean shoe sizing is gender-neutral because a millimetre is an absolute physical unit: a size 250 shoe represents a 250 mm footbed whether in men\'s or women\'s styles. However, women\'s models are lasted with narrower heel cups and slimmer midfoot girths than men\'s models of the identical millimetre number.'
+  },
+  {
+    q: 'What is the most common foot size in Korea for men and women?',
+    a: 'For adult women in South Korea, the most commonly purchased sizes on platforms like Musinsa and ZigZag are 235 mm, 240 mm, and 245 mm. For adult men, the most common sizes sold across retail stores in Seoul are 265 mm, 270 mm, and 275 mm.'
+  },
+  {
+    q: 'How do I perform an accurate foot size conversion at home for Korean footwear?',
+    a: 'To measure your foot for Korean sizing: tape a sheet of paper to a hard floor flush against a flat wall. Stand upright with your heel touching the wall. Mark the tip of your longest toe with a vertical pen. Measure the distance from the paper edge to your pencil mark in millimetres. That exact millimetre figure is your base Korean shoe size.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` },
+  })),
+});
+
+const conversionLinks = [
+  { label: 'Shoe Size in CM', href: '/shoe-size-in-cm/' },
+  { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
+  { label: 'Shoe Size by Foot Length', href: '/shoe-size-by-foot-length/' },
+  { label: 'US to EU Shoe Size', href: '/us-to-eu-shoe-size/' },
+  { label: 'What Is My Shoe Size?', href: '/what-is-my-shoe-size/' },
+  { label: 'Kids Shoe Size by Age', href: '/kids-shoe-size-by-age/' },
+];
+
+const countryLinks = [
+  { label: '🇯🇵 Japan', href: '/country/japan/' },
+  { label: '🇨🇳 China', href: '/country/china/' },
+  { label: '🇺🇸 United States', href: '/country/us/' },
+  { label: '🇬🇧 United Kingdom', href: '/country/uk/' },
+  { label: '🇪🇺 Europe', href: '/country/europe/' },
+  { label: '🇦🇺 Australia', href: '/country/australia/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="korea shoe size, foot size in korea, korea shoe size chart, shoe size, shoe size conversion, childrens shoe sizes, foot size conversion, feet size conversion, korea foot size chart" />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Korea Shoe Size Chart — Korean MM Sizing & Footwear Guide" />
+    <meta property="og:description" content="Master Korea shoe size chart and Korean footwear guide. Convert Korean millimetre sizes (KR mm) to US, UK, EU, and CM with Musinsa and brand fit guides." />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Korea Shoe Size Chart and Korean Footwear Guide" />
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Korea Shoe Size Chart — Korean MM Sizing & Footwear Guide" />
+    <meta name="twitter:description" content="Accurate Korea shoe size chart, foot size in korea, and Korean brand sizing matrices for Fila Korea, Pro-Specs, and Musinsa." />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured Data -->
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Countries', href: '/country/' },
+      { label: '🇰🇷 South Korea' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">🇰🇷 Korean Mondopoint Standard (KS M 6681 &amp; Millimeters)</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Korea Shoe Size Chart &amp; Korean Sizing Guide</h1>
+        <p class="hero-sub body-lg">Looking for an accurate <strong>korea shoe size chart</strong>? Explore our verified <strong>shoe size conversion</strong> guide for South Korea. Master <strong>foot size in korea</strong> measured directly in millimetres (KR mm), understand adult and <strong>childrens shoe sizes</strong>, and use our precision <strong>korea foot size chart</strong> for shopping on Musinsa, Coupang, and Korean fashion stores.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">Millimeter Sizing (Mondopoint Standard)</span>
+          <span class="badge-trust">5 mm Incremental Precision</span>
+          <span class="badge-trust">Childrens Shoe Sizes in Korea</span>
+          <span class="badge-trust">Fila Korea &amp; Pro-Specs Guides</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Korean Size Converter Tool -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated converter-inline">
+          <div class="ci-header">
+            <div>
+              <p class="mono-eyebrow">Instant Korean Footwear Conversion</p>
+              <h2 class="heading-md">Convert Korea Shoe Sizes in Real Time</h2>
+            </div>
+            <p class="body-sm text-mute">Select your Korean shoe size in millimetres (KR mm) to see instant international equivalents across US, UK, EU, CM, and Inches.</p>
+          </div>
+
+          <div class="ci-row">
+            <div class="ci-field">
+              <label class="step-label" for="kr-size">
+                <span class="step-num">1</span> Korea Shoe Size (MM)
+              </label>
+              <select id="kr-size" class="form-select ci-size-select" aria-label="Korea shoe size">
+                <option value="" disabled selected>Select Korea size (mm)</option>
+                {SIZE_DATA.men.korea.map((s, i) => (
+                  <option value={String(s)}>KR {s} mm ({SIZE_DATA.men.cm[i]} cm)</option>
+                ))}
+              </select>
+            </div>
+            <div class="ci-field">
+              <label class="step-label" for="kr-gender">
+                <span class="step-num">2</span> Category / Demographic
+              </label>
+              <select id="kr-gender" class="form-select ci-gender-select" aria-label="Gender">
+                <option value="men" selected>Men's Footwear (Korea)</option>
+                <option value="women">Women's Footwear (Korea)</option>
+                <option value="kids">Childrens Shoe Sizes (Korea)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ci-results" id="kr-results" aria-live="polite">
+            <p class="ci-placeholder">Select a Korean shoe size to see conversions across US, UK, EU, CM, and Inches</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Reference Tables Section -->
+    <section class="table-band">
+      <div class="page-inner">
+        <header class="section-heading">
+          <p class="mono-eyebrow">Master Reference Charts</p>
+          <h2 class="heading-lg">Comprehensive Korea Footwear Size Charts</h2>
+          <p class="body-md">Use these master tables to translate Korean millimetre measurements into American, British, European, and centimetre sizing systems.</p>
+        </header>
+
+        <!-- 1. Men's Korea Shoe Size Chart -->
+        <div class="table-card">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Men's Korea Shoe Size Chart</h3>
+              <p class="body-sm text-mute">Includes Korean millimetres (KR mm), centimetres (CM), US Men, UK Men, EU, and foot length in inches</p>
+            </div>
+            <span class="category-pill">Men's KS M 6681 Standard</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Men's Korea Shoe Size Chart">
+              <thead>
+                <tr>
+                  <th>Korea Size (MM)</th>
+                  <th>Foot Length (CM)</th>
+                  <th>US Men</th>
+                  <th>UK Men</th>
+                  <th>EU Size</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>240 mm</strong></td><td>24.0 cm</td><td>6.0</td><td>5.5</td><td>39.0</td><td>9.3"</td></tr>
+                <tr><td><strong>245 mm</strong></td><td>24.5 cm</td><td>6.5</td><td>6.0</td><td>39.5</td><td>9.5"</td></tr>
+                <tr><td><strong>250 mm</strong></td><td>25.0 cm</td><td>7.0</td><td>6.5</td><td>40.0</td><td>9.6"</td></tr>
+                <tr><td><strong>255 mm</strong></td><td>25.5 cm</td><td>7.5</td><td>7.0</td><td>40.5</td><td>9.8"</td></tr>
+                <tr><td><strong>260 mm</strong></td><td>26.0 cm</td><td>8.0</td><td>7.5</td><td>41.0</td><td>9.9"</td></tr>
+                <tr><td><strong>265 mm</strong></td><td>26.5 cm</td><td>8.5</td><td>8.0</td><td>41.5</td><td>10.1"</td></tr>
+                <tr><td><strong>270 mm</strong></td><td>27.0 cm</td><td>9.0</td><td>8.5</td><td>42.0</td><td>10.3"</td></tr>
+                <tr><td><strong>275 mm</strong></td><td>27.5 cm</td><td>9.5</td><td>9.0</td><td>42.5</td><td>10.4"</td></tr>
+                <tr><td><strong>280 mm</strong></td><td>28.0 cm</td><td>10.0</td><td>9.5</td><td>43.0</td><td>10.6"</td></tr>
+                <tr><td><strong>285 mm</strong></td><td>28.5 cm</td><td>10.5</td><td>10.0</td><td>43.5</td><td>10.8"</td></tr>
+                <tr><td><strong>290 mm</strong></td><td>29.0 cm</td><td>11.0</td><td>10.5</td><td>44.0</td><td>10.9"</td></tr>
+                <tr><td><strong>295 mm</strong></td><td>29.5 cm</td><td>11.5</td><td>11.0</td><td>44.5</td><td>11.1"</td></tr>
+                <tr><td><strong>300 mm</strong></td><td>30.0 cm</td><td>12.0</td><td>11.5</td><td>45.0</td><td>11.3"</td></tr>
+                <tr><td><strong>310 mm</strong></td><td>31.0 cm</td><td>13.0</td><td>12.5</td><td>46.5</td><td>11.6"</td></tr>
+                <tr><td><strong>320 mm</strong></td><td>32.0 cm</td><td>14.0</td><td>13.5</td><td>47.5</td><td>11.9"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Women's Korea Shoe Size Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Women's Korea Shoe Size Chart</h3>
+              <p class="body-sm text-mute">Korean women's shoe sizes in millimetres, centimetres, US Women, UK Women, and EU</p>
+            </div>
+            <span class="category-pill">Women's KS M 6681 Standard</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Women's Korea Shoe Size Chart">
+              <thead>
+                <tr>
+                  <th>Korea Size (MM)</th>
+                  <th>Foot Length (CM)</th>
+                  <th>US Women</th>
+                  <th>UK Women</th>
+                  <th>EU Size</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>210 mm</strong></td><td>21.0 cm</td><td>4.0</td><td>2.0</td><td>35.0</td><td>8.2"</td></tr>
+                <tr><td><strong>215 mm</strong></td><td>21.5 cm</td><td>4.5</td><td>2.5</td><td>35.5</td><td>8.3"</td></tr>
+                <tr><td><strong>220 mm</strong></td><td>22.0 cm</td><td>5.0</td><td>3.0</td><td>36.0</td><td>8.5"</td></tr>
+                <tr><td><strong>225 mm</strong></td><td>22.5 cm</td><td>5.5</td><td>3.5</td><td>36.5</td><td>8.8"</td></tr>
+                <tr><td><strong>230 mm</strong></td><td>23.0 cm</td><td>6.0</td><td>4.0</td><td>37.0</td><td>8.9"</td></tr>
+                <tr><td><strong>235 mm</strong></td><td>23.5 cm</td><td>6.5 – 7.0</td><td>4.5</td><td>37.5 – 38.0</td><td>9.3"</td></tr>
+                <tr><td><strong>240 mm</strong></td><td>24.0 cm</td><td>7.5</td><td>5.0</td><td>38.5</td><td>9.4"</td></tr>
+                <tr><td><strong>245 mm</strong></td><td>24.5 cm</td><td>8.0</td><td>5.5</td><td>39.0</td><td>9.5"</td></tr>
+                <tr><td><strong>250 mm</strong></td><td>25.0 cm</td><td>8.5 – 9.0</td><td>6.0</td><td>39.5 – 40.0</td><td>9.7"</td></tr>
+                <tr><td><strong>255 mm</strong></td><td>25.5 cm</td><td>9.5</td><td>6.5</td><td>40.5</td><td>9.9"</td></tr>
+                <tr><td><strong>260 mm</strong></td><td>26.0 cm</td><td>10.0</td><td>7.0</td><td>41.0</td><td>10.2"</td></tr>
+                <tr><td><strong>265 mm</strong></td><td>26.5 cm</td><td>10.5</td><td>7.5</td><td>41.5</td><td>10.5"</td></tr>
+                <tr><td><strong>270 mm</strong></td><td>27.0 cm</td><td>11.0</td><td>8.0</td><td>42.0</td><td>10.7"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Childrens Shoe Sizes in Korea Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Childrens Shoe Sizes in Korea (Infant, Toddler &amp; Youth)</h3>
+              <p class="body-sm text-mute">From early walking stages (110 mm) through primary school youth sizing (220 mm)</p>
+            </div>
+            <span class="category-pill">Kids &amp; Infant Mondopoint</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Childrens Shoe Sizes in Korea">
+              <thead>
+                <tr>
+                  <th>Korea Size (MM)</th>
+                  <th>Age Range Milestone</th>
+                  <th>US Kids</th>
+                  <th>UK Kids</th>
+                  <th>EU Kids</th>
+                  <th>Foot Length (CM)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>110 mm</strong></td><td>Infant / First Steps (6–9 mos)</td><td>3.0C</td><td>2.0C</td><td>18</td><td>11.0 cm</td></tr>
+                <tr><td><strong>120 mm</strong></td><td>Toddler (9–12 mos / 1 Year)</td><td>4.0C</td><td>3.0C</td><td>19–20</td><td>12.0 cm</td></tr>
+                <tr><td><strong>130 mm</strong></td><td>Toddler (12–18 mos)</td><td>5.0C</td><td>4.0C</td><td>21</td><td>13.0 cm</td></tr>
+                <tr><td><strong>140 mm</strong></td><td>Toddler (2–2.5 Years)</td><td>6.5C</td><td>5.5C</td><td>22–23</td><td>14.0 cm</td></tr>
+                <tr><td><strong>150 mm</strong></td><td>Preschool (3 Years)</td><td>8.0C</td><td>7.0C</td><td>24–25</td><td>15.0 cm</td></tr>
+                <tr><td><strong>160 mm</strong></td><td>Preschool (3.5–4 Years)</td><td>9.5C</td><td>8.5C</td><td>26</td><td>16.0 cm</td></tr>
+                <tr><td><strong>170 mm</strong></td><td>Young Child (4–5 Years)</td><td>11.0C</td><td>10.0C</td><td>28</td><td>17.0 cm</td></tr>
+                <tr><td><strong>180 mm</strong></td><td>School Age (5–6 Years)</td><td>12.0C</td><td>11.0C</td><td>29–30</td><td>18.0 cm</td></tr>
+                <tr><td><strong>190 mm</strong></td><td>Primary School (6–7 Years)</td><td>13.0C</td><td>12.0C</td><td>31</td><td>19.0 cm</td></tr>
+                <tr><td><strong>200 mm</strong></td><td>Junior (7–8 Years)</td><td>1.5Y</td><td>13.5C</td><td>32–33</td><td>20.0 cm</td></tr>
+                <tr><td><strong>210 mm</strong></td><td>Youth (8–9 Years)</td><td>2.5Y</td><td>1.5Y</td><td>34</td><td>21.0 cm</td></tr>
+                <tr><td><strong>220 mm</strong></td><td>Youth / Teen Transition (10+ Years)</td><td>3.5Y</td><td>2.5Y</td><td>35</td><td>22.0 cm</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Korean Brand Sizing Matrix -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Popular Korean Footwear Brand Sizing Guide</h3>
+              <p class="body-sm text-mute">Fit advice for Fila Korea, Pro-Specs, MLB Korea, and Musinsa Standard fashion lines</p>
+            </div>
+            <span class="category-pill">Brand Fit Guide</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Popular Korean Footwear Brand Sizing Guide">
+              <thead>
+                <tr>
+                  <th>Brand &amp; Style</th>
+                  <th>Primary Sizing Used</th>
+                  <th>Fit Characteristics &amp; Advice</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Fila Korea (Disruptor / Ray Tracer)</strong></td><td>Korean Millimetres (KR mm)</td><td>Chunky platform silhouette; true to mm length. Size up 5 mm for thick socks.</td></tr>
+                <tr><td><strong>Pro-Specs (Walking &amp; Running)</strong></td><td>Korean Millimetres (KR mm)</td><td>Engineered for East Asian foot anatomy; provides generous ball width and arch support.</td></tr>
+                <tr><td><strong>MLB Korea (Big Ball Chunky)</strong></td><td>Korean Millimetres (KR mm)</td><td>Oversized K-fashion street sneaker; true to size with snug heel collar containment.</td></tr>
+                <tr><td><strong>New Balance Korea (Licensed Lines)</strong></td><td>Korean Millimetres (KR mm)</td><td>Faithful to standard New Balance US/MM sizing with premium regional colourways.</td></tr>
+                <tr><td><strong>Musinsa Standard Footwear</strong></td><td>Korean Millimetres (KR mm)</td><td>Clean minimalist dress shoes and loafers; true to measured foot length in millimetres.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep-Dive SEO Editorial Prose Content (800 - 1200 words) -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Korean Footwear Architecture</p>
+            <h2 class="prose-main-title">Mastering the Korea Shoe Size Chart: Footwear Conversions &amp; Sizing Systems</h2>
+            <p class="prose-lead">South Korea is recognized globally for cutting-edge streetwear, iconic K-fashion sneakers, and precision industrial design. When shopping for footwear in Seoul or browsing e-commerce platforms like Musinsa, Coupang, and ZigZag, understanding how a <strong>korea shoe size</strong> operates gives you an unmatched advantage. Here is your definitive guide to Korean footwear sizing.</p>
+          </header>
+
+          <div class="content-prose">
+            <h3 class="heading-sm">The Precision of Korean Shoe Sizing: The Millimetre (Mondopoint) System</h3>
+            <p>Unlike Western footwear systems relying on imperial barleycorns (1/3 inch) or European Paris Points (2/3 cm), the <strong>korea shoe size chart</strong> is based directly on metric measurements. Under Korean Industrial Standard <strong>KS M 6681</strong>, South Korea uses the international <strong>Mondopoint system</strong>, expressing each <strong>korea shoe size</strong> as anatomical foot length in millimetres (MM).</p>
+            <p>A sneaker box marked "270" indicates the shoe last was precision-engineered for a foot measuring exactly 270 millimetres (27.0 centimetres) from heel to longest toe. Sizes increase in uniform 5-millimetre intervals (e.g., 250, 255, 260, 265, 270 mm), eliminating uneven half-size jumps.</p>
+            <p>Because millimetres are an absolute metric, the nominal length of a <strong>korea shoe size</strong> is gender-neutral. A 250 mm shoe provides 250 millimetres of footbed length for men or women. However, volume differs: Korean women's footwear features narrower heel cups, lower insteps, and slimmer ball girths than men's models of the same millimetre number.</p>
+
+            <h3 class="heading-sm">Foot Size in Korea vs. International Shoe Size Conversion</h3>
+            <p>Performing an accurate <strong>foot size conversion</strong> or <strong>feet size conversion</strong> between South Korea and Western sizing requires understanding demographic rules:</p>
+            <ul>
+              <li><strong>Korean Men's Footwear Conversion:</strong> For adult men, the conversion formula is: <em>US Men's Size ≈ (Korea Size in MM − 180) ÷ 10</em>. A <strong>foot size in korea</strong> of 260 mm translates to US Men's 8.0, 265 mm equals US Men's 8.5, 270 mm maps to US Men's 9.0, and 280 mm corresponds to US Men's 10.0. In British sizing, subtract roughly one size from US (KR 270 mm = UK 8.5). In European sizes, KR 270 mm aligns with EU 42.0 to 42.5.</li>
+              <li><strong>Korean Women's Footwear Conversion:</strong> Because American women's sizes run roughly 1.5 to 2 sizes higher for identical foot length, converting <strong>shoe size conversion</strong> for women follows: <em>US Women's Size ≈ (Korea Size in MM − 170) ÷ 10</em>. A Korea size 230 mm translates to US Women's 6.0, 235 mm equals US Women's 6.5, 240 mm corresponds to US Women's 7.0 to 7.5, and 250 mm converts to US Women's 8.5 to 9.0.</li>
+              <li><strong>Converting Korea to Japan:</strong> Because both use Mondopoint metrics, converting between Korea and Japan is instant: simply divide or multiply by 10 (KR 270 mm = JP 27.0 cm; KR 240 mm = JP 24.0 cm).</li>
+            </ul>
+
+            <h3 class="heading-sm">Navigating Childrens Shoe Sizes in South Korea</h3>
+            <p>Parents ordering kids' footwear from South Korea benefit from the simplicity of <strong>childrens shoe sizes</strong> under the Korean system. Unlike Western children's sizing that resets between infant and youth numbers, Korean <strong>childrens shoe sizes</strong> run in a continuous millimetre scale:</p>
+            <ul>
+              <li><strong>First Walkers &amp; Infants (110 mm to 130 mm):</strong> Designed for toddlers from 6 to 18 months, corresponding to US Kids 3C to 5C and EU 18 to 21.</li>
+              <li><strong>Preschool &amp; Toddlers (140 mm to 170 mm):</strong> Built for active children aged 2 to 5 years, mapping to US Kids 6.5C to 11C and EU 22 to 28.</li>
+              <li><strong>Primary School &amp; Juniors (180 mm to 220 mm):</strong> Built for school-age youth aged 6 to 11 years, mapping to US 12C through youth 3.5Y.</li>
+            </ul>
+            <p>Toddlers outgrow shoes rapidly; measuring every three months ensures young feet have room to develop naturally.</p>
+
+            <h3 class="heading-sm">Korean Brand Sizing: Fila Korea, Pro-Specs, MLB &amp; K-Fashion</h3>
+            <p>While an official <strong>korea foot size chart</strong> provides a standard baseline, brand lasts have unique characteristics:</p>
+            <ul>
+              <li><strong>Fila Korea:</strong> Headquartered in Seoul, Fila popularized chunky retro sneakers like the Disruptor II and Ray Tracer. Fila fits true to millimetre length, though wearers with wide feet often prefer sizing up 5 mm for thick sock comfort.</li>
+              <li><strong>Pro-Specs (프로스펙스):</strong> Founded in 1981, Pro-Specs is Korea's national sports brand. Built specifically for East Asian foot morphology, Pro-Specs offers generous forefoot room and stable heel containment.</li>
+              <li><strong>MLB Korea &amp; Discovery Expedition (F&amp;F):</strong> Dominating streetwear in Seoul, Big Ball Chunky sneakers feature elevated soles and fit true to size with snug padding.</li>
+              <li><strong>Musinsa Standard Footwear:</strong> The house brand of Korea's premier fashion platform Musinsa produces minimalist footwear that fits strictly true to measured millimetre foot length.</li>
+            </ul>
+
+            <h3 class="heading-sm">How to Measure Your Foot Using a Korea Foot Size Chart</h3>
+            <p>To pinpoint your exact <strong>shoe size</strong> on our <strong>korea foot size chart</strong>, follow this simple measurement method at home:</p>
+            <ol>
+              <li><strong>Measure in Late Afternoon:</strong> Feet naturally expand slightly during the day due to walking and warmth.</li>
+              <li><strong>Place Paper Against a Flat Wall:</strong> Tape a sheet of paper to a hard floor, flush against a vertical wall.</li>
+              <li><strong>Stand Tall:</strong> Step onto the paper with your heel lightly touching the wall, distributing weight evenly.</li>
+              <li><strong>Mark Your Longest Toe:</strong> Hold a pencil upright and mark the furthest tip of your longest toe.</li>
+              <li><strong>Measure in Millimetres:</strong> Measure from the paper edge to your pencil mark in millimetres. That number is your primary Korean <strong>shoe size</strong>.</li>
+            </ol>
+            <p><strong>The "Yeoyu" (여유) Allowance Rule:</strong> In Korean shoemaking, artisans recommend roughly 5 to 10 mm of toe room (*yeoyu*) beyond your longest toe to accommodate natural forward foot slide during walking.</p>
+
+            <h3 class="heading-sm">Rapid Lookup: Most Popular Korean Shoe Sizes Explained</h3>
+            <p>Quick lookup guide for popular sizes on a <strong>korea shoe size chart</strong>:</p>
+            <ul>
+              <li><strong>KR 230 – 235 mm:</strong> Standard adult women's sizes, mapping to US Women's 6.0 to 6.5 and EU 37 to 37.5.</li>
+              <li><strong>KR 240 – 245 mm:</strong> The most widely stocked women's sizes in Korea, translating to US Women's 7.0 to 8.0 and EU 38.5 to 39.</li>
+              <li><strong>KR 250 – 255 mm:</strong> Crossover range between larger women's shoes (US Women's 8.5 to 9.5) and entry men's footwear (US Men's 7.0 to 7.5).</li>
+              <li><strong>KR 260 – 265 mm:</strong> Standard median size for adult men in Korea, translating to US Men's 8.0 to 8.5 and EU 41 to 41.5.</li>
+              <li><strong>KR 270 – 275 mm:</strong> Highly popular men's athletic size, equivalent to US Men's 9.0 to 9.5 and EU 42 to 42.5.</li>
+              <li><strong>KR 280 mm and Above:</strong> Corresponds to US Men's 10.0+ and EU 43+, widely stocked in flagship sneaker stores.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <div class="faq-card">
+          <p class="mono-eyebrow">Frequently Asked Questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">Korea Footwear &amp; Shoe Sizing FAQs</h2>
+          <div class="faq-list">
+            {faqs.map(item => (
+              <details class="faq-item">
+                <summary class="faq-q">
+                  <span>{item.q}</span>
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-a"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Internal Links -->
+    <section class="related-band">
+      <div class="page-inner">
+        <RelatedLinks
+          title="Popular Asian &amp; Metric Size Conversions"
+          links={conversionLinks}
+        />
+        <div style="margin-top:32px">
+          <RelatedLinks
+            title="Explore Other Regional Sizing Systems"
+            links={countryLinks}
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 64px 24px 40px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .page-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    max-width: 720px;
+    margin: 16px auto 24px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .badge-trust {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-body);
+  }
+
+  /* Converter Band */
+  .converter-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .converter-inline {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .ci-header {
+    margin-bottom: 24px;
+  }
+  .ci-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .ci-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ci-results {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 20px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ci-placeholder {
+    color: var(--v-mute);
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Tables band */
+  .table-band {
+    padding: 48px 24px;
+  }
+  .section-heading {
+    margin-bottom: 32px;
+  }
+  .table-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    overflow: hidden;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .table-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    background: var(--v-subtle);
+  }
+  .category-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-ink);
+  }
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+  }
+  .size-table th {
+    background: var(--v-canvas);
+    padding: 12px 18px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-body);
+  }
+  .size-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-ink);
+  }
+  .size-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .size-table tbody tr:hover {
+    background: var(--v-subtle);
+  }
+
+  /* Prose Article Band */
+  .content-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .prose-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 48px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .prose-header {
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 28px;
+  }
+  .prose-main-title {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 12px 0 16px;
+    line-height: 1.25;
+  }
+  .prose-lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--v-body);
+  }
+  .content-prose h3 {
+    margin: 36px 0 14px;
+    color: var(--v-ink);
+  }
+  .content-prose p {
+    margin-bottom: 18px;
+    line-height: 1.7;
+    color: var(--v-body);
+    font-size: 15px;
+  }
+  .content-prose ul, .content-prose ol {
+    margin: 0 0 24px 20px;
+    color: var(--v-body);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .content-prose li {
+    margin-bottom: 10px;
+  }
+  .content-prose strong {
+    color: var(--v-ink);
+  }
+
+  /* FAQs */
+  .faq-band {
+    padding: 48px 24px;
+  }
+  .faq-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 40px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-canvas);
+    transition: all 0.15s ease;
+  }
+  .faq-item[open] {
+    background: var(--v-subtle);
+  }
+  .faq-q {
+    padding: 18px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--v-ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    flex-shrink: 0;
+    margin-left: 16px;
+    transition: transform 0.2s ease;
+    color: var(--v-mute);
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-a {
+    padding: 0 20px 20px;
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .faq-a p {
+    margin: 0;
+  }
+
+  /* Related */
+  .related-band {
+    padding: 48px 24px 64px;
+    background: var(--v-canvas);
+  }
+
+  @media (max-width: 768px) {
+    .ci-row {
+      grid-template-columns: 1fr;
+    }
+    .prose-card {
+      padding: 24px;
+    }
+    .faq-card {
+      padding: 24px;
+    }
+  }
+</style>
+
+<script>
+  import { SIZE_DATA } from '../../data/shoe-sizes';
+
+  const sizeSelect = document.getElementById('kr-size') as HTMLSelectElement | null;
+  const genderSelect = document.getElementById('kr-gender') as HTMLSelectElement | null;
+  const resultsContainer = document.getElementById('kr-results');
+
+  function updateSizes() {
+    if (!genderSelect || !sizeSelect) return;
+    const gender = (genderSelect.value || 'men') as 'men' | 'women' | 'kids';
+    const sizes = SIZE_DATA[gender]?.korea || [];
+    const cmSizes = SIZE_DATA[gender]?.cm || [];
+    const currentVal = sizeSelect.value;
+
+    sizeSelect.innerHTML = '<option value="" disabled selected>Select Korea size (mm)</option>';
+    const seen = new Set();
+    sizes.forEach((s, idx) => {
+      const val = String(s);
+      if (!seen.has(val)) {
+        seen.add(val);
+        const opt = document.createElement('option');
+        opt.value = val;
+        const cm = cmSizes[idx] ? ` (${cmSizes[idx]} cm)` : '';
+        opt.textContent = `KR ${val} mm${cm}`;
+        sizeSelect.appendChild(opt);
+      }
+    });
+
+    if (currentVal && seen.has(currentVal)) {
+      sizeSelect.value = currentVal;
+    }
+    renderResults();
+  }
+
+  function renderResults() {
+    if (!resultsContainer || !sizeSelect) return;
+    const size = sizeSelect.value;
+    if (!size) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Select a Korean shoe size to see instant conversions across US, UK, EU, CM, and Inches</p>';
+      return;
+    }
+
+    const gender = (genderSelect?.value || 'men') as 'men' | 'women' | 'kids';
+    const data = SIZE_DATA[gender];
+    const idx = data.korea?.findIndex(s => String(s) === size);
+
+    if (idx === undefined || idx === -1) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Size not found in database</p>';
+      return;
+    }
+
+    const us = data.us?.[idx] ?? '—';
+    const uk = data.uk?.[idx] ?? '—';
+    const eu = data.eu?.[idx] ?? '—';
+    const cm = data.cm?.[idx] ?? `${Number(size) / 10}`;
+    const inches = data.inches?.[idx] ?? '—';
+
+    resultsContainer.innerHTML = `
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">
+        <div style="background:var(--v-elevated); border:1px solid var(--v-link); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-link);">KR Selected</span>
+          <div style="font-size:20px; font-weight:700; color:var(--v-ink); margin-top:2px;">KR ${size} mm</div>
+          <span style="font-size:11px; color:var(--v-mute); font-family:var(--font-mono);">${cm} cm</span>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">US Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">US ${us}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">UK Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">UK ${uk}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">EU Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">EU ${eu}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">Centimetres</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${cm} cm</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">Inches</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${inches}"</div>
+        </div>
+      </div>
+    `;
+  }
+
+  genderSelect?.addEventListener('change', updateSizes);
+  sizeSelect?.addEventListener('change', renderResults);
+</script>

@@ -1,0 +1,806 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Footer from '../../components/Footer.astro';
+import { SIZE_DATA } from '../../data/shoe-sizes';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/country/japan/`;
+const pageTitle = 'Japan Shoe Size Chart — JP to US, EU & CM Sizing Guide';
+const pageDescription = 'Comprehensive Japan shoe size chart for men, women, and kids. Convert Japanese centimeter sizes to US, UK, and EU with JIS width standards (E to 4E) and Asics guide.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'How do Japanese shoe sizes work?',
+    a: 'Japanese shoe sizes (JP size shoes) are based directly on your foot length in centimetres (CM) or millimetres (MM) according to the JIS S 5037 national standard. For example, a Japan size 26 means the shoe is precision-engineered for an anatomical foot length of exactly 26.0 centimetres (260 mm). Unlike US or UK sizing systems, which rely on historical imperial barleycorns, the Japanese system has zero arbitrary numbering offsets.'
+  },
+  {
+    q: 'What is a Japan shoe size 24, 25, 26, or 27 in US sizes?',
+    a: 'For men, a Japan shoe size 25 converts to US Men\'s 7, a Japan 26 equals US Men\'s 8, a Japan 27 equals US Men\'s 9, and a Japan 28 equals US Men\'s 10. For women, Japanese shoe sizes map differently because American women\'s sizing runs approximately 1.5 to 2 sizes higher than men\'s: a Japan 23.5 equals US Women\'s 6.5 to 7, a Japan 24 equals US Women\'s 7.5, and a Japan 25 equals US Women\'s 8.5 to 9.'
+  },
+  {
+    q: 'What is a 23.5 cm shoe size in Japan?',
+    a: 'A 23.5 cm shoe size in Japan (JP 23.5) represents a foot that measures 23.5 centimetres from the heel to the longest toe. In international sizing, JP 23.5 converts to an American US Women\'s 6.5 to 7, a US Men\'s 5.5, a European EU 37 to 37.5, a British UK 4.5, and a South Korean KR 235 mm.'
+  },
+  {
+    q: 'What is the difference between Japanese shoe sizes (cm) and Korean shoe sizes (mm)?',
+    a: 'Japanese and Korean shoe sizes follow the exact same metric Mondopoint philosophy, but use different units of measurement. Japan expresses shoe sizes in centimetres with 0.5 cm increments (e.g., JP 27 or 27.5 cm), whereas South Korea expresses shoe sizes in millimetres with 5 mm increments (e.g., KR 270 or 275 mm). To convert from Japanese to Korean sizing, simply multiply the centimetre value by 10 (27 cm × 10 = 270 mm).'
+  },
+  {
+    q: 'What do E, 2E, 3E, and 4E width markings mean on Japanese footwear?',
+    a: 'In Japan, width is codified under the Japanese Industrial Standard (JIS S 5037) ranging from narrow (A, B, C, D) to standard and wide (E, 2E, 3E, 4E, F, G). Because East Asian anatomical foot profiles frequently feature a wider forefoot and flatter instep, 2E (EE) is considered the standard medium width for Japanese men, and E is standard for Japanese women. Shoes marked 3E or 4E represent wide and extra-wide cuts designed for generous forefoot volume.'
+  },
+  {
+    q: 'How do Japanese running shoes like Asics and Mizuno fit?',
+    a: 'Japanese athletic brands such as Asics and Mizuno are renowned for anatomical heel lock, stable midfoot support, and generous forefoot toe boxes. For casual wear, they fit true to Japanese centimetre measurements. However, for distance running or marathon training, podiatrists recommend choosing a half-size up (0.5 cm larger, such as moving from JP 27.0 to JP 27.5) to accommodate natural foot swelling and prevent runner\'s toe impact.'
+  },
+  {
+    q: 'How do I measure my foot in centimetres for Japanese shoes?',
+    a: 'To measure your foot for Japanese sizing: place a blank sheet of paper against a flat vertical wall on a hard floor. Stand upright with your heel touching the wall, wearing your typical socks. Mark the tip of your longest toe on the paper with a vertical pencil. Measure the distance from the wall edge to the mark in centimetres. Your measured foot length is your exact Japan shoe size; you do not need to manually add extra clearance because Japanese shoemakers already build in 10 to 15 mm of toe room (sute-sun).'
+  },
+  {
+    q: 'Are Japanese shoe sizes unisex?',
+    a: 'Nominally, yes. Because Japanese shoe sizes represent physical foot length in centimetres, a JP 25.0 cm corresponds to a 25.0 cm foot whether designed for men or women. However, men\'s and women\'s Japanese shoes differ in interior volume and width: standard Japanese men\'s models are typically built on a 2E last, whereas women\'s models are shaped on a narrower E or D last.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` },
+  })),
+});
+
+const conversionLinks = [
+  { label: 'US to Japan Shoe Size', href: '/us-to-japan-shoe-size/' },
+  { label: 'Shoe Size in CM', href: '/shoe-size-in-cm/' },
+  { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
+  { label: 'Shoe Size by Foot Length', href: '/shoe-size-by-foot-length/' },
+  { label: 'What Is My Shoe Size?', href: '/what-is-my-shoe-size/' },
+  { label: 'US to EU Shoe Size', href: '/us-to-eu-shoe-size/' },
+];
+
+const countryLinks = [
+  { label: '🇺🇸 United States', href: '/country/us/' },
+  { label: '🇬🇧 United Kingdom', href: '/country/uk/' },
+  { label: '🇪🇺 Europe', href: '/country/europe/' },
+  { label: '🇮🇳 India', href: '/country/india/' },
+  { label: '🇦🇺 Australia', href: '/country/australia/' },
+  { label: '🇲🇽 Mexico', href: '/country/mexico/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="japan shoe size chart, japan shoe size conversion, japan shoe sizes, japan shoes size chart, japan shoe sizing to us, japan feet size chart, foot size chart japan, japan shoe size chart cm, japan shoe size chart women, japan men's shoe size chart, japan shoe conversion chart, jp size shoes, size chart shoes japan, japan us shoe size chart, japan shoe size to us, japan shoe size to eu" />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Japan Shoe Size Chart — JP to US, EU & CM Sizing Guide" />
+    <meta property="og:description" content="Master Japan shoe size chart for men, women, and kids. Convert Japanese centimeter sizes to US, UK, EU, and explore JIS width standards and Asics sizing." />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Japan Shoe Size Chart and Conversion Guide" />
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Japan Shoe Size Chart — JP to US, EU & CM Sizing Guide" />
+    <meta name="twitter:description" content="Accurate Japan shoe size chart, feet size chart, and JIS width fitting guide for international footwear shoppers." />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured Data -->
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Countries', href: '/country/' },
+      { label: '🇯🇵 Japan' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">🇯🇵 Japanese Mondopoint Standard (JIS S 5037)</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Japan Shoe Size Chart &amp; Conversion Guide</h1>
+        <p class="hero-sub body-lg">Looking for an accurate <strong>japan shoe size chart</strong>? Explore our verified <strong>japan shoe size conversion</strong> guide for men, women, and children. Convert <strong>jp size shoes</strong> measured directly in centimetres (CM) to US, UK, and European sizes, and discover official JIS width fittings (E to 4E).</p>
+        <div class="hero-badges">
+          <span class="badge-trust">Men's &amp; Women's Centimeter Charts</span>
+          <span class="badge-trust">JIS Width Standards (E, 2E, 3E, 4E)</span>
+          <span class="badge-trust">Kids Shoe Size Chart Japan</span>
+          <span class="badge-trust">Asics &amp; Mizuno Brand Guidance</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Japan Size Converter Tool -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated converter-inline">
+          <div class="ci-header">
+            <div>
+              <p class="mono-eyebrow">Instant Japanese Footwear Conversion</p>
+              <h2 class="heading-md">Convert Japan Shoe Sizes in Real Time</h2>
+            </div>
+            <p class="body-sm text-mute">Select your Japanese shoe size (foot length in cm) and gender category to see international equivalents instantly.</p>
+          </div>
+
+          <div class="ci-row">
+            <div class="ci-field">
+              <label class="step-label" for="jp-size">
+                <span class="step-num">1</span> Japan Shoe Size (JP / CM)
+              </label>
+              <select id="jp-size" class="form-select ci-size-select" aria-label="Japan shoe size">
+                <option value="" disabled selected>Select JP size (cm)</option>
+                {SIZE_DATA.men.jp.map(s => <option value={String(s)}>JP {s} cm</option>)}
+              </select>
+            </div>
+            <div class="ci-field">
+              <label class="step-label" for="jp-gender">
+                <span class="step-num">2</span> Category / Demographic
+              </label>
+              <select id="jp-gender" class="form-select ci-gender-select" aria-label="Gender">
+                <option value="men" selected>Men's Shoe Chart (JP)</option>
+                <option value="women">Women's Shoe Chart (JP)</option>
+                <option value="kids">Kids &amp; Toddler Shoe Chart (JP)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ci-results" id="jp-results" aria-live="polite">
+            <p class="ci-placeholder">Select a Japanese size to see conversions across US, EU, UK, India, CM, and Inches</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Reference Tables Section -->
+    <section class="table-band">
+      <div class="page-inner">
+        <header class="section-heading">
+          <p class="mono-eyebrow">Master Reference Charts</p>
+          <h2 class="heading-lg">Comprehensive Japan Footwear Size Charts</h2>
+          <p class="body-md">Use these official conversion tables to translate Japanese shoe sizes (measured in centimetres and millimetres) into US, UK, and European standards.</p>
+        </header>
+
+        <!-- 1. Men's Japan Shoe Size Chart -->
+        <div class="table-card">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Japan Men's Shoe Size Chart</h3>
+              <p class="body-sm text-mute">Includes JP (cm), Mondopoint (mm), US Men, UK, EU, and foot length in inches</p>
+            </div>
+            <span class="category-pill">Men's JIS Standard</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Japan Men's Shoe Size Chart">
+              <thead>
+                <tr>
+                  <th>Japan Size (CM)</th>
+                  <th>Mondopoint (MM)</th>
+                  <th>US Men</th>
+                  <th>UK Men</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (Inches)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>24.0 cm</strong></td><td>240 mm</td><td>6.0</td><td>5.5</td><td>39.0</td><td>9.3"</td></tr>
+                <tr><td><strong>24.5 cm</strong></td><td>245 mm</td><td>6.5</td><td>6.0</td><td>39.5</td><td>9.5"</td></tr>
+                <tr><td><strong>25.0 cm</strong></td><td>250 mm</td><td>7.0</td><td>6.5</td><td>40.0</td><td>9.6"</td></tr>
+                <tr><td><strong>25.5 cm</strong></td><td>255 mm</td><td>7.5</td><td>7.0</td><td>40.5</td><td>9.8"</td></tr>
+                <tr><td><strong>26.0 cm</strong></td><td>260 mm</td><td>8.0</td><td>7.5</td><td>41.0</td><td>9.9"</td></tr>
+                <tr><td><strong>26.5 cm</strong></td><td>265 mm</td><td>8.5</td><td>8.0</td><td>41.5</td><td>10.1"</td></tr>
+                <tr><td><strong>27.0 cm</strong></td><td>270 mm</td><td>9.0</td><td>8.5</td><td>42.0</td><td>10.3"</td></tr>
+                <tr><td><strong>27.5 cm</strong></td><td>275 mm</td><td>9.5</td><td>9.0</td><td>42.5</td><td>10.4"</td></tr>
+                <tr><td><strong>28.0 cm</strong></td><td>280 mm</td><td>10.0</td><td>9.5</td><td>43.0</td><td>10.6"</td></tr>
+                <tr><td><strong>28.5 cm</strong></td><td>285 mm</td><td>10.5</td><td>10.0</td><td>43.5</td><td>10.8"</td></tr>
+                <tr><td><strong>29.0 cm</strong></td><td>290 mm</td><td>11.0</td><td>10.5</td><td>44.0</td><td>10.9"</td></tr>
+                <tr><td><strong>29.5 cm</strong></td><td>295 mm</td><td>11.5</td><td>11.0</td><td>44.5</td><td>11.1"</td></tr>
+                <tr><td><strong>30.0 cm</strong></td><td>300 mm</td><td>12.0</td><td>11.5</td><td>45.0</td><td>11.3"</td></tr>
+                <tr><td><strong>31.0 cm</strong></td><td>310 mm</td><td>13.0</td><td>12.5</td><td>46.5</td><td>11.6"</td></tr>
+                <tr><td><strong>32.0 cm</strong></td><td>320 mm</td><td>14.0</td><td>13.5</td><td>47.5</td><td>11.9"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Women's Japan Shoe Size Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Japan Shoe Size Chart Women</h3>
+              <p class="body-sm text-mute">Accurate conversion for women's Japanese footwear to US, UK, and European sizes</p>
+            </div>
+            <span class="category-pill">Women's JIS Standard</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Japan Shoe Size Chart Women">
+              <thead>
+                <tr>
+                  <th>Japan Size (CM)</th>
+                  <th>Mondopoint (MM)</th>
+                  <th>US Women</th>
+                  <th>UK Women</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (Inches)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>21.0 cm</strong></td><td>210 mm</td><td>4.0</td><td>2.0</td><td>35.0</td><td>8.2"</td></tr>
+                <tr><td><strong>21.5 cm</strong></td><td>215 mm</td><td>4.5</td><td>2.5</td><td>35.5</td><td>8.3"</td></tr>
+                <tr><td><strong>22.0 cm</strong></td><td>220 mm</td><td>5.0</td><td>3.0</td><td>36.0</td><td>8.5"</td></tr>
+                <tr><td><strong>22.5 cm</strong></td><td>225 mm</td><td>5.5</td><td>3.5</td><td>36.5</td><td>8.8"</td></tr>
+                <tr><td><strong>23.0 cm</strong></td><td>230 mm</td><td>6.0</td><td>4.0</td><td>37.0</td><td>8.9"</td></tr>
+                <tr><td><strong>23.5 cm</strong></td><td>235 mm</td><td>6.5 – 7.0</td><td>4.5</td><td>37.5 – 38.0</td><td>9.3"</td></tr>
+                <tr><td><strong>24.0 cm</strong></td><td>240 mm</td><td>7.5</td><td>5.0</td><td>38.5</td><td>9.4"</td></tr>
+                <tr><td><strong>24.5 cm</strong></td><td>245 mm</td><td>8.0</td><td>5.5</td><td>39.0</td><td>9.5"</td></tr>
+                <tr><td><strong>25.0 cm</strong></td><td>250 mm</td><td>8.5 – 9.0</td><td>6.0</td><td>39.5 – 40.0</td><td>9.7"</td></tr>
+                <tr><td><strong>25.5 cm</strong></td><td>255 mm</td><td>9.5</td><td>6.5</td><td>40.5</td><td>9.9"</td></tr>
+                <tr><td><strong>26.0 cm</strong></td><td>260 mm</td><td>10.0</td><td>7.0</td><td>41.0</td><td>10.2"</td></tr>
+                <tr><td><strong>26.5 cm</strong></td><td>265 mm</td><td>10.5</td><td>7.5</td><td>41.5</td><td>10.5"</td></tr>
+                <tr><td><strong>27.0 cm</strong></td><td>270 mm</td><td>11.0</td><td>8.0</td><td>42.0</td><td>10.7"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Kids & Toddler Japan Shoe Size Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Japan Kids &amp; Toddler Shoe Size Chart</h3>
+              <p class="body-sm text-mute">From early walking stages (11 cm) through primary school youth footwear (22 cm)</p>
+            </div>
+            <span class="category-pill">Infant, Toddler &amp; Youth</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Japan Kids Shoe Size Chart">
+              <thead>
+                <tr>
+                  <th>Japan Size (CM)</th>
+                  <th>Age Range Milestone</th>
+                  <th>US Kids</th>
+                  <th>UK Kids</th>
+                  <th>EU Kids</th>
+                  <th>Foot Length (Inches)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>11.0 cm</strong></td><td>Infant / First Steps (6–9 months)</td><td>3.0C</td><td>2.0C</td><td>18</td><td>4.3"</td></tr>
+                <tr><td><strong>12.0 cm</strong></td><td>Toddler (9–12 months / 1 Year)</td><td>4.0C</td><td>3.0C</td><td>19–20</td><td>4.7"</td></tr>
+                <tr><td><strong>13.0 cm</strong></td><td>Toddler (12–18 months)</td><td>5.0C</td><td>4.0C</td><td>21</td><td>5.1"</td></tr>
+                <tr><td><strong>14.0 cm</strong></td><td>Toddler (2–2.5 Years)</td><td>6.5C</td><td>5.5C</td><td>22–23</td><td>5.5"</td></tr>
+                <tr><td><strong>15.0 cm</strong></td><td>Preschool (3 Years)</td><td>8.0C</td><td>7.0C</td><td>24–25</td><td>5.9"</td></tr>
+                <tr><td><strong>16.0 cm</strong></td><td>Preschool (3.5–4 Years)</td><td>9.5C</td><td>8.5C</td><td>26</td><td>6.3"</td></tr>
+                <tr><td><strong>17.0 cm</strong></td><td>Young Child (4–5 Years)</td><td>11.0C</td><td>10.0C</td><td>28</td><td>6.7"</td></tr>
+                <tr><td><strong>18.0 cm</strong></td><td>School Age (5–6 Years)</td><td>12.0C</td><td>11.0C</td><td>29–30</td><td>7.1"</td></tr>
+                <tr><td><strong>19.0 cm</strong></td><td>Primary School (6–7 Years)</td><td>13.0C</td><td>12.0C</td><td>31</td><td>7.5"</td></tr>
+                <tr><td><strong>20.0 cm</strong></td><td>Junior (7–8 Years)</td><td>1.5Y</td><td>13.5C</td><td>32–33</td><td>7.9"</td></tr>
+                <tr><td><strong>21.0 cm</strong></td><td>Youth (8–9 Years)</td><td>2.5Y</td><td>1.5Y</td><td>34</td><td>8.3"</td></tr>
+                <tr><td><strong>22.0 cm</strong></td><td>Youth / Teen Transition (10+ Years)</td><td>3.5Y</td><td>2.5Y</td><td>35</td><td>8.7"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Japanese JIS Width Fitting Standards -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Japanese JIS Footwear Width Standards (JIS S 5037)</h3>
+              <p class="body-sm text-mute">Forefoot ball girth ratings: from narrow A fittings to ultra-wide 4E and F cuts</p>
+            </div>
+            <span class="category-pill">JIS S 5037 Width Matrix</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Japanese JIS Shoe Width Standards">
+              <thead>
+                <tr>
+                  <th>JIS Width Code</th>
+                  <th>Classification</th>
+                  <th>Relative Profile</th>
+                  <th>Typical Population Match</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>A / B / C</strong></td><td>Very Narrow to Slim</td><td>Slender instep, low volume</td><td>Rare in domestic lines; slim international feet</td></tr>
+                <tr><td><strong>D</strong></td><td>Narrow (Men) / Medium (Women)</td><td>Fitted forefoot, snug arch</td><td>Standard western medium; narrow in Japan</td></tr>
+                <tr><td><strong>E</strong></td><td>Slim (Men) / Standard (Women)</td><td>Balanced anatomical width</td><td>Standard baseline for Japanese women</td></tr>
+                <tr><td><strong>2E (EE)</strong></td><td>Standard Medium (Men) / Wide (Women)</td><td>Moderate ball girth, comfortable splay</td><td>Standard baseline for Japanese men (~60% share)</td></tr>
+                <tr><td><strong>3E (EEE)</strong></td><td>Wide Fit</td><td>Broad metatarsal spread, high instep</td><td>Recommended for wide feet or marathon swelling</td></tr>
+                <tr><td><strong>4E (EEEE)</strong></td><td>Extra Wide Fit</td><td>Generous toe box, high vertical volume</td><td>Athletes with bunions or pronounced flat arches</td></tr>
+                <tr><td><strong>F / G</strong></td><td>Super Extra Wide</td><td>Maximum forefoot room available</td><td>Specialty therapeutic or wide commercial lasts</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep-Dive SEO Editorial Prose Content (800 - 1200 words) -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Japanese Footwear Engineering</p>
+            <h2 class="prose-main-title">Mastering the Japan Shoe Size Chart: Sizing, Conversions &amp; JIS Width Standards</h2>
+            <p class="prose-lead">From high-performance Asics marathon racers to precision-crafted leather dress shoes in Tokyo's Ginza, Japanese footwear sizing is renowned worldwide for its mathematical elegance. Here is everything you need to know to find your exact Japanese shoe size.</p>
+          </header>
+
+          <div class="content-prose">
+            <h3 class="heading-sm">The Logic of Japanese Shoe Sizing: Pure Centimetres (Mondopoint)</h3>
+            <p>Unlike Western systems using imperial barleycorns (1/3 inch) or European Paris Points (2/3 cm), the <strong>japan shoe size chart</strong> is based purely on metric foot length. Regulated under <strong>JIS S 5037</strong>, Japanese shoe sizes state the wearer's anatomical foot length in centimetres (CM).</p>
+            <p>A label on a pair of <strong>jp size shoes</strong> marked "26.5" indicates the shoe was designed for a foot measuring exactly 26.5 cm from heel to longest toe. In international standards, this is the <strong>Mondopoint system</strong> (ISO 9407). While South Korea uses millimetres (KR 265), Japan uses centimetres in 0.5 cm increments, making it exceptionally clear and intuitive.</p>
+            <p>Because centimetres are an absolute metric, nominal length on a <strong>japan shoe size chart</strong> is gender-neutral. A <strong>japan 25 shoe size</strong> designates a 25.0 cm footbed for men or women. Gender differences appear in internal width rather than length.</p>
+
+            <h3 class="heading-sm">Japan Shoe Size Conversion to US, UK, and European Sizing</h3>
+            <p>Navigating a <strong>japan shoe size conversion</strong> requires understanding how Western scales diverge by demographic. Because US men's and women's scales differ by 1.5 sizes, converting <strong>japan shoe size to us</strong> depends on the category:</p>
+            <ul>
+              <li><strong>Japan Men's Shoe Sizing to US:</strong> The rule of thumb is: <em>US Men's Size ≈ Japan Size (CM) − 18</em>. A <strong>japan 26 shoe size</strong> corresponds to US Men's 8.0, a <strong>japan 27 shoe size</strong> equals US Men's 9.0, and a <strong>japan 28 shoe size</strong> translates to US Men's 10.0. Half sizes follow: a <strong>24.5 japan shoe size</strong> maps to US Men's 6.5, and a <strong>27.5 japan shoe size</strong> aligns with US Men's 9.5.</li>
+              <li><strong>Japan Shoe Size Chart Women to US:</strong> For women, the formula is: <em>US Women's Size ≈ Japan Size (CM) − 16.5</em>. A <strong>22.5 japan shoe size to us</strong> translates to US Women's 5.5, a <strong>japan 23 shoe size</strong> equals US Women's 6.0, a <strong>23.5 japanese shoe size to us</strong> corresponds to US Women's 6.5 to 7.0, and a <strong>24.5 japan shoe size to us</strong> converts to US Women's 8.0.</li>
+              <li><strong>Japan Shoe Size to EU:</strong> European sizing is unisex, making it a reliable bridge. A Japanese 24.0 cm corresponds to EU 38.5, a <strong>25 japan shoe size</strong> corresponds to EU 40.0, a <strong>26 japan shoe size</strong> aligns with EU 41.0 to 41.5, and a <strong>27 japan shoe size</strong> equals EU 42.0 to 42.5.</li>
+            </ul>
+
+            <h3 class="heading-sm">Japanese Shoe Width Standards: Decoding E, 2E, 3E, and 4E (JIS S 5037)</h3>
+            <p>Forefoot width is crucial when buying Japanese footwear. East Asian foot profiles typically exhibit a broader forefoot ball girth and flatter instep compared to European profiles.</p>
+            <p>Under <strong>JIS S 5037</strong>, widths are classified by forefoot ball circumference:</p>
+            <ul>
+              <li><strong>D Width:</strong> Standard medium in the US and UK, but considered narrow in Japan. Broad-footed wearers will feel tight across the small toe.</li>
+              <li><strong>E Width:</strong> The standard baseline for Japanese women's shoes, providing balanced forefoot space while securing the heel.</li>
+              <li><strong>2E (EE) Width:</strong> The standard baseline for Japanese men's shoes (~60% of domestic men's footwear). Western buyers with slender feet often find 2E spacious.</li>
+              <li><strong>3E (EEE) and 4E (EEEE) Widths:</strong> Wide and extra-wide cuts. Brands like Asics and Mizuno offer dedicated Wide (3E) and Super Wide (4E) versions of running shoes for maximum toe splay.</li>
+            </ul>
+
+            <h3 class="heading-sm">Japanese Brand Sizing: Asics, Mizuno &amp; Onitsuka Tiger Nuances</h3>
+            <p>While the <strong>japan shoe conversion chart</strong> provides a standard baseline, brand lasts have distinct characteristics:</p>
+            <ul>
+              <li><strong>Asics Running Shoes:</strong> Built for stability with firm heel hold and arch support. In length, Asics fits true to cm measurements. For long-distance road running, choosing a half-size up (e.g., 27.5 cm instead of 27.0 cm) accommodates foot expansion.</li>
+              <li><strong>Onitsuka Tiger:</strong> Lifestyle models like the Mexico 66 feature low-profile soles and leather uppers. Designed for casual wear, they fit slimmer through the arch. Wearers with wide feet often prefer a 0.5 cm size-up.</li>
+              <li><strong>Mizuno Footwear:</strong> Features Wave Plate heel stability and a roomy, square toe box that accommodates runners with longer second toes.</li>
+            </ul>
+
+            <h3 class="heading-sm">How to Measure Your Feet Using a Foot Size Chart Japan: The "Sute-sun" Rule</h3>
+            <p>To find your size on our <strong>foot size chart japan</strong>, follow this simple measurement method at home:</p>
+            <ol>
+              <li><strong>Measure in the Afternoon:</strong> Feet expand slightly during the day due to walking and gravity.</li>
+              <li><strong>Place Paper Against a Wall:</strong> Tape a sheet of paper to a hard floor flush against a flat wall.</li>
+              <li><strong>Stand Tall:</strong> Step on the paper with your heel lightly touching the wall, distributing weight evenly.</li>
+              <li><strong>Mark Your Longest Toe:</strong> Hold a pencil upright and mark the tip of your longest toe.</li>
+              <li><strong>Measure in Millimetres:</strong> Measure from the paper edge to your pencil mark in centimetres. Size to the longer foot.</li>
+            </ol>
+            <p><strong>The "Sute-sun" (捨て寸) Rule:</strong> Do not add extra centimetres yourself before consulting a <strong>japan shoe size chart</strong>. Japanese shoemakers already incorporate 10 to 15 mm of toe room (<em>sute-sun</em>) into the shoe last. If your foot measures 26.2 cm, selecting a Japanese 26.5 provides the ideal walking clearance without heel slipping.</p>
+
+            <h3 class="heading-sm">Rapid Lookup: Most Popular Japanese Shoe Sizes Explained</h3>
+            <p>Quick translations for popular Japanese footwear sizes:</p>
+            <ul>
+              <li><strong>Japan 23.0 – 23.5 cm:</strong> Common women's sizes, mapping to US Women's 6.0 to 7.0 and EU 37 to 38.</li>
+              <li><strong>Japan 24.0 – 24.5 cm:</strong> Boundary between larger women's sizes (US Women's 7.5 to 8.0) and entry men's sizes (US Men's 6.0 to 6.5).</li>
+              <li><strong>Japan 25.0 – 25.5 cm:</strong> Maps to US Men's 7.0 to 7.5 (US Women's 8.5 to 9.0) and EU 40 to 40.5. Very widely stocked.</li>
+              <li><strong>Japan 26.0 – 26.5 cm:</strong> Standard median size for adult men in Japan: US Men's 8.0 to 8.5, UK 7.5 to 8.0, and EU 41.0 to 41.5.</li>
+              <li><strong>Japan 27.0 – 27.5 cm:</strong> Equivalent to US Men's 9.0 to 9.5 and EU 42.0 to 42.5. Highly popular in running shoes.</li>
+              <li><strong>Japan 28.0 cm and Above:</strong> Corresponds to US Men's 10.0+ and EU 43+. In physical stores in Japan, sizes above 28.0 cm are often labeled as specialty large sizes.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <div class="faq-card">
+          <p class="mono-eyebrow">Frequently Asked Questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">Japan Footwear &amp; Shoe Sizing FAQs</h2>
+          <div class="faq-list">
+            {faqs.map(item => (
+              <details class="faq-item">
+                <summary class="faq-q">
+                  <span>{item.q}</span>
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-a"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Internal Links -->
+    <section class="related-band">
+      <div class="page-inner">
+        <RelatedLinks
+          title="Popular Japan Shoe Size Conversions"
+          links={conversionLinks}
+        />
+        <div style="margin-top:32px">
+          <RelatedLinks
+            title="Explore Other Regional Sizing Systems"
+            links={countryLinks}
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 64px 24px 40px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .page-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    max-width: 720px;
+    margin: 16px auto 24px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .badge-trust {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-body);
+  }
+
+  /* Converter Band */
+  .converter-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .converter-inline {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .ci-header {
+    margin-bottom: 24px;
+  }
+  .ci-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .ci-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ci-results {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 20px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ci-placeholder {
+    color: var(--v-mute);
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Tables band */
+  .table-band {
+    padding: 48px 24px;
+  }
+  .section-heading {
+    margin-bottom: 32px;
+  }
+  .table-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    overflow: hidden;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .table-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    background: var(--v-subtle);
+  }
+  .category-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-ink);
+  }
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+  }
+  .size-table th {
+    background: var(--v-canvas);
+    padding: 12px 18px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-body);
+  }
+  .size-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-ink);
+  }
+  .size-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .size-table tbody tr:hover {
+    background: var(--v-subtle);
+  }
+
+  /* Prose Article Band */
+  .content-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .prose-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 48px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .prose-header {
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 28px;
+  }
+  .prose-main-title {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 12px 0 16px;
+    line-height: 1.25;
+  }
+  .prose-lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--v-body);
+  }
+  .content-prose h3 {
+    margin: 36px 0 14px;
+    color: var(--v-ink);
+  }
+  .content-prose p {
+    margin-bottom: 18px;
+    line-height: 1.7;
+    color: var(--v-body);
+    font-size: 15px;
+  }
+  .content-prose ul, .content-prose ol {
+    margin: 0 0 24px 20px;
+    color: var(--v-body);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .content-prose li {
+    margin-bottom: 10px;
+  }
+  .content-prose strong {
+    color: var(--v-ink);
+  }
+
+  /* FAQs */
+  .faq-band {
+    padding: 48px 24px;
+  }
+  .faq-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 40px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-canvas);
+    transition: all 0.15s ease;
+  }
+  .faq-item[open] {
+    background: var(--v-subtle);
+  }
+  .faq-q {
+    padding: 18px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--v-ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    flex-shrink: 0;
+    margin-left: 16px;
+    transition: transform 0.2s ease;
+    color: var(--v-mute);
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-a {
+    padding: 0 20px 20px;
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .faq-a p {
+    margin: 0;
+  }
+
+  /* Related */
+  .related-band {
+    padding: 48px 24px 64px;
+    background: var(--v-canvas);
+  }
+
+  @media (max-width: 768px) {
+    .ci-row {
+      grid-template-columns: 1fr;
+    }
+    .prose-card {
+      padding: 24px;
+    }
+    .faq-card {
+      padding: 24px;
+    }
+  }
+</style>
+
+<script>
+  import { SIZE_DATA } from '../../data/shoe-sizes';
+
+  const sizeSelect = document.getElementById('jp-size') as HTMLSelectElement | null;
+  const genderSelect = document.getElementById('jp-gender') as HTMLSelectElement | null;
+  const resultsContainer = document.getElementById('jp-results');
+
+  function updateSizes() {
+    if (!genderSelect || !sizeSelect) return;
+    const gender = (genderSelect.value || 'men') as 'men' | 'women' | 'kids';
+    const sizes = SIZE_DATA[gender]?.jp || [];
+    const currentVal = sizeSelect.value;
+
+    sizeSelect.innerHTML = '<option value="" disabled selected>Select JP size (cm)</option>';
+    const seen = new Set();
+    sizes.forEach(s => {
+      const val = String(s);
+      if (!seen.has(val)) {
+        seen.add(val);
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.textContent = `JP ${val} cm`;
+        sizeSelect.appendChild(opt);
+      }
+    });
+
+    if (currentVal && seen.has(currentVal)) {
+      sizeSelect.value = currentVal;
+    }
+    renderResults();
+  }
+
+  function renderResults() {
+    if (!resultsContainer || !sizeSelect) return;
+    const size = sizeSelect.value;
+    if (!size) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Select a Japanese size to see instant conversions across US, EU, UK, India, CM, and Inches</p>';
+      return;
+    }
+
+    const gender = (genderSelect?.value || 'men') as 'men' | 'women' | 'kids';
+    const data = SIZE_DATA[gender];
+    const idx = data.jp?.findIndex(s => String(s) === size);
+
+    if (idx === undefined || idx === -1) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Size not found in database</p>';
+      return;
+    }
+
+    const us = data.us?.[idx] ?? '—';
+    const eu = data.eu?.[idx] ?? '—';
+    const uk = data.uk?.[idx] ?? '—';
+    const india = data.india?.[idx] ?? '—';
+    const cm = data.cm?.[idx] ?? size;
+    const inches = data.inches?.[idx] ?? '—';
+
+    resultsContainer.innerHTML = `
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">
+        <div style="background:var(--v-elevated); border:1px solid var(--v-link); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-link);">JP Selected</span>
+          <div style="font-size:20px; font-weight:700; color:var(--v-ink); margin-top:2px;">JP ${size} cm</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">US Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">US ${us}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">EU Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">EU ${eu}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">UK Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">UK ${uk}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">India Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">IND ${india}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">Inches</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${inches}"</div>
+        </div>
+      </div>
+    `;
+  }
+
+  genderSelect?.addEventListener('change', updateSizes);
+  sizeSelect?.addEventListener('change', renderResults);
+</script>

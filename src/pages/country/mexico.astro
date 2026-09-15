@@ -1,0 +1,805 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Footer from '../../components/Footer.astro';
+import { SIZE_DATA } from '../../data/shoe-sizes';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/country/mexico/`;
+const pageTitle = 'Mexico Shoe Size Chart — Mexican Punto & Footwear Guide';
+const pageDescription = 'Comprehensive Mexico shoe size chart for men, women, and kids. Understand Mexican Punto Calzado (CM), León leather boot sizing, Flexi, and Cuadra.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'How do shoe sizes work in Mexico (Punto Calzado)?',
+    a: 'In Mexico, footwear sizing is based directly on foot length in centimetres, traditionally known as "Puntos" or "Punto Calzado". For instance, a Mexican size 26 means the shoe is built for a 26.0 centimetre foot. In daily conversation and retail, Mexicans often drop the leading digit "2", so a size 26 is colloquially referred to as "talla 6".'
+  },
+  {
+    q: 'What does "size 8 en Mexico" mean in footwear?',
+    a: '"Size 8 en Mexico" (or talla 8 mexicana) represents a shoe crafted for a 28 centimetre foot (Punto 28). In international footwear sizing, an adult Mexican men\'s size 8 (28 cm) corresponds to an American US Men\'s 9.5 to 10.0, a British UK 9.0 to 9.5, and a European EU 43.'
+  },
+  {
+    q: 'What is a 24.5 or 25.5 Mexico shoe size?',
+    a: 'A 24.5 Mexico shoe size (Punto 24.5, or talla 4.5) corresponds to an anatomical foot length of 24.5 centimetres. In adult women\'s sizing, it translates to US Women\'s 7.5 to 8.0, UK 5.5, and EU 38.5 to 39.0. A 25.5 Mexico shoe size (Punto 25.5, or talla 5.5) represents 25.5 cm of foot length, mapping to US Women\'s 8.5 to 9.0, US Men\'s 7.5, UK 6.5 to 7.0, and EU 40.5.'
+  },
+  {
+    q: 'What is a 2.5 Mexico shoe size?',
+    a: 'A 2.5 Mexico shoe size (Punto 22.5, or talla 2.5) designates a foot measuring 22.5 centimetres. In adult women\'s footwear, it translates to a petite US Women\'s 5.0 to 5.5, UK 3.5, and EU 35.5 to 36.0. In children\'s footwear, "talla 2.5" may refer to infant sizing depending on the brand catalogue.'
+  },
+  {
+    q: 'What do Mexican shoe width terms like "Horma Normal" and "Horma Amplia" mean?',
+    a: 'In Mexican shoemaking, width is designated by the last (*horma*). "Horma Normal" represents a standard medium width, while "Horma Amplia" designates a wide fitting (equivalent to an American EE or EEE width). Many traditional Mexican leather boots naturally feature a slightly broader ball girth than slim European shoes.'
+  },
+  {
+    q: 'How do famous Mexican shoe brands like Flexi, Cuadra, and traditional huaraches fit?',
+    a: 'Flexi footwear fits true to Mexican centimetre puntos with cushioned, ergonomic insoles. Cuadra western boots (botas vaqueras) fit snug across the instep (*empeine*) and heel initially, but genuine leather relaxes and moulds to your foot shape after breaking in. Traditional Mexican huaraches (woven leather sandals) stretch significantly—often up to half a centimetre—so they should fit comfortably snug when brand new.'
+  },
+  {
+    q: 'What is a 29.5 Mexico shoe size?',
+    a: 'A 29.5 Mexico shoe size (Punto 29.5, or talla 9.5) represents an anatomical foot length of 29.5 centimetres. In men\'s sizing, it corresponds to a large US Men\'s 11.5, UK 11.0, and EU 45.5 to 46.0.'
+  },
+  {
+    q: 'How do I measure my foot in centimetres to find my shoe size in Mexico?',
+    a: 'To determine your Mexican shoe size: place a blank sheet of paper flat on the floor against a vertical wall. Stand barefoot or with light socks, resting your heel against the wall. Mark the tip of your longest toe on the paper. Measure the distance in centimetres from the paper edge to your pencil mark. Your measurement in centimetres directly equals your Mexican shoe size (Punto Calzado).'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` },
+  })),
+});
+
+const conversionLinks = [
+  { label: 'Shoe Size in CM', href: '/shoe-size-in-cm/' },
+  { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
+  { label: 'Shoe Size by Foot Length', href: '/shoe-size-by-foot-length/' },
+  { label: 'What Is My Shoe Size?', href: '/what-is-my-shoe-size/' },
+  { label: 'Kids Shoe Size by Age', href: '/kids-shoe-size-by-age/' },
+  { label: 'Shoe Size in Inches', href: '/shoe-size-in-inches/' },
+];
+
+const countryLinks = [
+  { label: '🇺🇸 United States', href: '/country/us/' },
+  { label: '🇬🇧 United Kingdom', href: '/country/uk/' },
+  { label: '🇪🇺 Europe', href: '/country/europe/' },
+  { label: '🇯🇵 Japan', href: '/country/japan/' },
+  { label: '🇦🇺 Australia', href: '/country/australia/' },
+  { label: '🇮🇳 India', href: '/country/india/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="mexico shoe size chart, mexico shoe chart, mexico conversion shoe size, mexico shoe conversion chart, shoe size in mexico, shoe size in mexico conversion, shoe chart mexico, shoe chart size mexico, shoe size conversion for mexico, shoe size conversion in mexico, shoe size chart conversion mexico, shoe size conversion chart mexico, mexico shoe size chart women's, my shoe size in mexico, size 8 en mexico" />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Mexico Shoe Size Chart — Mexican Punto & Footwear Guide" />
+    <meta property="og:description" content="Master Mexico shoe size chart and conversion guide. Understand Mexican Punto Calzado (CM), León leather boot sizing, Flexi, and Cuadra fits." />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Mexico Shoe Size Chart and Mexican Footwear Guide" />
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mexico Shoe Size Chart — Mexican Punto & Footwear Guide" />
+    <meta name="twitter:description" content="Comprehensive Mexico shoe size chart, Punto Calzado guidelines, and Mexican boot fitting matrices." />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured Data -->
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Countries', href: '/country/' },
+      { label: '🇲🇽 Mexico' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">🇲🇽 Mexican Sizing Standard (Punto Calzado &amp; Centimeters)</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Mexico Shoe Size Chart &amp; Mexican Sizing Guide</h1>
+        <p class="hero-sub body-lg">Looking for an accurate <strong>mexico shoe size chart</strong>? Explore our verified <strong>shoe size in mexico</strong> guide for men, women, and children. Understand Mexican <strong>shoe size conversion in mexico</strong> based on metric <em>Punto Calzado</em> (centimetres), master dual-numbering notations (talla 27 vs talla 7), and learn how handcrafted leather boots from León fit.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">Punto Calzado (Centimeter Sizing)</span>
+          <span class="badge-trust">Dual Notation (e.g., Talla 27 &amp; Talla 7)</span>
+          <span class="badge-trust">Mexico Shoe Size Chart Women's &amp; Men's</span>
+          <span class="badge-trust">León Leather (Flexi, Cuadra, Huaraches)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Mexican Size Converter Tool -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated converter-inline">
+          <div class="ci-header">
+            <div>
+              <p class="mono-eyebrow">Instant Mexican Footwear Conversion</p>
+              <h2 class="heading-md">Convert Mexico Shoe Sizes in Real Time</h2>
+            </div>
+            <p class="body-sm text-mute">Select your Mexican shoe size (in centimetre puntos or short notation) and category to view international equivalents.</p>
+          </div>
+
+          <div class="ci-row">
+            <div class="ci-field">
+              <label class="step-label" for="mx-size">
+                <span class="step-num">1</span> Mexico Shoe Size (Punto / CM)
+              </label>
+              <select id="mx-size" class="form-select ci-size-select" aria-label="Mexico shoe size">
+                <option value="" disabled selected>Select Mexican size</option>
+                {SIZE_DATA.men.mexico.map(s => <option value={String(s)}>MX {s} ({Number(s) >= 20 ? Number(s) - 20 : s})</option>)}
+              </select>
+            </div>
+            <div class="ci-field">
+              <label class="step-label" for="mx-gender">
+                <span class="step-num">2</span> Category / Demographic
+              </label>
+              <select id="mx-gender" class="form-select ci-gender-select" aria-label="Gender">
+                <option value="men" selected>Men's Footwear (MX)</option>
+                <option value="women">Women's Footwear (MX)</option>
+                <option value="kids">Kids &amp; Toddlers (MX)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ci-results" id="mx-results" aria-live="polite">
+            <p class="ci-placeholder">Select a Mexican shoe size to see conversions across US, UK, EU, CM, and Inches</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Reference Tables Section -->
+    <section class="table-band">
+      <div class="page-inner">
+        <header class="section-heading">
+          <p class="mono-eyebrow">Master Reference Charts</p>
+          <h2 class="heading-lg">Comprehensive Mexico Footwear Size Charts</h2>
+          <p class="body-md">Use these official conversion tables to translate Mexican Punto Calzado into international footwear sizes and exact foot measurements.</p>
+        </header>
+
+        <!-- 1. Men's Mexico Shoe Size Chart -->
+        <div class="table-card">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Men's Mexico Shoe Size Chart</h3>
+              <p class="body-sm text-mute">Includes Mexican Puntos (CM), short colloquial notation, US Men, UK, EU, and foot length in inches</p>
+            </div>
+            <span class="category-pill">Men's Punto Calzado</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Men's Mexico Shoe Size Chart">
+              <thead>
+                <tr>
+                  <th>Puntos (CM)</th>
+                  <th>Colloquial Notation</th>
+                  <th>US Men</th>
+                  <th>UK Men</th>
+                  <th>EU Size</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>24.5 cm</strong></td><td>Talla 4.5</td><td>6.5</td><td>6.0</td><td>39.0 – 39.5</td><td>9.5"</td></tr>
+                <tr><td><strong>25.0 cm</strong></td><td>Talla 5.0</td><td>7.0</td><td>6.5</td><td>40.0</td><td>9.6"</td></tr>
+                <tr><td><strong>25.5 cm</strong></td><td>Talla 5.5</td><td>7.5</td><td>7.0</td><td>40.5</td><td>9.8"</td></tr>
+                <tr><td><strong>26.0 cm</strong></td><td>Talla 6.0</td><td>8.0</td><td>7.5</td><td>41.0</td><td>9.9"</td></tr>
+                <tr><td><strong>26.5 cm</strong></td><td>Talla 6.5</td><td>8.5</td><td>8.0</td><td>41.5</td><td>10.1"</td></tr>
+                <tr><td><strong>27.0 cm</strong></td><td>Talla 7.0</td><td>9.0</td><td>8.5</td><td>42.0</td><td>10.3"</td></tr>
+                <tr><td><strong>27.5 cm</strong></td><td>Talla 7.5</td><td>9.5</td><td>9.0</td><td>42.5</td><td>10.4"</td></tr>
+                <tr><td><strong>28.0 cm</strong></td><td>Talla 8.0 (Size 8 en Mexico)</td><td>10.0</td><td>9.5</td><td>43.0</td><td>10.6"</td></tr>
+                <tr><td><strong>28.5 cm</strong></td><td>Talla 8.5</td><td>10.5</td><td>10.0</td><td>43.5</td><td>10.8"</td></tr>
+                <tr><td><strong>29.0 cm</strong></td><td>Talla 9.0</td><td>11.0</td><td>10.5</td><td>44.0</td><td>10.9"</td></tr>
+                <tr><td><strong>29.5 cm</strong></td><td>Talla 9.5</td><td>11.5</td><td>11.0</td><td>44.5</td><td>11.1"</td></tr>
+                <tr><td><strong>30.0 cm</strong></td><td>Talla 10.0</td><td>12.0</td><td>11.5</td><td>45.0</td><td>11.3"</td></tr>
+                <tr><td><strong>31.0 cm</strong></td><td>Talla 11.0</td><td>13.0</td><td>12.5</td><td>46.5</td><td>11.6"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Mexico Shoe Size Chart Women's -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Mexico Shoe Size Chart Women's</h3>
+              <p class="body-sm text-mute">Mexican women's shoe sizes in Puntos, short notation, US Women, UK, EU, and foot length</p>
+            </div>
+            <span class="category-pill">Women's Punto Calzado</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Mexico Shoe Size Chart Women's">
+              <thead>
+                <tr>
+                  <th>Puntos (CM)</th>
+                  <th>Colloquial Notation</th>
+                  <th>US Women</th>
+                  <th>UK Women</th>
+                  <th>EU Size</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>22.0 cm</strong></td><td>Talla 2.0</td><td>5.0</td><td>3.0</td><td>35.0 – 35.5</td><td>8.5"</td></tr>
+                <tr><td><strong>22.5 cm</strong></td><td>Talla 2.5</td><td>5.5</td><td>3.5</td><td>36.0</td><td>8.8"</td></tr>
+                <tr><td><strong>23.0 cm</strong></td><td>Talla 3.0</td><td>6.0</td><td>4.0</td><td>36.5 – 37.0</td><td>8.9"</td></tr>
+                <tr><td><strong>23.5 cm</strong></td><td>Talla 3.5</td><td>6.5 – 7.0</td><td>4.5</td><td>37.5 – 38.0</td><td>9.3"</td></tr>
+                <tr><td><strong>24.0 cm</strong></td><td>Talla 4.0</td><td>7.5</td><td>5.0</td><td>38.5</td><td>9.4"</td></tr>
+                <tr><td><strong>24.5 cm</strong></td><td>Talla 4.5</td><td>8.0</td><td>5.5</td><td>39.0</td><td>9.5"</td></tr>
+                <tr><td><strong>25.0 cm</strong></td><td>Talla 5.0</td><td>8.5 – 9.0</td><td>6.0</td><td>39.5 – 40.0</td><td>9.7"</td></tr>
+                <tr><td><strong>25.5 cm</strong></td><td>Talla 5.5</td><td>9.5</td><td>6.5</td><td>40.5</td><td>9.9"</td></tr>
+                <tr><td><strong>26.0 cm</strong></td><td>Talla 6.0</td><td>10.0</td><td>7.0</td><td>41.0</td><td>10.2"</td></tr>
+                <tr><td><strong>26.5 cm</strong></td><td>Talla 6.5</td><td>10.5</td><td>7.5</td><td>41.5</td><td>10.5"</td></tr>
+                <tr><td><strong>27.0 cm</strong></td><td>Talla 7.0</td><td>11.0</td><td>8.0</td><td>42.0</td><td>10.7"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Kids & Infant Mexico Shoe Size Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Mexico Kids &amp; Toddler Shoe Size Chart</h3>
+              <p class="body-sm text-mute">From first steps (11 cm) through primary school youth sizing (22 cm)</p>
+            </div>
+            <span class="category-pill">Kids &amp; Infant Calzado</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Mexico Kids Shoe Size Chart">
+              <thead>
+                <tr>
+                  <th>Mexican Puntos (CM)</th>
+                  <th>Age Range Milestone</th>
+                  <th>US Kids</th>
+                  <th>UK Kids</th>
+                  <th>EU Kids</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>11.0 cm</strong></td><td>Bebé / First Steps (6–9 months)</td><td>3.0C</td><td>2.0C</td><td>18</td></tr>
+                <tr><td><strong>12.0 cm</strong></td><td>Infantil (9–12 months / 1 Year)</td><td>4.0C</td><td>3.0C</td><td>19–20</td></tr>
+                <tr><td><strong>13.0 cm</strong></td><td>Infantil (12–18 months)</td><td>5.0C</td><td>4.0C</td><td>21</td></tr>
+                <tr><td><strong>14.0 cm</strong></td><td>Niños Pequeños (2–2.5 Years)</td><td>6.5C</td><td>5.5C</td><td>22–23</td></tr>
+                <tr><td><strong>15.0 cm</strong></td><td>Preescolar (3 Years)</td><td>8.0C</td><td>7.0C</td><td>24–25</td></tr>
+                <tr><td><strong>16.0 cm</strong></td><td>Preescolar (3.5–4 Years)</td><td>9.5C</td><td>8.5C</td><td>26</td></tr>
+                <tr><td><strong>17.0 cm</strong></td><td>Niño (4–5 Years)</td><td>11.0C</td><td>10.0C</td><td>28</td></tr>
+                <tr><td><strong>18.0 cm</strong></td><td>Primaria (5–6 Years)</td><td>12.0C</td><td>11.0C</td><td>29–30</td></tr>
+                <tr><td><strong>19.0 cm</strong></td><td>Primaria (6–7 Years)</td><td>13.0C</td><td>12.0C</td><td>31</td></tr>
+                <tr><td><strong>20.0 cm</strong></td><td>Juvenil (7–8 Years)</td><td>1.5Y</td><td>13.5C</td><td>32–33</td></tr>
+                <tr><td><strong>21.0 cm</strong></td><td>Juvenil (8–9 Years)</td><td>2.5Y</td><td>1.5Y</td><td>34</td></tr>
+                <tr><td><strong>22.0 cm</strong></td><td>Juvenil / Transición (10+ Years)</td><td>3.5Y</td><td>2.5Y</td><td>35</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Mexican Boot & Leather Footwear Fit Guide -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Mexican Leather Footwear &amp; Boot Sizing Guide</h3>
+              <p class="body-sm text-mute">Fit recommendations for León handcrafted boots, Flexi comfort shoes, and artisanal huaraches</p>
+            </div>
+            <span class="category-pill">León Craftsmanship</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Mexican Leather Footwear Sizing Guide">
+              <thead>
+                <tr>
+                  <th>Category / Brand</th>
+                  <th>Primary Sizing Used</th>
+                  <th>Fit Nuance &amp; Recommendation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Flexi Comfort Shoes</strong></td><td>Mexican Puntos (CM)</td><td>Fits true to size in centimetre puntos with generous ergonomic toe boxes.</td></tr>
+                <tr><td><strong>Cuadra Western Boots</strong></td><td>Mexican Puntos (CM)</td><td>Snug across the instep initially; vegetable-tanned leathers mould after break-in.</td></tr>
+                <tr><td><strong>Artisanal Huaraches</strong></td><td>Mexican Puntos (CM)</td><td>Woven cowhide stretches significantly; choose a snug initial fit or half size down.</td></tr>
+                <tr><td><strong>Horma Amplia (Wide Last)</strong></td><td>EE / EEE Equivalent</td><td>Engineered for high insteps and broad ball girth common in regional lasts.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep-Dive SEO Editorial Prose Content (800 - 1200 words) -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Mexican Footwear Heritage</p>
+            <h2 class="prose-main-title">Mastering the Mexico Shoe Size Chart: Punto Calzado &amp; Sizing Systems</h2>
+            <p class="prose-lead">Mexico holds a celebrated place in global footwear craft. As the home of León, Guanajuato—widely revered as the leather and shoe capital of Latin America—Mexican footwear merges centuries-old artisanal shoemaking with a straightforward, metric-based sizing philosophy. Here is your comprehensive guide to understanding shoe sizing in Mexico.</p>
+          </header>
+
+          <div class="content-prose">
+            <h3 class="heading-sm">How Shoe Sizing in Mexico Works: The Punto Calzado System</h3>
+            <p>Unlike Western systems that rely on historical fractions—such as imperial British barleycorns or European Paris Points—the official <strong>mexico shoe size chart</strong> is based directly on metric foot length. In Mexico, footwear measurement is officially called <strong>Punto Calzado</strong> (or simply <em>Puntos</em>), where each punto equals one centimetre (CM).</p>
+            <p>A pair of shoes marked "Punto 26" or "Talla 26" signifies that the shoe last fits an anatomical foot length of exactly 26.0 cm from heel to longest toe. Because centimetres represent an invariant physical metric, calculating your <strong>shoe size in mexico</strong> avoids arbitrary scale shifts.</p>
+            <p>One distinctive feature of Mexican footwear that often surprises international shoppers is <strong>colloquial shorthand numbering</strong>. In Mexican boutiques, markets, and shoe boxes, retailers frequently drop the initial "2" from the size:</p>
+            <ul>
+              <li><strong>Talla 26 cm</strong> is commonly called <strong>Talla 6</strong>.</li>
+              <li><strong>Talla 27 cm</strong> is referred to as <strong>Talla 7</strong>.</li>
+              <li><strong>Talla 28 cm</strong> is referred to as <strong>Talla 8</strong> (the widely searched <strong>size 8 en mexico</strong>).</li>
+              <li>Half sizes follow the same logic: a <strong>24.5 mexico shoe size</strong> is called <strong>Talla 4.5</strong>, and a <strong>27.5 mexico shoe size</strong> is called <strong>Talla 7.5</strong>.</li>
+            </ul>
+            <p>Knowing whether a retailer uses full centimetre puntos (e.g., 27) or shorthand (e.g., 7) ensures effortless shopping across traditional Mexican mercados and modern online stores.</p>
+
+            <h3 class="heading-sm">Mexico Shoe Size Chart Women's &amp; Men's Sizing Nuances</h3>
+            <p>When reviewing a <strong>mexico shoe size chart women's</strong> or men's guide, understanding standard size distributions helps you identify your ideal fit:</p>
+            <ul>
+              <li><strong>Women's Footwear in Mexico:</strong> Adult women's footwear typically spans from <strong>Punto 22.0 cm (Talla 2)</strong> to <strong>Punto 27.0 cm (Talla 7)</strong>. The median sizes purchased across Mexico are Puntos 23.5, 24.0, 24.5, and 25.0 cm. For petite feet, a <strong>2.5 mexico shoe size</strong> (Punto 22.5) provides a fitted cut for a 22.5 cm foot.</li>
+              <li><strong>Men's Footwear in Mexico:</strong> Adult men's footwear spans from <strong>Punto 24.5 cm (Talla 4.5)</strong> to <strong>Punto 30.0 cm (Talla 10)</strong>. The most common adult men's sizes are Puntos 26.0, 26.5, 27.0, 27.5, and 28.0 cm (colloquially tallas 6 through 8). For larger builds, a <strong>29.5 mexico shoe size</strong> (Talla 9.5) represents 29.5 cm of footbed room.</li>
+            </ul>
+            <p>Because Mexican puntos measure anatomical length equally across genders, a 25.0 cm foot corresponds to a Punto 25 shoe in both men's and women's models. However, women's shoes feature narrower heel cups and slimmer ball girths.</p>
+
+            <h3 class="heading-sm">Traditional Mexican Leather Craft: León, Guanajuato &amp; Brand Sizing</h3>
+            <p>To truly understand <strong>shoe size in mexico conversion</strong>, one must appreciate the shoemaking heritage of León, Guanajuato. Known as <em>La Capital del Calzado</em>, León produces over 70% of Mexico's footwear:</p>
+            <ul>
+              <li><strong>Flexi Footwear:</strong> Founded in León in 1935, Flexi is Mexico's flagship footwear maker. Renowned for soft nappa leathers and ergonomic insoles, Flexi shoes fit true to Mexican centimetre puntos, providing a dependable baseline for daily wear.</li>
+              <li><strong>Cuadra Western Boots (Botas Vaqueras):</strong> Handcrafted in León using premium cowhide and exotic leathers, Cuadra boots use traditional Goodyear-welt construction. Authentic western boots should fit snug across the instep (the <em>empeine</em>) initially; as you walk, the leather warms and moulds to your arch.</li>
+              <li><strong>Artisanal Mexican Huaraches:</strong> Handwoven leather huaraches from Michoacán, Jalisco, and Oaxaca are crafted from unlined vegetable-tanned cowhide. Because woven leather stretches with body heat, huaraches should fit snugly upon first try-on, relaxing up to half a centimetre over time.</li>
+            </ul>
+
+            <h3 class="heading-sm">Mexican Width Standards: Horma Normal vs. Horma Amplia</h3>
+            <p>Width in Mexican shoemaking is defined by the shape of the last (*horma*). Rather than alphabetical codes, Mexican manufacturers describe width classifications functionally:</p>
+            <ul>
+              <li><strong>Horma Normal (Standard Width):</strong> Designed for average foot proportions, roughly equivalent to an American D width for men or a B width for women.</li>
+              <li><strong>Horma Amplia (Wide Fit):</strong> Engineered for wearers with broader metatarsal girth, bunions, or high insteps (equivalent to an EE or EEE width). Because many Mexican leather boots are crafted for ranch and work settings, generous widths are widely available.</li>
+              <li><strong>Horma Recia (Extra Room):</strong> A specialty designation in traditional workwear lines offering maximum vertical volume over the instep.</li>
+            </ul>
+
+            <h3 class="heading-sm">How to Measure Foot Length in Centimetres for Mexican Shoes</h3>
+            <p>To pinpoint your exact size on our <strong>mexico shoe chart</strong>, follow this simple measuring routine at home:</p>
+            <ol>
+              <li><strong>Measure in Late Afternoon:</strong> Feet naturally expand slightly during the day due to walking and warmth.</li>
+              <li><strong>Position Paper Against a Flat Wall:</strong> Tape a sheet of paper to a hard floor, flush against an uncarpeted vertical wall.</li>
+              <li><strong>Stand Tall:</strong> Step firmly on the paper with your heel lightly touching the wall, distributing weight evenly.</li>
+              <li><strong>Mark Your Longest Toe:</strong> Hold a pencil vertically and mark the furthest tip of your longest toe.</li>
+              <li><strong>Measure in Centimetres:</strong> Measure from the paper edge to your pencil mark. Your measurement in centimetres directly indicates your true Mexican Punto Calzado.</li>
+            </ol>
+            <p>If your foot measures 26.2 cm, choosing a Mexican Punto 26.5 provides the ideal walking clearance without heel slipping.</p>
+
+            <h3 class="heading-sm">Rapid Lookup: Most Popular Mexican Shoe Sizes Explained</h3>
+            <p>Quick lookup guide for frequently searched Mexican footwear sizes:</p>
+            <ul>
+              <li><strong>Punto 23.5 – 24.0 cm (Talla 3.5 – 4):</strong> Standard adult women's sizes, offering generous forefoot comfort.</li>
+              <li><strong>Punto 24.5 – 25.0 cm (Talla 4.5 – 5):</strong> Common crossover range between larger women's models and entry men's footwear.</li>
+              <li><strong>Punto 26.0 – 26.5 cm (Talla 6 – 6.5):</strong> Standard median size for adult men across Mexico, widely stocked in dress shoes and work boots.</li>
+              <li><strong>Punto 27.0 – 27.5 cm (Talla 7 – 7.5):</strong> Popular men's athletic and western boot size, offering generous length and metatarsal width.</li>
+              <li><strong>Punto 28.0 cm (Talla 8 / Size 8 en Mexico):</strong> Corresponds to 28.0 cm of anatomical foot length, widely worn in handcrafted leather footwear.</li>
+              <li><strong>Punto 29.0 cm and Above (Talla 9+):</strong> Specialty larger sizes, available in handcrafted León boots and imported athletic brands.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <div class="faq-card">
+          <p class="mono-eyebrow">Frequently Asked Questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">Mexico Footwear &amp; Shoe Sizing FAQs</h2>
+          <div class="faq-list">
+            {faqs.map(item => (
+              <details class="faq-item">
+                <summary class="faq-q">
+                  <span>{item.q}</span>
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-a"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Internal Links -->
+    <section class="related-band">
+      <div class="page-inner">
+        <RelatedLinks
+          title="Explore Metric &amp; Foot Length Guides"
+          links={conversionLinks}
+        />
+        <div style="margin-top:32px">
+          <RelatedLinks
+            title="Explore Other Regional Sizing Systems"
+            links={countryLinks}
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 64px 24px 40px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .page-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    max-width: 720px;
+    margin: 16px auto 24px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .badge-trust {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-body);
+  }
+
+  /* Converter Band */
+  .converter-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .converter-inline {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .ci-header {
+    margin-bottom: 24px;
+  }
+  .ci-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .ci-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ci-results {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 20px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ci-placeholder {
+    color: var(--v-mute);
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Tables band */
+  .table-band {
+    padding: 48px 24px;
+  }
+  .section-heading {
+    margin-bottom: 32px;
+  }
+  .table-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    overflow: hidden;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .table-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    background: var(--v-subtle);
+  }
+  .category-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-ink);
+  }
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+  }
+  .size-table th {
+    background: var(--v-canvas);
+    padding: 12px 18px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-body);
+  }
+  .size-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-ink);
+  }
+  .size-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .size-table tbody tr:hover {
+    background: var(--v-subtle);
+  }
+
+  /* Prose Article Band */
+  .content-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .prose-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 48px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .prose-header {
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 28px;
+  }
+  .prose-main-title {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 12px 0 16px;
+    line-height: 1.25;
+  }
+  .prose-lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--v-body);
+  }
+  .content-prose h3 {
+    margin: 36px 0 14px;
+    color: var(--v-ink);
+  }
+  .content-prose p {
+    margin-bottom: 18px;
+    line-height: 1.7;
+    color: var(--v-body);
+    font-size: 15px;
+  }
+  .content-prose ul, .content-prose ol {
+    margin: 0 0 24px 20px;
+    color: var(--v-body);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .content-prose li {
+    margin-bottom: 10px;
+  }
+  .content-prose strong {
+    color: var(--v-ink);
+  }
+
+  /* FAQs */
+  .faq-band {
+    padding: 48px 24px;
+  }
+  .faq-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 40px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-canvas);
+    transition: all 0.15s ease;
+  }
+  .faq-item[open] {
+    background: var(--v-subtle);
+  }
+  .faq-q {
+    padding: 18px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--v-ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    flex-shrink: 0;
+    margin-left: 16px;
+    transition: transform 0.2s ease;
+    color: var(--v-mute);
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-a {
+    padding: 0 20px 20px;
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .faq-a p {
+    margin: 0;
+  }
+
+  /* Related */
+  .related-band {
+    padding: 48px 24px 64px;
+    background: var(--v-canvas);
+  }
+
+  @media (max-width: 768px) {
+    .ci-row {
+      grid-template-columns: 1fr;
+    }
+    .prose-card {
+      padding: 24px;
+    }
+    .faq-card {
+      padding: 24px;
+    }
+  }
+</style>
+
+<script>
+  import { SIZE_DATA } from '../../data/shoe-sizes';
+
+  const sizeSelect = document.getElementById('mx-size') as HTMLSelectElement | null;
+  const genderSelect = document.getElementById('mx-gender') as HTMLSelectElement | null;
+  const resultsContainer = document.getElementById('mx-results');
+
+  function updateSizes() {
+    if (!genderSelect || !sizeSelect) return;
+    const gender = (genderSelect.value || 'men') as 'men' | 'women' | 'kids';
+    const sizes = SIZE_DATA[gender]?.mexico || [];
+    const currentVal = sizeSelect.value;
+
+    sizeSelect.innerHTML = '<option value="" disabled selected>Select Mexican size</option>';
+    const seen = new Set();
+    sizes.forEach(s => {
+      const val = String(s);
+      if (!seen.has(val)) {
+        seen.add(val);
+        const opt = document.createElement('option');
+        opt.value = val;
+        const num = Number(val);
+        const shortVal = num >= 20 ? num - 20 : num;
+        opt.textContent = `MX ${val} (Talla ${shortVal})`;
+        sizeSelect.appendChild(opt);
+      }
+    });
+
+    if (currentVal && seen.has(currentVal)) {
+      sizeSelect.value = currentVal;
+    }
+    renderResults();
+  }
+
+  function renderResults() {
+    if (!resultsContainer || !sizeSelect) return;
+    const size = sizeSelect.value;
+    if (!size) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Select a Mexican shoe size to see instant conversions across US, UK, EU, CM, and Inches</p>';
+      return;
+    }
+
+    const gender = (genderSelect?.value || 'men') as 'men' | 'women' | 'kids';
+    const data = SIZE_DATA[gender];
+    const idx = data.mexico?.findIndex(s => String(s) === size);
+
+    if (idx === undefined || idx === -1) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Size not found in database</p>';
+      return;
+    }
+
+    const us = data.us?.[idx] ?? '—';
+    const uk = data.uk?.[idx] ?? '—';
+    const eu = data.eu?.[idx] ?? '—';
+    const cm = data.cm?.[idx] ?? size;
+    const inches = data.inches?.[idx] ?? '—';
+    const num = Number(size);
+    const shortVal = num >= 20 ? num - 20 : num;
+
+    resultsContainer.innerHTML = `
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">
+        <div style="background:var(--v-elevated); border:1px solid var(--v-link); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-link);">MX Punto</span>
+          <div style="font-size:20px; font-weight:700; color:var(--v-ink); margin-top:2px;">MX ${size} (${shortVal})</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">US Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">US ${us}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">EU Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">EU ${eu}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">UK Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">UK ${uk}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">Centimetres</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${cm} cm</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">Inches</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${inches}"</div>
+        </div>
+      </div>
+    `;
+  }
+
+  genderSelect?.addEventListener('change', updateSizes);
+  sizeSelect?.addEventListener('change', renderResults);
+</script>

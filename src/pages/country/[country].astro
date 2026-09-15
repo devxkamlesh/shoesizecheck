@@ -8,7 +8,7 @@ import { COUNTRIES, SIZE_DATA, SYSTEM_LABELS } from '../../data/shoe-sizes';
 import type { CountryData } from '../../data/shoe-sizes';
 
 export function getStaticPaths() {
-  return COUNTRIES.filter(c => c.slug !== 'us' && c.slug !== 'uk' && c.slug !== 'india').map(c => ({
+  return COUNTRIES.filter(c => c.slug !== 'us' && c.slug !== 'uk' && c.slug !== 'india' && c.slug !== 'japan' && c.slug !== 'australia' && c.slug !== 'mexico' && c.slug !== 'china' && c.slug !== 'korea').map(c => ({
     params: { country: c.slug },
     props: { country: c },
   }));

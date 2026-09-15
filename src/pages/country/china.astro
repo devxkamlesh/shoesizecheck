@@ -1,0 +1,808 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Footer from '../../components/Footer.astro';
+import { SIZE_DATA } from '../../data/shoe-sizes';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/country/china/`;
+const pageTitle = 'China Shoe Size Chart — Chinese to US, UK & EU Sizing Guide';
+const pageDescription = 'Comprehensive China shoe size chart for men, women, and kids. Convert Chinese shoe sizes (EU Paris Points and GB/T Mondopoint mm) to US, UK, and CM with brand guides.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'How do shoe sizes work in China?',
+    a: 'China officially uses two complementary sizing systems. The everyday commercial standard (China Type 1) mirrors European Paris Point sizing (e.g., China 36 = EU 36, China 42 = EU 42). The official national manufacturing standard (China Type 2, codified under GB/T 3293.1-1998) is based on the metric Mondopoint system measured in millimetres (e.g., a China size 260 represents an anatomical foot length of 260 mm or 26.0 cm).'
+  },
+  {
+    q: 'What is a 36 shoe size in China?',
+    a: 'A 36 shoe size in China (or China size 36) corresponds to an anatomical foot length of approximately 230 millimetres (23.0 centimetres). In international women\'s sizing, China 36 translates to a US Women\'s 5.5 to 6.0, a British UK 3.5, an EU 36, and a Japanese JP 23.0 cm.'
+  },
+  {
+    q: 'How does Chinese shoe size conversion work for men and women to US sizes?',
+    a: 'Because China Type 1 sizes match European sizes: for men, subtract roughly 33 to find the US equivalent (e.g., China 42 ≈ US Men\'s 8.5 to 9.0; China 43 ≈ US Men\'s 9.5; China 44 ≈ US Men\'s 10.0 to 10.5). For women, subtract roughly 31 (e.g., China 36 ≈ US Women\'s 5.5 to 6.0; China 37 ≈ US Women\'s 6.5; China 38 ≈ US Women\'s 7.5; China 39 ≈ US Women\'s 8.0 to 8.5).'
+  },
+  {
+    q: 'Why do shoes from AliExpress, Shein, and Temu often feel smaller than Western sizes?',
+    a: 'Many cross-border online retailers from China use factory lasts designed around East Asian anthropometric profiles, which tend to have a flatter instep and narrower heel proportion. Furthermore, fast-fashion shoe manufacturers often trim interior allowances, making their footwear feel 0.5 to 1 size smaller than Western equivalents. Checking the measured foot length in millimetres (CM/MM) is always recommended.'
+  },
+  {
+    q: 'What does a shoe tag marking like "260 (2.5)" mean on Chinese shoes?',
+    a: 'Under the Chinese GB/T 3293.1-1998 standard, "260" denotes your bare foot length in millimetres (260 mm or 26.0 cm), while "(2.5)" denotes the width fitting or ball girth type. Type 1 is narrow, Type 2 and 2.5 are standard regular widths, and Type 3 to 4 represent wide and extra-wide fittings.'
+  },
+  {
+    q: 'How do famous Chinese footwear brands like Li-Ning, Anta, and Feiyue fit?',
+    a: 'Performance brands like Li-Ning and Anta fit true to their metric centimetre/millimetre length with secure heel containment and supportive midfoot cages. Feiyue classic martial arts canvas shoes fit slightly roomy with minimal arch structure, while Warrior (Huili) retro canvas sneakers fit true to standard Chinese EU sizing.'
+  },
+  {
+    q: 'What are the most common shoe sizes on a China men\'s shoes size chart?',
+    a: 'On a China men\'s shoes size chart, the most common sizes span from China 39 (245 mm / US 6.5) up to China 45 (275 mm / US 11.5). The median sizes sold across Chinese department stores and platforms like Tmall and JD.com are sizes 41, 42, and 43.'
+  },
+  {
+    q: 'How do I measure my foot in centimetres to find my correct Chinese shoe size?',
+    a: 'To find your size on a China foot size chart: tape a blank paper sheet to a hard floor against a wall. Stand upright with your heel touching the wall. Mark the tip of your longest toe with a vertical pen. Measure the distance in millimetres from the paper edge to the mark. That number is your exact China Type 2 size (e.g., 240 mm = China 38 / US Women\'s 7.5).'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` },
+  })),
+});
+
+const conversionLinks = [
+  { label: 'Shoe Size in CM', href: '/shoe-size-in-cm/' },
+  { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
+  { label: 'Shoe Size by Foot Length', href: '/shoe-size-by-foot-length/' },
+  { label: 'US to EU Shoe Size', href: '/us-to-eu-shoe-size/' },
+  { label: 'What Is My Shoe Size?', href: '/what-is-my-shoe-size/' },
+  { label: 'Kids Shoe Size by Age', href: '/kids-shoe-size-by-age/' },
+];
+
+const countryLinks = [
+  { label: '🇯🇵 Japan', href: '/country/japan/' },
+  { label: '🇰🇷 South Korea', href: '/country/korea/' },
+  { label: '🇺🇸 United States', href: '/country/us/' },
+  { label: '🇬🇧 United Kingdom', href: '/country/uk/' },
+  { label: '🇪🇺 Europe', href: '/country/europe/' },
+  { label: '🇦🇺 Australia', href: '/country/australia/' },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta name="keywords" content="china shoe size chart, 36 shoe size in china, china foot size chart, china men's shoes size chart, china shoe chart, china shoe conversion chart, china shoe size conversion" />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="China Shoe Size Chart — Chinese to US, UK & EU Sizing Guide" />
+    <meta property="og:description" content="Master China shoe size chart and Chinese footwear guide. Convert Chinese sizes (EU Paris Points & GB/T Mondopoint mm) to US, UK, and CM with brand guides." />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="China Shoe Size Chart and Chinese Sizing Guide" />
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="China Shoe Size Chart — Chinese to US, UK & EU Sizing Guide" />
+    <meta name="twitter:description" content="Accurate China shoe size chart, china foot size chart, and Chinese brand sizing matrices for Li-Ning, Anta, and Feiyue." />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured Data -->
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Countries', href: '/country/' },
+      { label: '🇨🇳 China' },
+    ]} />
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="page-inner">
+        <p class="mono-eyebrow">🇨🇳 Chinese Sizing Standards (GB/T 3293.1 &amp; Continental European)</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">China Shoe Size Chart &amp; Chinese Sizing Guide</h1>
+        <p class="hero-sub body-lg">Looking for an accurate <strong>china shoe size chart</strong>? Explore our verified <strong>china shoe size conversion</strong> guide for men, women, and children. Understand the difference between China Type 1 (EU standard) and China Type 2 (metric Mondopoint mm), convert key sizes like <strong>36 shoe size in china</strong>, and master our comprehensive <strong>china foot size chart</strong>.</p>
+        <div class="hero-badges">
+          <span class="badge-trust">China Type 1 (EU Paris Points)</span>
+          <span class="badge-trust">China Type 2 (GB/T Mondopoint mm)</span>
+          <span class="badge-trust">China Men's Shoes Size Chart</span>
+          <span class="badge-trust">Li-Ning, Anta &amp; Feiyue Fit Guides</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Chinese Size Converter Tool -->
+    <section class="converter-band">
+      <div class="page-inner">
+        <div class="card-elevated converter-inline">
+          <div class="ci-header">
+            <div>
+              <p class="mono-eyebrow">Instant Chinese Footwear Conversion</p>
+              <h2 class="heading-md">Convert China Shoe Sizes in Real Time</h2>
+            </div>
+            <p class="body-sm text-mute">Select your Chinese shoe size (EU number or metric Mondopoint mm) to view international equivalents instantly.</p>
+          </div>
+
+          <div class="ci-row">
+            <div class="ci-field">
+              <label class="step-label" for="cn-size">
+                <span class="step-num">1</span> China Shoe Size
+              </label>
+              <select id="cn-size" class="form-select ci-size-select" aria-label="China shoe size">
+                <option value="" disabled selected>Select China size</option>
+                {SIZE_DATA.men.china.map((s, i) => (
+                  <option value={String(s)}>China {s} ({SIZE_DATA.men.korea[i]} mm)</option>
+                ))}
+              </select>
+            </div>
+            <div class="ci-field">
+              <label class="step-label" for="cn-gender">
+                <span class="step-num">2</span> Category / Demographic
+              </label>
+              <select id="cn-gender" class="form-select ci-gender-select" aria-label="Gender">
+                <option value="men" selected>Men's Footwear (China)</option>
+                <option value="women">Women's Footwear (China)</option>
+                <option value="kids">Kids &amp; Toddlers (China)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ci-results" id="cn-results" aria-live="polite">
+            <p class="ci-placeholder">Select a Chinese shoe size to see conversions across US, UK, EU, CM, and Inches</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Reference Tables Section -->
+    <section class="table-band">
+      <div class="page-inner">
+        <header class="section-heading">
+          <p class="mono-eyebrow">Master Reference Charts</p>
+          <h2 class="heading-lg">Comprehensive China Footwear Size Charts</h2>
+          <p class="body-md">Use these master conversion tables to translate Chinese shoe sizes into American, British, European, and metric centimetre measurements.</p>
+        </header>
+
+        <!-- 1. Men's China Shoe Size Chart -->
+        <div class="table-card">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">China Men's Shoes Size Chart</h3>
+              <p class="body-sm text-mute">Includes China Type 1 (EU), China Type 2 (GB/T Mondopoint mm), US Men, UK Men, and foot length</p>
+            </div>
+            <span class="category-pill">Men's National Standard</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="China Men's Shoes Size Chart">
+              <thead>
+                <tr>
+                  <th>China Size (Type 1)</th>
+                  <th>GB/T Metric (Type 2)</th>
+                  <th>US Men</th>
+                  <th>UK Men</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>China 39</strong></td><td>245 mm</td><td>6.5</td><td>6.0</td><td>39.0 – 39.5</td><td>24.5 cm</td><td>9.5"</td></tr>
+                <tr><td><strong>China 40</strong></td><td>250 mm</td><td>7.0 – 7.5</td><td>6.5 – 7.0</td><td>40.0 – 40.5</td><td>25.0 cm</td><td>9.8"</td></tr>
+                <tr><td><strong>China 41</strong></td><td>255 mm</td><td>8.0</td><td>7.5</td><td>41.0</td><td>25.5 cm</td><td>10.0"</td></tr>
+                <tr><td><strong>China 42</strong></td><td>260 mm</td><td>8.5 – 9.0</td><td>8.0 – 8.5</td><td>42.0</td><td>26.0 cm</td><td>10.2"</td></tr>
+                <tr><td><strong>China 43</strong></td><td>265 mm</td><td>9.5</td><td>9.0</td><td>42.5 – 43.0</td><td>26.5 cm</td><td>10.4"</td></tr>
+                <tr><td><strong>China 44</strong></td><td>270 mm</td><td>10.0 – 10.5</td><td>9.5 – 10.0</td><td>43.5 – 44.0</td><td>27.0 cm</td><td>10.6"</td></tr>
+                <tr><td><strong>China 45</strong></td><td>275 mm</td><td>11.0</td><td>10.5</td><td>44.5 – 45.0</td><td>27.5 cm</td><td>10.8"</td></tr>
+                <tr><td><strong>China 46</strong></td><td>280 mm</td><td>11.5 – 12.0</td><td>11.0 – 11.5</td><td>45.5 – 46.0</td><td>28.0 cm</td><td>11.0"</td></tr>
+                <tr><td><strong>China 47</strong></td><td>285 mm</td><td>12.5 – 13.0</td><td>12.0 – 12.5</td><td>46.5 – 47.0</td><td>28.5 cm</td><td>11.2"</td></tr>
+                <tr><td><strong>China 48</strong></td><td>290 mm</td><td>13.5 – 14.0</td><td>13.0 – 13.5</td><td>47.5 – 48.0</td><td>29.0 cm</td><td>11.4"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Women's China Shoe Size Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">China Women's Shoe Size Chart</h3>
+              <p class="body-sm text-mute">Highlights key sizes including 36 shoe size in china, US Women, UK, and metric dimensions</p>
+            </div>
+            <span class="category-pill">Women's National Standard</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="China Women's Shoe Size Chart">
+              <thead>
+                <tr>
+                  <th>China Size (Type 1)</th>
+                  <th>GB/T Metric (Type 2)</th>
+                  <th>US Women</th>
+                  <th>UK Women</th>
+                  <th>EU Size</th>
+                  <th>Foot Length (CM)</th>
+                  <th>Inches</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>China 35</strong></td><td>225 mm</td><td>5.0</td><td>2.5 – 3.0</td><td>35.0</td><td>22.5 cm</td><td>8.8"</td></tr>
+                <tr><td><strong>China 36</strong></td><td>230 mm</td><td>5.5 – 6.0</td><td>3.5</td><td>36.0</td><td>23.0 cm</td><td>9.0"</td></tr>
+                <tr><td><strong>China 37</strong></td><td>235 mm</td><td>6.5</td><td>4.0 – 4.5</td><td>37.0</td><td>23.5 cm</td><td>9.2"</td></tr>
+                <tr><td><strong>China 38</strong></td><td>240 mm</td><td>7.0 – 7.5</td><td>5.0</td><td>38.0</td><td>24.0 cm</td><td>9.4"</td></tr>
+                <tr><td><strong>China 39</strong></td><td>245 mm</td><td>8.0 – 8.5</td><td>5.5 – 6.0</td><td>39.0</td><td>24.5 cm</td><td>9.6"</td></tr>
+                <tr><td><strong>China 40</strong></td><td>250 mm</td><td>9.0</td><td>6.5</td><td>40.0</td><td>25.0 cm</td><td>9.8"</td></tr>
+                <tr><td><strong>China 41</strong></td><td>255 mm</td><td>9.5 – 10.0</td><td>7.0 – 7.5</td><td>41.0</td><td>25.5 cm</td><td>10.0"</td></tr>
+                <tr><td><strong>China 42</strong></td><td>260 mm</td><td>10.5 – 11.0</td><td>8.0</td><td>42.0</td><td>26.0 cm</td><td>10.2"</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Kids & Toddler China Shoe Size Chart -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">China Kids &amp; Toddler Shoe Size Chart</h3>
+              <p class="body-sm text-mute">From baby shoes (size 17 / 110 mm) through primary school youth sizing (size 35 / 225 mm)</p>
+            </div>
+            <span class="category-pill">Infant, Toddler &amp; Youth</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="China Kids Shoe Size Chart">
+              <thead>
+                <tr>
+                  <th>China Size (Type 1)</th>
+                  <th>GB/T Metric (mm)</th>
+                  <th>Age Milestone</th>
+                  <th>US Kids</th>
+                  <th>UK Kids</th>
+                  <th>Foot Length (CM)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>China 17</strong></td><td>110 mm</td><td>Baby / First Steps (6–9 mos)</td><td>3.0C</td><td>2.0C</td><td>11.0 cm</td></tr>
+                <tr><td><strong>China 19</strong></td><td>120 mm</td><td>Toddler (9–12 mos / 1 Year)</td><td>4.0C</td><td>3.0C</td><td>12.0 cm</td></tr>
+                <tr><td><strong>China 21</strong></td><td>130 mm</td><td>Toddler (12–18 mos)</td><td>5.0C</td><td>4.0C</td><td>13.0 cm</td></tr>
+                <tr><td><strong>China 23</strong></td><td>140 mm</td><td>Toddler (2–2.5 Years)</td><td>6.5C</td><td>5.5C</td><td>14.0 cm</td></tr>
+                <tr><td><strong>China 25</strong></td><td>150 mm</td><td>Preschool (3 Years)</td><td>8.0C</td><td>7.0C</td><td>15.0 cm</td></tr>
+                <tr><td><strong>China 27</strong></td><td>160 mm</td><td>Preschool (3.5–4 Years)</td><td>9.5C</td><td>8.5C</td><td>16.0 cm</td></tr>
+                <tr><td><strong>China 29</strong></td><td>170 mm</td><td>Young Child (4–5 Years)</td><td>11.0C</td><td>10.0C</td><td>17.0 cm</td></tr>
+                <tr><td><strong>China 31</strong></td><td>185 mm</td><td>School Age (5–6 Years)</td><td>12.5C</td><td>11.5C</td><td>18.5 cm</td></tr>
+                <tr><td><strong>China 33</strong></td><td>200 mm</td><td>Junior (7–8 Years)</td><td>1.5Y</td><td>13.5C</td><td>20.0 cm</td></tr>
+                <tr><td><strong>China 35</strong></td><td>220 mm</td><td>Youth (9–10 Years)</td><td>3.0Y</td><td>2.0Y</td><td>22.0 cm</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Chinese Footwear Brand Sizing Guide -->
+        <div class="table-card" style="margin-top:36px">
+          <div class="table-card-head">
+            <div>
+              <h3 class="heading-sm">Chinese Footwear Brand Sizing Matrix</h3>
+              <p class="body-sm text-mute">Fit recommendations for Li-Ning, Anta, Feiyue, Warrior (Huili), Xtep &amp; 361 Degrees</p>
+            </div>
+            <span class="category-pill">Brand Fit Guide</span>
+          </div>
+          <div class="scroll-x">
+            <table class="size-table" aria-label="Chinese Footwear Brand Sizing Matrix">
+              <thead>
+                <tr>
+                  <th>Brand &amp; Style</th>
+                  <th>Primary Sizing System</th>
+                  <th>Fit Characteristics &amp; Advice</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Li-Ning (Way of Wade / Yushuai)</strong></td><td>China / EU &amp; Metric MM</td><td>True to size in length; snug basketball midfoot lockdown. Order true to measured CM.</td></tr>
+                <tr><td><strong>Anta (KT Series / Kyrie Line)</strong></td><td>China / EU &amp; Metric MM</td><td>Accommodating forefoot volume; excellent for wider feet. True to size.</td></tr>
+                <tr><td><strong>Feiyue (Classic Martial Arts Plimsolls)</strong></td><td>China Type 1 (EU)</td><td>Canvas upper with vulcanized rubber sole. Runs slightly roomy; size down if wearing barefoot.</td></tr>
+                <tr><td><strong>Warrior (Huili Heritage Sneakers)</strong></td><td>China Type 1 (EU)</td><td>Shanghai retro icon; true to China/EU sizing with moderate arch support.</td></tr>
+                <tr><td><strong>Xtep &amp; 361 Degrees (Road Running)</strong></td><td>China Type 1 &amp; Metric MM</td><td>Performance road marathon lasts; runners often size up 0.5 size for toe splay.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep-Dive SEO Editorial Prose Content (800 - 1200 words) -->
+    <section class="content-band">
+      <div class="page-inner">
+        <article class="prose-card">
+          <header class="prose-header">
+            <p class="mono-eyebrow">Chinese Footwear Architecture</p>
+            <h2 class="prose-main-title">Mastering the China Shoe Size Chart: Sizing Standards, Conversions &amp; Brand Fits</h2>
+            <p class="prose-lead">As the manufacturing heart of the global footwear industry and home to dynamic sports giants like Li-Ning and Anta, China employs an engineered, dual-standard footwear system. Whether purchasing sneakers on AliExpress, shopping for fashion apparel on Shein and Temu, or importing athletic shoes directly from domestic Chinese marketplaces, here is your definitive guide to understanding Chinese shoe sizes.</p>
+          </header>
+
+          <div class="content-prose">
+            <h3 class="heading-sm">The Dual Sizing Evolution in China: Type 1 vs. Type 2 (GB/T 3293.1-1998)</h3>
+            <p>To read any <strong>china shoe size chart</strong> accurately, one must understand how Chinese national standards evolved. Prior to 1998, footwear manufacturing across China utilised disparate regional centimetre systems. In 1998, the Standardization Administration of China implemented a unified national standard, establishing two interconnected measurement standards:</p>
+            <ul>
+              <li><strong>China Type 1 (Continental European Standard):</strong> This is the commercial standard encountered on consumer platforms including Taobao, Tmall, JD.com, and exported fashion sites. It directly matches the European Paris Point system (where one size equals two-thirds of a centimetre). Under this convention, a Chinese size 42 equals an EU 42, and a Chinese size 36 equals an EU 36.</li>
+              <li><strong>China Type 2 (National Metric Standard GB/T 3293.1-1998):</strong> Codified for industrial footwear, military footwear, and precision athletic manufacturing, Type 2 is based on the international <strong>Mondopoint metric standard</strong>. Sizes are expressed directly as foot length in millimetres (MM) with 5 mm increments (e.g., 230, 235, 240, 245, 250, 255, 260 mm).</li>
+            </ul>
+            <p>On modern shoe labels, both standards often appear together. For instance, an athletic shoe might state "260(2.5)", where "260" denotes an anatomical foot length of 260 millimetres (26.0 cm), and "(2.5)" designates the width fitting (ball girth classification).</p>
+
+            <h3 class="heading-sm">Decoding "36 Shoe Size in China" and Core Demographic Milestones</h3>
+            <p>Among the most frequently searched queries by international shoppers is <strong>36 shoe size in china</strong>. On any verified <strong>china shoe conversion chart</strong>, China size 36 designates a shoe designed for a foot measuring approximately <strong>230 millimetres (23.0 centimetres)</strong> in length.</p>
+            <p>When translating <strong>36 shoe size in china</strong> into international standards:</p>
+            <ul>
+              <li><strong>US Footwear:</strong> Translates to an American US Women's 5.5 to 6.0.</li>
+              <li><strong>British Footwear:</strong> Maps to a UK Women's 3.5.</li>
+              <li><strong>European Footwear:</strong> Exactly equals an EU 36.</li>
+              <li><strong>Japanese Footwear:</strong> Corresponds directly to JP 23.0 cm.</li>
+            </ul>
+            <p>On a <strong>china men's shoes size chart</strong>, the most widely produced sizes range from China 39 (245 mm / US 6.5) to China 45 (275 mm / US 11.5), with China 41, 42, and 43 representing the median bell curve of adult male footwear across the country.</p>
+
+            <h3 class="heading-sm">Cross-Border E-Commerce Nuances: AliExpress, Shein, Temu &amp; Taobao</h3>
+            <p>With millions of consumers shopping on global e-commerce portals, understanding <strong>china shoe size conversion</strong> is essential to prevent costly returns. A common complaint among Western shoppers is that shoes ordered from Chinese platforms feel tighter or shorter than expected.</p>
+            <p>This discrepancy occurs due to three structural factors:</p>
+            <ol>
+              <li><strong>East Asian Last Proportions:</strong> Traditional lasts sculpted for East Asian foot morphology often accommodate a broader forefoot ball girth but a slightly lower instep height and a narrower heel cup compared to standard Western D-width lasts.</li>
+              <li><strong>Fast-Fashion Last Tolerances:</strong> Budget manufacturers on fast-fashion platforms occasionally shave interior toe room to minimize material costs, resulting in shoes that run approximately half a size smaller than labeled European numbers.</li>
+              <li><strong>Nominal Size vs. Bare Foot Measurement:</strong> International buyers frequently mistake the external sole length for footbed capacity. Always anchor your purchase on your barefoot measurement in millimetres.</li>
+            </ol>
+            <p>When in doubt on international storefronts, always refer to the seller's centimetre or millimetre specification rather than relying solely on the stated EU or China size number.</p>
+
+            <h3 class="heading-sm">Iconic Chinese Footwear Brands: Li-Ning, Anta, Feiyue &amp; Warrior</h3>
+            <p>China's domestic footwear ecosystem features iconic heritage brands and powerhouse sports labels that compete on the world stage:</p>
+            <ul>
+              <li><strong>Li-Ning:</strong> Founded by the legendary Olympic gymnast Li Ning, this sports giant leads in performance basketball (e.g., the Dwyane Wade "Way of Wade" line) and elite marathon racing (Feidian carbon-plated racers). Li-Ning shoes fit exceptionally true to their millimetre/centimetre specifications with precise heel containment.</li>
+              <li><strong>Anta:</strong> Endorsed by NBA champions Klay Thompson and Kyrie Irving, Anta engineering provides generous forefoot volume and high-grade cushioning. Anta shoes are favored by players with broader feet who find Western performance footwear restrictive.</li>
+              <li><strong>Feiyue (飞跃):</strong> Originally produced in Shanghai during the 1920s as durable martial arts and parkour footwear, Feiyue canvas shoes feature a distinctive lightweight canvas upper and flexible vulcanized sole. They fit slightly roomy; if planning to wear them barefoot or with thin liners, ordering half a size down is customary.</li>
+              <li><strong>Warrior (回力 - Huili):</strong> Established in Shanghai in 1927, Warrior is China's premier vintage basketball sneaker brand. Warrior sneakers follow classic China Type 1 (EU) sizing faithfully.</li>
+            </ul>
+
+            <h3 class="heading-sm">How to Measure Your Foot Using a China Foot Size Chart</h3>
+            <p>To ensure a flawless match on our <strong>china foot size chart</strong>, perform this simple measurement at home:</p>
+            <ol>
+              <li><strong>Measure in the Evening:</strong> Feet naturally expand by up to 5% to 8% throughout the day due to walking and gravity.</li>
+              <li><strong>Align Paper Against a Wall:</strong> Tape a sheet of blank paper to an uncarpeted hard floor with the short edge flush against a flat baseboard or vertical wall.</li>
+              <li><strong>Stand with Even Weight:</strong> Step onto the paper with your heel lightly touching the wall. Stand upright, distributing your weight evenly across both feet.</li>
+              <li><strong>Mark the Longest Toe:</strong> Using a pencil held strictly vertical (90 degrees to the floor), mark the outermost edge of your longest toe.</li>
+              <li><strong>Measure in Millimetres:</strong> Measure from the edge of the paper to your pencil mark in millimetres. That millimetre number is your exact China Type 2 size (e.g., 240 mm = China 38 / US Women's 7.5).</li>
+            </ol>
+            <p><strong>The Walking Allowance Rule:</strong> Ensure your footwear allows approximately 8 to 10 millimetres of clearance beyond the tip of your longest toe to accommodate natural foot splay during forward stride.</p>
+
+            <h3 class="heading-sm">Rapid Lookup: Core Chinese Footwear Conversions Explained</h3>
+            <p>Quick lookup guide for popular sizes on a <strong>china shoe chart</strong>:</p>
+            <ul>
+              <li><strong>China 35 (225 mm):</strong> Fits a 22.5 cm foot; corresponds to US Women's 5.0 and UK 2.5 to 3.0.</li>
+              <li><strong>China 36 (230 mm):</strong> The classic <strong>36 shoe size in china</strong>, mapping to US Women's 5.5 to 6.0 and UK 3.5.</li>
+              <li><strong>China 37 (235 mm):</strong> Fits a 23.5 cm foot; corresponds to US Women's 6.5 and UK 4.0 to 4.5.</li>
+              <li><strong>China 38 (240 mm):</strong> Very common women's size, translating to US Women's 7.0 to 7.5 and UK 5.0.</li>
+              <li><strong>China 39 (245 mm):</strong> The crossover size between larger women's shoes (US Women's 8.0) and entry men's footwear (US Men's 6.5).</li>
+              <li><strong>China 40 (250 mm):</strong> Standard adult size mapping to US Men's 7.0 to 7.5 and UK 6.5.</li>
+              <li><strong>China 41 (255 mm):</strong> Popular men's size mapping to US Men's 8.0 and UK 7.5.</li>
+              <li><strong>China 42 (260 mm):</strong> The median men's size across China, translating to US Men's 8.5 to 9.0 and UK 8.0.</li>
+              <li><strong>China 43 – 44 (265 – 270 mm):</strong> Corresponds to US Men's 9.5 to 10.5 and UK 9.0 to 10.0.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-band">
+      <div class="page-inner">
+        <div class="faq-card">
+          <p class="mono-eyebrow">Frequently Asked Questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">China Footwear &amp; Shoe Sizing FAQs</h2>
+          <div class="faq-list">
+            {faqs.map(item => (
+              <details class="faq-item">
+                <summary class="faq-q">
+                  <span>{item.q}</span>
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-a"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Internal Links -->
+    <section class="related-band">
+      <div class="page-inner">
+        <RelatedLinks
+          title="Popular Asian &amp; Metric Size Conversions"
+          links={conversionLinks}
+        />
+        <div style="margin-top:32px">
+          <RelatedLinks
+            title="Explore Other Regional Sizing Systems"
+            links={countryLinks}
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 64px 24px 40px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%);
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .page-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    max-width: 720px;
+    margin: 16px auto 24px;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .badge-trust {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-body);
+  }
+
+  /* Converter Band */
+  .converter-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .converter-inline {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 32px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .ci-header {
+    margin-bottom: 24px;
+  }
+  .ci-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .ci-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ci-results {
+    background: var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    padding: 20px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ci-placeholder {
+    color: var(--v-mute);
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Tables band */
+  .table-band {
+    padding: 48px 24px;
+  }
+  .section-heading {
+    margin-bottom: 32px;
+  }
+  .table-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    overflow: hidden;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .table-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--v-hairline);
+    background: var(--v-subtle);
+  }
+  .category-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
+    color: var(--v-ink);
+  }
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+  }
+  .size-table th {
+    background: var(--v-canvas);
+    padding: 12px 18px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-body);
+  }
+  .size-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--v-hairline);
+    color: var(--v-ink);
+  }
+  .size-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .size-table tbody tr:hover {
+    background: var(--v-subtle);
+  }
+
+  /* Prose Article Band */
+  .content-band {
+    padding: 48px 24px;
+    background: var(--v-canvas);
+  }
+  .prose-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 48px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .prose-header {
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--v-hairline);
+    padding-bottom: 28px;
+  }
+  .prose-main-title {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 12px 0 16px;
+    line-height: 1.25;
+  }
+  .prose-lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--v-body);
+  }
+  .content-prose h3 {
+    margin: 36px 0 14px;
+    color: var(--v-ink);
+  }
+  .content-prose p {
+    margin-bottom: 18px;
+    line-height: 1.7;
+    color: var(--v-body);
+    font-size: 15px;
+  }
+  .content-prose ul, .content-prose ol {
+    margin: 0 0 24px 20px;
+    color: var(--v-body);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .content-prose li {
+    margin-bottom: 10px;
+  }
+  .content-prose strong {
+    color: var(--v-ink);
+  }
+
+  /* FAQs */
+  .faq-band {
+    padding: 48px 24px;
+  }
+  .faq-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    padding: 40px;
+    box-shadow: var(--v-shadow-whisper);
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-md);
+    background: var(--v-canvas);
+    transition: all 0.15s ease;
+  }
+  .faq-item[open] {
+    background: var(--v-subtle);
+  }
+  .faq-q {
+    padding: 18px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--v-ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    flex-shrink: 0;
+    margin-left: 16px;
+    transition: transform 0.2s ease;
+    color: var(--v-mute);
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-a {
+    padding: 0 20px 20px;
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .faq-a p {
+    margin: 0;
+  }
+
+  /* Related */
+  .related-band {
+    padding: 48px 24px 64px;
+    background: var(--v-canvas);
+  }
+
+  @media (max-width: 768px) {
+    .ci-row {
+      grid-template-columns: 1fr;
+    }
+    .prose-card {
+      padding: 24px;
+    }
+    .faq-card {
+      padding: 24px;
+    }
+  }
+</style>
+
+<script>
+  import { SIZE_DATA } from '../../data/shoe-sizes';
+
+  const sizeSelect = document.getElementById('cn-size') as HTMLSelectElement | null;
+  const genderSelect = document.getElementById('cn-gender') as HTMLSelectElement | null;
+  const resultsContainer = document.getElementById('cn-results');
+
+  function updateSizes() {
+    if (!genderSelect || !sizeSelect) return;
+    const gender = (genderSelect.value || 'men') as 'men' | 'women' | 'kids';
+    const sizes = SIZE_DATA[gender]?.china || [];
+    const mmSizes = SIZE_DATA[gender]?.korea || [];
+    const currentVal = sizeSelect.value;
+
+    sizeSelect.innerHTML = '<option value="" disabled selected>Select China size</option>';
+    const seen = new Set();
+    sizes.forEach((s, idx) => {
+      const val = String(s);
+      if (!seen.has(val)) {
+        seen.add(val);
+        const opt = document.createElement('option');
+        opt.value = val;
+        const mm = mmSizes[idx] ? ` (${mmSizes[idx]} mm)` : '';
+        opt.textContent = `China ${val}${mm}`;
+        sizeSelect.appendChild(opt);
+      }
+    });
+
+    if (currentVal && seen.has(currentVal)) {
+      sizeSelect.value = currentVal;
+    }
+    renderResults();
+  }
+
+  function renderResults() {
+    if (!resultsContainer || !sizeSelect) return;
+    const size = sizeSelect.value;
+    if (!size) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Select a Chinese shoe size to see instant conversions across US, UK, EU, CM, and Inches</p>';
+      return;
+    }
+
+    const gender = (genderSelect?.value || 'men') as 'men' | 'women' | 'kids';
+    const data = SIZE_DATA[gender];
+    const idx = data.china?.findIndex(s => String(s) === size);
+
+    if (idx === undefined || idx === -1) {
+      resultsContainer.innerHTML = '<p class="ci-placeholder">Size not found in database</p>';
+      return;
+    }
+
+    const us = data.us?.[idx] ?? '—';
+    const uk = data.uk?.[idx] ?? '—';
+    const eu = data.eu?.[idx] ?? size;
+    const cm = data.cm?.[idx] ?? '—';
+    const inches = data.inches?.[idx] ?? '—';
+    const mm = data.korea?.[idx] ?? `${Number(cm) * 10}`;
+
+    resultsContainer.innerHTML = `
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">
+        <div style="background:var(--v-elevated); border:1px solid var(--v-link); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--v-link);">China Selected</span>
+          <div style="font-size:20px; font-weight:700; color:var(--v-ink); margin-top:2px;">China ${size}</div>
+          <span style="font-size:11px; color:var(--v-mute); font-family:var(--font-mono);">${mm} mm</span>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">US Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">US ${us}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">UK Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">UK ${uk}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">EU Size</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">EU ${eu}</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">Centimetres</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${cm} cm</div>
+        </div>
+        <div style="background:var(--v-elevated); border:1px solid var(--v-hairline); padding:12px; border-radius:8px; text-align:center;">
+          <span style="font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; color:var(--v-body);">Inches</span>
+          <div style="font-size:18px; font-weight:600; color:var(--v-ink); margin-top:2px;">${inches}"</div>
+        </div>
+      </div>
+    `;
+  }
+
+  genderSelect?.addEventListener('change', updateSizes);
+  sizeSelect?.addEventListener('change', renderResults);
+</script>
