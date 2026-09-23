@@ -6,8 +6,8 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/kids-shoe-size-by-age/`;
-const pageTitle = 'Kids Shoe Size Chart by Age — Baby & Toddler Sizing';
-const pageDescription = 'Shoe size chart for babies, toddlers, and kids by age. Interactive calculator, foot length in cm and inches, and growth milestone guides.';
+const pageTitle = 'Kids Shoe Size by Age: Baby, Toddler & Kids Chart';
+const pageDescription = 'Find baby, toddler, and kids shoe sizes by age with US, UK, EU, CM, and inch charts. Includes 1-year-old, 2T, 3T, and 5-year-old sizing.';
 const ogImage = `${domain}/og-image.png`;
 
 
@@ -73,6 +73,7 @@ const faqSchema = JSON.stringify({
         <p class="mono-eyebrow">Milestone Sizing Guide</p>
         <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Kids &amp; Toddler Shoe Size by Age</h1>
         <p class="hero-sub body-lg">Find the recommended shoe size for babies, toddlers, little kids, and youth from birth through 12 years old. Use our interactive age converter or explore verified milestone tables.</p>
+        <p class="hero-answer"><strong>Quick answer:</strong> A typical 1-year-old wears US 3.5C–4.5C, while a 2-year-old often wears US 5C–7C. Measure the child&apos;s foot in CM before buying because age ranges are only estimates.</p>
         <div class="hero-badges">
           <span class="badge-trust">0–12 Years Milestones</span>
           <span class="badge-trust">US "C" &amp; "Y" Standards</span>
@@ -385,6 +386,7 @@ const faqSchema = JSON.stringify({
     max-width: 680px;
     margin: 16px auto 24px;
   }
+  .hero-answer { max-width: 680px; margin: 0 auto 24px; padding: 12px 16px; border-left: 3px solid var(--v-link); background: var(--v-link-soft); color: var(--v-body); font-size: 15px; line-height: 24px; text-align: left; }
   .hero-badges {
     display: flex;
     flex-wrap: wrap;

@@ -7,8 +7,8 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/india-to-us-shoe-size/`;
-const pageTitle = 'India to US Shoe Size Converter — Indian to US Chart';
-const pageDescription = 'Convert Indian shoe sizes to US sizes instantly. Comprehensive India to US conversion chart for men, women, and kids with Bata to US formulas & guides.';
+const pageTitle = 'India to US Shoe Size Chart: Indian & US Converter';
+const pageDescription = 'Convert Indian shoe sizes to US sizes with a men\'s, women\'s, and kids\' chart. See India 8 and 9 in US, plus CM and EU equivalents.';
 const ogImage = `${domain}/og-image.png`;
 
 // Men's table data (India/UK, US, EU, CM, Inches)
@@ -141,6 +141,7 @@ const relatedLinks = [
         <span class="badge-pill">International Footwear Converter</span>
         <h1 class="hero-title">India to US Shoe Size Converter</h1>
         <p class="hero-sub">Convert Indian shoe sizes to American (US) sizes effortlessly. Compare detailed men's, women's, and kids' conversion charts with Bata equivalents, European benchmarks, and anatomical footbed measurements in centimetres.</p>
+        <p class="hero-answer"><strong>Quick answer:</strong> Indian men's size 8 is usually US men's 9, and Indian men's size 9 is US men's 10. For women's shoes, Indian size 5 is usually US women's 7. Check the CM measurement because brand fits vary.</p>
         
         <div class="hero-stats">
           <div class="stat-pill">
@@ -610,6 +611,7 @@ const relatedLinks = [
     margin: 0 0 28px;
     max-width: 720px;
   }
+  .hero-answer { max-width: 720px; margin: 0 0 28px; padding: 12px 16px; border-left: 3px solid var(--v-link); background: var(--v-link-soft); color: var(--v-body); font-size: 15px; line-height: 24px; text-align: left; }
   .hero-stats {
     display: flex;
     flex-wrap: wrap;

@@ -3,6 +3,12 @@ export async function onRequest(context) {
   const accept = request.headers.get('accept') || '';
   const url = new URL(request.url);
 
+  // Keep one permanent hostname so Google does not split URL signals.
+  if (url.hostname.toLowerCase() === 'www.allshoesizeconverter.com') {
+    url.hostname = 'allshoesizeconverter.com';
+    return Response.redirect(url.toString(), 301);
+  }
+
   // If request asks for text/markdown on the homepage
   if (accept.includes('text/markdown')) {
     if (url.pathname === '/' || url.pathname === '/index.html' || url.pathname === '') {

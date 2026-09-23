@@ -7,8 +7,8 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/us-to-cm-shoe-size/`;
-const pageTitle = 'US to CM Shoe Size Converter — Foot Length in Centimeters';
-const pageDescription = 'Convert US shoe sizes to centimeters (CM) instantly. Accurate US to CM conversion chart for men, women, and kids with foot measurement guide & formulas.';
+const pageTitle = 'US to CM Shoe Size Chart: Men, Women & Kids';
+const pageDescription = 'Convert US shoe sizes to centimeters with a men\'s, women\'s, and kids\' chart. See US 8, 9, 10, and 10.5 in CM, inches, EU, and UK sizes.';
 const ogImage = `${domain}/og-image.png`;
 
 // Men's table data (US, CM, Inches, JP, EU, UK)
@@ -138,6 +138,7 @@ const relatedLinks = [
         <p class="hero-sub body-lg">
           Convert American (US) shoe sizes to foot length in centimeters (CM) instantly. Verify exact metric measurements across men's, women's, and children's shoes with our interactive calculator and conversion charts.
         </p>
+        <p class="hero-answer"><strong>Quick answer:</strong> US men's 10 is about 28.0 cm, US men's 10.5 is 28.5 cm, and US men's 9 is 27.0 cm. Women's CM values use a different scale, so select the correct category.</p>
 
         <div class="quick-stat-row">
           <div class="stat-badge">
@@ -603,6 +604,7 @@ const relatedLinks = [
     margin: 0 0 16px;
   }
   .hero-sub { font-size: 16px; color: var(--v-body); line-height: 26px; max-width: 680px; margin: 0 auto 24px; }
+  .hero-answer { max-width: 680px; margin: 0 auto 24px; padding: 12px 16px; border-left: 3px solid var(--v-link); background: var(--v-link-soft); color: var(--v-body); font-size: 15px; line-height: 24px; text-align: left; }
 
   /* Quick Stat Badges */
   .quick-stat-row {

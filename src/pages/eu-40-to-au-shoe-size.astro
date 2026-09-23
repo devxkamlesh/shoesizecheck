@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/eu-40-to-au-shoe-size/`;
+const pageTitle = "EU 40 to AU Shoe Size: Men's and Women's Conversion";
+const pageDescription = 'EU 40 to Australian shoe size conversion for men and women. See AU, US, UK, and CM equivalents with brand sizing guidance.';
+const ogImage = `${domain}/og-image.png`;
+
+const faqs = [
+  {
+    q: 'What is EU 40 in Australian shoe size?',
+    a: 'EU 40 is approximately AU men\'s 7, which usually matches UK men\'s 7 and US men\'s 7.5 to 8. For modern Australian women\'s retail, EU 40 is approximately AU women\'s 9 to 9.5. The foot length is about 25.4 cm.'
+  },
+  {
+    q: 'What is EU 40 in AU women\'s shoe size?',
+    a: 'EU 40 is usually AU women\'s 9 to 9.5 in modern Australian retail. It is approximately US women\'s 9 to 9.5, while traditional brands using a UK-based women\'s scale may label it around UK 7 to 7.5.'
+  },
+  {
+    q: 'What is EU 40 in AU men\'s shoe size?',
+    a: 'EU 40 is approximately AU men\'s 7. Australian men\'s sizes generally align with UK men\'s sizing, so AU men\'s 7 is about UK 7 and US men\'s 7.5 to 8.'
+  },
+  {
+    q: 'How many centimeters is EU 40?',
+    a: 'EU 40 corresponds to approximately 25.4 cm of foot length. Use the brand\'s own CM or JP measurement when available because shoe lasts and toe-room allowances vary.'
+  },
+  {
+    q: 'Do Australian shoe sizes vary by brand?',
+    a: 'Yes. Australian men\'s sizing commonly follows UK sizing, while women\'s retail often follows US sizing. Blundstone and R.M. Williams use their own fitting guidance, and Crocs are labeled in US unisex sizes. Always check the brand chart before ordering.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  }))
+});
+
+const relatedLinks = [
+  { label: 'Australian Shoe Size Chart', href: '/country/australia/' },
+  { label: 'EU to CM Shoe Size Converter', href: '/eu-to-cm-shoe-size/' },
+  { label: 'EU to US Shoe Size Converter', href: '/eu-to-us-shoe-size/' },
+  { label: 'Shoe Size in Centimeters', href: '/shoe-size-in-cm/' },
+  { label: 'Shoe Size by Foot Length', href: '/shoe-size-by-foot-length/' },
+];
+
+const conversionRows = [
+  { eu: 'EU 40', menAu: 'AU men 7', womenAu: 'AU women 9-9.5', us: 'Men 7.5-8 / Women 9-9.5', uk: 'Men 7 / Women 7-7.5*', cm: '25.4 cm' },
+  { eu: 'EU 41', menAu: 'AU men 7.5-8', womenAu: 'AU women 10', us: 'Men 8-8.5 / Women 10', uk: 'Men 7.5-8 / Women 8*', cm: '25.8-26.0 cm' },
+  { eu: 'EU 42', menAu: 'AU men 8', womenAu: 'AU women 10.5-11', us: 'Men 8.5-9 / Women 10.5-11', uk: 'Men 8 / Women 8.5-9*', cm: '27.0 cm' },
+  { eu: 'EU 43', menAu: 'AU men 9', womenAu: 'AU women 11-11.5', us: 'Men 9.5-10 / Women 11-11.5', uk: 'Men 9 / Women 9-9.5*', cm: '28.0 cm' },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical={pageCanonical} ogImage={ogImage}>
+  <Fragment slot="head">
+    <meta name="keywords" content="eu 40 to au shoe size, european size 40 in australia, eu 40 in australian shoe size, eu 40 to aus shoe size, eu to au shoe size, eu 40 mens australia, eu 40 womens australia" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content">
+    <div class="page-inner breadcrumbs-wrap">
+      <Breadcrumbs items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/country/' },
+        { label: 'Australia', href: '/country/australia/' },
+        { label: 'EU 40 to AU' },
+      ]} />
+    </div>
+
+    <section class="hero-band">
+      <div class="page-inner hero-content">
+        <p class="mono-eyebrow">European to Australian Shoe Size</p>
+        <h1 class="display-xl">EU 40 to AU Shoe Size</h1>
+        <p class="hero-sub body-lg">Convert EU 40 to Australian men&apos;s and women&apos;s shoe sizes with US, UK, and centimeter equivalents.</p>
+        <p class="hero-answer"><strong>Quick answer:</strong> EU 40 is about AU men&apos;s 7 or AU women&apos;s 9 to 9.5. It corresponds to approximately 25.4 cm. Check the brand chart because Australian women&apos;s sizing is not universal.</p>
+      </div>
+    </section>
+
+    <section class="answer-band">
+      <div class="page-inner">
+        <div class="answer-grid">
+          <article class="answer-card">
+            <span class="answer-label">Men</span>
+            <h2>EU 40 = AU men&apos;s 7</h2>
+            <p>Usually UK men&apos;s 7 and approximately US men&apos;s 7.5 to 8.</p>
+          </article>
+          <article class="answer-card">
+            <span class="answer-label">Women</span>
+            <h2>EU 40 = AU women&apos;s 9-9.5</h2>
+            <p>Modern Australian retail generally follows US women&apos;s sizing. Traditional UK-based brands may label it differently.</p>
+          </article>
+          <article class="answer-card">
+            <span class="answer-label">Measurement</span>
+            <h2>EU 40 = about 25.4 cm</h2>
+            <p>Use the CM measurement as your best cross-brand reference.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="table-band">
+      <div class="page-inner">
+        <h2 class="heading-lg">EU to AU Shoe Size Conversion Chart</h2>
+        <p class="section-sub">Approximate adult conversions for Australian retail and international footwear labels.</p>
+        <div class="table-wrap">
+          <table class="size-table">
+            <thead><tr><th>EU</th><th>AU Men</th><th>AU Women</th><th>US</th><th>UK</th><th>Foot length</th></tr></thead>
+            <tbody>
+              {conversionRows.map(row => (
+                <tr><td><strong>{row.eu}</strong></td><td>{row.menAu}</td><td>{row.womenAu}</td><td>{row.us}</td><td>{row.uk}</td><td>{row.cm}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">* Traditional Australian women&apos;s and heritage brands may use a UK-based scale. Treat these values as a starting point and confirm the manufacturer&apos;s size chart.</p>
+      </div>
+    </section>
+
+    <section class="content-band">
+      <div class="page-inner content-prose">
+        <h2 class="heading-lg">How Australian Shoe Sizing Works</h2>
+        <p>Australian sizing has two common conventions. Australian men&apos;s sizes generally align with UK men&apos;s sizing. Modern Australian women&apos;s retail often aligns with US women&apos;s sizing, but some heritage brands continue to use a UK-based scale.</p>
+        <h3>Brand sizing disclaimer</h3>
+        <p>Brand, model, width, and intended use can change the fit. Blundstone and R.M. Williams boots use brand-specific Australian or UK-style guidance. Crocs are commonly marked with US unisex sizes. When a product page provides a CM or JP measurement, compare it with your measured foot instead of relying only on EU or AU numbers.</p>
+        <h3>Measure before ordering</h3>
+        <p>Measure both feet at the end of the day while wearing the socks you plan to use. Choose the larger foot, then compare its length in centimeters with the manufacturer&apos;s chart. Allow room for natural toe movement, but do not size up solely because a conversion table differs by half a size.</p>
+      </div>
+    </section>
+
+    <section class="faq-band">
+      <div class="page-inner">
+        <h2 class="heading-lg">EU 40 to AU Shoe Size FAQs</h2>
+        <div class="faq-list">
+          {faqs.map(f => (
+            <details class="faq-item">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <RelatedLinks title="Related Australian and EU Shoe Size Guides" links={relatedLinks} />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .breadcrumbs-wrap { padding-top: 16px; }
+  .hero-band { padding: 48px 24px 40px; background: linear-gradient(180deg, var(--v-elevated), var(--v-canvas)); border-bottom: 1px solid var(--v-hairline); text-align: center; }
+  .hero-content { max-width: 800px; }
+  .hero-sub { max-width: 680px; margin: 12px auto 20px; }
+  .hero-answer { max-width: 680px; margin: 0 auto; padding: 12px 16px; border-left: 3px solid var(--v-link); background: var(--v-link-soft); color: var(--v-body); font-size: 15px; line-height: 24px; text-align: left; }
+  .answer-band, .table-band, .content-band, .faq-band { padding: 64px 24px; border-top: 1px solid var(--v-hairline); }
+  .answer-band, .content-band, .faq-band { background: var(--v-elevated); }
+  .table-band { background: var(--v-canvas); }
+  .answer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .answer-card { padding: 20px; background: var(--v-canvas); border: 1px solid var(--v-hairline); border-radius: var(--v-r-md); }
+  .answer-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--v-mute); }
+  .answer-card h2 { font-size: 18px; line-height: 24px; margin: 8px 0; color: var(--v-ink); }
+  .answer-card p, .section-sub, .table-note, .content-prose p { color: var(--v-body); line-height: 24px; }
+  .answer-card p, .table-note { margin: 0; font-size: 14px; }
+  .section-sub { margin: 8px 0 24px; }
+  .table-wrap { overflow-x: auto; }
+  .size-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 14px; }
+  .size-table th, .size-table td { padding: 12px 14px; border: 1px solid var(--v-hairline); text-align: left; }
+  .size-table th { background: var(--v-table-head); color: var(--v-table-head-text); }
+  .size-table td { color: var(--v-body); background: var(--v-elevated); }
+  .table-note { margin-top: 12px; }
+  .content-prose { max-width: 820px; }
+  .content-prose h2 { margin: 0 0 16px; }
+  .content-prose h3 { color: var(--v-ink); font-size: 18px; margin: 28px 0 8px; }
+  .faq-list { max-width: 820px; margin-top: 24px; }
+  .faq-item { border-bottom: 1px solid var(--v-hairline); padding: 16px 0; }
+  .faq-item summary { cursor: pointer; color: var(--v-ink); font-weight: 600; }
+  .faq-item p { color: var(--v-body); line-height: 24px; margin: 12px 0 0; }
+  @media (max-width: 720px) {
+    .answer-grid { grid-template-columns: 1fr; }
+    .answer-band, .table-band, .content-band, .faq-band { padding: 44px 16px; }
+    .hero-band { padding: 32px 16px 36px; }
+    .page-inner { padding: 0 16px; }
+  }
+</style>

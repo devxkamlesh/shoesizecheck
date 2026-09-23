@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/editorial-policy/`;
+const pageTitle = 'Editorial Policy & Sources — AllShoeSizeConverter';
+const pageDescription = 'Learn how AllShoeSizeConverter researches, checks, updates, and presents international shoe size conversions and measurement guidance.';
+const reviewedDate = '2026-09-23';
+
+const pageSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": pageCanonical,
+  "dateModified": reviewedDate,
+  "author": {
+    "@type": "Person",
+    "name": "Kamlesh Choudhary",
+    "alternateName": "devxkamlesh",
+    "url": "https://devxkamlesh.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AllShoeSizeConverter",
+    "url": domain
+  }
+});
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical={pageCanonical}>
+  <Fragment slot="head">
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <script is:inline type="application/ld+json" set:html={pageSchema} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content" class="editorial-page">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Editorial Policy & Sources' },
+    ]} />
+
+    <section class="editorial-hero">
+      <div class="editorial-inner">
+        <p class="mono-eyebrow">Accuracy, Sources &amp; Transparency</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Editorial Policy &amp; Sources</h1>
+        <p class="hero-sub body-lg">How AllShoeSizeConverter researches and maintains international shoe-size conversion guidance.</p>
+        <p class="review-line"><strong>Last reviewed:</strong> September 23, 2026 · <strong>Maintainer:</strong> Kamlesh Choudhary (<a href="https://devxkamlesh.com/" rel="me">devxkamlesh</a>)</p>
+      </div>
+    </section>
+
+    <section class="editorial-body">
+      <div class="editorial-inner prose">
+        <h2>Who maintains this site?</h2>
+        <p>AllShoeSizeConverter is an independent shoe-size reference maintained by Kamlesh Choudhary, who publishes online as devxkamlesh. The site is a software and editorial project, not a medical practice, footwear manufacturer, or official government sizing authority.</p>
+
+        <h2>How conversion information is prepared</h2>
+        <ol>
+          <li>We compare the size relationships used by the relevant regional systems, including US, UK, EU, India, Australia, Japan, and metric CM/Mondopoint labels.</li>
+          <li>We present the result as an approximate conversion because brands, lasts, widths, and toe-room allowances differ.</li>
+          <li>We include foot length in centimeters where possible because a physical measurement is more useful across countries than a label alone.</li>
+          <li>We review interactive calculations, tables, titles, links, and visible guidance when a page is materially updated.</li>
+          <li>Readers can report errors or brand-specific differences through the <a href="/contact/">Contact Us</a> page.</li>
+        </ol>
+
+        <h2>Sources and standards</h2>
+        <p>These public organizations and documents provide background for the measurement systems and Indian footwear research discussed on this site:</p>
+        <ul>
+          <li><a href="https://clri.org/" rel="nofollow">CSIR-Central Leather Research Institute (CSIR-CLRI)</a>, the Indian government research institute that publishes footwear research and sizing resources.</li>
+          <li><a href="https://clri.org/docs/2022/misc/Footwear-sizing-survey-31.03.2022.pdf" rel="nofollow">CSIR-CLRI footwear sizing survey</a>, an official PDF about the Indian footwear sizing survey.</li>
+          <li><a href="https://www.bis.gov.in/" rel="nofollow">Bureau of Indian Standards (BIS)</a>, India&apos;s national standards body. Product labels and brand charts should be checked for the standard actually used.</li>
+          <li><a href="https://www.iso.org/" rel="nofollow">International Organization for Standardization (ISO)</a>, the international standards organization. ISO documents may be copyrighted or paywalled, so this site summarizes standards rather than reproducing them.</li>
+        </ul>
+
+        <h2>Important limitations</h2>
+        <p>A conversion chart cannot guarantee fit. A manufacturer may use a different last, width, sock allowance, or regional label. Always check the product manufacturer&apos;s chart, especially for safety footwear, ski boots, children&apos;s shoes, and medical or orthopedic footwear. This website does not provide medical advice.</p>
+
+        <h2>Corrections and review schedule</h2>
+        <p>Pages are reviewed when conversion data, source information, or user-reported errors require a change. The visible review date identifies the latest editorial review recorded for the site. A review date does not mean that every manufacturer&apos;s chart has changed on that date.</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .editorial-page { background: var(--v-canvas); min-height: 80vh; }
+  .editorial-inner { max-width: 900px; margin: 0 auto; }
+  .editorial-hero { padding: 56px 24px 36px; text-align: center; background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%); border-bottom: 1px solid var(--v-hairline); }
+  .hero-sub { max-width: 680px; margin: 12px auto 16px; }
+  .review-line { color: var(--v-body); font-size: 14px; line-height: 22px; }
+  .review-line a, .prose a { color: var(--v-link); text-decoration: underline; }
+  .editorial-body { padding: 56px 24px 84px; background: var(--v-elevated); }
+  .prose h2 { color: var(--v-ink); font-size: 24px; line-height: 32px; margin: 0 0 12px; }
+  .prose h2:not(:first-child) { margin-top: 40px; }
+  .prose p, .prose li { color: var(--v-body); font-size: 15px; line-height: 26px; }
+  .prose ol, .prose ul { padding-left: 24px; }
+  .prose li { margin-bottom: 10px; }
+  @media (max-width: 640px) { .editorial-hero, .editorial-body { padding-left: 16px; padding-right: 16px; } }
+</style>
