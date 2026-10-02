@@ -43,7 +43,7 @@ const to = conversion.toSystem;
 // Related links
 const relatedLinks = conversion.relatedConversions.map(slug => {
   const parts = slug.replace(/-shoe-size$/, '').split('-to-');
-  return { label: `${parts[0].toUpperCase()} to ${parts[1].toUpperCase()} Shoe Size`, href: `/${slug}/` };
+  return { label: `${parts[0].toUpperCase()} to ${parts[1].toUpperCase()} shoe size`, href: `/${slug}/` };
 });
 
 const faqSchema = JSON.stringify({
@@ -119,18 +119,18 @@ const faqSchema = JSON.stringify({
     <!-- Formula -->
     <section class="content-band">
       <div class="page-inner content-prose">
-        <h2 class="heading-md">How to Convert {conversion.fromLabel} to {conversion.toLabel}</h2>
+        <h2 class="heading-md">How to convert {conversion.fromLabel} to {conversion.toLabel}</h2>
         <p>{conversion.formula}</p>
 
         <div class="examples-grid">
           <div class="example-col">
-            <h3 class="heading-sm">Men's Examples</h3>
+            <h3 class="heading-sm">Men's examples</h3>
             <ul>
               {conversion.menExamples.map(ex => <li>{ex}</li>)}
             </ul>
           </div>
           <div class="example-col">
-            <h3 class="heading-sm">Women's Examples</h3>
+            <h3 class="heading-sm">Women's examples</h3>
             <ul>
               {conversion.womenExamples.map(ex => <li>{ex}</li>)}
             </ul>
@@ -147,7 +147,7 @@ const faqSchema = JSON.stringify({
     <!-- Full Table -->
     <section class="table-band">
       <div class="page-inner">
-        <h2 class="heading-md">{conversion.fromLabel} to {conversion.toLabel} — Men's Chart</h2>
+        <h2 class="heading-md">{conversion.fromLabel} to {conversion.toLabel}: men's chart</h2>
         <div class="scroll-x">
           <table class="size-table" aria-label={`${conversion.fromLabel} to ${conversion.toLabel} men chart`}>
             <thead>
@@ -157,15 +157,15 @@ const faqSchema = JSON.stringify({
               {SIZE_DATA.men[from]?.map((val, i) => (
                 <tr>
                   <td>{val}</td>
-                  <td>{SIZE_DATA.men[to]?.[i] ?? '—'}</td>
-                  <td>{SIZE_DATA.men.cm?.[i] ?? '—'}</td>
+                  <td>{SIZE_DATA.men[to]?.[i] ?? 'N/A'}</td>
+                  <td>{SIZE_DATA.men.cm?.[i] ?? 'N/A'}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-        <h2 class="heading-md" style="margin-top:48px">{conversion.fromLabel} to {conversion.toLabel} — Women's Chart</h2>
+        <h2 class="heading-md" style="margin-top:48px">{conversion.fromLabel} to {conversion.toLabel}: women's chart</h2>
         <div class="scroll-x">
           <table class="size-table" aria-label={`${conversion.fromLabel} to ${conversion.toLabel} women chart`}>
             <thead>
@@ -175,8 +175,8 @@ const faqSchema = JSON.stringify({
               {SIZE_DATA.women[from]?.map((val, i) => (
                 <tr>
                   <td>{val}</td>
-                  <td>{SIZE_DATA.women[to]?.[i] ?? '—'}</td>
-                  <td>{SIZE_DATA.women.cm?.[i] ?? '—'}</td>
+                  <td>{SIZE_DATA.women[to]?.[i] ?? 'N/A'}</td>
+                  <td>{SIZE_DATA.women.cm?.[i] ?? 'N/A'}</td>
                 </tr>
               ))}
             </tbody>
@@ -188,7 +188,7 @@ const faqSchema = JSON.stringify({
     <!-- FAQ -->
     <section class="faq-band">
       <div class="page-inner">
-        <h2 class="heading-md">{conversion.fromLabel} to {conversion.toLabel} FAQ</h2>
+        <h2 class="heading-md">Frequently asked questions</h2>
         <div class="conv-faq-list">
           {conversion.faqs.map((f, i) => (
             <div class="faq-item">
@@ -206,7 +206,7 @@ const faqSchema = JSON.stringify({
     </section>
 
     <!-- Related -->
-    <RelatedLinks title="Related Conversions" links={relatedLinks} />
+    <RelatedLinks title="Related conversions" links={relatedLinks} />
 
   </main>
   <Footer />
@@ -269,7 +269,6 @@ const faqSchema = JSON.stringify({
   const SIZE_DATA = sizeData;
   const LABELS = labels;
 
-
   const sizeSelect = document.getElementById('conv-size');
   const genderSelect = document.getElementById('conv-gender');
   const resultEl = document.getElementById('conv-result');
@@ -291,7 +290,7 @@ const faqSchema = JSON.stringify({
     const idx = data[from]?.findIndex(v => String(v) === String(val));
     if (idx === -1 || idx === undefined) return;
     const fromVal = data[from][idx];
-    const toVal = data[to]?.[idx] ?? '—';
+    const toVal = data[to]?.[idx] ?? 'N/A';
     resultEl.innerHTML = `
       <div class="conv-result-card">
         <div class="conv-from">

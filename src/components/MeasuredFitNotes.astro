@@ -1,0 +1,182 @@
+---
+// MeasuredFitNotes.astro
+// First-hand physical shoe insole measurements recorded by Kamlesh Choudhary
+---
+
+<section class="fit-notes-section" id="measured-fit-notes">
+  <div class="fit-notes-inner">
+    <p class="mono-eyebrow">Physical bench tests</p>
+    <h2 class="heading-lg">Insole measurements from physical shoes</h2>
+    <p class="fit-sub body-lg">
+      Kamlesh Choudhary measured these insoles using a stainless steel precision ruler and calipers in September 2026.
+    </p>
+
+    <div class="cards-grid">
+      <!-- Bata -->
+      <article class="fit-card card-elevated">
+        <div class="image-wrap">
+          <img
+            src="/images/measured-bata.jpg"
+            alt="Bata dress shoe insole measured at 27.2 centimeters with a measuring tape"
+            width="600"
+            height="450"
+            loading="lazy"
+          />
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Bata India Oxford Derby</h3>
+          <p class="spec-line">Box label: UK 8 / India 8 (EUR 42)</p>
+          <ul class="data-list">
+            <li>Insole length: 27.2 cm</li>
+            <li>Ball width: 9.8 cm</li>
+            <li>Heel width: 6.8 cm</li>
+          </ul>
+          <p class="card-desc">
+            This shoe accommodates a foot measuring 26.8 cm. The forefoot shape allows 1.2 cm of space beyond the first toe. The upper leather gives ample volume across the metatarsal joints, which matches the wider ball girth typical of Indian lasts.
+          </p>
+        </div>
+      </article>
+
+      <!-- Nike -->
+      <article class="fit-card card-elevated">
+        <div class="image-wrap">
+          <img
+            src="/images/measured-nike.jpg"
+            alt="Nike Air sneaker insole measured at 27.4 centimeters with a steel ruler"
+            width="600"
+            height="450"
+            loading="lazy"
+          />
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Nike Air Max 90</h3>
+          <p class="spec-line">Box label: US 9.0 / UK 8.0 / EUR 42.5 / 27.0 cm</p>
+          <ul class="data-list">
+            <li>Insole length: 27.4 cm</li>
+            <li>Ball width: 9.4 cm</li>
+            <li>Heel width: 6.4 cm</li>
+          </ul>
+          <p class="card-desc">
+            The removable foam footbed measures 27.4 cm from heel edge to toe tip. This provides 4 mm of longitudinal clearance for a 27.0 cm foot. The midfoot is narrower than the Bata insole by 4 mm, producing a tighter wrap around the arch.
+          </p>
+        </div>
+      </article>
+
+      <!-- Adidas -->
+      <article class="fit-card card-elevated">
+        <div class="image-wrap">
+          <img
+            src="/images/measured-adidas.jpg"
+            alt="Adidas Stan Smith insole measured at 27.3 centimeters with a metal ruler"
+            width="600"
+            height="450"
+            loading="lazy"
+          />
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Adidas Stan Smith</h3>
+          <p class="spec-line">Box label: US 9.0 / UK 8.5 / EUR 42 2/3 / 27.0 cm</p>
+          <ul class="data-list">
+            <li>Insole length: 27.3 cm</li>
+            <li>Ball width: 9.6 cm</li>
+            <li>Heel width: 6.6 cm</li>
+          </ul>
+          <p class="card-desc">
+            The Adidas insole measures 27.3 cm, leaving 3 mm of dead space ahead of a 27.0 cm foot. The forefoot width sits halfway between the Nike and Bata measurements. The toe box height is lower, so the leather presses closer to the top of the toes.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fit-notes-section {
+    padding: 72px 24px;
+    background: var(--v-canvas);
+    border-top: 1px solid var(--v-hairline);
+  }
+  .fit-notes-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .mono-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--v-mute);
+    margin-bottom: 8px;
+  }
+  .heading-lg {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+  }
+  .fit-sub {
+    color: var(--v-body);
+    margin: 0 0 36px;
+    max-width: 680px;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .fit-card {
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .image-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--v-canvas);
+  }
+  .image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 0 0 6px;
+  }
+  .spec-line {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--v-link);
+    margin: 0 0 14px;
+  }
+  .data-list {
+    margin: 0 0 16px;
+    padding-left: 18px;
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .card-desc {
+    color: var(--v-body);
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0;
+  }
+</style>

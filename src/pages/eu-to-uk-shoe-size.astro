@@ -4,84 +4,38 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/eu-to-uk-shoe-size/`;
-const pageTitle = 'EU to UK Shoe Size Converter — European to British Chart';
-const pageDescription = 'Convert European (EU) shoe sizes to UK sizes instantly. Complete EU to UK conversion chart for men, women, and kids with shoe size guides & formulas.';
+const pageTitle = 'EU to UK shoe size converter: European to British chart';
+const pageDescription = 'Convert European (EU) shoe sizes to UK sizes. Complete EU to UK conversion charts for men, women, and kids with shoe size guides and formulas.';
 const ogImage = `${domain}/og-image.png`;
 
-// Men's table data (EU, UK, CM, US, Inches)
-const menSizes = [
-  { eu: 38.5, uk: 5.5, cm: 24.5, us: 6.5, inch: 9.6 },
-  { eu: 39.0, uk: 6.0, cm: 25.0, us: 7.0, inch: 9.8 },
-  { eu: 40.0, uk: 6.5, cm: 25.5, us: 7.5, inch: 10.0 },
-  { eu: 40.5, uk: 7.0, cm: 25.8, us: 8.0, inch: 10.1 },
-  { eu: 41.5, uk: 7.5, cm: 26.5, us: 8.5, inch: 10.4 },
-  { eu: 42.0, uk: 8.0, cm: 27.0, us: 9.0, inch: 10.6 },
-  { eu: 42.5, uk: 8.5, cm: 27.5, us: 9.5, inch: 10.8 },
-  { eu: 43.0, uk: 9.0, cm: 28.0, us: 10.0, inch: 11.0 },
-  { eu: 44.0, uk: 9.5, cm: 28.5, us: 10.5, inch: 11.2 },
-  { eu: 44.5, uk: 10.0, cm: 29.0, us: 11.0, inch: 11.4 },
-  { eu: 45.5, uk: 10.5, cm: 29.5, us: 11.5, inch: 11.6 },
-  { eu: 46.0, uk: 11.0, cm: 30.0, us: 12.0, inch: 11.8 },
-  { eu: 46.5, uk: 11.5, cm: 30.5, us: 12.5, inch: 12.0 },
-  { eu: 47.0, uk: 12.0, cm: 31.0, us: 13.0, inch: 12.2 },
-];
-
-// Women's table data (EU, UK, CM, US, Inches)
-const womenSizes = [
-  { eu: 35.0, uk: 2.5, cm: 21.5, us: 4.5, inch: 8.5 },
-  { eu: 35.5, uk: 3.0, cm: 22.0, us: 5.0, inch: 8.7 },
-  { eu: 36.0, uk: 3.5, cm: 22.5, us: 5.5, inch: 8.9 },
-  { eu: 36.5, uk: 4.0, cm: 23.0, us: 6.0, inch: 9.1 },
-  { eu: 37.0, uk: 4.5, cm: 23.5, us: 6.5, inch: 9.3 },
-  { eu: 38.0, uk: 5.0, cm: 24.0, us: 7.0, inch: 9.4 },
-  { eu: 38.5, uk: 5.5, cm: 24.5, us: 7.5, inch: 9.6 },
-  { eu: 39.0, uk: 6.0, cm: 25.0, us: 8.0, inch: 9.8 },
-  { eu: 40.0, uk: 6.5, cm: 25.5, us: 8.5, inch: 10.0 },
-  { eu: 40.5, uk: 7.0, cm: 26.0, us: 9.0, inch: 10.2 },
-  { eu: 41.0, uk: 7.5, cm: 26.5, us: 9.5, inch: 10.4 },
-  { eu: 42.0, uk: 8.0, cm: 27.0, us: 10.0, inch: 10.6 },
-  { eu: 42.5, uk: 8.5, cm: 27.5, us: 10.5, inch: 10.8 },
-  { eu: 43.0, uk: 9.0, cm: 28.0, us: 11.0, inch: 11.0 },
-];
-
-// Kids' table data (EU, UK, CM, US, Stage)
-const kidsSizes = [
-  { eu: 19.0, uk: '3.5C', cm: 11.5, us: '4C', stage: 'Toddler' },
-  { eu: 22.0, uk: '5.5C', cm: 13.0, us: '6C', stage: 'Toddler' },
-  { eu: 24.0, uk: '7.5C', cm: 14.5, us: '8C', stage: 'Toddler' },
-  { eu: 27.0, uk: '9.5C', cm: 16.5, us: '10C', stage: 'Little Kid' },
-  { eu: 30.0, uk: '11.5C', cm: 18.0, us: '12C', stage: 'Little Kid' },
-  { eu: 31.0, uk: '12.5C', cm: 19.0, us: '13C', stage: 'Little Kid' },
-  { eu: 32.0, uk: '13.5C', cm: 20.0, us: '1Y', stage: 'Big Kid' },
-  { eu: 33.0, uk: '1.5Y', cm: 20.5, us: '2Y', stage: 'Big Kid' },
-  { eu: 34.5, uk: '2.5Y', cm: 21.5, us: '3Y', stage: 'Big Kid' },
-  { eu: 36.0, uk: '3.5Y', cm: 22.5, us: '4Y', stage: 'Big Kid' },
-  { eu: 37.0, uk: '4.5Y', cm: 23.5, us: '5Y', stage: 'Big Kid' },
-];
+const menSizes = MEN_SIZE_ROWS;
+const womenSizes = WOMEN_SIZE_ROWS;
+const kidsSizes = KIDS_SIZE_ROWS;
 
 const faqs = [
   {
     q: 'How do I convert European (EU) shoe sizes to UK?',
-    a: 'To convert shoe size EU to UK (or convert euro shoe size to uk), subtract 33.5 to 34 from men\'s European sizes (for example, EU 42 − 34 = UK 8; EU 44 − 34 = UK 10), and subtract 33 from women\'s European sizes (for example, EU 38 − 33 = UK 5; EU 39 − 33 = UK 6). When an EU size falls between UK half sizes, compare anatomical foot length in centimeters.'
+    a: 'To convert European sizes to UK, subtract 33.5 to 34 from men\'s European sizes (EU 42 − 33.5 = UK 8.5; EU 44 − 34 = UK 10), and subtract 32.5 to 33 from women\'s European sizes (EU 38 − 32.5 = UK 5.5; EU 39 − 33 = UK 6).'
   },
   {
     q: 'What is EU size 42 in UK shoe sizing?',
-    a: 'A European EU size 42 corresponds directly to British UK size 8.0 for men. It fits an anatomical footbed of 27.0 centimeters (10.6 inches), corresponding to an American US Men\'s 9.0.'
+    a: 'A European EU size 42 corresponds to British UK size 8.5 for men under ISO standards, fitting a 27.0 cm foot length. On sneaker tags like Nike, EU 42 is labeled as UK 7.5 or 8.'
   },
   {
     q: 'What is EU size 44 or 45 in UK sizing?',
-    a: 'A European EU 44 translates to a British UK 9.5 to UK 10 (approx. 28.5 to 29.0 cm foot length / US Men 10.5–11.0). A European EU 45 corresponds to a British UK 10 to 10.5 (approx. 29.0 to 29.5 cm foot length / US Men 11.0–11.5).'
+    a: 'A European EU 44 translates to a British UK 9.5 to 10 (28.0 to 28.5 cm foot length). A European EU 45 corresponds to a British UK 10.5 (29.0 cm foot length).'
   },
   {
     q: 'What is the formula to convert UK size to EU shoes?',
-    a: 'To convert UK size to EU shoes, add 34 to adult men\'s sizes (UK 8 + 34 = EU 42) or 33 to adult women\'s sizes (UK 5 + 33 = EU 38). Because British sizing uses 1/3-inch increments (8.46 mm) and European sizing uses 2/3 cm increments (6.67 mm), checking our shoe size chart uk eu provides an exact metric alignment.'
+    a: 'To convert UK size to EU shoes, add 33.5 to adult men\'s sizes (UK 8.5 + 33.5 = EU 42) or 32.5 to adult women\'s sizes (UK 6 + 32.5 = EU 38.5).'
   },
   {
     q: 'Why do European and UK shoe sizes differ in increments?',
-    a: 'Continental European sizing is built on the Paris Point (Point de Paris), which increments by 6.67 mm, while British footwear uses the imperial barleycorn standard (8.46 mm). This means European shoe sizes advance at a faster rate, allowing for finer graduations without requiring as many half sizes.'
+    a: 'Continental European sizing uses the Paris Point (6.67 mm), while British footwear uses the imperial barleycorn (8.46 mm). Because Paris Points are smaller increments, European shoe sizes scale at different intervals.'
   }
 ];
 
@@ -102,7 +56,6 @@ const relatedLinks = [
   { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
   { label: 'EU to CM Shoe Size Converter', href: '/eu-to-cm-shoe-size/' },
   { label: 'UK to US Shoe Size Converter', href: '/uk-to-us-shoe-size/' },
-  { label: 'European Shoe Sizing Guide', href: '/country/europe/' },
   { label: 'United Kingdom Shoe Sizing Guide', href: '/country/uk/' },
   { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
 ];
@@ -115,7 +68,6 @@ const relatedLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="eu to uk shoe size, uk size to eu shoes, eu size to uk, european shoe size to uk, european sizes to uk, uk foot size to eu, uk to eu shoe size, eu shoe size to uk, convert shoe size eu to uk, uk size 8 in eu, uk size 10 in eu, equivalent shoe sizes uk europe, convert euro shoe size to uk, euro foot size to uk, shoe size chart uk eu, eu foot size to uk" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={pageCanonical} />
@@ -346,7 +298,7 @@ const relatedLinks = [
 
         <!-- Kids' Table -->
         <div class="table-panel" id="tab-kids" role="tabpanel">
-          <h3 class="table-heading">Kids' European to British Shoe Size Chart</h3>
+          <h3 class="table-heading">Kids' European and British shoe size chart</h3>
           <div class="table-wrapper">
             <table class="size-table" aria-label="Kids EU to UK shoe size chart">
               <thead>
@@ -361,9 +313,9 @@ const relatedLinks = [
               <tbody>
                 {kidsSizes.map(r => (
                   <tr>
-                    <td class="primary-cell"><strong>EU {r.eu.toFixed(1)}</strong></td>
+                    <td class="primary-cell"><strong>EU {r.eu}</strong></td>
                     <td class="highlight-cell"><strong>UK {r.uk}</strong></td>
-                    <td>{r.cm.toFixed(1)} cm</td>
+                    <td>{r.cm} cm</td>
                     <td>US {r.us}</td>
                     <td>{r.stage}</td>
                   </tr>
@@ -378,76 +330,61 @@ const relatedLinks = [
     <!-- Editorial SEO Prose Section -->
     <article class="editorial-band">
       <div class="page-inner prose-article">
-        <h2 class="editorial-main-title">How to Convert EU to UK Shoe Size: Complete Continental to British Guide</h2>
+        <h2 class="editorial-main-title">How to convert EU to UK shoe sizes: fit guide</h2>
         
         <p class="lead-paragraph">
-          If you are purchasing European fashion footwear from French, Italian, or German retailers, or ordering continental sneaker brands like Adidas, Puma, Veja, or Birkenstock to the United Kingdom, mastering your <strong>eu to uk shoe size</strong> conversion is essential. Because the two sizing conventions originate from different historical measurement standards, translating an <strong>eu size to uk</strong> requires understanding how European Paris Points relate to British barleycorns. This in-depth guide covers mathematical formulas, gender differences, reverse guidelines for <strong>uk size to eu shoes</strong>, and brand-specific fitting nuances.
+          Converting continental European footwear to British sizes requires understanding how Paris Points relate to British barleycorns. European sizing is unisex in length, while British sizing uses distinct width conventions across men's and women's models.
         </p>
 
-        <h3>The Measurement Difference: Paris Points vs. Barleycorns</h3>
+        <h3>Measurement systems: Paris points and barleycorns</h3>
         <p>
-          Shoppers comparing <strong>equivalent shoe sizes uk europe</strong> often notice that European numbers run higher and increment more closely together than British numbers:
+          Continental European shoe sizing uses the Paris Point (2/3 of a centimeter, or 6.67 millimeters). British footwear sizing increments by one barleycorn (1/3 of an inch, or 8.46 millimeters). For historical details on the barleycorn, consult our guide on <a href="/shoe-size-in-inches/">shoe sizes in inches and barleycorn measurements</a>.
+        </p>
+        <p>
+          Because 6.67 mm is smaller than 8.46 mm, European sizes scale faster numerically. One full British step covers approximately 1.27 European steps.
+        </p>
+
+        <h3>Core formulas: converting European sizes to UK</h3>
+        <p>
+          Standard linear conversion formulas approximate British equivalents:
         </p>
         <ul>
-          <li><strong>Continental Europe (Paris Point):</strong> The European system uses the Paris Point (<em>Point de Paris</em>), established in France in the 19th century. One Paris Point measures two-thirds of a centimeter (approximately 6.67 millimeters). European shoe sizes are unisex in length.</li>
-          <li><strong>United Kingdom (Barleycorn):</strong> Codified under King Edward II, British shoe sizing increments by one barleycorn, which equals one-third of an inch (8.46 millimeters). Half sizes in the UK system advance by 1/6 of an inch (4.23 mm).</li>
+          <li>For men: subtract 33.5 to 34 from the European size. EU 42 − 33.5 = UK 8.5 (27.0 cm foot length); EU 44 − 34 = UK 10 (28.5 cm foot length).</li>
+          <li>For women: subtract 32.5 to 33 from the European size. EU 38.5 − 32.5 = UK 6 (25.0 cm foot length); EU 37.5 − 32.5 = UK 5 (24.0 cm foot length).</li>
+          <li>For EU 42, European EU 42 corresponds to UK 8.5 (27.0 cm footbed).</li>
+          <li>For EU 44, European EU 44 corresponds to UK 9.5 to 10 (28.0 to 28.5 cm footbed).</li>
         </ul>
-        <p>
-          Because 6.67 mm is smaller than 8.46 mm, European sizes increase at a faster numerical rate than UK sizes. When translating <strong>european shoe size to uk</strong>, a single full step on the British scale (8.46 mm) covers roughly 1.27 steps on the European scale. Consulting our verified <strong>shoe size chart uk eu</strong> ensures you select the correct size across different footwear styles.
-        </p>
 
-        <h3>Core Formulas: Converting European Sizes to UK</h3>
+        <h3>Handling half sizes</h3>
         <p>
-          To calculate your British footwear size when you know your continental <strong>european sizes to uk</strong>, follow these standard subtraction rules:
+          Because increment rates differ, some European sizes fall between British half sizes:
         </p>
         <ul>
-          <li><strong>Men's Conversion (UK ≈ EU − 34):</strong> In adult men's footwear, subtracting 34 from the European size provides a reliable UK equivalent. For example, EU 42 − 34 = UK 8 (27.0 cm foot length); EU 43 − 34 = UK 9 (28.0 cm foot length); and EU 44 − 34 = UK 10 (29.0 cm foot length).</li>
-          <li><strong>Women's Conversion (UK ≈ EU − 33):</strong> Because of slight differences in typical women's last allowances, subtracting 33 gives the standard UK women's size. For example, EU 38 − 33 = UK 5 (24.0 cm foot length); EU 39 − 33 = UK 6 (25.0 cm foot length); and EU 37 − 33 = UK 4 (23.5 cm foot length).</li>
-          <li><strong>Popular Search Benchmark: UK Size 8 in EU:</strong> Shoppers frequently check <strong>uk size 8 in eu</strong>. A British men's size 8 maps directly to European <strong>EU 42.0</strong>, corresponding to an anatomical foot length of 27.0 centimeters (10.6 inches).</li>
-          <li><strong>Popular Search Benchmark: UK Size 10 in EU:</strong> If you are looking up <strong>uk size 10 in eu</strong>, a British men's size 10 corresponds to <strong>EU 44.5 to EU 45.0</strong>, fitting an anatomical foot length of 29.0 centimeters (11.4 inches).</li>
+          <li>EU 40 corresponds to UK 6.5 (25.0 cm foot length).</li>
+          <li>EU 41 corresponds to UK 7.5 (26.0 cm foot length).</li>
+          <li>EU 42.5 corresponds to UK 9.0 (27.5 cm foot length).</li>
         </ul>
 
-        <h3>How to Convert Shoe Size EU to UK & Handle Half Sizes</h3>
+        <h3>Width differences: British welted shoes and Continental lasts</h3>
         <p>
-          When you <strong>convert shoe size eu to uk</strong> (or <strong>convert euro shoe size to uk</strong>), certain European sizes do not align perfectly with whole UK sizes:
+          Last proportions differ between British and European makers:
         </p>
         <ul>
-          <li><strong>EU 40:</strong> Falls between UK 6.5 and UK 7.0. In sneakers and casual boots, UK 6.5 is common, whereas in formal dress shoes with tapered toes, UK 7.0 provides better forefoot comfort.</li>
-          <li><strong>EU 41:</strong> Translates to UK 7.0 to 7.5 (fitting a 26.0 to 26.5 cm footbed).</li>
-          <li><strong>EU 44:</strong> Corresponds to UK 9.5 to 10.0 (fitting a 28.5 to 29.0 cm footbed).</li>
-        </ul>
-        <p>
-          If you have broader feet, higher insteps, or intend to wear heavy winter socks, choosing the larger half size when translating your <strong>eu foot size to uk</strong> prevents toe pinching and blisters.
-        </p>
-
-        <h3>Width Differences: British Welted Shoes vs. Continental Lasts</h3>
-        <p>
-          When comparing an <strong>euro foot size to uk</strong> or examining a <strong>uk foot size to eu</strong>, foot width plays a substantial role:
-        </p>
-        <ul>
-          <li><strong>Northamptonshire British Lasts:</strong> Classic English shoemakers (such as Loake, Barker, Tricker’s, and Grenson) use standard letter widths: E (standard fit), F (medium-wide), and G (wide). English lasts tend to feature generous insteps and sturdy heel counters designed for double leather or Dainite rubber soles.</li>
-          <li><strong>Italian and French Designer Shoes:</strong> Fashion footwear from Italy and France frequently utilizes sleeker, narrower lasts with pointed or chiseled toe boxes. If you have standard British F-width feet, sizing up half a size in Italian dress shoes is widely recommended.</li>
-          <li><strong>German and Scandinavian Footwear:</strong> Brands like Birkenstock, Meindl, and Ecco prioritize natural orthopedic toe splay, providing wide toe boxes that align closely with comfortable UK fittings.</li>
+          <li>British lasts: Northamptonshire shoemakers (including Loake, Barker, and Tricker's) use lettered widths: E (standard), F (medium-wide), and G (wide).</li>
+          <li>Continental lasts: Italian and French designer footwear tends toward narrower toe boxes and lower instep profiles. German brands like Birkenstock and Lowa feature wider toe boxes.</li>
         </ul>
 
-        <h3>Measuring Your Foot at Home for an Exact Match</h3>
+        <h3>Measuring foot length</h3>
         <p>
-          To eliminate fit uncertainty when ordering from European or British websites, take two minutes to measure your bare foot length:
+          To confirm your exact size, measure your foot length from heel to longest toe in centimeters. See our step-by-step instructions on <a href="/shoe-size-by-foot-length/">measuring shoe size by foot length</a>. A foot length of 27.0 cm aligns with EU 42 and UK 8.5.
         </p>
-        <ol>
-          <li>Place a blank sheet of paper flat on a hard floor, with one edge touching a vertical wall.</li>
-          <li>Stand straight with your heel lightly touching the wall, placing your full body weight on the foot.</li>
-          <li>Use a pencil held perpendicular to the floor to mark the furthest tip of your longest toe.</li>
-          <li>Measure the distance from the wall edge of the paper to the mark in centimeters.</li>
-          <li>Look up your centimeter measurement in our <strong>shoe size chart uk eu</strong> above. For example, a 27.0 cm foot length corresponds to an EU 42 and a UK 8.</li>
-        </ol>
       </div>
     </article>
 
     <!-- FAQ Accordion Section -->
     <section class="faq-band">
       <div class="page-inner">
-        <h2 class="section-title">Frequently Asked Questions: EU to UK Sizing</h2>
+        <h2 class="section-title">Frequently asked questions</h2>
         <p class="section-sub">Expert answers to common questions about converting between European and British footwear sizes.</p>
 
         <div class="faq-accordion-list">

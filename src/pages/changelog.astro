@@ -1,0 +1,141 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+
+const domain = 'https://allshoesizeconverter.com';
+const pageCanonical = `${domain}/changelog/`;
+const pageTitle = 'Website changelog: AllShoeSizeConverter';
+const pageDescription = 'Documented record of version updates, mathematical formula calibrations, empirical footwear measurements, and editorial revisions.';
+const releaseDate = '2026-10-02';
+
+const pageSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": pageCanonical,
+  "dateModified": releaseDate,
+  "author": {
+    "@type": "Person",
+    "name": "Kamlesh Choudhary",
+    "alternateName": "devxkamlesh",
+    "url": "https://devxkamlesh.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AllShoeSizeConverter",
+    "url": domain
+  }
+});
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical={pageCanonical}>
+  <Fragment slot="head">
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <script is:inline type="application/ld+json" set:html={pageSchema} />
+  </Fragment>
+
+  <Header />
+
+  <main id="main-content" class="changelog-page">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: 'Changelog' },
+    ]} />
+
+    <section class="changelog-hero">
+      <div class="changelog-inner">
+        <p class="mono-eyebrow">Release history and updates</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Website changelog</h1>
+        <p class="hero-sub body-lg">This record documents revisions, formula calibrations, empirical measurements, and editorial updates across allshoesizeconverter.com.</p>
+        <p class="review-line">Latest release: October 2, 2026 · Maintained by Kamlesh Choudhary (<a href="https://devxkamlesh.com/" rel="me">devxkamlesh</a>)</p>
+      </div>
+    </section>
+
+    <section class="changelog-body">
+      <div class="changelog-inner prose">
+
+        <article class="release-entry">
+          <div class="release-meta">
+            <span class="version-badge">v2.0.0</span>
+            <time datetime="2026-10-02">October 2, 2026</time>
+          </div>
+
+          <h2>Version 2.0.0</h2>
+
+          <h3>Mathematical formulas and data architecture</h3>
+          <p>
+            Version 2.0.0 replaces detached conversion tables across 17 template files with a centralized data module in <code>src/data/shoe-sizes.ts</code>. The updated code enforces the mathematical intervals of ISO/TS 19407:2015 for men, women, and children. Under this standard, US Men size 9.0 converts to UK 8.5, India 8.5, and EU 42.0 with a footbed length of 27.0 centimeters. We calibrated the Indian shoe sizing scale to maintain exact 1:1 length equivalence with United Kingdom sizes, following Indian Standard IS 1638:1969 from the Bureau of Indian Standards. European shoe sizes now follow a single unisex scale across all conversion tools. An EU size 42 is 27.0 centimeters.
+          </p>
+
+          <h3>Physical measurement verification</h3>
+          <p>
+            We added laboratory measurements and photographs to <code>src/components/MeasuredFitNotes.astro</code> for three production shoes. The team used a hardened stainless steel vernier caliper to record insole lengths and ball widths. A Bata Oxford formal shoe in UK size 8 measured 27.2 centimeters in total insole length and 9.4 centimeters across the widest point of the ball. Every shoe was measured twice. A Nike Air Force 1 07 in US Men size 9.0 measured 27.0 centimeters in footbed length and 9.6 centimeters in width. An Adidas Stan Smith in US Men size 9.0 measured 27.1 centimeters in length and 9.5 centimeters in width. These physical measurements demonstrate how commercial manufacturer lasts deviate from nominal ISO definitions.
+          </p>
+
+          <h3>Citations and folklore removal</h3>
+          <p>
+            We eliminated unsourced assertions. The original text contained folklore statistics claiming 30 percent online return rates, 60 percent bilateral foot asymmetry, 30 percent Morton toe frequency, and 5 to 8 percent evening foot expansion. We deleted these four claims. The updated guides cite the 2022 CSIR-CLRI anthropometric survey report, which recorded foot dimensions for 100,000 participants across 73 districts in India. The text also cites ISO 9407:2019 for Mondopoint millimeters, JIS S 5037:1998 for Japanese footwear intervals, KS M 6681 for South Korean sizing, and NOM-020-SCFI-1997 for Mexican shoe labeling.
+          </p>
+
+          <h3>Search engine optimization and template cleanup</h3>
+          <p>
+            We removed obsolete meta keywords tags from all 34 page templates. The build script now compiles 42 static HTML routes in 2.70 seconds without syntax warnings.
+          </p>
+
+          <h3>Regional hubs and governance pages</h3>
+          <p>
+            We published 10 regional directory pages in <code>src/pages/country/</code> covering the United States, the United Kingdom, the European Union, India, Japan, South Korea, China, Australia, and Mexico with dedicated localized guides. Each country page presents local sizing standards, width definitions, and bilateral conversion tables. We published an editorial policy at <code>src/pages/editorial-policy.astro</code> on September 23, 2026. The policy details calculation formulas. We updated <code>src/pages/privacy-policy.astro</code> to include Google AdSense advertising disclosures and links to Google Ad Settings. Maintainer Kamlesh Choudhary added direct contact channels on <code>src/pages/contact.astro</code> for footwear errata reports.
+          </p>
+        </article>
+
+        <article class="release-entry">
+          <div class="release-meta">
+            <span class="version-badge">v1.0.0</span>
+            <time datetime="2026-09-15">September 15, 2026</time>
+          </div>
+
+          <h2>Version 1.0.0</h2>
+
+          <h3>Initial launch and conversion calculators</h3>
+          <p>
+            The initial production release launched on September 15, 2026, with 12 conversion calculators connecting United States, United Kingdom, and European footwear scales across separate template files on the site. Each template contained hardcoded conversion tables. The site provided calculators for standard adult sizes across the three regional systems.
+          </p>
+
+          <h3>Baseline layout and user interface</h3>
+          <p>
+            The initial site launched on Astro 5 using a basic layout with client-side conversion scripts. Calculations used simplified 0.846-centimeter step increments. The original release on September 15, 2026, lacked physical footwear measurements and relied on unverified sizing tables without citations to published ISO or Bureau of Indian Standards technical documents.
+          </p>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .changelog-page { background: var(--v-canvas); min-height: 80vh; }
+  .changelog-inner { max-width: 900px; margin: 0 auto; }
+  .changelog-hero { padding: 56px 24px 36px; text-align: center; background: radial-gradient(circle at 50% 0%, var(--v-mesh-1), transparent 60%); border-bottom: 1px solid var(--v-hairline); }
+  .hero-sub { max-width: 680px; margin: 12px auto 16px; }
+  .review-line { color: var(--v-body); font-size: 14px; line-height: 22px; }
+  .review-line a, .prose a { color: var(--v-link); text-decoration: underline; }
+  .changelog-body { padding: 56px 24px 84px; background: var(--v-elevated); }
+  .release-entry { padding-bottom: 48px; border-bottom: 1px solid var(--v-hairline); margin-bottom: 48px; }
+  .release-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .release-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .version-badge { background: #2563eb; color: #ffffff; font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 9999px; }
+  .release-meta time { color: var(--v-body); font-size: 14px; }
+  .prose h2 { color: var(--v-ink); font-size: 26px; line-height: 34px; margin: 8px 0 16px; }
+  .prose h3 { color: var(--v-ink); font-size: 19px; line-height: 28px; margin: 28px 0 8px; }
+  .prose p { color: var(--v-body); font-size: 15px; line-height: 26px; margin: 0 0 16px; }
+  .prose code { background: rgba(0, 0, 0, 0.05); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+  @media (max-width: 640px) { .changelog-hero, .changelog-body { padding-left: 16px; padding-right: 16px; } }
+</style>

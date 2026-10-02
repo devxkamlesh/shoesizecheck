@@ -1,10 +1,10 @@
 ---
-// BrandConverter.astro — Brand-specific sizing notes, Geist design
+// BrandConverter.astro: Brand-specific sizing notes
 const brands = [
   { name: 'Nike', note: 'Nike sizes run slightly small. Consider sizing up 0.5, especially for narrow shoes like Air Max. Nike uses US sizing as primary.', systems: 'US / EU' },
   { name: 'Adidas', note: 'Adidas shoes tend to run 0.5 larger than Nike. If you\'re US 9 in Nike, try US 8.5 in Adidas. Adidas uses EU as their primary sizing.', systems: 'EU / UK' },
   { name: 'New Balance', note: 'New Balance is known for true-to-size fit. They offer width options (B, D, 2E, 4E) making them ideal for wide feet.', systems: 'US / UK' },
-  { name: 'Puma', note: 'Puma sizes are similar to Adidas — slightly large. If between sizes, go half down. Puma uses EU as primary.', systems: 'EU / UK' },
+  { name: 'Puma', note: 'Puma sizes are similar to Adidas, running slightly large. If between sizes, go half down. Puma uses EU as primary.', systems: 'EU / UK' },
   { name: 'Reebok', note: 'Reebok runs true to size for most models. Their Classic Leather runs slightly narrow; consider a half size up for wide feet.', systems: 'US / UK' },
   { name: 'Converse', note: 'Converse Chuck Taylors run a full size large. If you\'re US 9, order a US 8 in Chucks. This is one of the biggest offsets in footwear.', systems: 'US / EU' },
 ];
@@ -12,8 +12,8 @@ const brands = [
 
 <section class="brand-section">
   <div class="brand-inner">
-    <p class="mono-eyebrow">Brand Sizing</p>
-    <h2 class="heading-lg">Brand-Specific Shoe Sizing</h2>
+    <p class="mono-eyebrow">Brand sizing</p>
+    <h2 class="heading-lg">Brand-specific shoe sizing</h2>
     <p class="brand-sub body-lg">Shoe sizes vary by brand. Here's how the most popular brands compare so you can order the right size first time.</p>
 
     <div class="brand-grid">

@@ -7,12 +7,13 @@ import FindMySize from '../components/FindMySize.astro';
 import SizeTable from '../components/SizeTable.astro';
 import BrandConverter from '../components/BrandConverter.astro';
 import FootMeasureGuide from '../components/FootMeasureGuide.astro';
+import MeasuredFitNotes from '../components/MeasuredFitNotes.astro';
 import HomeSeoContent from '../components/HomeSeoContent.astro';
 import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
-const pageTitle = 'Shoe Size Converter – US, UK, EU & India Size Chart';
+const pageTitle = 'Shoe Size Converter: US, UK, EU and India Size Chart';
 const pageDescription = 'Free shoe size converter for men, women, and kids. Compare US, UK, EU, India, Japan, and CM sizes with measurement guidance and brand-fit notes.';
 const pageCanonical = `${domain}/`;
 const ogImage = `${domain}/og-image.png`;
@@ -85,7 +86,6 @@ const breadcrumbSchema = JSON.stringify({
 >
   <Fragment slot="head">
     <!-- SEO Meta -->
-    <meta name="keywords" content="shoe size converter, men to women shoe size converter, kids shoe size converter, shoe size chart, US to EU shoe size, UK to US shoe size, CM shoe size, foot length shoe size, India shoe size, shoe size conversion, men shoe size chart, women shoe size chart, kids shoe size chart" />
     <meta name="author" content="Kamlesh Choudhary (devxkamlesh)" />
     <meta name="theme-color" content="#171717" />
 
@@ -127,10 +127,13 @@ const breadcrumbSchema = JSON.stringify({
     <!-- 5. Brand Converters -->
     <BrandConverter />
 
-    <!-- 6. How to Measure Your Feet -->
+    <!-- 6. Physical Insole Measurements -->
+    <MeasuredFitNotes />
+
+    <!-- 7. How to Measure Your Feet -->
     <FootMeasureGuide />
 
-    <!-- 7. SEO Content (800–1200 words) -->
+    <!-- 8. SEO Content (800 to 1200 words) -->
     <HomeSeoContent />
 
     <!-- 8. FAQ with FAQPage Schema -->

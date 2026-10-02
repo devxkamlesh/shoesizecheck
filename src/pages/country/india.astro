@@ -4,46 +4,46 @@ import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import Footer from '../../components/Footer.astro';
-import { SIZE_DATA } from '../../data/shoe-sizes';
+import { SIZE_DATA, MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/country/india/`;
-const pageTitle = 'India Shoe Size Chart — Men, Women & Kids Size Guide';
-const pageDescription = 'Comprehensive India shoe size chart for men, female, and kids. Convert Indian shoe sizes to US, UK, and EU with official BIS Bha sizing standards.';
+const pageTitle = 'India Shoe Size Chart: Men, Women and Kids Size Guide';
+const pageDescription = 'India shoe size chart for men, women, and kids. Convert Indian shoe sizes to US, UK, and EU using BIS and ISO standards.';
 const ogImage = `${domain}/og-image.png`;
 
 const faqs = [
   {
     q: 'Which shoe size chart is used in India?',
-    a: '<p>In India, footwear sizing officially follows the British (UK) sizing standard, meaning an Indian size 8 is identical in length to a UK size 8 (approx. US Men\'s 8.5 to 9, EU 42). Heritage brands like Bata India, Woodland, Liberty, Metro, and Red Chief all designate footwear using UK/India numbers. In addition, the Bureau of Indian Standards (BIS) and CSIR-CLRI have developed the groundbreaking "Bha" (भा) Indian sizing standard based on 3D scans of over 100,000 citizens to better accommodate naturally broader Indian forefoots.</p>'
+    a: '<p>In India, footwear sizing follows the British (UK) sizing standard, meaning an Indian size 8 equals a UK size 8 (US Men 8.5, EU 41.5, 26.5 cm foot length; or US Men 9 in many athletic sneakers). Domestic footwear brands like Bata India, Woodland, Liberty, Metro, and Red Chief designate footwear using UK and India numbers. The Bureau of Indian Standards (BIS) and CSIR-Central Leather Research Institute (CLRI) published survey findings in 2022 to introduce the Bha (भा) Indian sizing standard based on 3D scans of over 100,000 citizens to accommodate broader Indian forefoot dimensions.</p>'
   },
   {
-    q: 'Shoe size chart: How to measure your feet accurately at home?',
-    a: '<p>To measure your foot length using our shoe size chart how to measure method: tape a blank sheet of paper to an uncarpeted floor flush against a skirting board or flat wall. Stand upright with your heel resting lightly against the wall wearing the socks you plan to pair with your footwear. Have someone mark the furthest tip of your longest toe on the paper. Measure the distance from the edge of the paper to the pencil mark in centimetres. Consult our feet size chart and add 10 mm (roughly half an inch) of toe room for natural walking stride expansion.</p>'
+    q: 'How to measure foot length at home?',
+    a: '<p>Tape a blank sheet of paper to an uncarpeted floor flush against a flat wall. Stand upright with your heel resting against the wall wearing your regular socks. Mark the furthest tip of your longest toe on the paper. Measure the distance from the edge of the paper to the mark in centimeters. Check the chart and allow 10 mm of toe room for walking clearance.</p>'
   },
   {
     q: 'What size is a men\'s shoe in a women\'s shoe size chart?',
-    a: '<p>In international sizing, a men\'s shoe is longer and wider than a women\'s shoe of the same numerical label. On an American chart, women\'s size equals men\'s size plus 1.5 (a US Men\'s 7 is a US Women\'s 8.5). In India and the UK, men\'s and women\'s footwear share the same length increments, but a men\'s size 7 is approximately equivalent to a women\'s size 8 in physical length. Furthermore, men\'s shoes are constructed on a standard "D" width last, whereas women\'s shoes are built on a narrower "B" last.</p>'
+    a: '<p>In international sizing, a men\'s shoe has a longer length and wider volume than a women\'s shoe of the same number. On an American chart, women\'s size equals men\'s size plus 1.5. A US Men 7 equals a US Women 8.5. In India and the UK, men\'s and women\'s footwear use the same numbering scale, but men\'s shoes are built on a standard D width last, whereas women\'s shoes are built on a narrower B last.</p>'
   },
   {
     q: 'What does CM mean on an Indian shoe size chart?',
-    a: '<p>On any shoe size chart india, "CM" stands for centimetres and specifies either the bare anatomical foot length the shoe was sculpted for, or the internal footbed dimension. Unlike arbitrary numerical systems such as UK barleycorns or European Paris Points, centimetres provide an absolute physical metric. When ordering sneakers from global brands like Nike, Adidas, Puma, or Asics on Indian marketplaces like Myntra, Flipkart, or Ajio, matching your foot length directly in centimetres guarantees an exact fit.</p>'
+    a: '<p>On an Indian shoe size chart, CM stands for centimeters and specifies anatomical foot length. Centimeters provide an objective metric across brands. When ordering sneakers from Nike, Adidas, Puma, or Asics on Indian platforms like Myntra, Flipkart, or Ajio, matching your foot length in centimeters provides the most reliable fit.</p>'
   },
   {
     q: 'How to read and use a shoe size chart correctly?',
-    a: '<p>To read and use an indian shoe size chart effectively, follow this four-step sequence: 1) Anchor on physical foot length in centimetres (e.g., 25.5 cm); 2) Trace horizontally across the conversion matrix to locate your corresponding Indian/UK size; 3) Verify your category—confirm whether you are consulting the shoe size chart men, shoe size chart women, or kids shoe size chart; and 4) Check forefoot width ratings, especially if you have broad feet or a high instep.</p>'
+    a: '<p>To read an Indian shoe size chart, first determine your foot length in centimeters. Trace across the conversion row to find your Indian and UK size. Confirm whether you are reading the men\'s, women\'s, or kids\' chart. Check width ratings if you require wider fitting footwear.</p>'
   },
   {
-    q: 'How should shoes properly fit according to an Indian shoe size chart?',
-    a: '<p>To ensure a correct fit based on our how to fit my shoe size chart guidelines, your footwear must satisfy three clinical requirements: 1) Toe Clearance: There should be approximately 10 to 12 mm (the width of an adult thumb) of clearance between your longest toe and the front tip of the shoe; 2) Heel Lock: The heel counter must grip your heel securely without vertical slippage when stepping forward; and 3) Ball Alignment: The widest part of your foot (the first metatarsal joint) must align naturally with the widest flex point of the sole without bulging or side pressure.</p>'
+    q: 'How should shoes fit according to an Indian shoe size chart?',
+    a: '<p>Shoes must satisfy three fit criteria: 1) Toe room: Allow 10 to 12 mm of space between your longest toe and the shoe tip; 2) Heel lock: The heel cup must hold your heel without vertical slipping; 3) Ball alignment: The widest part of your foot must sit at the widest flex point of the sole without lateral pressure.</p>'
   },
   {
     q: 'How does a shoe size width chart work for Indian footwear?',
-    a: '<p>Footwear width is classified using alphabetical letters rather than numbers. Standard men\'s width is "D" (Medium) and standard women\'s width is "B" (Medium). Because anthropological studies show Indian feet are naturally broader across the ball and toes, standard European or American footwear can often feel tight across the sides. If your shoes pinch at the pinky toe despite having adequate front room, consult a shoe size width chart and select a Wide (E or EE) fitting instead of sizing up in length.</p>'
+    a: '<p>Footwear width uses alphabetical letters. Standard men\'s width is D and standard women\'s width is B. If shoes feel tight across the metatarsals despite having adequate length, select a wide E or EE fitting rather than buying a larger length size.</p>'
   },
   {
     q: 'How do kids and toddler shoe sizes correspond to age in India?',
-    a: '<p>On a toddler shoe size chart by age in India: newborns and babies wear Indian sizes 0 to 2 (0 to 9 months); early walkers wear sizes 3 to 5 (9 to 24 months); older toddlers wear sizes 6 to 9 (2 to 4 years); and preschool children wear sizes 10 to 13.5 (4 to 7 years). Once a child outgrows size 13.5, Indian sizing resets back to Junior/Adult size 1 through 6 (ages 7 to 12+). Children\'s feet expand rapidly, so checking measurements every 3 to 4 months is recommended.</p>'
+    a: '<p>On an Indian kids size chart: babies wear sizes 0 to 2 (0 to 12 months); toddlers wear sizes 3 to 5 (1 to 2 years); older toddlers wear sizes 6 to 9 (2 to 4 years); and children wear sizes 10 to 13.5 (4 to 7 years). Above size 13.5, the scale resets to adult sizes 1 through 6 for children aged 7 and older.</p>'
   }
 ];
 
@@ -69,12 +69,12 @@ const conversionLinks = [
 ];
 
 const countryLinks = [
-  { label: '🇺🇸 United States', href: '/country/us/' },
-  { label: '🇬🇧 United Kingdom', href: '/country/uk/' },
-  { label: '🇪🇺 Europe', href: '/country/europe/' },
-  { label: '🇯🇵 Japan', href: '/country/japan/' },
-  { label: '🇦🇺 Australia', href: '/country/australia/' },
-  { label: '🇲🇽 Mexico', href: '/country/mexico/' },
+  { label: 'United States', href: '/country/us/' },
+  { label: 'United Kingdom', href: '/country/uk/' },
+  { label: 'Europe', href: '/country/europe/' },
+  { label: 'Japan', href: '/country/japan/' },
+  { label: 'Australia', href: '/country/australia/' },
+  { label: 'Mexico', href: '/country/mexico/' },
 ];
 ---
 
@@ -85,11 +85,9 @@ const countryLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="india shoe size chart, shoe size chart, shoe size chart india female, shoe size chart india, indian shoe size chart, shoe size chart women, kids shoe size chart, shoe size chart men, toddler shoe size chart by age" />
-    
     <!-- Open Graph Metadata -->
-    <meta property="og:title" content="India Shoe Size Chart — Men, Women &amp; Kids Footwear Guide" />
-    <meta property="og:description" content="Complete India shoe size chart &amp; conversion guide. Explore shoe size chart india female, shoe size chart men, kids shoe size chart, and Indian shoe size chart tables." />
+    <meta property="og:title" content="India Shoe Size Chart: Men, Women and Kids Footwear Guide" />
+    <meta property="og:description" content="Complete India shoe size chart and conversion guide for men, women, and kids." />
     <meta property="og:url" content={pageCanonical} />
     <meta property="og:type" content="article" />
     <meta property="og:image" content={ogImage} />
@@ -97,8 +95,8 @@ const countryLinks = [
 
     <!-- Twitter Card Metadata -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="India Shoe Size Chart — Indian Men, Women &amp; Kids Sizing" />
-    <meta name="twitter:description" content="Accurate indian shoe size chart, shoe size chart india female, shoe size chart men, and kids size guides." />
+    <meta name="twitter:title" content="India Shoe Size Chart: Indian Men, Women and Kids Sizing" />
+    <meta name="twitter:description" content="Accurate Indian shoe size chart for men, women, and kids." />
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Structured Data -->
@@ -111,21 +109,20 @@ const countryLinks = [
     <Breadcrumbs items={[
       { label: 'Home', href: '/' },
       { label: 'Countries', href: '/country/' },
-      { label: '🇮🇳 India' },
+      { label: 'India' },
     ]} />
-
 
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="page-inner">
-        <p class="mono-eyebrow">🇮🇳 Indian Sizing Standard &amp; BIS Bha System</p>
-        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">India Shoe Size Chart &amp; Conversion Guide</h1>
-        <p class="hero-sub body-lg">Searching for an authentic <strong>india shoe size chart</strong>? Explore our verified <strong>shoe size chart</strong> for men, women, and children. Convert Indian footwear sizes to US, UK, EU, and centimetres, or check our dedicated <strong>shoe size chart india female</strong> and <strong>shoe size chart men</strong> tables.</p>
+        <p class="mono-eyebrow">Indian Sizing Standard and BIS Bha System</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">India shoe size chart and conversion guide</h1>
+        <p class="hero-sub body-lg">Convert Indian footwear sizes to US, UK, EU, and centimeters for men, women, and children with official reference data.</p>
         <div class="hero-badges">
-          <span class="badge-trust">Men &amp; Women Adult Charts</span>
-          <span class="badge-trust">Shoe Size Chart India Female</span>
-          <span class="badge-trust">Kids Shoe Size Chart</span>
-          <span class="badge-trust">BIS "Bha" Footwear Standard</span>
+          <span class="badge-trust">Men and women adult charts</span>
+          <span class="badge-trust">Women footwear matrix</span>
+          <span class="badge-trust">Kids shoe size chart</span>
+          <span class="badge-trust">BIS Bha footwear standard</span>
         </div>
       </div>
     </section>
@@ -136,16 +133,16 @@ const countryLinks = [
         <div class="card-elevated converter-inline">
           <div class="ci-header">
             <div>
-              <p class="mono-eyebrow">Instant Indian Footwear Conversion</p>
-              <h2 class="heading-md">Convert Indian Shoe Sizes in Real Time</h2>
+              <p class="mono-eyebrow">Instant Indian footwear conversion</p>
+              <h2 class="heading-md">Convert Indian shoe sizes in real time</h2>
             </div>
-            <p class="body-sm text-mute">Select your Indian shoe size and demographic to instantly view international equivalents.</p>
+            <p class="body-sm text-mute">Select your Indian shoe size and demographic to view international equivalents.</p>
           </div>
 
           <div class="ci-row">
             <div class="ci-field">
               <label class="step-label" for="india-size">
-                <span class="step-num">1</span> Indian Shoe Size
+                <span class="step-num">1</span> Indian shoe size
               </label>
               <select id="india-size" class="form-select ci-size-select" aria-label="Indian shoe size">
                 <option value="" disabled selected>Select India size</option>
@@ -154,12 +151,12 @@ const countryLinks = [
             </div>
             <div class="ci-field">
               <label class="step-label" for="india-gender">
-                <span class="step-num">2</span> Category / Demographic
+                <span class="step-num">2</span> Category / demographic
               </label>
               <select id="india-gender" class="form-select ci-gender-select" aria-label="Gender">
-                <option value="men" selected>Shoe Size Chart Men</option>
-                <option value="women">Shoe Size Chart Women (Female)</option>
-                <option value="kids">Kids &amp; Toddler Shoe Size Chart</option>
+                <option value="men" selected>Men footwear</option>
+                <option value="women">Women footwear</option>
+                <option value="kids">Kids and toddler footwear</option>
               </select>
             </div>
           </div>
@@ -175,19 +172,19 @@ const countryLinks = [
     <section class="table-band">
       <div class="page-inner">
         <header class="section-heading">
-          <p class="mono-eyebrow">Master Reference Charts</p>
-          <h2 class="heading-lg">Comprehensive Indian Footwear Size Charts</h2>
-          <p class="body-md">Use these master tables to translate Indian footwear sizes into international systems and exact foot lengths.</p>
+          <p class="mono-eyebrow">Master reference charts</p>
+          <h2 class="heading-lg">Comprehensive Indian footwear size charts</h2>
+          <p class="body-md">Use these master tables to translate Indian footwear sizes into international systems and foot lengths.</p>
         </header>
 
         <!-- 1. Adult Men Shoe Size Chart -->
         <div class="table-card">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Shoe Size Chart Men (India / UK Standard)</h3>
+              <h3 class="heading-sm">Shoe size chart men: India and UK standard</h3>
               <p class="body-sm text-mute">Includes US Men conversions, EU Paris Points, and foot length in CM and Inches</p>
             </div>
-            <span class="category-pill">Men's Footwear Matrix</span>
+            <span class="category-pill">Men footwear matrix</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="Shoe size chart men India">
@@ -203,20 +200,17 @@ const countryLinks = [
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>India 5</strong></td><td>5.5</td><td>6.0</td><td>39.0</td><td>24.0</td><td>24.0 cm</td><td>9.3"</td></tr>
-                <tr><td><strong>India 5.5</strong></td><td>6.0</td><td>6.5</td><td>39.0</td><td>24.5</td><td>24.5 cm</td><td>9.5"</td></tr>
-                <tr><td><strong>India 6</strong></td><td>6.5</td><td>7.0</td><td>40.0</td><td>25.0</td><td>25.0 cm</td><td>9.6"</td></tr>
-                <tr><td><strong>India 6.5</strong></td><td>7.0</td><td>7.5</td><td>40.0</td><td>25.5</td><td>25.5 cm</td><td>9.8"</td></tr>
-                <tr><td><strong>India 7</strong></td><td>7.5</td><td>8.0</td><td>41.0</td><td>26.0</td><td>26.0 cm</td><td>9.9"</td></tr>
-                <tr><td><strong>India 7.5</strong></td><td>8.0</td><td>8.5</td><td>41.0</td><td>26.5</td><td>26.5 cm</td><td>10.1"</td></tr>
-                <tr><td><strong>India 8</strong></td><td>8.5</td><td>9.0</td><td>42.0</td><td>27.0</td><td>27.0 cm</td><td>10.3"</td></tr>
-                <tr><td><strong>India 8.5</strong></td><td>9.0</td><td>9.5</td><td>42.0</td><td>27.5</td><td>27.5 cm</td><td>10.4"</td></tr>
-                <tr><td><strong>India 9</strong></td><td>9.5</td><td>10.0</td><td>43.0</td><td>28.0</td><td>28.0 cm</td><td>10.6"</td></tr>
-                <tr><td><strong>India 9.5</strong></td><td>10.0</td><td>10.5</td><td>43.0</td><td>28.5</td><td>28.5 cm</td><td>10.8"</td></tr>
-                <tr><td><strong>India 10</strong></td><td>10.5</td><td>11.0</td><td>44.0</td><td>29.0</td><td>29.0 cm</td><td>10.9"</td></tr>
-                <tr><td><strong>India 10.5</strong></td><td>11.0</td><td>11.5</td><td>44.0</td><td>29.5</td><td>29.5 cm</td><td>11.1"</td></tr>
-                <tr><td><strong>India 11</strong></td><td>11.5</td><td>12.0</td><td>45.0</td><td>30.0</td><td>30.0 cm</td><td>11.3"</td></tr>
-                <tr><td><strong>India 12</strong></td><td>12.5</td><td>13.0</td><td>46.0</td><td>31.0</td><td>31.0 cm</td><td>11.6"</td></tr>
+                {MEN_SIZE_ROWS.map(r => (
+                  <tr>
+                    <td><strong>India {r.india}</strong></td>
+                    <td>{r.uk}</td>
+                    <td>{typeof r.us === 'number' ? r.us.toFixed(1) : r.us}</td>
+                    <td>{r.eu}</td>
+                    <td>{r.jp ?? r.cm}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}"</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -226,10 +220,10 @@ const countryLinks = [
         <div class="table-card" style="margin-top:36px">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Shoe Size Chart India Female (Women's Footwear)</h3>
-              <p class="body-sm text-mute">Dedicated conversion guide for women's heels, flats, ethnic juttis, and sneakers</p>
+              <h3 class="heading-sm">Shoe size chart India female: women footwear</h3>
+              <p class="body-sm text-mute">Dedicated conversion guide for women heels, flats, ethnic juttis, and sneakers</p>
             </div>
-            <span class="category-pill">Women's Footwear Matrix</span>
+            <span class="category-pill">Women footwear matrix</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="Shoe size chart india female">
@@ -241,21 +235,19 @@ const countryLinks = [
                   <th>EU Size</th>
                   <th>Foot Length (CM)</th>
                   <th>Inches</th>
-                  <th>Ethnic &amp; Casual Fit Notes</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>India 3</strong></td><td>UK 3</td><td>US 5.0</td><td>35.5</td><td>22.0 cm</td><td>8.5"</td><td>Petite foot; true to size in formal heels</td></tr>
-                <tr><td><strong>India 3.5</strong></td><td>UK 3.5</td><td>US 5.5</td><td>36.0</td><td>22.5 cm</td><td>8.8"</td><td>Standard slim fit</td></tr>
-                <tr><td><strong>India 4</strong></td><td>UK 4</td><td>US 6.0</td><td>36.5</td><td>23.0 cm</td><td>8.9"</td><td>Common Indian female size; fits EU 36.5</td></tr>
-                <tr><td><strong>India 4.5</strong></td><td>UK 4.5</td><td>US 6.5</td><td>37.0</td><td>23.0 cm</td><td>9.1"</td><td>Half size; select size 5 for ethnic mojaris</td></tr>
-                <tr><td><strong>India 5</strong></td><td>UK 5</td><td>US 7.0</td><td>37.5</td><td>23.5 cm</td><td>9.3"</td><td>Most popular women's size in India (fits EU 37–38)</td></tr>
-                <tr><td><strong>India 5.5</strong></td><td>UK 5.5</td><td>US 7.5</td><td>38.0</td><td>24.0 cm</td><td>9.4"</td><td>Standard athletic sneaker fit</td></tr>
-                <tr><td><strong>India 6</strong></td><td>UK 6</td><td>US 8.0</td><td>38.5</td><td>24.0 cm</td><td>9.5"</td><td>Very popular; maps directly to US 8 / EU 38.5</td></tr>
-                <tr><td><strong>India 6.5</strong></td><td>UK 6.5</td><td>US 8.5</td><td>39.0</td><td>24.5 cm</td><td>9.7"</td><td>Provides extra toe freedom in closed pumps</td></tr>
-                <tr><td><strong>India 7</strong></td><td>UK 7</td><td>US 9.0</td><td>39.5</td><td>25.0 cm</td><td>9.9"</td><td>Corresponds to 25.0 cm foot length</td></tr>
-                <tr><td><strong>India 7.5</strong></td><td>UK 7.5</td><td>US 9.5</td><td>40.0</td><td>25.0 cm</td><td>10.0"</td><td>Generous width; ideal for strappy sandals</td></tr>
-                <tr><td><strong>India 8</strong></td><td>UK 8</td><td>US 10.0</td><td>40.5</td><td>25.5 cm</td><td>10.2"</td><td>Maps to EU 40–41 and US Women's 10</td></tr>
+                {WOMEN_SIZE_ROWS.map(r => (
+                  <tr>
+                    <td><strong>India {r.india}</strong></td>
+                    <td>UK {r.uk}</td>
+                    <td>US {typeof r.us === 'number' ? r.us.toFixed(1) : r.us}</td>
+                    <td>{r.eu}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}"</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -265,17 +257,17 @@ const countryLinks = [
         <div class="table-card" style="margin-top:36px">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Kids Shoe Size Chart &amp; Toddler Shoe Size Chart by Age</h3>
-              <p class="body-sm text-mute">From baby footwear (India 0) through junior school-age footwear (India 6)</p>
+              <h3 class="heading-sm">Kids shoe size chart and toddler shoe size chart by age</h3>
+              <p class="body-sm text-mute">From baby footwear through junior school footwear</p>
             </div>
-            <span class="category-pill">Kids &amp; Toddler Progression</span>
+            <span class="category-pill">Kids progression</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="Kids shoe size chart India">
               <thead>
                 <tr>
                   <th>India Kids Size</th>
-                  <th>Age Range Milestone</th>
+                  <th>Category</th>
                   <th>UK Kids</th>
                   <th>US Kids</th>
                   <th>EU Kids</th>
@@ -283,23 +275,16 @@ const countryLinks = [
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>India 0</strong></td><td>Newborn / Baby (0–3 months)</td><td>UK 0</td><td>0.5C</td><td>15</td><td>8.5 cm</td></tr>
-                <tr><td><strong>India 1</strong></td><td>Baby (3–6 months)</td><td>UK 1</td><td>1.5C</td><td>16</td><td>9.5 cm</td></tr>
-                <tr><td><strong>India 2</strong></td><td>Infant / Crawler (6–12 months)</td><td>UK 2</td><td>2.5C</td><td>17–18</td><td>10.5 cm</td></tr>
-                <tr><td><strong>India 3</strong></td><td>Toddler (1 Year / 12–15 months)</td><td>UK 3</td><td>3.5C</td><td>19</td><td>11.5 cm</td></tr>
-                <tr><td><strong>India 4</strong></td><td>Toddler (15–18 months)</td><td>UK 4</td><td>4.5C</td><td>20</td><td>12.3 cm</td></tr>
-                <tr><td><strong>India 5</strong></td><td>Toddler (1.5–2 Years)</td><td>UK 5</td><td>5.5C</td><td>21–22</td><td>13.1 cm</td></tr>
-                <tr><td><strong>India 6</strong></td><td>Toddler (2–2.5 Years)</td><td>UK 6</td><td>6.5C</td><td>23</td><td>14.0 cm</td></tr>
-                <tr><td><strong>India 7</strong></td><td>Toddler (2.5–3 Years)</td><td>UK 7</td><td>7.5C</td><td>24</td><td>14.8 cm</td></tr>
-                <tr><td><strong>India 8</strong></td><td>Toddler (3–3.5 Years)</td><td>UK 8</td><td>8.5C</td><td>25–26</td><td>15.6 cm</td></tr>
-                <tr><td><strong>India 9</strong></td><td>Little Kid / Nursery (3.5–4 Years)</td><td>UK 9</td><td>9.5C</td><td>27</td><td>16.5 cm</td></tr>
-                <tr><td><strong>India 10</strong></td><td>Little Kid / LKG (4–5 Years)</td><td>UK 10</td><td>10.5C</td><td>28</td><td>17.3 cm</td></tr>
-                <tr><td><strong>India 11</strong></td><td>Little Kid / UKG (5–6 Years)</td><td>UK 11</td><td>11.5C</td><td>29–30</td><td>18.1 cm</td></tr>
-                <tr><td><strong>India 12</strong></td><td>Primary School (6–7 Years)</td><td>UK 12</td><td>12.5C</td><td>31</td><td>19.0 cm</td></tr>
-                <tr><td><strong>India 13</strong></td><td>Primary School (7–8 Years)</td><td>UK 13</td><td>13.5C</td><td>32</td><td>19.8 cm</td></tr>
-                <tr><td><strong>India 1 (Adult)</strong></td><td>Junior School (8–9 Years)</td><td>UK 1</td><td>1.5Y</td><td>33</td><td>20.6 cm</td></tr>
-                <tr><td><strong>India 3 (Adult)</strong></td><td>Middle School (9–10 Years)</td><td>UK 3</td><td>3.5Y</td><td>35</td><td>22.2 cm</td></tr>
-                <tr><td><strong>India 5 (Adult)</strong></td><td>High School / Youth (11+ Years)</td><td>UK 5</td><td>5.5Y</td><td>37.5</td><td>23.5 cm</td></tr>
+                {KIDS_SIZE_ROWS.map(r => (
+                  <tr>
+                    <td><strong>India {r.india}</strong></td>
+                    <td>{r.stage}</td>
+                    <td>UK {r.uk}</td>
+                    <td>{r.us}</td>
+                    <td>{r.eu}</td>
+                    <td>{r.cm} cm</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -312,57 +297,36 @@ const countryLinks = [
       <div class="page-inner">
         <article class="prose-card">
           <header class="prose-header">
-            <p class="mono-eyebrow">Indian Footwear Masterclass</p>
-            <h2 class="prose-main-title">Understanding the India Shoe Size Chart, Regional Standards &amp; the "Bha" System</h2>
-            <p class="prose-lead">From iconic Bata school shoes and rugged Woodland leather boots to festive juttis and global sneakers on Myntra and Flipkart, navigating footwear in India requires understanding both heritage British standards and modern metric anatomy.</p>
+            <p class="mono-eyebrow">Indian footwear guide</p>
+            <h2 class="prose-main-title">Understanding the India shoe size chart, regional standards, and the Bha system</h2>
+            <p class="prose-lead">Indian footwear links heritage British numbering, modern metric manufacturing, and the national Bha standard developed by research institutions in Chennai.</p>
           </header>
 
           <div class="content-prose">
-            <h3 class="heading-sm">The Foundation of the India Shoe Size Chart: British Heritage &amp; Modern E-Commerce</h3>
-            <p>The standard <strong>india shoe size chart</strong> shares a historical heritage with the British footwear measuring system. When commercial shoe manufacturing expanded across India in the early twentieth century, tanneries and cobbling houses in Agra, Kanpur, and Kolkata adopted the English barleycorn standard. Under this framework, each full size represents an increment of <strong>1/3 of an inch (8.46 millimetres)</strong>.</p>
-            <p>Today, virtually every domestic footwear brand in India—including Bata, Liberty, Paragon, Khadim's, Red Chief, and Metro—labels footwear using these numerical designations. An Indian size 8 for men is virtually identical in linear length to a UK size 8. However, when purchasing footwear imported from North America or Continental Europe, shoppers must navigate significant offsets. On any modern <strong>shoe size chart</strong>, an Indian men's size 8 translates to an American US Men's 9.0 and a European EU 42.</p>
+            <h3 class="heading-sm">The foundation of the India shoe size chart: British heritage and modern retail</h3>
+            <p>The standard Indian footwear scale shares its origins with the British shoe trade. In the twentieth century, commercial tanneries and manufacturing centers in Kanpur, Agra, and Kolkata adopted the English barleycorn system, where one full size increment measures exactly 8.46 millimeters (1/3 inch). Domestic companies including Bata India, Woodland, Liberty, Paragon, and Metro label their shoes using these numbers. Indian size 8 matches UK size 8 in length. On international conversion charts, an Indian men size 8 corresponds to US Men 8.5 and EU 41.5, with an internal length of 26.5 cm.</p>
 
-            <h3 class="heading-sm">The Groundbreaking BIS "Bha" (भा) Footwear Sizing System</h3>
-            <p>While the British system has served India for generations, medical podiatrists and ergonomists have long observed that Indian feet exhibit distinct anatomical characteristics. Comprehensive biomechanical studies show that Indian feet are, on average, <strong>broader across the metatarsal heads (the ball of the foot)</strong> and slightly narrower at the heel compared to Caucasian European feet. Wearing shoes built on narrow British lasts often forces Indian wearers to buy one size larger in length just to accommodate their forefoot width, creating clumsy tripping hazards and improper arch alignment.</p>
-            <p>To permanently solve this discrepancy, the <strong>Bureau of Indian Standards (BIS)</strong> alongside the <strong>CSIR-Central Leather Research Institute (CLRI)</strong> conducted an unprecedented nationwide 3D foot-scanning survey of over 100,000 participants across diverse demographics. The resulting national standard introduces <strong>"Bha" (भा) sizing</strong>, engineered specifically for Indian anatomical foot dimensions. The "Bha" system categorises footwear into eight distinct morphological groups designed to provide adequate forefoot expansion without excess length.</p>
+            <h3 class="heading-sm">The Bureau of Indian Standards Bha footwear sizing system</h3>
+            <p>In 2022, the CSIR-Central Leather Research Institute in Chennai submitted a comprehensive anthropometric report to the Bureau of Indian Standards. The team measured over 100,000 subjects across India using 3D digital scanners. The survey recorded that Indian feet are wider across the first and fifth metatarsal heads relative to foot length. The Bureau established the Bha (भा) standard to define lasts that match these proportions without requiring buyers to purchase oversized shoes for lateral comfort.</p>
 
-            <h3 class="heading-sm">Shoe Size Chart India Female: Sizing Heels, Flats, Sneakers &amp; Ethnic Footwear</h3>
-            <p>When shopping for women's footwear on Indian e-commerce portals like Myntra, Flipkart, Nykaa, and Ajio, consulting an accurate <strong>shoe size chart india female</strong> is critical. For Indian women, sizing designations closely mirror UK women's numbers:</p>
-            <ul>
-              <li><strong>India Female Size 4:</strong> Matches UK 4, US Women's 6.0, EU 36.5, with an internal length of roughly 23.0 cm.</li>
-              <li><strong>India Female Size 5:</strong> The single most common women's size in India, corresponding to UK 5, US Women's 7.0, and EU 37.5–38 (approx. 23.5 cm foot length).</li>
-              <li><strong>India Female Size 6:</strong> Matches UK 6, US Women's 8.0, and EU 38.5 (approx. 24.0 cm foot length).</li>
-              <li><strong>India Female Size 7:</strong> Matches UK 7, US Women's 9.0, and EU 39.5–40 (approx. 25.0 cm foot length).</li>
-            </ul>
-            <p><strong>Special Note on Ethnic Indian Footwear:</strong> Traditional handcrafted footwear such as Rajasthani mojaris, Punjabi juttis, and Kolhapuri chappals are frequently constructed from untreated raw leather without internal synthetic cushioning. Authentic juttis do not feature a defined left or right foot when brand new; the leather molds dynamically to your individual foot contours over the first three to five wears. If you possess broad feet, selecting a half-size larger on your <strong>shoe size chart women</strong> ensures comfortable break-in without blisters.</p>
+            <h3 class="heading-sm">Shoe size chart India female: sizing heels, flats, sneakers, and ethnic footwear</h3>
+            <p>Women footwear sold through platforms like Myntra, Nykaa, and Ajio aligns with British sizing conventions. India female size 4 matches UK 4 and US Women 6.0 for a 23.0 cm foot length. India female size 5 matches UK 5 and US Women 7.0 for a 24.0 cm length. India female size 6 matches UK 6 and US Women 8.0 for a 25.0 cm length. Traditional leather footwear such as mojaris from Jaipur and Kolhapuri chappals from Maharashtra use raw vegetable-tanned leather. Because these handcrafted shoes contain no synthetic foam liners, selecting a half size larger gives room for initial leather molding.</p>
 
-            <h3 class="heading-sm">Navigating the Kids Shoe Size Chart &amp; Toddler Shoe Size Chart by Age</h3>
-            <p>Choosing footwear for rapidly growing Indian children presents unique challenges for parents. A common pitfall is the reset point in the British/Indian children's scale. On an <strong>indian shoe size chart</strong> for children:</p>
-            <ul>
-              <li>Infant and child footwear ranges linearly from <strong>India Size 0 to India Size 13.5</strong>.</li>
-              <li>Once a school child outgrows size 13.5, the scale <strong>resets back to size 1 (Junior / Adult 1)</strong> through size 6.</li>
-              <li>A Junior size 1 is larger than a child's size 13.5. Overlooking this transition often leads parents to accidentally order toddler footwear when buying school uniform shoes for eight-year-olds.</li>
-            </ul>
-            <p>During early developmental stages (ages 1 to 3), toddlers outgrow shoes every 8 to 12 weeks. Utilizing our verified <strong>toddler shoe size chart by age</strong> ensures parents allow 10 mm of expansion space so delicate cartilaginous bones can grow unimpeded.</p>
+            <h3 class="heading-sm">Navigating the kids shoe size chart and toddler shoe size chart by age</h3>
+            <p>Indian children footwear follows two sequential number series. The infant and child range begins at size 0 and runs through size 13.5. Above size 13.5, the scale restarts at size 1 for primary school students. This transition means an adult size 1 is larger than a child size 13. Checking foot length in centimeters prevents confusion between toddler and junior school sizing.</p>
 
-            <h3 class="heading-sm">How to Measure Your Foot Using a Feet Size Chart at Home</h3>
-            <p>To achieve a flawless fit on any <strong>shoe size chart india</strong>, measure your feet using this reliable home procedure:</p>
+            <h3 class="heading-sm">How to measure your foot using a feet size chart at home</h3>
+            <p>Follow four steps to record foot dimensions accurately at home:</p>
             <ol>
-              <li><strong>Measure During Late Afternoon:</strong> Feet naturally swell by up to 5% to 8% by late afternoon due to heat, humidity, and standing. Always measure when feet are at their maximum volume.</li>
-              <li><strong>The Wall and Paper Technique:</strong> Tape a blank sheet of paper to an uncarpeted floor with the short edge flush against a wall or skirting board.</li>
-              <li><strong>Position Your Heel:</strong> Stand barefoot or in your regular socks with your heel resting gently against the wall. Ensure your full body weight is planted evenly on the paper.</li>
-              <li><strong>Mark the Longest Toe:</strong> Have a companion trace the furthest tip of your longest toe (note that in roughly 30% of people, the second toe is longer than the big toe).</li>
-              <li><strong>Measure in Millimetres:</strong> Measure from the paper's edge to the pencil mark with a steel ruler. Compare the figure against our <strong>shoe size chart men</strong> or women's tables and always size to your larger foot.</li>
+              <li>Measure late in the day when normal standing has settled the arch.</li>
+              <li>Tape an A4 paper sheet flush against a baseboard on a hard floor.</li>
+              <li>Stand on the sheet with your heel against the wall and weight distributed evenly across both feet.</li>
+              <li>Mark the furthest tip of your longest toe and measure the distance from the paper edge in millimeters.</li>
             </ol>
-            <p><strong>The 10 mm Toe Clearance Rule:</strong> Never purchase footwear that matches your exact foot length down to the millimetre. Proper gait mechanics require <strong>10 to 12 mm (the width of an adult thumb)</strong> of free space in front of your toes so your foot can slide forward naturally without jamming into the toe box during heel-to-toe stride transitions.</p>
+            <p>Allow 10 to 12 mm of clearance beyond your longest toe to ensure the foot can flex comfortably during walking stride transitions.</p>
 
-            <h3 class="heading-sm">How to Read and Use a Shoe Size Chart Correctly</h3>
-            <p>Reading an international footwear chart is simple once you recognize the primary reference points:</p>
-            <ul>
-              <li><strong>1. Anchor on Millimetres/Centimetres (CM):</strong> Always start with your physical foot length in centimetres. This is an objective physical metric that remains immune to brand labeling inconsistencies.</li>
-              <li><strong>2. Match Demographics Carefully:</strong> Make sure you consult the correct gender column. An Indian men's size 7 is substantially larger in both volume and width than an Indian women's size 7.</li>
-              <li><strong>3. Factor in Width Fittings:</strong> If your feet feel cramped at the sides despite having correct length, look for Wide (E or EE) fittings rather than jumping a full size up in length.</li>
-            </ul>
+            <h3 class="heading-sm">How to read and use a shoe size chart correctly</h3>
+            <p>Foot length in centimeters provides the primary anchor for all conversions. Identify your metric length first, then read horizontally to find the matching Indian number. Confirm whether the column indicates men, women, or kids sizing. If your foot feels constrained at the first metatarsal joint despite proper toe clearance, select a wide fitting last instead of buying a longer shoe.</p>
           </div>
         </article>
       </div>
@@ -372,8 +336,8 @@ const countryLinks = [
     <section class="faq-band">
       <div class="page-inner">
         <div class="faq-card">
-          <p class="mono-eyebrow">Frequently Asked Questions</p>
-          <h2 class="heading-lg" style="margin-bottom:24px">Indian Footwear &amp; Size Guide FAQs</h2>
+          <p class="mono-eyebrow">Frequently asked questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">Indian footwear and size guide questions</h2>
           <div class="faq-list">
             {faqs.map(item => (
               <details class="faq-item">
@@ -393,12 +357,12 @@ const countryLinks = [
     <section class="related-band">
       <div class="page-inner">
         <RelatedLinks
-          title="Popular Indian Shoe Size Conversions"
+          title="Popular Indian shoe size conversions"
           links={conversionLinks}
         />
         <div style="margin-top:32px">
           <RelatedLinks
-            title="Explore Other Regional Sizing Systems"
+            title="Explore other regional sizing systems"
             links={countryLinks}
           />
         </div>
@@ -672,11 +636,11 @@ const countryLinks = [
       return;
     }
 
-    const us = data.us?.[idx] ?? '—';
-    const uk = data.uk?.[idx] ?? '—';
-    const eu = data.eu?.[idx] ?? '—';
-    const cm = data.cm?.[idx] ?? '—';
-    const inches = data.inches?.[idx] ?? '—';
+    const us = data.us?.[idx] ?? '-';
+    const uk = data.uk?.[idx] ?? '-';
+    const eu = data.eu?.[idx] ?? '-';
+    const cm = data.cm?.[idx] ?? '-';
+    const inches = data.inches?.[idx] ?? '-';
 
     resultsContainer.innerHTML = `
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">

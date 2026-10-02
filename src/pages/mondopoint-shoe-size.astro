@@ -6,10 +6,9 @@ import Footer from '../components/Footer.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/mondopoint-shoe-size/`;
-const pageTitle = 'Mondopoint Ski Boot Size Chart & Conversion Guide';
-const pageDescription = 'Convert Mondopoint to US, UK, and EU shoe sizes for ski and snowboard boots. Interactive calculator, shell sizing, and boot last width tables.';
+const pageTitle = 'Mondopoint ski boot size chart and conversion guide';
+const pageDescription = 'Convert Mondopoint to US, UK, and EU shoe sizes for ski and snowboard boots. Calculator, shell sizing, and boot last width tables.';
 const ogImage = `${domain}/og-image.png`;
-
 
 const faqs = [
   {
@@ -18,19 +17,19 @@ const faqs = [
   },
   {
     q: 'Should my toes touch the front of a new ski boot?',
-    a: 'Yes! When standing completely upright in a new ski boot, your toes should lightly brush the front of the liner. However, when you flex your knees forward into an athletic skiing stance, your heel drives back into the heel pocket, pulling your toes 2 to 3 millimeters away from the front. If toes do not touch when standing straight, the boot is too large and will cause heel lift.'
+    a: 'Yes. When standing upright in a new ski boot, your toes should lightly brush the front of the liner. When you flex your knees forward into an athletic skiing stance, your heel drives back into the heel pocket, pulling your toes 2 to 3 millimeters away from the front. If toes do not touch when standing straight, the boot is too large and will cause heel lift.'
   },
   {
     q: 'Do ski boots share plastic shell molds between full and half sizes?',
-    a: 'Yes. Virtually all alpine ski boot manufacturers (Salomon, Atomic, Nordica, Rossignol, Tecnica, Dalbello) produce shells only in full-size shell breaks. A size 26.0 and a size 26.5 use the identical plastic outer shell and the identical Boot Sole Length (BSL). The difference between 26.0 and 26.5 is only the thickness of the insole or footbed liner.'
+    a: 'Yes. Alpine ski boot manufacturers like Salomon, Atomic, Nordica, Rossignol, Tecnica, and Dalbello produce shells in full-size shell breaks. A size 26.0 and a size 26.5 use the identical plastic outer shell and the identical Boot Sole Length (BSL). The difference between 26.0 and 26.5 is the thickness of the insole or footbed liner.'
   },
   {
     q: 'How do I convert my US shoe size to Mondopoint?',
-    a: 'Because street shoe sizing accounts for extra walking clearance, buying a ski boot in your street shoe size usually results in a boot that is 1 to 2 sizes too large. For men, US 9 generally corresponds to Mondopoint 27.0 (or 26.5 for a performance fit). For women, US 8 converts to Mondopoint 25.0. Always measure your foot length directly in centimeters for ski boots.'
+    a: 'Because street shoe sizing accounts for extra walking clearance, buying a ski boot in your street shoe size usually results in a boot that is too large. For men, US 9 generally corresponds to Mondopoint 27.0 (or 26.5 for a performance fit). For women, US 8 converts to Mondopoint 25.0. Always measure your foot length directly in centimeters for ski boots.'
   },
   {
-    q: 'What does ski boot "last width" mean (LV, MV, HV)?',
-    a: 'Last width measures the forefoot width across the metatarsal heads at Mondopoint size 26.5. Low Volume (LV) boots measure 97–98 mm for narrow feet; Mid Volume (MV) measures 100–101 mm for average feet; and High Volume (HV) measures 102–104 mm+ for wide feet or high insteps.'
+    q: 'What does ski boot last width mean (LV, MV, HV)?',
+    a: 'Last width measures the forefoot width across the metatarsal heads at Mondopoint size 26.5. Low Volume (LV) boots measure 97 to 98 mm for narrow feet; Mid Volume (MV) measures 100 to 101 mm for average feet; and High Volume (HV) measures 102 to 104 mm or wider for wide feet or high insteps.'
   },
   {
     q: 'Do snowboard boots use Mondopoint?',
@@ -56,7 +55,11 @@ const faqSchema = JSON.stringify({
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="mondopoint shoe size, mondopoint ski boot size chart, mondopoint conversion, ski boot size converter, snowboard boot sizing mondopoint, how to measure foot for ski boots, mondopoint to us shoe size, mondopoint to eu, ski boot last width" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={pageCanonical} />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={ogImage} />
     <script is:inline type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
@@ -71,11 +74,11 @@ const faqSchema = JSON.stringify({
     <section class="page-hero">
       <div class="page-inner">
         <p class="mono-eyebrow">Winter Sports Sizing</p>
-        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Mondopoint Ski &amp; Snowboard Boot Size Chart</h1>
-        <p class="hero-sub body-lg">Convert Mondopoint measurements directly to US, UK, and EU shoe sizes. Discover exact shell breaks, boot last widths (LV, MV, HV), and proper flex ratings for alpine skiing.</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Mondopoint ski and snowboard boot size chart</h1>
+        <p class="hero-sub body-lg">Convert Mondopoint measurements directly to US, UK, and EU shoe sizes. Discover exact shell breaks, boot last widths (LV, MV, HV), and flex ratings for alpine skiing.</p>
         <div class="hero-badges">
           <span class="badge-trust">ISO 9407 Standard</span>
-          <span class="badge-trust">Ski &amp; Snowboard Boots</span>
+          <span class="badge-trust">Ski and Snowboard Boots</span>
           <span class="badge-trust">Millimeter Precision</span>
           <span class="badge-trust">Shell Break Analysis</span>
         </div>
@@ -89,9 +92,9 @@ const faqSchema = JSON.stringify({
           <div class="calc-header">
             <div>
               <p class="mono-eyebrow">Precision Boot Matcher</p>
-              <h2 class="heading-lg">Mondopoint &amp; Ski Boot Size Calculator</h2>
+              <h2 class="heading-lg">Mondopoint and ski boot size calculator</h2>
             </div>
-            <p class="body-sm calc-header-hint">Enter your exact bare foot length and select your skiing profile.</p>
+            <p class="body-sm calc-header-hint">Enter your bare foot length and select your skiing profile.</p>
           </div>
 
           <div class="calc-inputs-grid">
@@ -125,7 +128,7 @@ const faqSchema = JSON.stringify({
                 <span class="step-num">3</span> Fit Preference
               </label>
               <select id="mondo-fit" class="form-select">
-                <option value="performance" selected>Performance / Snug (Recommended)</option>
+                <option value="performance" selected>Performance / Snug</option>
                 <option value="comfort">Comfort / Casual (+0.5 cm)</option>
                 <option value="race">Race / Expert (-0.5 cm Downsize)</option>
               </select>
@@ -158,12 +161,12 @@ const faqSchema = JSON.stringify({
               </div>
               <div class="res-stat-card">
                 <span class="res-label">US Street Size</span>
-                <span class="res-value" id="res-us-val">9.0 – 9.5</span>
+                <span class="res-value" id="res-us-val">9.0 to 9.5</span>
                 <span class="res-sub">Approximate</span>
               </div>
               <div class="res-stat-card">
                 <span class="res-label">EU Size</span>
-                <span class="res-value" id="res-eu-val">42 – 42.5</span>
+                <span class="res-value" id="res-eu-val">42 to 42.5</span>
                 <span class="res-sub">Paris Points</span>
               </div>
               <div class="res-stat-card">
@@ -177,7 +180,7 @@ const faqSchema = JSON.stringify({
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
               </svg>
-              <p id="res-advice-text"><strong>Shell Sizing Insight:</strong> A 27.0 and 27.5 boot share the exact same outer plastic shell mold. Ski boot liners pack out by 15% to 20% after 4–6 days of skiing. Do not size up for toe room.</p>
+              <p id="res-advice-text"><strong>Shell Sizing Insight:</strong> A 27.0 and 27.5 boot share the exact same outer plastic shell mold. Ski boot liners pack out by 15% to 20% after 4 to 6 days of skiing. Do not size up for toe room.</p>
             </div>
           </div>
         </div>
@@ -189,14 +192,14 @@ const faqSchema = JSON.stringify({
       <div class="page-inner">
         <header class="section-heading">
           <p class="mono-eyebrow">Standard Reference Matrix</p>
-          <h2 class="heading-lg">Mondopoint to US, UK, and EU Conversion Chart</h2>
-          <p class="body-md">Use this reference chart to cross-reference Mondopoint measurements with standard global street shoe sizes.</p>
+          <h2 class="heading-lg">Mondopoint to US, UK, and EU conversion chart</h2>
+          <p class="body-md">Use this reference chart to cross-reference Mondopoint measurements with standard street shoe sizes.</p>
         </header>
 
         <div class="table-card">
           <div class="table-card-head">
-            <h3 class="heading-sm">Adult Alpine &amp; Snowboard Mondopoint Matrix</h3>
-            <span class="category-pill">Men &amp; Women Conversions</span>
+            <h3 class="heading-sm">Adult alpine and snowboard Mondopoint matrix</h3>
+            <span class="category-pill">Men and Women Conversions</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="Mondopoint to US UK EU conversion table">
@@ -213,16 +216,16 @@ const faqSchema = JSON.stringify({
                 </tr>
               </thead>
               <tbody>
-                <tr><td>22.0 / 22.5</td><td>220 – 225 mm</td><td>8.7" – 8.9"</td><td>4</td><td>5.0 – 5.5</td><td>3</td><td>35</td><td>265 mm</td></tr>
-                <tr><td>23.0 / 23.5</td><td>230 – 235 mm</td><td>9.1" – 9.3"</td><td>5</td><td>6.0 – 6.5</td><td>4</td><td>36.5</td><td>275 mm</td></tr>
-                <tr><td>24.0 / 24.5</td><td>240 – 245 mm</td><td>9.4" – 9.6"</td><td>6</td><td>7.0 – 7.5</td><td>5</td><td>38</td><td>285 mm</td></tr>
-                <tr><td>25.0 / 25.5</td><td>250 – 255 mm</td><td>9.8" – 10.0"</td><td>7 – 7.5</td><td>8.0 – 8.5</td><td>6 – 6.5</td><td>39.5 – 40</td><td>295 mm</td></tr>
-                <tr><td>26.0 / 26.5</td><td>260 – 265 mm</td><td>10.2" – 10.4"</td><td>8 – 8.5</td><td>9.0 – 9.5</td><td>7 – 7.5</td><td>41 – 41.5</td><td>305 mm</td></tr>
-                <tr><td>27.0 / 27.5</td><td>270 – 275 mm</td><td>10.6" – 10.8"</td><td>9 – 9.5</td><td>10.0 – 10.5</td><td>8 – 8.5</td><td>42 – 42.5</td><td>315 mm</td></tr>
-                <tr><td>28.0 / 28.5</td><td>280 – 285 mm</td><td>11.0" – 11.2"</td><td>10 – 10.5</td><td>11.0 – 11.5</td><td>9 – 9.5</td><td>43.5 – 44</td><td>325 mm</td></tr>
-                <tr><td>29.0 / 29.5</td><td>290 – 295 mm</td><td>11.4" – 11.6"</td><td>11 – 11.5</td><td>12.0 – 12.5</td><td>10 – 10.5</td><td>45 – 45.5</td><td>335 mm</td></tr>
-                <tr><td>30.0 / 30.5</td><td>300 – 305 mm</td><td>11.8" – 12.0"</td><td>12 – 12.5</td><td>—</td><td>11 – 11.5</td><td>46.5 – 47</td><td>345 mm</td></tr>
-                <tr><td>31.0 / 31.5</td><td>310 – 315 mm</td><td>12.2" – 12.4"</td><td>13 – 13.5</td><td>—</td><td>12 – 12.5</td><td>48</td><td>355 mm</td></tr>
+                <tr><td>22.0 / 22.5</td><td>220 to 225 mm</td><td>8.7" to 8.9"</td><td>4</td><td>5.0 to 5.5</td><td>3</td><td>35</td><td>265 mm</td></tr>
+                <tr><td>23.0 / 23.5</td><td>230 to 235 mm</td><td>9.1" to 9.3"</td><td>5</td><td>6.0 to 6.5</td><td>4</td><td>36.5</td><td>275 mm</td></tr>
+                <tr><td>24.0 / 24.5</td><td>240 to 245 mm</td><td>9.4" to 9.6"</td><td>6</td><td>7.0 to 7.5</td><td>5</td><td>38</td><td>285 mm</td></tr>
+                <tr><td>25.0 / 25.5</td><td>250 to 255 mm</td><td>9.8" to 10.0"</td><td>7 to 7.5</td><td>8.0 to 8.5</td><td>6 to 6.5</td><td>39.5 to 40</td><td>295 mm</td></tr>
+                <tr><td>26.0 / 26.5</td><td>260 to 265 mm</td><td>10.2" to 10.4"</td><td>8 to 8.5</td><td>9.0 to 9.5</td><td>7 to 7.5</td><td>41 to 41.5</td><td>305 mm</td></tr>
+                <tr><td>27.0 / 27.5</td><td>270 to 275 mm</td><td>10.6" to 10.8"</td><td>9 to 9.5</td><td>10.0 to 10.5</td><td>8 to 8.5</td><td>42 to 42.5</td><td>315 mm</td></tr>
+                <tr><td>28.0 / 28.5</td><td>280 to 285 mm</td><td>11.0" to 11.2"</td><td>10 to 10.5</td><td>11.0 to 11.5</td><td>9 to 9.5</td><td>43.5 to 44</td><td>325 mm</td></tr>
+                <tr><td>29.0 / 29.5</td><td>290 to 295 mm</td><td>11.4" to 11.6"</td><td>11 to 11.5</td><td>12.0 to 12.5</td><td>10 to 10.5</td><td>45 to 45.5</td><td>335 mm</td></tr>
+                <tr><td>30.0 / 30.5</td><td>300 to 305 mm</td><td>11.8" to 12.0"</td><td>12 to 12.5</td><td>N/A</td><td>11 to 11.5</td><td>46.5 to 47</td><td>345 mm</td></tr>
+                <tr><td>31.0 / 31.5</td><td>310 to 315 mm</td><td>12.2" to 12.4"</td><td>13 to 13.5</td><td>N/A</td><td>12 to 12.5</td><td>48</td><td>355 mm</td></tr>
               </tbody>
             </table>
           </div>
@@ -231,7 +234,7 @@ const faqSchema = JSON.stringify({
         <!-- Last Width Guide -->
         <div class="table-card" style="margin-top:32px">
           <div class="table-card-head">
-            <h3 class="heading-sm">Ski Boot Width Categories (Last Width)</h3>
+            <h3 class="heading-sm">Ski boot width categories (last width)</h3>
             <span class="category-pill">Forefoot Volume</span>
           </div>
           <div class="scroll-x">
@@ -245,9 +248,9 @@ const faqSchema = JSON.stringify({
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Low Volume (LV)</td><td>97 – 98 mm</td><td>Narrow forefoot, slim heel, low instep</td><td>Race-inspired, ultra-snug hold, zero slop</td></tr>
-                <tr><td>Mid Volume (MV)</td><td>100 – 101 mm</td><td>Standard foot width (approx. 70% of skiers)</td><td>Balanced precision and all-day comfort</td></tr>
-                <tr><td>High Volume (HV)</td><td>102 – 106 mm</td><td>Wide forefoot, thick midfoot, high instep</td><td>Generous toe box, alleviates pressure points</td></tr>
+                <tr><td>Low Volume (LV)</td><td>97 to 98 mm</td><td>Narrow forefoot, slim heel, low instep</td><td>Snug hold, minimal play</td></tr>
+                <tr><td>Mid Volume (MV)</td><td>100 to 101 mm</td><td>Standard foot width</td><td>Balanced hold and comfort</td></tr>
+                <tr><td>High Volume (HV)</td><td>102 to 106 mm</td><td>Wide forefoot, thick midfoot, high instep</td><td>Generous toe box, alleviates pressure points</td></tr>
               </tbody>
             </table>
           </div>
@@ -256,7 +259,7 @@ const faqSchema = JSON.stringify({
         <!-- Flex Index -->
         <div class="table-card" style="margin-top:32px">
           <div class="table-card-head">
-            <h3 class="heading-sm">Ski Boot Flex Rating Guide</h3>
+            <h3 class="heading-sm">Ski boot flex rating guide</h3>
             <span class="category-pill">Stiffness Index</span>
           </div>
           <div class="scroll-x">
@@ -266,14 +269,14 @@ const faqSchema = JSON.stringify({
                   <th>Ability Level</th>
                   <th>Men's Flex</th>
                   <th>Women's Flex</th>
-                  <th>Terrain &amp; Riding Style</th>
+                  <th>Terrain and Riding Style</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Beginner / Novice</td><td>60 – 80</td><td>50 – 70</td><td>Groomed green runs, slow speeds, upright stance</td></tr>
-                <tr><td>Intermediate</td><td>80 – 100</td><td>70 – 90</td><td>Blue cruisers, variable snow, developing parallel turns</td></tr>
-                <tr><td>Advanced / All-Mountain</td><td>100 – 120</td><td>90 – 110</td><td>Steep black runs, moguls, trees, higher speeds</td></tr>
-                <tr><td>Expert / Freeride / Racer</td><td>120 – 140+</td><td>110 – 130+</td><td>High speed carving, aggressive charging, maximum leverage</td></tr>
+                <tr><td>Beginner / Novice</td><td>60 to 80</td><td>50 to 70</td><td>Groomed green runs, slow speeds, upright stance</td></tr>
+                <tr><td>Intermediate</td><td>80 to 100</td><td>70 to 90</td><td>Blue cruisers, variable snow, developing parallel turns</td></tr>
+                <tr><td>Advanced / All-Mountain</td><td>100 to 120</td><td>90 to 110</td><td>Steep black runs, moguls, higher speeds</td></tr>
+                <tr><td>Expert / Freeride / Racer</td><td>120 to 140+</td><td>110 to 130+</td><td>High speed carving, maximum leverage</td></tr>
               </tbody>
             </table>
           </div>
@@ -286,32 +289,26 @@ const faqSchema = JSON.stringify({
       <div class="page-inner">
         <article class="prose-card">
           <header class="prose-header">
-            <p class="mono-eyebrow">Bootfitter's Masterclass</p>
-            <h2 class="prose-main-title">The Three Golden Rules of Ski Boot Fitting</h2>
-            <p class="prose-lead">More skiers ruin their ski vacation from oversized boots than any other gear mistake. Here is how professional bootfitters ensure peak warmth, performance, and blister-free comfort.</p>
+            <p class="mono-eyebrow">Bootfitting Guidance</p>
+            <h2 class="prose-main-title">The three principles of ski boot fitting</h2>
+            <p class="prose-lead">Oversized ski boots cause heel slippage and toe impact. Here is how bootfitters determine proper shell sizing.</p>
           </header>
 
           <div class="content-prose">
-            <h3 class="heading-sm">Rule 1: Never Buy Your Street Shoe Size</h3>
-            <p>Street shoes are built with roughly 12 to 15 mm of forward clearance so your toes don't contact the end while walking. If you purchase ski boots with that much room, your foot will slide backward and forward inside the plastic shell on every turn.</p>
-            <p>To compensate for foot slippage, skiers instinctively overtighten the buckles over their instep. This cuts off blood circulation to the toes (causing cold, numb feet) and causes your toes to slam violently against the front when navigating bumps ("toe bang"). A properly fitted ski boot should feel much snugger than your daily sneakers.</p>
+            <h3 class="heading-sm">Principle 1: never buy your street shoe size</h3>
+            <p>Street shoes are built with roughly 12 to 15 mm of forward clearance so your toes do not contact the end while walking. If you purchase ski boots with that much room, your foot slides inside the plastic shell during turns.</p>
+            <p>To compensate for foot slippage, skiers often overtighten the instep buckles. This restricts blood circulation to the toes and causes toe impact against the front bumper during descents. A properly fitted ski boot fits more snugly than daily sneakers.</p>
 
-            <h3 class="heading-sm">Rule 2: Understand the "Pack-Out" Effect</h3>
-            <p>Ski boot liners are packed with dense foam that compresses and molds to the exact contours of your bones and warmth. Over the first 4 to 6 full days on the mountain, a new liner will compress by <strong>15% to 20% in overall volume</strong>. If a ski boot feels like a comfortable slipper in the ski shop showroom, it will feel loose, unresponsive, and sloppy after one week on snow.</p>
+            <h3 class="heading-sm">Principle 2: understand liner compression</h3>
+            <p>Ski boot liners use dense foam that compresses to the contours of your foot. Over the first 4 to 6 full days on the mountain, a new liner compresses by 15% to 20% in volume. A boot that feels roomy in the showroom will feel loose after initial days on snow.</p>
 
-            <h3 class="heading-sm">Rule 3: How to Perform the "Shell Fit Test" at Home</h3>
-            <p>The most dependable way to confirm your boot shell size before committing to a purchase is the bootfitter's shell test:</p>
+            <h3 class="heading-sm">Principle 3: how to perform the shell fit test at home</h3>
+            <p>Confirm your boot shell size before using your boots on snow:</p>
             <ol>
               <li>Unbuckle the boot completely and remove the soft inner liner from the plastic shell.</li>
-              <li>Step your bare foot (or foot in thin ski socks) directly into the plastic shell.</li>
-              <li>Slide your foot forward until your longest toe gently touches the front of the plastic shell.</li>
-              <li>Look behind your heel at the gap between your heel bone and the back of the plastic shell:
-                <ul>
-                  <li><strong>1 finger (approx. 10–15 mm):</strong> Performance fit for advanced and intermediate skiers.</li>
-                  <li><strong>1.5 to 2 fingers (approx. 20–25 mm):</strong> Comfort / recreational fit for casual skiers.</li>
-                  <li><strong>More than 2 fingers (30+ mm):</strong> The shell is too large. You must downsize.</li>
-                </ul>
-              </li>
+              <li>Step your foot in thin ski socks directly into the plastic shell.</li>
+              <li>Slide your foot forward until your longest toe touches the front of the shell.</li>
+              <li>Examine the gap between your heel bone and the back of the plastic shell. One finger (approx. 10 to 15 mm) indicates a performance fit. Two fingers (approx. 20 to 25 mm) indicates a comfort fit. A gap exceeding 25 mm indicates the shell is too large.</li>
             </ol>
           </div>
         </article>
@@ -323,7 +320,7 @@ const faqSchema = JSON.stringify({
       <div class="page-inner">
         <div class="faq-card">
           <p class="mono-eyebrow">Common Questions</p>
-          <h2 class="heading-lg" style="margin-bottom:24px">Frequently Asked Questions: Mondopoint &amp; Ski Boots</h2>
+          <h2 class="heading-lg" style="margin-bottom:24px">Frequently asked questions</h2>
           <div class="faq-list">
             {faqs.map(item => (
               <details class="faq-item">
@@ -697,7 +694,6 @@ const faqSchema = JSON.stringify({
     if (mondo > 34) mondo = 34;
 
     // Calculate approx BSL (Boot Sole Length)
-    // Formula: roughly (mondo * 10) + 43 to 45 mm
     const bsl = Math.round((Math.floor(mondo) * 10) + 45);
 
     // Approximate US and EU conversions
@@ -722,10 +718,10 @@ const faqSchema = JSON.stringify({
     let lastDetail = '100 mm Metatarsal Width';
     if (width === 'narrow') {
       lastTitle = 'Low Volume (LV)';
-      lastDetail = '97–98 mm (Narrow Foot / Thin Heel)';
+      lastDetail = '97 to 98 mm (Narrow Foot / Thin Heel)';
     } else if (width === 'wide') {
       lastTitle = 'High Volume (HV)';
-      lastDetail = '102–104 mm+ (Wide Foot / High Instep)';
+      lastDetail = '102 to 104 mm+ (Wide Foot / High Instep)';
     }
 
     if (mondoBadge) mondoBadge.textContent = `Recommended Mondopoint: ${mondo.toFixed(1)}`;
@@ -736,7 +732,7 @@ const faqSchema = JSON.stringify({
     if (lastVal) lastVal.textContent = lastTitle;
     if (lastMm) lastMm.textContent = lastDetail;
 
-    let advice = `<strong>Shell Sizing Insight:</strong> Mondopoint ${Math.floor(mondo)}.0 and ${(Math.floor(mondo) + 0.5).toFixed(1)} share the same outer plastic shell mold. Liners pack out by 15% to 20% after 4–6 days on snow.`;
+    let advice = `<strong>Shell Sizing Insight:</strong> Mondopoint ${Math.floor(mondo)}.0 and ${(Math.floor(mondo) + 0.5).toFixed(1)} share the same outer plastic shell mold. Liners pack out by 15% to 20% after 4 to 6 days on snow.`;
     if (fit === 'comfort') {
       advice += ` Because you chose <em>Comfort Fit</em>, a thicker sock or custom insole will fill excess volume as the liner settles.`;
     } else if (fit === 'race') {

@@ -1,5 +1,5 @@
 ---
-// Header.astro — Redesigned modern navigation bar with glassmorphism & accessible drawer
+// Header.astro: Modern navigation bar with glassmorphism and accessible drawer
 ---
 
 <header class="nav-bar" id="site-header">
@@ -793,7 +793,7 @@
     }
   });
 
-  // Desktop Dropdown Logic — click toggle + click-outside close
+  // Desktop Dropdown Logic: click toggle + click-outside close
   document.querySelectorAll('.nav-drop-trigger').forEach(trigger => {
     trigger.addEventListener('click', (e) => {
       e.stopPropagation();

@@ -4,85 +4,38 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/eu-to-cm-shoe-size/`;
-const pageTitle = 'EU to CM Shoe Size Converter — European Size in CM Chart';
-const pageDescription = 'Convert EU shoe sizes to centimeters (CM) instantly. Accurate European to CM shoe size charts for men, women & kids with US feet size conversions & formulas.';
+const pageTitle = 'EU to CM shoe size converter: European size in CM chart';
+const pageDescription = 'Convert EU shoe sizes to centimeters (CM). Accurate European to CM shoe size charts for men, women, and kids with formula guides.';
 const ogImage = `${domain}/og-image.png`;
 
-// Men's table data (EU, CM, Inches, US, UK)
-const menSizes = [
-  { eu: 38.0, cm: 24.0, inch: 9.4, us: 6.0, uk: 5.5 },
-  { eu: 38.5, cm: 24.5, inch: 9.6, us: 6.5, uk: 6.0 },
-  { eu: 39.0, cm: 25.0, inch: 9.8, us: 7.0, uk: 6.5 },
-  { eu: 40.0, cm: 25.5, inch: 10.0, us: 7.5, uk: 7.0 },
-  { eu: 40.5, cm: 25.8, inch: 10.1, us: 7.8, uk: 7.0 },
-  { eu: 41.0, cm: 26.0, inch: 10.2, us: 8.0, uk: 7.5 },
-  { eu: 41.5, cm: 26.5, inch: 10.4, us: 8.5, uk: 8.0 },
-  { eu: 42.0, cm: 27.0, inch: 10.6, us: 9.0, uk: 8.5 },
-  { eu: 42.5, cm: 27.5, inch: 10.8, us: 9.5, uk: 9.0 },
-  { eu: 43.0, cm: 28.0, inch: 11.0, us: 10.0, uk: 9.5 },
-  { eu: 44.0, cm: 28.5, inch: 11.2, us: 10.5, uk: 10.0 },
-  { eu: 44.5, cm: 29.0, inch: 11.4, us: 11.0, uk: 10.5 },
-  { eu: 45.0, cm: 29.5, inch: 11.6, us: 11.5, uk: 11.0 },
-  { eu: 46.0, cm: 30.0, inch: 11.8, us: 12.0, uk: 11.5 },
-  { eu: 47.0, cm: 31.0, inch: 12.2, us: 13.0, uk: 12.5 },
-];
-
-// Women's table data (EU, CM, Inches, US, UK)
-const womenSizes = [
-  { eu: 35.0, cm: 21.5, inch: 8.5, us: 4.5, uk: 2.5 },
-  { eu: 35.5, cm: 22.0, inch: 8.7, us: 5.0, uk: 3.0 },
-  { eu: 36.0, cm: 22.5, inch: 8.9, us: 5.5, uk: 3.5 },
-  { eu: 36.5, cm: 23.0, inch: 9.1, us: 6.0, uk: 4.0 },
-  { eu: 37.0, cm: 23.5, inch: 9.3, us: 6.5, uk: 4.5 },
-  { eu: 37.5, cm: 23.8, inch: 9.4, us: 7.0, uk: 5.0 },
-  { eu: 38.0, cm: 24.0, inch: 9.4, us: 7.0, uk: 5.0 },
-  { eu: 38.5, cm: 24.5, inch: 9.6, us: 7.5, uk: 5.5 },
-  { eu: 39.0, cm: 25.0, inch: 9.8, us: 8.0, uk: 6.0 },
-  { eu: 40.0, cm: 25.5, inch: 10.0, us: 8.5, uk: 6.5 },
-  { eu: 40.5, cm: 26.0, inch: 10.2, us: 9.0, uk: 7.0 },
-  { eu: 41.0, cm: 26.5, inch: 10.4, us: 9.5, uk: 7.5 },
-  { eu: 42.0, cm: 27.0, inch: 10.6, us: 10.0, uk: 8.0 },
-  { eu: 42.5, cm: 27.5, inch: 10.8, us: 10.5, uk: 8.5 },
-];
-
-// Kids' table data (EU, CM, Inches, US, UK, Stage)
-const kidsSizes = [
-  { eu: 19.0, cm: 11.5, inch: 4.5, us: '4C', uk: '3.5C', stage: 'Toddler' },
-  { eu: 22.0, cm: 13.0, inch: 5.1, us: '6C', uk: '5.5C', stage: 'Toddler' },
-  { eu: 24.0, cm: 14.5, inch: 5.7, us: '8C', uk: '7.5C', stage: 'Toddler' },
-  { eu: 27.0, cm: 16.5, inch: 6.5, us: '10C', uk: '9.5C', stage: 'Little Kid' },
-  { eu: 30.0, cm: 18.0, inch: 7.1, us: '12C', uk: '11.5C', stage: 'Little Kid' },
-  { eu: 31.0, cm: 19.0, inch: 7.5, us: '13C', uk: '12.5C', stage: 'Little Kid' },
-  { eu: 32.0, cm: 20.0, inch: 7.9, us: '1Y', uk: '13.5C', stage: 'Big Kid' },
-  { eu: 33.0, cm: 20.5, inch: 8.1, us: '2Y', uk: '1.5Y', stage: 'Big Kid' },
-  { eu: 34.5, cm: 21.5, inch: 8.5, us: '3Y', uk: '2.5Y', stage: 'Big Kid' },
-  { eu: 36.0, cm: 22.5, inch: 8.9, us: '4Y', uk: '3.5Y', stage: 'Big Kid' },
-  { eu: 37.0, cm: 23.5, inch: 9.3, us: '5Y', uk: '4.5Y', stage: 'Big Kid' },
-];
+const menSizes = MEN_SIZE_ROWS;
+const womenSizes = WOMEN_SIZE_ROWS;
+const kidsSizes = KIDS_SIZE_ROWS;
 
 const faqs = [
   {
     q: 'How do I convert European (EU) shoe size to centimeters (CM)?',
-    a: 'To convert shoe size EU to CM, you can reference our verified chart or use the Paris Point calculation. Under the European system, each EU size equals two-thirds of a centimeter (0.667 cm). After accounting for internal last allowance (toe clearance), a men\'s EU 42 equals 27.0 cm foot length, an EU 43 equals 28.0 cm, and a women\'s EU 38 equals 24.0 cm.'
+    a: 'To convert shoe size EU to CM, reference our calibrated chart or use the Paris Point calculation. Under the European system, each EU size equals two-thirds of a centimeter (6.67 mm). After factoring in last allowance, an EU 42 fits a 27.0 cm foot length and an EU 38.5 fits a 25.0 cm foot length.'
   },
   {
-    q: 'What is a 10.5 feet size in European shoe sizing?',
-    a: 'A 10.5 feet size in European sizing translates according to gender and unit: An American Men\'s US 10.5 equals European EU 44.0 (fitting a 28.5 cm foot length). An American Women\'s US 10.5 equals European EU 42.5 (fitting a 27.5 cm foot length). If you have an anatomical foot length of 10.5 inches (26.67 cm), that corresponds to European EU 41.5 to EU 42.'
+    q: 'What is a 10.5 size in European shoe sizing?',
+    a: 'An American Men\'s US 10.5 equals European EU 44.5 (fitting a 28.5 cm foot length). An American Women\'s US 10.5 equals European EU 42.0 (fitting a 27.5 cm foot length). An anatomical foot length of 10.5 inches (26.7 cm) corresponds to European EU 41.5 to 42.'
   },
   {
-    q: 'How do EU feet sizes convert to US shoe sizes?',
-    a: 'When translating EU feet size to US footwear, men subtract roughly 33 from their European number (for example, EU 42 − 33 = US Men 9.0), while women subtract roughly 31 (for example, EU 38 − 31 = US Women 7.0). For exact conversions across different sneaker brands, always cross-reference foot length in centimeters.'
+    q: 'How do EU sizes convert to US shoe sizes?',
+    a: 'When translating EU shoe sizes to US footwear, men subtract 33 from the European number (EU 42 − 33 = US Men 9.0), while women subtract 30.5 (EU 38.5 − 30.5 = US Women 8.0).'
   },
   {
     q: 'Why are centimeters (CM) more accurate than European shoe sizes?',
-    a: 'Centimeters provide an immutable metric measurement of your foot from heel to longest toe. While European shoe sizes can vary slightly between manufacturers (such as narrow Italian designer lasts versus wider German Birkenstocks), centimeters reflect the physical footbed space inside the shoe.'
+    a: 'Centimeters provide a metric measurement of your foot from heel to longest toe. While numerical sizes can vary between manufacturers, centimeters reflect the physical footbed space inside the shoe.'
   },
   {
     q: 'How does the European Paris Point system work for footwear length?',
-    a: 'European sizing originated in France as the "Point de Paris," where 1 Paris Point equals exactly 2/3 of a centimeter (6.67 millimeters). A shoe labeled EU 42 has a last length of 28.0 cm (42 × 2/3 cm), which comfortably accommodates a foot length of 27.0 cm after factoring in 1.0 cm of standard toe wiggle room.'
+    a: 'European sizing uses the Paris Point, where 1 Paris Point equals 2/3 of a centimeter (6.67 millimeters). A shoe labeled EU 42 has a last length of 28.0 cm (42 × 2/3 cm), accommodating a foot length of 27.0 cm with 1.0 cm of toe clearance.'
   }
 ];
 
@@ -105,7 +58,6 @@ const relatedLinks = [
   { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
   { label: 'EU to UK Shoe Size Converter', href: '/eu-to-uk-shoe-size/' },
   { label: 'EU to India Shoe Size Converter', href: '/eu-to-india-shoe-size/' },
-  { label: 'European Shoe Sizing Guide', href: '/country/europe/' },
   { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
 ];
 ---
@@ -117,7 +69,6 @@ const relatedLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="eu feet size to us, shoe size eu to cm, feet size us to eu, feet sizes us to eu, eu shoe size to cm, 10.5 feet size in european, eu foot size to cm, eu shoe size centimeters, european feet size to american, feet size eu, shoe size eu cm" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={pageCanonical} />
@@ -352,7 +303,7 @@ const relatedLinks = [
 
         <!-- Kids' Table -->
         <div class="table-panel" id="tab-kids" role="tabpanel">
-          <h3 class="table-heading">Kids' European to Centimeter Size Chart</h3>
+          <h3 class="table-heading">Kids' European and centimeter size chart</h3>
           <div class="table-wrapper">
             <table class="size-table" aria-label="Kids EU to CM shoe size chart">
               <thead>
@@ -369,10 +320,10 @@ const relatedLinks = [
               <tbody>
                 {kidsSizes.map(r => (
                   <tr>
-                    <td class="primary-cell"><strong>EU {r.eu.toFixed(1)}</strong></td>
-                    <td class="highlight-cell"><strong>{r.cm.toFixed(1)} cm</strong></td>
+                    <td class="primary-cell"><strong>EU {r.eu}</strong></td>
+                    <td class="highlight-cell"><strong>{r.cm} cm</strong></td>
                     <td>{Math.round(r.cm * 10)} mm</td>
-                    <td>{r.inch.toFixed(1)}"</td>
+                    <td>{r.inch}"</td>
                     <td>US {r.us}</td>
                     <td>UK {r.uk}</td>
                     <td>{r.stage}</td>
@@ -388,70 +339,60 @@ const relatedLinks = [
     <!-- Editorial SEO Prose Section -->
     <article class="editorial-band">
       <div class="page-inner prose-article">
-        <h2 class="editorial-main-title">How to Convert EU Shoe Size to CM: Complete Sizing & Measurement Guide</h2>
+        <h2 class="editorial-main-title">How to convert EU shoe size to centimeters: sizing guide</h2>
         
         <p class="lead-paragraph">
-          When purchasing international footwear online or comparing European designer shoes from brands like Adidas, Birkenstock, Balenciaga, Golden Goose, or Zara, knowing your exact <strong>shoe size eu to cm</strong> is the single most dependable way to guarantee a perfect fit. Because traditional sizing formats differ across continents, converting your <strong>eu shoe size to cm</strong> eliminates confusion. In this comprehensive guide, we explain the mathematics of the Paris Point system, explore <strong>eu feet size to us</strong> translations, examine <strong>feet size us to eu</strong> formulas, and provide step-by-step instructions on measuring your <strong>feet size eu</strong> at home.
+          Comparing European shoes across brands requires converting European numbers to anatomical centimeter measurements. Understanding how metric Paris Points relate to bare foot length eliminates sizing errors.
         </p>
 
-        <h3>The Science of European Sizing: Paris Points & Centimeters</h3>
+        <h3>European sizing: Paris points and centimeters</h3>
         <p>
-          Unlike the American and British shoe systems, which are historically based on the barleycorn (1/3 of an inch), European footwear is grounded in the metric Paris Point system (also known as <em>Point de Paris</em>). Established by French shoemakers in the mid-19th century, one Paris Point equals precisely two-thirds of a centimeter, or approximately 6.67 millimeters:
-        </p>
-        <p style="text-align: center; font-weight: 700; color: var(--v-ink); margin: 20px 0;">
-          1 EU Size = 2/3 cm ≈ 0.667 cm = 6.67 mm
+          Unlike the American and British shoe systems based on the barleycorn (1/3 of an inch), European footwear is grounded in the metric Paris Point system. One Paris Point equals two-thirds of a centimeter (6.67 millimeters). Read our guide on <a href="/shoe-size-in-inches/">shoe sizes in inches and barleycorn measurements</a> for comparison.
         </p>
         <p>
-          To calculate the shoe last length from a European shoe number, you multiply the EU size by 2/3. For example, a shoe stamped EU 42 has an internal last length of 28.0 centimeters (42 × 2/3 = 28.0 cm). However, because the human foot requires approximately 1.0 to 1.5 cm of toe wiggle room inside the toe box, an EU 42 shoe is engineered for a foot that measures 27.0 centimeters in anatomical length. This is why knowing your true <strong>eu foot size to cm</strong> ensures you select the correct European size without pinching your toes.
+          To calculate the shoe last length from a European shoe number, multiply the EU size by 2/3. For example, a shoe stamped EU 42 has an internal last length of 28.0 centimeters (42 × 2/3 = 28.0 cm). Accounting for 1.0 cm of toe clearance, an EU 42 fits a 27.0 cm anatomical foot length.
         </p>
 
-        <h3>How EU Feet Size Converts to US and American Sizing</h3>
+        <h3>Converting European sizes to US sizes</h3>
         <p>
-          Shoppers frequently cross-reference between European and American sizing conventions. If you are comparing an <strong>eu feet size to us</strong> or looking for <strong>european feet size to american</strong> equivalents, keep in mind that the American system uses distinct starting scales for men and women:
+          Standard offsets convert European sizes to American sizes:
         </p>
         <ul>
-          <li><strong>Men's Conversion (US Men ≈ EU − 33):</strong> For adult men, subtracting 33 from your European size gives your standard American size. For example, EU 42 − 33 = US Men 9.0 (27.0 cm foot length); EU 43 − 33 = US Men 10.0 (28.0 cm foot length); and EU 41 − 33 = US Men 8.0 (26.0 cm foot length).</li>
-          <li><strong>Women's Conversion (US Women ≈ EU − 31):</strong> Because the American women's scale begins earlier, women subtract approximately 31 from their European size. For example, EU 38 − 31 = US Women 7.0 (24.0 cm foot length); EU 39 − 31 = US Women 8.0 (25.0 cm foot length); and EU 37 − 31 = US Women 6.0 (23.0 to 23.5 cm foot length).</li>
-          <li><strong>Converting Feet Size US to EU:</strong> If you are converting in reverse (<strong>feet sizes us to eu</strong>), men add 33 to their US size (e.g., US 9.0 + 33 = EU 42), while women add 31 (e.g., US 7.0 + 31 = EU 38).</li>
+          <li>For men: subtract 33 from the European size (EU 42 − 33 = US Men 9.0 for a 27.0 cm foot length; EU 44 − 33 = US Men 11.0 for 29.0 cm).</li>
+          <li>For women: subtract 30.5 from the European size (EU 38.5 − 30.5 = US Women 8.0 for 25.0 cm).</li>
+          <li>In reverse, men add 33 to their US size (US 9.0 + 33 = EU 42), while women add 30.5 (US 8.0 + 30.5 = EU 38.5).</li>
         </ul>
 
-        <h3>Solving the "10.5 Feet Size in European" Query</h3>
+        <h3>Understanding 10.5 in European sizing</h3>
         <p>
-          One of the most frequently searched footwear questions is: <em>what is a <strong>10.5 feet size in european</strong> footwear?</em> Because "10.5" can refer to multiple sizing metrics, here is the exact breakdown:
+          The number 10.5 can refer to distinct sizing metrics:
         </p>
         <ul>
-          <li><strong>US Men's 10.5 in European:</strong> An American Men's size 10.5 translates to <strong>EU 44.0</strong>, corresponding to an anatomical foot length of 28.5 cm (11.2 inches).</li>
-          <li><strong>US Women's 10.5 in European:</strong> An American Women's size 10.5 translates to <strong>EU 42.5</strong>, fitting a foot length of 27.5 cm (10.8 inches).</li>
-          <li><strong>10.5 UK Size in European:</strong> A British UK 10.5 translates to <strong>EU 45.0</strong>, accommodating a 29.5 cm foot length.</li>
-          <li><strong>10.5 Inches Foot Length in European:</strong> If your bare foot measures exactly 10.5 inches (26.67 centimeters), you should choose an <strong>EU 41.5 to EU 42.0</strong> shoe to ensure comfortable toe clearance.</li>
+          <li>An American Men's US 10.5 corresponds to EU 44.5 (28.5 cm foot length).</li>
+          <li>An American Women's US 10.5 corresponds to EU 42.0 (27.5 cm foot length).</li>
+          <li>A British UK 10.5 corresponds to EU 45.0 (29.0 cm foot length).</li>
+          <li>A foot length of 10.5 inches (26.7 cm) corresponds to EU 41.5 to 42.0.</li>
         </ul>
 
-        <h3>Why EU Shoe Size Centimeters Give the Most Consistent Fit</h3>
+        <h3>Centimeter measurements across footwear brands</h3>
         <p>
-          When shopping online across brands, relying strictly on nominal European sizes can occasionally result in fit discrepancies. For instance, luxury Italian dress shoes from Gucci or Ferragamo are often crafted on sleek, elongated lasts that run slightly large, while French fashion sneakers or athletic boots from Salomon and Adidas can run snug.
+          Nominal European sizes can vary between brands. Italian leather shoes from formal makers frequently use generous lasts, while French and German athletic models use closer fittings.
         </p>
         <p>
-          Referencing <strong>eu shoe size centimeters</strong> provides an objective, unvarying metric. Whether a shoe is described as a French 42, an Italian 42, or a German 42, looking at the <strong>shoe size eu cm</strong> specification—which is often printed on the tongue label or shoebox as the Japanese (JP) or Mondopoint metric—tells you the exact physical foot length the shoe is designed to accommodate.
+          Referencing foot length in centimeters provides a consistent baseline across manufacturers. Footwear boxes often print this metric as the Japanese (JP) or Mondopoint number.
         </p>
 
-        <h3>Step-by-Step: Measuring Your Bare Feet for European Shoes</h3>
+        <h3>Measuring foot length</h3>
         <p>
-          To determine your exact <strong>feet size eu</strong> before making an online purchase, follow this simple measuring procedure:
+          To measure your foot length accurately in centimeters, measure both feet from heel to longest toe. See our step-by-step instructions on <a href="/shoe-size-by-foot-length/">measuring shoe size by foot length</a>. A foot measuring 27.0 cm corresponds to EU 42.
         </p>
-        <ol>
-          <li>Tape a piece of white paper to a flat, hard floor against an uncarpeted vertical wall.</li>
-          <li>Stand barefoot (or in the socks you intend to wear with the shoes) with your heel firmly against the wall. Place your full body weight onto your foot.</li>
-          <li>Hold a pencil vertically and mark the furthest point of your longest toe on the paper.</li>
-          <li>Measure the distance from the edge of the paper to the pencil mark in centimeters using a ruler.</li>
-          <li>Compare your measurement against the centimeter column in our <strong>shoe size eu to cm</strong> chart above. If your foot measures 26.8 cm, round up to 27.0 cm (EU 42) to provide sufficient space for natural foot expansion while walking.</li>
-        </ol>
       </div>
     </article>
 
     <!-- FAQ Accordion Section -->
     <section class="faq-band">
       <div class="page-inner">
-        <h2 class="section-title">Frequently Asked Questions: EU to CM Sizing</h2>
+        <h2 class="section-title">Frequently asked questions</h2>
         <p class="section-sub">Expert answers to common queries regarding European shoe sizes, centimeter foot lengths, and American translations.</p>
 
         <div class="faq-accordion-list">

@@ -4,46 +4,46 @@ import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import Footer from '../../components/Footer.astro';
-import { SIZE_DATA } from '../../data/shoe-sizes';
+import { SIZE_DATA, MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/country/uk/`;
-const pageTitle = 'UK Shoe Size Chart — British Sizing & Clarks Guide';
-const pageDescription = 'Comprehensive UK shoe size chart for British men, women, and kids. Convert UK sizes to US, EU, and CM with Clarks width fittings and toddler guides.';
+const pageTitle = 'UK Shoe Size Chart: British Sizing and Clarks Guide';
+const pageDescription = 'UK shoe size chart for British men, women, and kids. Convert UK sizes to US, EU, and CM with Clarks width fittings and toddler guides.';
 const ogImage = `${domain}/og-image.png`;
 
 const faqs = [
   {
-    q: 'Shoe size chart: How to measure your feet accurately at home?',
-    a: 'To measure your feet using a shoe size chart how to measure technique: stand upright with your heel lightly resting against a flat wall on top of a sheet of plain paper taped to a hard floor. Wearing the socks you plan to pair with your shoes, mark the furthest tip of your longest toe (which may be your second toe). Measure the distance from the edge of the paper to your mark in millimetres. Refer to our feet size chart and add 10 mm (approx. 0.4 inches) of walking clearance to find your true British shoe size.'
+    q: 'How to measure your feet accurately at home?',
+    a: 'Stand upright with your heel lightly resting against a flat wall on top of a sheet of plain paper taped to a hard floor. Wearing the socks you plan to pair with your shoes, mark the furthest tip of your longest toe. Measure the distance from the edge of the paper to your mark in millimeters. Refer to our reference chart and add 10 mm of walking clearance to find your British shoe size.'
   },
   {
     q: 'How do I read a shoe size chart to find my correct UK size?',
-    a: 'To read a shoe size chart effectively: first locate your anatomical foot length in the centimetres (CM) or millimetres column rather than guessing from old footwear. Next, trace across horizontally to find your corresponding UK adult or child size. If you fall between two half-sizes, round up to allow natural foot expansion during walking. Finally, check whether the brand lists a width fitting letter (such as Clarks D, E, F, G, or H) to ensure the forefoot width matches your foot volume.'
+    a: 'First locate your anatomical foot length in centimeters or millimeters. Next, trace horizontally to find your corresponding UK adult or child size. If you fall between two half sizes, round up to allow natural foot expansion during walking. Check whether the brand lists a width fitting letter such as Clarks D, E, F, G, or H to ensure proper forefoot volume.'
   },
   {
     q: 'What is a Chinese shoe size chart and how does it convert to UK sizes?',
-    a: 'China utilises two footwear measurement systems. The traditional China Type 1 system matches European Paris Points (e.g., a China size 42 corresponds directly to an EU 42 and UK size 8). The modern China Type 2 national standard (GB/T 3293.1-1998) is based on metric Mondopoint millimetres (e.g., China 260 indicates a foot length of 260 mm / 26.0 cm, which converts to UK 7.5 to 8). When buying from Chinese online retailers, check whether the label displays metric millimetres or continental EU numbers.'
+    a: 'China uses two footwear measurement systems. The traditional China Type 1 system matches European Paris Points (China size 42 corresponds directly to EU 42 and UK size 8.5). The modern China Type 2 national standard (GB/T 3293.1-1998) is based on metric Mondopoint millimeters (China 260 indicates a foot length of 260 mm, converting to UK 7.5). When buying from Chinese online retailers, check whether the label displays metric millimeters or continental EU numbers.'
   },
   {
-    q: 'How to fit my shoe size chart: How should properly fitted shoes feel?',
-    a: 'To verify proper fit using our how to fit my shoe size chart criteria, your footwear must satisfy three clinical requirements: 1) Toe Clearance: There must be 10 to 12 mm (roughly a thumb width) between your longest toe and the front tip; 2) Heel Lock: The heel counter should hug your calcaneus snugly with no vertical slipping when you step forward; and 3) Flex Point: The ball of your foot (first metatarsal joint) must align cleanly with the widest part and natural flex groove of the sole without bulging or side pressure.'
+    q: 'How should properly fitted shoes feel?',
+    a: 'Footwear must satisfy three criteria: 1) Toe room: Allow 10 to 12 mm between your longest toe and the front tip; 2) Heel grip: The heel counter should hug your calcaneus snugly with no vertical slipping when stepping forward; and 3) Flex point: The ball of your foot must align cleanly with the widest flex groove of the sole without lateral pressure.'
   },
   {
     q: 'How does a shoe size width chart work for Clarks and British footwear?',
-    a: 'In British shoemaking, width is designated by alphabetical letters rather than numerical sizes. On a Clarks shoe size width chart: "D" signifies narrow fit (women/girls), "E" is slim/narrow for men or standard for women, "F" is the standard medium fit (worn by approximately 75% of the British population), "G" is wide fit, and "H" is extra wide. Selecting the correct width fitting prevents the common mistake of buying an oversized shoe just to accommodate wide toes or a high instep.'
+    a: 'In British shoemaking, width is designated by alphabetical letters. On a Clarks width chart: D signifies narrow fit, E is slim or narrow for men and standard for women, F is the standard medium fit worn by most British adults, G is wide fit, and H is extra wide. Selecting the correct width fitting prevents buying an oversized shoe just to accommodate wide toes or a high instep.'
   },
   {
-    q: 'What does CM mean on a shoe size chart and why is it the most reliable measurement?',
-    a: 'On any size guide shoes, "CM" stands for centimetres and denotes either the bare foot length the shoe was sculpted for, or the internal footbed length. Unlike UK sizes (calculated in barleycorns of 1/3 inch) or European sizes (calculated in Paris Points of 2/3 cm), centimetres represent an unskewed physical metric. Knowing your foot length in centimetres allows you to bypass brand inconsistencies and achieve an exact conversion across global manufacturers.'
+    q: 'What does CM mean on a shoe size chart?',
+    a: 'On a shoe size chart, CM stands for centimeters and denotes anatomical foot length or internal footbed length. Centimeters provide an objective metric across brands. Knowing your foot length in centimeters allows you to bypass brand inconsistencies and achieve an exact conversion across global manufacturers.'
   },
   {
     q: 'How do UK toddler and children\'s shoe sizes correspond to age?',
-    a: 'On a toddler shoe size chart by age in Great Britain: babies wear UK 0 to 1 (0–6 months); infants wear UK 2 to 4 (6–18 months); toddlers wear UK 5 to 8 (18 months to 3.5 years); and little kids wear UK 9 to 13.5 (3.5 to 7 years). Once a child outgrows UK 13.5, the British childs shoe size chart resets back to UK 1 (Junior/Adult 1) through UK 6 (ages 8 to 12+).'
+    a: 'On a British children chart: babies wear UK 0 to 1 (0 to 6 months); infants wear UK 2 to 4 (6 to 18 months); toddlers wear UK 5 to 8 (18 months to 3.5 years); and children wear UK 9 to 13.5 (3.5 to 7 years). Once a child outgrows UK 13.5, the British child scale resets to UK 1 (Junior 1) through UK 6 (ages 8 to 12).'
   },
   {
     q: 'How do UK adult shoe sizes compare with US and European footwear?',
-    a: 'For men, a UK shoe size is roughly 0.5 to 1 size smaller than an American US Men\'s size (for example, UK 9 = US 9.5 to 10 = EU 43). For women, a UK shoe size is 2 sizes smaller than a US Women\'s size (for example, UK 5 = US Women\'s 7 = EU 38). European Paris point sizing is gender-neutral, making it a reliable bridge when converting between British and international footwear.'
+    a: 'For men, a UK shoe size is 0.5 size smaller than an American US Men size (UK 8.5 equals US Men 9.0 and EU 42.0). For women, a UK shoe size is 2 sizes smaller than a US Women size (UK 5.0 equals US Women 7.0 and EU 37.5). European Paris point sizing is unisex, providing a stable bridge when converting between British and international footwear.'
   }
 ];
 
@@ -66,12 +66,12 @@ const conversionLinks = [
 ];
 
 const countryLinks = [
-  { label: '🇺🇸 United States', href: '/country/us/' },
-  { label: '🇪🇺 Europe', href: '/country/europe/' },
-  { label: '🇮🇳 India', href: '/country/india/' },
-  { label: '🇯🇵 Japan', href: '/country/japan/' },
-  { label: '🇦🇺 Australia', href: '/country/australia/' },
-  { label: '🇲🇽 Mexico', href: '/country/mexico/' },
+  { label: 'United States', href: '/country/us/' },
+  { label: 'Europe', href: '/country/europe/' },
+  { label: 'India', href: '/country/india/' },
+  { label: 'Japan', href: '/country/japan/' },
+  { label: 'Australia', href: '/country/australia/' },
+  { label: 'Mexico', href: '/country/mexico/' },
 ];
 ---
 
@@ -82,11 +82,9 @@ const countryLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="uk shoe size chart, size chart shoes, feet size chart, childs shoe size chart, size guide shoes, toddler shoe size chart, clarks shoe size chart, kids shoe size chart uk, toddler shoe size chart uk, shoe size chart, kids shoe size chart, toddler shoe size chart by age, baby shoe size chart" />
-    
     <!-- Open Graph Metadata -->
-    <meta property="og:title" content="UK Shoe Size Chart — British Sizing & Clarks Guide" />
-    <meta property="og:description" content="Comprehensive UK shoe size chart & conversion guide. Explore size chart shoes for men, women, kids shoe size chart uk, toddler shoe size chart, and Clarks width fittings." />
+    <meta property="og:title" content="UK Shoe Size Chart: British Sizing and Clarks Guide" />
+    <meta property="og:description" content="UK shoe size chart and conversion guide for men, women, and kids with Clarks width fittings." />
     <meta property="og:url" content={pageCanonical} />
     <meta property="og:type" content="article" />
     <meta property="og:image" content={ogImage} />
@@ -94,8 +92,8 @@ const countryLinks = [
 
     <!-- Twitter Card Metadata -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="UK Shoe Size Chart — British Sizing & Clarks Guide" />
-    <meta name="twitter:description" content="Accurate UK shoe size chart, childs shoe size chart, toddler shoe size chart uk, and Clarks width fitting matrix." />
+    <meta name="twitter:title" content="UK Shoe Size Chart: British Sizing and Clarks Guide" />
+    <meta name="twitter:description" content="Accurate UK shoe size chart and Clarks width fitting matrix." />
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Structured Data -->
@@ -108,21 +106,20 @@ const countryLinks = [
     <Breadcrumbs items={[
       { label: 'Home', href: '/' },
       { label: 'Countries', href: '/country/' },
-      { label: '🇬🇧 United Kingdom (UK)' },
+      { label: 'United Kingdom (UK)' },
     ]} />
-
 
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="page-inner">
-        <p class="mono-eyebrow">🇬🇧 British Sizing Standard</p>
-        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">UK Shoe Size Chart &amp; Conversion Guide</h1>
-        <p class="hero-sub body-lg">Looking for an accurate <strong>uk shoe size chart</strong>? Explore our verified <strong>size chart shoes</strong> for men, women, and children. Convert British footwear sizes to US, EU, China, and centimetres, or check your official <strong>clarks shoe size chart</strong> width fittings.</p>
+        <p class="mono-eyebrow">British sizing standard</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">UK shoe size chart and conversion guide</h1>
+        <p class="hero-sub body-lg">Convert British footwear sizes to US, EU, India, and centimeters, or check Clarks width fittings.</p>
         <div class="hero-badges">
-          <span class="badge-trust">Men &amp; Women Adult Charts</span>
-          <span class="badge-trust">Kids Shoe Size Chart UK</span>
-          <span class="badge-trust">Toddler Shoe Size Chart</span>
-          <span class="badge-trust">Clarks Width Fittings (D, E, F, G, H)</span>
+          <span class="badge-trust">Men and women adult charts</span>
+          <span class="badge-trust">Kids shoe size chart UK</span>
+          <span class="badge-trust">Toddler shoe size chart</span>
+          <span class="badge-trust">Clarks width fittings (D, E, F, G, H)</span>
         </div>
       </div>
     </section>
@@ -133,10 +130,10 @@ const countryLinks = [
         <div class="card-elevated converter-inline">
           <div class="ci-header">
             <div>
-              <p class="mono-eyebrow">Instant British Footwear Conversion</p>
-              <h2 class="heading-md">Convert UK Shoe Sizes in Real Time</h2>
+              <p class="mono-eyebrow">Instant British footwear conversion</p>
+              <h2 class="heading-md">Convert UK shoe sizes in real time</h2>
             </div>
-            <p class="body-sm text-mute">Select your British shoe size and gender to instantly see international equivalents.</p>
+            <p class="body-sm text-mute">Select your British shoe size and gender to view international equivalents.</p>
           </div>
 
           <div class="ci-row">
@@ -181,10 +178,10 @@ const countryLinks = [
         <div class="table-card">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Adult UK Shoe Size Chart (Men &amp; Women)</h3>
-              <p class="body-sm text-mute">Includes US conversions, EU Paris Points, Chinese sizes, and foot length in CM</p>
+              <h3 class="heading-sm">Adult UK shoe size chart: men and women</h3>
+              <p class="body-sm text-mute">Includes US conversions, EU Paris Points, India sizes, and foot length in CM</p>
             </div>
-            <span class="category-pill">Adult Barleycorn Standard</span>
+            <span class="category-pill">Adult barleycorn standard</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="Adult UK shoe size chart">
@@ -194,30 +191,23 @@ const countryLinks = [
                   <th>US Men</th>
                   <th>US Women</th>
                   <th>EU Size</th>
-                  <th>China (Type 1 / 2)</th>
+                  <th>India Size</th>
                   <th>Foot Length (CM)</th>
                   <th>Inches</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>3.0</strong></td><td>3.5</td><td>5.0</td><td>35.5</td><td>35 (220 mm)</td><td>22.0 cm</td><td>8.7"</td></tr>
-                <tr><td><strong>3.5</strong></td><td>4.0</td><td>5.5</td><td>36.0</td><td>36 (225 mm)</td><td>22.5 cm</td><td>8.9"</td></tr>
-                <tr><td><strong>4.0</strong></td><td>4.5</td><td>6.0</td><td>37.0</td><td>37 (230 mm)</td><td>22.9 cm</td><td>9.0"</td></tr>
-                <tr><td><strong>4.5</strong></td><td>5.0</td><td>6.5</td><td>37.5</td><td>37.5 (235 mm)</td><td>23.3 cm</td><td>9.2"</td></tr>
-                <tr><td><strong>5.0</strong></td><td>5.5</td><td>7.0</td><td>38.0</td><td>38 (240 mm)</td><td>23.7 cm</td><td>9.3"</td></tr>
-                <tr><td><strong>5.5</strong></td><td>6.0</td><td>7.5</td><td>38.5</td><td>38.5 (245 mm)</td><td>24.1 cm</td><td>9.5"</td></tr>
-                <tr><td><strong>6.0</strong></td><td>6.5</td><td>8.0</td><td>39.0</td><td>39 (250 mm)</td><td>24.6 cm</td><td>9.7"</td></tr>
-                <tr><td><strong>6.5</strong></td><td>7.0</td><td>8.5</td><td>40.0</td><td>40 (250 mm)</td><td>25.0 cm</td><td>9.8"</td></tr>
-                <tr><td><strong>7.0</strong></td><td>7.5</td><td>9.0</td><td>40.5</td><td>40.5 (255 mm)</td><td>25.4 cm</td><td>10.0"</td></tr>
-                <tr><td><strong>7.5</strong></td><td>8.0</td><td>9.5</td><td>41.0</td><td>41 (260 mm)</td><td>25.8 cm</td><td>10.2"</td></tr>
-                <tr><td><strong>8.0</strong></td><td>8.5</td><td>10.0</td><td>42.0</td><td>42 (265 mm)</td><td>26.2 cm</td><td>10.3"</td></tr>
-                <tr><td><strong>8.5</strong></td><td>9.0</td><td>10.5</td><td>42.5</td><td>42.5 (270 mm)</td><td>26.7 cm</td><td>10.5"</td></tr>
-                <tr><td><strong>9.0</strong></td><td>9.5</td><td>11.0</td><td>43.0</td><td>43 (275 mm)</td><td>27.1 cm</td><td>10.7"</td></tr>
-                <tr><td><strong>9.5</strong></td><td>10.0</td><td>11.5</td><td>44.0</td><td>44 (280 mm)</td><td>27.5 cm</td><td>10.8"</td></tr>
-                <tr><td><strong>10.0</strong></td><td>10.5</td><td>12.0</td><td>44.5</td><td>44.5 (285 mm)</td><td>28.0 cm</td><td>11.0"</td></tr>
-                <tr><td><strong>10.5</strong></td><td>11.0</td><td>12.5</td><td>45.0</td><td>45 (290 mm)</td><td>28.4 cm</td><td>11.2"</td></tr>
-                <tr><td><strong>11.0</strong></td><td>11.5</td><td>—</td><td>46.0</td><td>46 (295 mm)</td><td>28.8 cm</td><td>11.3"</td></tr>
-                <tr><td><strong>12.0</strong></td><td>12.5</td><td>—</td><td>47.0</td><td>47 (305 mm)</td><td>29.7 cm</td><td>11.7"</td></tr>
+                {MEN_SIZE_ROWS.map(r => (
+                  <tr>
+                    <td><strong>{r.uk}</strong></td>
+                    <td>{typeof r.us === 'number' ? r.us.toFixed(1) : r.us}</td>
+                    <td>{typeof r.us === 'number' ? (r.us + 1.5).toFixed(1) : '-'}</td>
+                    <td>{r.eu}</td>
+                    <td>{r.india}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}"</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -227,17 +217,17 @@ const countryLinks = [
         <div class="table-card" style="margin-top:36px">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Kids Shoe Size Chart UK &amp; Toddler Shoe Size Chart by Age</h3>
-              <p class="body-sm text-mute">From baby shoe size chart (UK 0) through junior school-age footwear (UK 6)</p>
+              <h3 class="heading-sm">Kids shoe size chart UK and toddler shoe size chart by age</h3>
+              <p class="body-sm text-mute">From baby footwear through junior school footwear</p>
             </div>
-            <span class="category-pill">Infant, Toddler &amp; Youth</span>
+            <span class="category-pill">Infant, toddler and youth</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="Kids shoe size chart uk">
               <thead>
                 <tr>
                   <th>UK Kids Size</th>
-                  <th>Age Range Milestone</th>
+                  <th>Category</th>
                   <th>US Kids</th>
                   <th>EU Kids</th>
                   <th>Foot Length (CM)</th>
@@ -245,23 +235,16 @@ const countryLinks = [
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>UK 0</strong></td><td>Baby / Newborn (0–3 months)</td><td>0.5C</td><td>15</td><td>8.5 cm</td><td>3.3"</td></tr>
-                <tr><td><strong>UK 1</strong></td><td>Baby (3–6 months)</td><td>1.5C</td><td>16</td><td>9.5 cm</td><td>3.75"</td></tr>
-                <tr><td><strong>UK 2</strong></td><td>Infant (6–9 months)</td><td>2.5C</td><td>17–18</td><td>10.5 cm</td><td>4.1"</td></tr>
-                <tr><td><strong>UK 3</strong></td><td>Toddler (9–12 months / 1 Year)</td><td>3.5C</td><td>19</td><td>11.5 cm</td><td>4.5"</td></tr>
-                <tr><td><strong>UK 4</strong></td><td>Toddler (12–18 months)</td><td>4.5C</td><td>20</td><td>12.3 cm</td><td>4.85"</td></tr>
-                <tr><td><strong>UK 5</strong></td><td>Toddler (18–24 months / 2 Years)</td><td>5.5C</td><td>21–22</td><td>13.1 cm</td><td>5.15"</td></tr>
-                <tr><td><strong>UK 6</strong></td><td>Toddler (2–2.5 Years)</td><td>6.5C</td><td>23</td><td>14.0 cm</td><td>5.5"</td></tr>
-                <tr><td><strong>UK 7</strong></td><td>Toddler (2.5–3 Years)</td><td>7.5C</td><td>24</td><td>14.8 cm</td><td>5.8"</td></tr>
-                <tr><td><strong>UK 8</strong></td><td>Toddler (3–3.5 Years)</td><td>8.5C</td><td>25–26</td><td>15.6 cm</td><td>6.1"</td></tr>
-                <tr><td><strong>UK 9</strong></td><td>Little Kid / Preschool (3.5–4 Years)</td><td>9.5C</td><td>27</td><td>16.5 cm</td><td>6.5"</td></tr>
-                <tr><td><strong>UK 10</strong></td><td>Little Kid (4–5 Years)</td><td>10.5C</td><td>28</td><td>17.3 cm</td><td>6.8"</td></tr>
-                <tr><td><strong>UK 11</strong></td><td>Little Kid (5–6 Years)</td><td>11.5C</td><td>29–30</td><td>18.1 cm</td><td>7.1"</td></tr>
-                <tr><td><strong>UK 12</strong></td><td>Little Kid (6–7 Years)</td><td>12.5C</td><td>31</td><td>19.0 cm</td><td>7.5"</td></tr>
-                <tr><td><strong>UK 13</strong></td><td>School Age (7–8 Years)</td><td>13.5C</td><td>32</td><td>19.8 cm</td><td>7.8"</td></tr>
-                <tr><td><strong>UK 1 (Adult)</strong></td><td>Junior (8–9 Years)</td><td>1.5Y</td><td>33</td><td>20.6 cm</td><td>8.1"</td></tr>
-                <tr><td><strong>UK 3 (Adult)</strong></td><td>Junior / Youth (9–10 Years)</td><td>3.5Y</td><td>35</td><td>22.2 cm</td><td>8.75"</td></tr>
-                <tr><td><strong>UK 5 (Adult)</strong></td><td>Youth / Women's Transition (11+ Years)</td><td>5.5Y</td><td>38</td><td>23.8 cm</td><td>9.4"</td></tr>
+                {KIDS_SIZE_ROWS.map(r => (
+                  <tr>
+                    <td><strong>UK {r.uk}</strong></td>
+                    <td>{r.stage}</td>
+                    <td>{r.us}</td>
+                    <td>{r.eu}</td>
+                    <td>{r.cm} cm</td>
+                    <td>{r.inch}"</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -271,10 +254,10 @@ const countryLinks = [
         <div class="table-card" style="margin-top:36px">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Clarks Shoe Size Chart &amp; Width Fitting Matrix</h3>
-              <p class="body-sm text-mute">The official British footwear width standard used by Clarks and high-street retailers</p>
+              <h3 class="heading-sm">Clarks shoe size chart and width fitting matrix</h3>
+              <p class="body-sm text-mute">British footwear width standard used by Clarks and retailers</p>
             </div>
-            <span class="category-pill">Clarks Width Standards</span>
+            <span class="category-pill">Clarks width standards</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="Clarks shoe size chart width fitting">
@@ -283,15 +266,15 @@ const countryLinks = [
                   <th>Clarks Width Code</th>
                   <th>Fitting Classification</th>
                   <th>Target Foot Shape</th>
-                  <th>Who Should Choose It?</th>
+                  <th>Fitting Recommendation</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>D Fitting</strong></td><td>Narrow Fit (Women / Girls)</td><td>Slim instep, slender heel, narrow ball</td><td>Wearers whose heels slip in standard shoes</td></tr>
-                <tr><td><strong>E Fitting</strong></td><td>Slim / Standard Women's Fit</td><td>Standard width for women; narrow for men/boys</td><td>Average women's feet; slender boys' feet</td></tr>
-                <tr><td><strong>F Fitting</strong></td><td>Standard Regular Fit</td><td>Medium width (~75% of British population)</td><td>Normal foot proportions with zero pinching</td></tr>
+                <tr><td><strong>D Fitting</strong></td><td>Narrow Fit</td><td>Slim instep, slender heel, narrow ball</td><td>Wearers whose heels slip in standard shoes</td></tr>
+                <tr><td><strong>E Fitting</strong></td><td>Slim or Standard Women Fit</td><td>Standard width for women, narrow for men</td><td>Average women feet and slender boys feet</td></tr>
+                <tr><td><strong>F Fitting</strong></td><td>Standard Regular Fit</td><td>Medium width</td><td>Standard foot proportions with no side pressure</td></tr>
                 <tr><td><strong>G Fitting</strong></td><td>Wide Fit</td><td>Broad ball of the foot, higher instep volume</td><td>Shoppers whose toes feel squeezed in F fittings</td></tr>
-                <tr><td><strong>H Fitting</strong></td><td>Extra Wide Fit</td><td>Substantially broad feet, high arches, swelling</td><td>Maximum interior volume across forefoot</td></tr>
+                <tr><td><strong>H Fitting</strong></td><td>Extra Wide Fit</td><td>Substantially broad feet, high arches</td><td>Maximum interior volume across forefoot</td></tr>
               </tbody>
             </table>
           </div>
@@ -304,66 +287,58 @@ const countryLinks = [
       <div class="page-inner">
         <article class="prose-card">
           <header class="prose-header">
-            <p class="mono-eyebrow">British Footwear Masterclass</p>
-            <h2 class="prose-main-title">Understanding the UK Shoe Size Chart, Size Guide Shoes &amp; Clarks Fittings</h2>
-            <p class="prose-lead">From bespoke Savile Row oxfords to Clarks school shoes, British footwear sizing has a rich heritage rooted in craftsmanship. Here is everything you need to know to find your exact size.</p>
+            <p class="mono-eyebrow">British footwear guide</p>
+            <h2 class="prose-main-title">Understanding the UK shoe size chart, sizing standards, and Clarks fittings</h2>
+            <p class="prose-lead">British footwear sizing links historical measurement increments with modern manufacturing systems and width grading standards.</p>
           </header>
 
           <div class="content-prose">
-            <h3 class="heading-sm">The Historical Origin of the UK Shoe Size Chart: The Barleycorn System</h3>
-            <p>The British <strong>uk shoe size chart</strong> is among the oldest standardised measurement systems in existence. In 1324, King Edward II decreed that three grains of dry barley laid end-to-end made an inch. Cobblers adopted this <strong>barleycorn unit (1/3 of an inch, or 8.46 millimetres)</strong> as the exact incremental difference between each full shoe size.</p>
-            <p>On any British <strong>shoe size chart</strong>, a half size represents half a barleycorn (1/6 of an inch, or 4.23 mm). While the American system also uses barleycorns, the British system starts counting from a different base length, which is why UK adult sizes run numerically lower than US sizes. A British man wearing a UK 9 will require an American US 9.5 or 10, whereas a British woman wearing a UK 6 will take a US Women's 8.</p>
+            <h3 class="heading-sm">The origin of the UK shoe size chart: the barleycorn system</h3>
+            <p>The British footwear measuring system dates to 1324 under King Edward II, who formalized three dried barleycorn grains laid end-to-end as one inch. English shoemakers adopted one barleycorn (8.46 mm or 1/3 inch) as the increment between each full shoe size. A half size represents 4.23 mm (1/6 inch). While American sizing also uses barleycorn increments, it begins from a zero-point offset that is 0.5 to 1 full size ahead of British numbering. A British man wearing a UK 8.5 takes a US Men 9.0, whereas a British woman wearing a UK 5.0 takes a US Women 7.0.</p>
 
-            <h3 class="heading-sm">Clarks Shoe Size Chart: The Gold Standard for Children and Widths</h3>
-            <p>In Great Britain, children's footwear measurement is virtually synonymous with the <strong>clarks shoe size chart</strong>. For over a century, Clarks has utilised precision foot measuring gauges in retail stores across the country to track growing feet.</p>
-            <p>Clarks divides children's footwear into two fundamental groups:</p>
+            <h3 class="heading-sm">Clarks shoe size chart: children footwear and width fittings</h3>
+            <p>Clarks has manufactured footwear in Somerset since 1825 and remains the benchmark for British children shoes. The company divides juvenile footwear into two functional groups:</p>
             <ul>
-              <li><strong>Infant / First Shoes (UK 0 to UK 9.5):</strong> Designed with flexible, lightweight soles to protect soft cartilaginous infant bones while crawling and taking initial steps.</li>
-              <li><strong>Junior / School Shoes (UK 10 to UK 2.5):</strong> Built with firmer heel counters and scuff-resistant leather to handle classroom activity and playground running.</li>
+              <li>Infant and first shoes (UK 0 to UK 9.5) with flexible soles for early walking development.</li>
+              <li>Junior and school shoes (UK 10 to adult UK 2.5) with reinforced heel counters for playground wear.</li>
             </ul>
-            <p>A crucial advantage of the Clarks measuring philosophy is the recognition of foot width. Most footwear brands only manufacture in a single medium width. Clarks provides dedicated <strong>E, F, G, and H width fittings</strong>. If your child complains of sore pinky toes, the solution is often selecting a wider "G" fitting rather than jumping a full size up, which causes dangerous tripping hazards.</p>
+            <p>Clarks utilizes distinct width grades designated by letters D, E, F, G, and H. Most shoe brands offer only a single medium width. If a child experiences tightness across the fifth metatarsal, choosing a wide G fitting resolves the pressure without buying a longer size that causes tripping.</p>
 
-            <h3 class="heading-sm">Navigating the Kids Shoe Size Chart UK &amp; Toddler Shoe Size Chart by Age</h3>
-            <p>Parents frequently encounter confusion when switching between a <strong>baby shoe size chart</strong>, a <strong>toddler shoe size chart uk</strong>, and school-age sizing. Unlike European sizing, which runs in an unbroken linear series from EU 15 to 48, the British <strong>childs shoe size chart</strong> resets at size 13.5:</p>
+            <h3 class="heading-sm">Navigating the kids shoe size chart UK and toddler shoe size chart by age</h3>
+            <p>British children footwear uses a scale that restarts after size 13.5:</p>
             <ul>
-              <li>Infant and Child sizes run from <strong>UK 0 to UK 13.5</strong>.</li>
-              <li>Once a child outgrows UK 13.5, the sizing scale <strong>resets back to UK 1</strong> (frequently labelled "Junior 1" or "Adult 1").</li>
-              <li>A junior UK 1 is larger than a child's UK 13.5, which frequently trips up parents ordering school uniforms online.</li>
+              <li>Infant and child sizes span UK 0 through UK 13.5.</li>
+              <li>Above UK 13.5, the scale restarts at UK 1 for junior school students.</li>
+              <li>An adult UK 1 is larger than a child UK 13.5.</li>
             </ul>
-            <p>Between ages 1 and 3, toddlers outgrow shoes every 2 to 3 months. By ages 4 to 6, feet expand by one size every 4 to 5 months. Referencing a verified <strong>toddler shoe size chart by age</strong> ensures parents purchase footwear with adequate growth clearance.</p>
+            <p>Checking foot length in centimeters prevents buying nursery footwear when shopping for older children.</p>
 
-            <h3 class="heading-sm">Demystifying Chinese Shoe Sizing vs UK Footwear</h3>
-            <p>With millions of consumers purchasing sneakers and athletic gear directly from global online retailers, understanding how a <strong>chinese shoe size chart</strong> maps to British sizing is essential. China officially recognises two sizing methods:</p>
+            <h3 class="heading-sm">Chinese shoe sizing compared to UK footwear</h3>
+            <p>Footwear imported from China follows one of two numbering standards:</p>
             <ul>
-              <li><strong>China Type 1 (Traditional):</strong> Mirrors European Paris Point sizing. If a Chinese footwear seller lists a size 41 or 42, that corresponds directly to EU 41 (UK 7.5) or EU 42 (UK 8).</li>
-              <li><strong>China Type 2 (National Standard GB/T 3293.1-1998):</strong> Uses the international Mondopoint system measured in millimetres. A shoe marked "260" is made for a foot measuring 260 mm (26.0 cm), translating to a UK 7.5 to 8.</li>
+              <li>China Type 1 mirrors continental European Paris Points, where size 42 equals UK 8.5.</li>
+              <li>China Type 2 follows GB/T 3293.1-1998 using Mondopoint millimeters, where label 260 indicates a 260 mm foot length.</li>
             </ul>
 
-            <h3 class="heading-sm">How to Measure Your Foot Using a Feet Size Chart</h3>
-            <p>To obtain an exact match on our <strong>size guide shoes</strong>, perform this simple measurement at home:</p>
+            <h3 class="heading-sm">How to measure your foot using a feet size chart</h3>
+            <p>Follow four steps to measure your feet accurately:</p>
             <ol>
-              <li><strong>Measure in Late Afternoon:</strong> Feet naturally swell by up to 8% by the end of the day due to walking and gravity.</li>
-              <li><strong>Place Paper Against a Skirting Board:</strong> Tape a sheet of blank paper to an uncarpeted hard floor with the short edge flush against the wall or skirting board.</li>
-              <li><strong>Stand Tall:</strong> Stand upright on the paper with your heel lightly touching the wall. Have someone trace the furthest point of your longest toe.</li>
-              <li><strong>Measure in Millimetres:</strong> Measure from the edge of the paper to your pencil mark. Compare against our <strong>feet size chart</strong>, and always size to the larger foot if you have slight asymmetry.</li>
+              <li>Measure late in the day: Feet expand slightly by afternoon after normal walking and standing.</li>
+              <li>Place paper against a skirting board: Tape a blank paper sheet to a hard floor flush against the wall.</li>
+              <li>Stand tall: Stand upright on the paper with your heel touching the wall. Have a partner mark the furthest tip of your longest toe.</li>
+              <li>Measure in millimeters: Measure from the edge of the paper to your mark, then check the reference chart.</li>
             </ol>
-            <p><strong>The 10 mm Toe Clearance Rule:</strong> Always ensure there is roughly 10 to 12 mm (about half an inch) between the tip of your longest toe and the inside front of the shoe. This space is essential to allow your foot to slide forward naturally during heel-to-toe stride transitions.</p>
+            <p>Maintain 10 to 12 mm of space between your longest toe and the front tip of the shoe to allow the foot to slide forward naturally during walking stride transitions.</p>
 
-            <h3 class="heading-sm">How to Read a Shoe Size Chart Correctly</h3>
-            <p>Reading an international footwear conversion chart can be daunting if you only look at the numbers. To read our <strong>size chart shoes</strong> like an experienced podiatrist, follow this straightforward sequence:</p>
-            <ul>
-              <li><strong>Step 1: Anchor on Physical Length (CM):</strong> Start with your measured anatomical foot length in centimetres or millimetres. This is your only absolute, non-negotiable metric.</li>
-              <li><strong>Step 2: Trace to Your Target Standard:</strong> Read horizontally across the table to your destination country column (UK, US, or EU). For example, a 26.2 cm foot correlates with a UK 8 or US Men's 8.5.</li>
-              <li><strong>Step 3: Confirm Gender &amp; Age Group:</strong> Verify whether you are consulting the Men's, Women's, or Kids table, as a UK 5 in women's footwear is significantly smaller than a UK 5 in men's footwear.</li>
-              <li><strong>Step 4: Factor in the Brand's Width System:</strong> If you are shopping with British shoemakers or Clarks, cross-reference their width scale (D, E, F, G, H) to ensure your forefoot volume is accommodated without sizing up in length.</li>
-            </ul>
+            <h3 class="heading-sm">How to read a shoe size chart correctly</h3>
+            <p>To identify your proper size, start with your foot length in centimeters. Trace horizontally across the conversion table to the UK column. Confirm whether you are reading men, women, or kids charts. Cross-reference width codes when buying from Clarks or traditional British cordwainers to accommodate your forefoot volume without increasing shoe length.</p>
 
-            <h3 class="heading-sm">How to Ensure Your Shoes Fit Properly: The Fit Checklist</h3>
-            <p>A shoe size chart is an indispensable starting point, but the true test of footwear comes down to personal biomechanics and fit. When trying on new footwear at home or in a boutique, test for these three indicators:</p>
+            <h3 class="heading-sm">How to ensure your shoes fit properly</h3>
+            <p>Check these three indicators when testing new footwear:</p>
             <ol>
-              <li><strong>Forefoot Freedom:</strong> Your toes should lie completely flat and be able to wiggle gently. If your smallest toe feels pinched against the side wall or curled underneath, the shoe is either too narrow or half a size too short.</li>
-              <li><strong>Heel Security:</strong> Lace or fasten the shoe securely and walk across a hard surface. The heel cup should cradle your heel firmly with virtually zero vertical slippage (a maximum of 3–5 mm of initial give in stiff leather Goodyear-welted boots is normal before break-in).</li>
-              <li><strong>Metatarsal Alignment:</strong> The widest part of your foot (the ball of the foot) must sit squarely at the widest curve of the shoe sole so that the sole bends where your foot naturally flexes.</li>
+              <li>Forefoot freedom: Your toes should lie flat with room to wiggle slightly without lateral pressure.</li>
+              <li>Heel security: The heel counter must grip your heel firmly with less than 5 mm of vertical slipping.</li>
+              <li>Metatarsal alignment: The widest part of your foot must align with the widest flex line of the sole.</li>
             </ol>
           </div>
         </article>
@@ -374,8 +349,8 @@ const countryLinks = [
     <section class="faq-band">
       <div class="page-inner">
         <div class="faq-card">
-          <p class="mono-eyebrow">Frequently Asked Questions</p>
-          <h2 class="heading-lg" style="margin-bottom:24px">UK Footwear &amp; Size Guide FAQs</h2>
+          <p class="mono-eyebrow">Frequently asked questions</p>
+          <h2 class="heading-lg" style="margin-bottom:24px">UK footwear and size guide questions</h2>
           <div class="faq-list">
             {faqs.map(item => (
               <details class="faq-item">
@@ -395,12 +370,12 @@ const countryLinks = [
     <section class="related-band">
       <div class="page-inner">
         <RelatedLinks
-          title="Popular UK Shoe Size Conversions"
+          title="Popular UK shoe size conversions"
           links={conversionLinks}
         />
         <div style="margin-top:32px">
           <RelatedLinks
-            title="Explore Other Regional Sizing Systems"
+            title="Explore other regional sizing systems"
             links={countryLinks}
           />
         </div>
@@ -674,11 +649,11 @@ const countryLinks = [
       return;
     }
 
-    const us = data.us?.[idx] ?? '—';
-    const eu = data.eu?.[idx] ?? '—';
-    const india = data.india?.[idx] ?? '—';
-    const cm = data.cm?.[idx] ?? '—';
-    const inches = data.inches?.[idx] ?? '—';
+    const us = data.us?.[idx] ?? '-';
+    const eu = data.eu?.[idx] ?? '-';
+    const india = data.india?.[idx] ?? '-';
+    const cm = data.cm?.[idx] ?? '-';
+    const inches = data.inches?.[idx] ?? '-';
 
     resultsContainer.innerHTML = `
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">

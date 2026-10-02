@@ -4,80 +4,38 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/uk-to-india-shoe-size/`;
-const pageTitle = 'UK to India Shoe Size Converter — British to Indian Chart';
-const pageDescription = 'Convert UK shoe sizes to Indian sizes. Detailed UK to India comparison chart for men, women, and kids explaining 1:1 sizing and BIS Bha width fits.';
+const pageTitle = 'UK to India shoe size converter: British to Indian chart';
+const pageDescription = 'Convert UK shoe sizes to Indian sizes. Detailed UK to India comparison chart for men, women, and kids with 1:1 sizing data and width guidelines.';
 const ogImage = `${domain}/og-image.png`;
 
-// Men's table data (UK, India, US, EU, CM, Inches)
-const menSizes = [
-  { uk: 5.0, india: 5.0, us: 6.0, eu: 38.5, cm: 24.0, inch: 9.4 },
-  { uk: 5.5, india: 5.5, us: 6.5, eu: 39.0, cm: 24.5, inch: 9.6 },
-  { uk: 6.0, india: 6.0, us: 7.0, eu: 40.0, cm: 25.0, inch: 9.8 },
-  { uk: 6.5, india: 6.5, us: 7.5, eu: 40.5, cm: 25.5, inch: 10.0 },
-  { uk: 7.0, india: 7.0, us: 8.0, eu: 41.0, cm: 26.0, inch: 10.2 },
-  { uk: 7.5, india: 7.5, us: 8.5, eu: 41.5, cm: 26.5, inch: 10.4 },
-  { uk: 8.0, india: 8.0, us: 9.0, eu: 42.0, cm: 27.0, inch: 10.6 },
-  { uk: 8.5, india: 8.5, us: 9.5, eu: 42.5, cm: 27.5, inch: 10.8 },
-  { uk: 9.0, india: 9.0, us: 10.0, eu: 43.0, cm: 28.0, inch: 11.0 },
-  { uk: 9.5, india: 9.5, us: 10.5, eu: 44.0, cm: 28.5, inch: 11.2 },
-  { uk: 10.0, india: 10.0, us: 11.0, eu: 44.5, cm: 29.0, inch: 11.4 },
-  { uk: 10.5, india: 10.5, us: 11.5, eu: 45.0, cm: 29.5, inch: 11.6 },
-  { uk: 11.0, india: 11.0, us: 12.0, eu: 46.0, cm: 30.0, inch: 11.8 },
-  { uk: 12.0, india: 12.0, us: 13.0, eu: 47.0, cm: 31.0, inch: 12.2 },
-];
-
-// Women's table data (UK, India, US, EU, CM, Inches)
-const womenSizes = [
-  { uk: 2.5, india: 2.5, us: 4.5, eu: 35.0, cm: 21.5, inch: 8.5 },
-  { uk: 3.0, india: 3.0, us: 5.0, eu: 35.5, cm: 22.0, inch: 8.7 },
-  { uk: 3.5, india: 3.5, us: 5.5, eu: 36.0, cm: 22.5, inch: 8.9 },
-  { uk: 4.0, india: 4.0, us: 6.0, eu: 36.5, cm: 23.0, inch: 9.1 },
-  { uk: 4.5, india: 4.5, us: 6.5, eu: 37.0, cm: 23.5, inch: 9.3 },
-  { uk: 5.0, india: 5.0, us: 7.0, eu: 38.0, cm: 24.0, inch: 9.4 },
-  { uk: 5.5, india: 5.5, us: 7.5, eu: 38.5, cm: 24.5, inch: 9.6 },
-  { uk: 6.0, india: 6.0, us: 8.0, eu: 39.0, cm: 25.0, inch: 9.8 },
-  { uk: 6.5, india: 6.5, us: 8.5, eu: 40.0, cm: 25.5, inch: 10.0 },
-  { uk: 7.0, india: 7.0, us: 9.0, eu: 40.5, cm: 26.0, inch: 10.2 },
-  { uk: 7.5, india: 7.5, us: 9.5, eu: 41.0, cm: 26.5, inch: 10.4 },
-  { uk: 8.0, india: 8.0, us: 10.0, eu: 42.0, cm: 27.0, inch: 10.6 },
-];
-
-// Kids' table data (UK, India, CM)
-const kidsSizes = [
-  { uk: '2C', india: '2C', cm: 11.5, stage: 'Toddler' },
-  { uk: '4C', india: '4C', cm: 12.5, stage: 'Toddler' },
-  { uk: '6C', india: '6C', cm: 14.0, stage: 'Toddler' },
-  { uk: '8C', india: '8C', cm: 15.5, stage: 'Little Kid' },
-  { uk: '9.5C', india: '9.5C', cm: 16.5, stage: 'Little Kid' },
-  { uk: '11C', india: '11C', cm: 17.5, stage: 'Little Kid' },
-  { uk: '12.5C', india: '12.5C', cm: 19.0, stage: 'Little Kid' },
-  { uk: '1Y', india: '1Y', cm: 20.5, stage: 'Big Kid' },
-  { uk: '2.5Y', india: '2.5Y', cm: 22.0, stage: 'Big Kid' },
-];
+const menSizes = MEN_SIZE_ROWS;
+const womenSizes = WOMEN_SIZE_ROWS;
+const kidsSizes = KIDS_SIZE_ROWS;
 
 const faqs = [
   {
     q: 'Is UK shoe size same as India shoe size?',
-    a: 'Yes, in terms of footbed length, UK and Indian shoe sizes are identical (1:1 equivalence). A UK size 8 equals an Indian size 8 for men, and a UK size 5 equals an Indian size 5 for women. Both systems trace their roots to the British barleycorn measurement (1/3 inch).'
+    a: 'In terms of footbed length, UK and Indian shoe sizes match with 1:1 equivalence. A UK size 8 equals an Indian size 8 for men, and a UK size 5 equals an Indian size 5 for women. Both systems trace their origins to the British barleycorn measurement of one-third of an inch.'
   },
   {
     q: 'What is UK 8 in India shoe size?',
-    a: 'UK size 8 equals Indian size 8 directly. Both sizes fit an anatomical foot length of approximately 27.0 centimeters (10.6 inches) and correspond to US Men\'s 9 or European EU 42.'
+    a: 'UK size 8 equals Indian size 8 directly. Both sizes fit a foot length of 27.0 centimeters and correspond to US Men\'s 9 and EU 42.'
   },
   {
     q: 'What is UK 7 in Indian shoe size?',
-    a: 'UK size 7 is identical to Indian size 7, designed for a foot measuring approximately 26.0 centimeters. In American sizing, this equals US Men\'s 8, and in European sizing it corresponds to EU 41.'
+    a: 'UK size 7 is identical to Indian size 7, designed for a foot measuring 26.0 centimeters. In American sizing, this equals US Men\'s 8, and in European sizing it corresponds to EU 41.'
   },
   {
-    q: 'Do British brands like Clarks fit the same as Indian brands like Bata?',
-    a: 'While the length is identical, width fittings can vary. British heritage brands like Clarks often offer specific width fittings (F for standard, G for wide, H for extra wide). Indian feet typically require a roomier forefoot and higher instep clearance.'
+    q: 'Do British brands fit the same as Indian brands?',
+    a: 'While the length is identical, width fittings can vary. British heritage brands like Clarks often offer specific width fittings (F for standard, G for wide, H for extra wide). Indian feet often require a roomier forefoot.'
   },
   {
-    q: 'What is the Indian "Bha" sizing standard compared to UK?',
-    a: 'The Bureau of Indian Standards (BIS) and CSIR-CLRI have introduced "Bha" (an indigenous Indian footwear sizing system) to address the broader forefoot morphology of Indian citizens. However, until full adoption, the commercial Indian footwear market continues to use the UK scale.'
+    q: 'What is the Indian Bha sizing standard compared to UK?',
+    a: 'The Bureau of Indian Standards (BIS) and CSIR-CLRI developed the Bha standard to address Indian foot proportions. Until footwear brands complete new tooling, the commercial footwear market continues to use the UK scale.'
   }
 ];
 
@@ -109,7 +67,6 @@ const relatedLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="uk to india shoe size, uk shoe size to indian size, is uk shoe size same as india, uk to indian shoe size chart, uk 8 in india shoe size, uk 7 in indian shoe size, uk 9 in india shoe size, uk shoe size in india, british to indian shoe size conversion, uk to india footwear converter" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={pageCanonical} />
@@ -130,10 +87,10 @@ const relatedLinks = [
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="page-inner">
-        <p class="mono-eyebrow">Direct 1:1 Barleycorn Scale Comparison</p>
-        <h1 class="display-xl">UK to India Shoe Size Converter</h1>
+        <p class="mono-eyebrow">Direct 1:1 barleycorn scale comparison</p>
+        <h1 class="display-xl">UK to India shoe size converter</h1>
         <p class="hero-sub body-lg">
-          Compare British (UK) and Indian shoe sizes instantly. Understand the 1:1 length relationship, brand width differences between Clarks and Bata, and the upcoming BIS Bha standard.
+          Compare British (UK) and Indian shoe sizes. Understand the 1:1 length relationship, brand width differences between Clarks and Bata, and the upcoming BIS Bha standard.
         </p>
 
         <div class="quick-stat-row">
@@ -367,94 +324,62 @@ const relatedLinks = [
             </table>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- Editorial Guide -->
     <article class="editorial-band">
       <div class="page-inner prose-article">
-        <h2 class="editorial-main-title">Are UK and Indian Shoe Sizes the Same? Definitive Sizing &amp; Fit Analysis</h2>
+        <h2 class="editorial-main-title">Are UK and Indian shoe sizes the same? Sizing and fit analysis</h2>
 
         <p class="lead-paragraph">
-          One of the most frequent questions asked by shoppers purchasing footwear on platforms like Myntra, Amazon India, Ajio, Tata CliQ, or directly from British retailers like ASOS, Clarks, Marks &amp; Spencer, and Next is: <strong>is uk shoe size same as india</strong>? The answer is an unambiguous <strong>yes in terms of footbed length</strong>. A British UK size 8 equals an Indian size 8. However, while numerical lengths correspond 1:1, crucial nuances in anatomical foot width, shoe last contours, and domestic standards like BIS "Bha" mean that shoppers must consider how imported British footwear fits the morphology of Indian feet. This guide provides an authoritative breakdown of length equivalence, width fittings, brand comparisons, and practical sizing tips to seamlessly convert <strong>uk to india shoe size</strong>.
+          Shoppers purchasing footwear in India or ordering from British retailers often ask whether UK and Indian shoe sizes match. In footbed length, UK and Indian sizes share a 1:1 equivalence. An Indian size 8 equals a British UK size 8. While lengths are identical, differences in last contours and foot morphology affect fit.
         </p>
 
-        <h3>1. The Shared Heritage of the Barleycorn Scale: Why UK and India Match</h3>
+        <h3>1. Shared heritage of the barleycorn scale</h3>
         <p>
-          The identical numerical sizing between the United Kingdom and India is historical. Modern industrial footwear manufacturing in India emerged during the late 19th and early 20th centuries under British administration. Iconic manufacturing hubs like Batanagar in West Bengal, established by Bata in the 1930s, adopted the British imperial <em>barleycorn</em> sizing standard:
+          Indian footwear manufacturing adopted the British imperial barleycorn sizing system under Indian standard IS 1638:1969. In this system, each full shoe size represents one-third of an inch (8.46 millimeters). A men's UK size 8 corresponds directly to an Indian size 8 (27.0 cm foot length, EU 42, US Men 9). Similarly, UK 7 is India 7 (26.0 cm, EU 41), UK 9 equals Indian size 9 (28.0 cm, EU 44), and UK 10 equals Indian size 10 (29.0 cm, EU 44.5). For background on barleycorn measurements, visit our <a href="/shoe-size-in-inches/">shoe size in inches guide</a>.
+        </p>
+
+        <h3>2. Women's and kids' UK to India sizing comparisons</h3>
+        <p>
+          The 1:1 length parity applies to both women's and children's categories:
         </p>
         <ul>
-          <li>Under the barleycorn system, each full shoe size represents exactly one-third of an inch (8.46 millimeters).</li>
-          <li>Each half size represents one-sixth of an inch (4.23 millimeters).</li>
-          <li>Both the Indian domestic standard and the British UK standard calibrate zero-point and step progression uniformly across adult categories.</li>
-        </ul>
-        <p>
-          Consequently, if you look up a men's <strong>uk size 8 in india</strong>, it corresponds directly to an Indian size 8 (fitting an anatomical footbed of 27.0 cm, EU 42, US Men 9). Similarly, a <strong>uk 7 in indian shoe size</strong> is India 7 (26.0 cm, EU 41), a UK 9 equals an Indian size 9 (28.0 cm, EU 43), and a UK 10 equals an Indian size 10 (29.0 cm, EU 44.5).
-        </p>
-
-        <h3>2. Women's &amp; Kids' UK to India Sizing Comparisons</h3>
-        <p>
-          The 1:1 length parity extends seamlessly across both women's and children's categories:
-        </p>
-        <ul>
-          <li><strong>Women's Footwear:</strong> On an <strong>indian shoe size chart women</strong> or <strong>women shoe size chart india</strong>, a UK women's size 5 corresponds directly to an Indian women's size 5 (fitting a 24.0 cm footbed, EU 38, US Women 7.0). A UK 4 equals India 4 (23.0 cm, EU 36.5), while a UK 6 equals India 6 (25.0 cm, EU 39).</li>
-          <li><strong>Kids' &amp; Youth Footwear:</strong> British children's sizing (designated with 'C' for Child and 'Y' for Youth) aligns with Indian children's footwear. For example, a UK 8C matches an Indian 8C (15.5 cm foot length), and a UK 1Y youth size matches an Indian 1Y (20.5 cm).</li>
+          <li>A UK women's size 5 corresponds to an Indian women's size 5 (24.0 cm footbed, EU 38, US Women 7.0). UK 4 equals India 4 (23.0 cm, EU 36.5), and UK 6 equals India 6 (25.0 cm, EU 39).</li>
+          <li>British children's sizes align directly with Indian children's sizes. For example, UK 8C matches Indian 8C (15.5 cm foot length), and UK 1Y matches Indian 1Y (20.5 cm).</li>
         </ul>
 
-        <h3>3. Anatomical Differences: Why Width Can Diverge Between UK and Indian Shoes</h3>
+        <h3>3. Anatomical width differences between UK and Indian footwear</h3>
         <p>
-          Even though the length is identical, shoe volume and width often feel different when trying on British-made shoes compared to domestic Indian brands. This discrepancy is explained by extensive anthropometric foot surveys conducted by the <strong>Central Leather Research Institute (CSIR-CLRI)</strong> across 30 states in India.
+          The CSIR-Central Leather Research Institute (CSIR-CLRI) completed an anthropometric survey across India, published in their 2022 survey report. The report documented that Indian feet show broader metatarsal ball girth and higher dorsal instep measurements relative to European lasts.
         </p>
         <p>
-          The CSIR-CLRI research revealed that compared to typical Western European feet, Indian feet demonstrate:
-        </p>
-        <ul>
-          <li><strong>Broader Metatarsal Ball Girth:</strong> Indian feet are on average 5% to 8% wider across the ball of the foot relative to overall length.</li>
-          <li><strong>Higher Dorsal Instep:</strong> The arch and instep of Indian feet tend to sit higher, creating tightness across slip-on loafers, chelsea boots, and closed-lacing oxford dress shoes.</li>
-          <li><strong>Flatter Forefoot Profile:</strong> Due to a higher prevalence of barefoot walking and open-sandal usage in warm climates, the toes naturally splay wider.</li>
-        </ul>
-        <p>
-          British heritage footwear brands—such as Clarks, Dr. Martens, Church's, Loake, Tricker's, and Barker—traditionally construct their standard shoes on 'F' width lasts (medium British width). For many Indian buyers, this standard medium last can feel narrow or pinch the little toe. If you have broad feet, choosing an expanded British width ('G' for wide or 'H' for extra wide) or sizing up by half a size provides optimal comfort.
+          British brands like Clarks, Church's, and Loake construct standard shoes on medium F width lasts. For broad feet, choosing a British G fitting or sizing up by half a size provides additional forefoot width.
         </p>
 
-        <h3>4. The Bureau of Indian Standards (BIS) "Bha" Sizing Initiative</h3>
+        <h3>4. Bureau of Indian Standards (BIS) Bha sizing project</h3>
         <p>
-          To address these anatomical realities and establish footwear tailored specifically for Indian citizens, the Bureau of Indian Standards (BIS), in close collaboration with CSIR-CLRI, introduced <strong>"Bha" (भा)</strong>—an indigenous footwear sizing standard.
-        </p>
-        <p>
-          Based on 3D foot scanning data from over 100,000 Indian men, women, and children, the Bha sizing system defines lasts with broader forefoot contours and higher instep clearance across eight distinct life stages. While manufacturers are gradually preparing their tooling to implement Bha across retail lines, commercial footwear in India continues to use the UK scale as its standard reference on e-commerce platforms and shoe boxes.
+          To address regional foot morphology, the Bureau of Indian Standards and CSIR-CLRI developed the Bha footwear sizing standard. The system defines lasts tailored to Indian foot measurements across eight life stages. Until footwear brands complete new tooling, commercial footwear in India continues to use the UK scale.
         </p>
 
-        <h3>5. Comparing Domestic Brands vs. British Imports</h3>
+        <h3>5. Comparing domestic brands and British imports</h3>
         <p>
-          When shopping in India or importing footwear, keep in mind how different manufacturers interpret the UK/India scale:
+          Domestic manufacturers such as Bata India, Relaxo, Campus, and Liberty build shoes using UK numbering with generous forefoot width. In Clarks shoes, standard UK sizing fits true to length, though broad feet may benefit from a wide fitting. Dr. Martens boots are built without half sizes; an Indian size 8.5 wearer should select UK 9.
         </p>
-        <ul>
-          <li><strong>Domestic Giants (Bata, Relaxo, Campus, Red Tape, Liberty):</strong> Major Indian <strong>shoes companies india</strong> build their lasts with comfortable forefoot dimensions suited to local anatomy. If you wear an Indian size 8 in Bata formal shoes or Sparx sports shoes, your baseline UK size is 8.</li>
-          <li><strong>Clarks Footwear:</strong> Clarks is one of the most popular British brands available in India. In casual styles like the Desert Boot or Wallabee, standard UK sizing fits true to size. In formal leather dress shoes, look for the 'G' wide fitting if you have wide feet.</li>
-          <li><strong>Dr. Martens and British Work Boots:</strong> Dr. Martens boots (like the iconic 1460 8-eye boot) are constructed from thick, stiff leather and do not come in half sizes. If you wear an Indian size 8.5, it is best to round up to a UK 9 and insert an insole.</li>
-          <li><strong>Delhi Sneaker Boutiques and Flagships:</strong> For sneaker collectors browsing specialty <strong>shoe stores delhi</strong>—including prominent hubs in Connaught Place, South Extension, and Khan Market, or visiting a <strong>converse shoes store in delhi</strong> at DLF Promenade—shoes are typically marked in both US and UK/India sizes on the box label.</li>
-        </ul>
 
-        <h3>6. How to Measure Barefoot Length in Centimeters</h3>
+        <h3>6. Measuring foot length in centimeters</h3>
         <p>
-          To ensure 100% accuracy when consulting our <strong>foot size chart in india</strong> and UK conversion table:
+          To find your shoe size, measure barefoot length in centimeters following our <a href="/shoe-size-by-foot-length/">shoe size by foot length guide</a>. A 27.0 cm foot length corresponds to UK 8 and India 8.
         </p>
-        <ol>
-          <li>Place a blank sheet of paper flat against a wall on a hard surface.</li>
-          <li>Stand barefoot with your heel touching the wall, distributing weight evenly.</li>
-          <li>Mark the tip of your longest toe with a pencil held vertically.</li>
-          <li>Measure the distance from the edge of the paper to the mark in centimeters (CM). For instance, a 27.0 cm foot length corresponds to UK 8 and India 8.</li>
-        </ol>
       </div>
     </article>
 
     <!-- FAQ Section -->
     <section class="faq-band">
       <div class="page-inner">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-sub">Direct answers to the most common questions regarding UK and Indian shoe sizing.</p>
+        <h2 class="section-title">Frequently asked questions</h2>
+        <p class="section-sub">Direct answers to common questions regarding UK and Indian shoe sizing.</p>
 
         <div class="faq-accordion-list">
           {faqs.map((f, i) => (

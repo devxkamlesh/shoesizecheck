@@ -4,77 +4,38 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/eu-to-india-shoe-size/`;
-const pageTitle = 'EU to India Shoe Size Chart: EU 40, 41 & 42';
+const pageTitle = 'EU to India shoe size chart: EU 40, 41, and 42';
 const pageDescription = 'Convert European shoe sizes to Indian sizes with men\'s, women\'s, and kids\' charts. See EU 40, 41, and 42 in India, plus CM and US equivalents.';
 const ogImage = `${domain}/og-image.png`;
 
-// Men's table data (EU, India, UK, US, CM, Inches)
-const menSizes = [
-  { eu: 39, india: 5.5, uk: 5.5, us: 6.5, cm: 24.5, inch: 9.6 },
-  { eu: 40, india: 6.0, uk: 6.0, us: 7.0, cm: 25.0, inch: 9.8 },
-  { eu: 40.5, india: 6.5, uk: 6.5, us: 7.5, cm: 25.5, inch: 10.0 },
-  { eu: 41, india: 7.0, uk: 7.0, us: 8.0, cm: 26.0, inch: 10.2 },
-  { eu: 41.5, india: 7.5, uk: 7.5, us: 8.5, cm: 26.5, inch: 10.4 },
-  { eu: 42, india: 8.0, uk: 8.0, us: 9.0, cm: 27.0, inch: 10.6 },
-  { eu: 42.5, india: 8.5, uk: 8.5, us: 9.5, cm: 27.5, inch: 10.8 },
-  { eu: 43, india: 9.0, uk: 9.0, us: 10.0, cm: 28.0, inch: 11.0 },
-  { eu: 44, india: 9.5, uk: 9.5, us: 10.5, cm: 28.5, inch: 11.2 },
-  { eu: 44.5, india: 10.0, uk: 10.0, us: 11.0, cm: 29.0, inch: 11.4 },
-  { eu: 45, india: 10.5, uk: 10.5, us: 11.5, cm: 29.5, inch: 11.6 },
-  { eu: 46, india: 11.0, uk: 11.0, us: 12.0, cm: 30.0, inch: 11.8 },
-  { eu: 47, india: 12.0, uk: 12.0, us: 13.0, cm: 31.0, inch: 12.2 },
-];
-
-// Women's table data (EU, India, UK, US, CM, Inches)
-const womenSizes = [
-  { eu: 35, india: 2.5, uk: 2.5, us: 4.5, cm: 21.5, inch: 8.5 },
-  { eu: 36, india: 3.5, uk: 3.5, us: 5.5, cm: 22.5, inch: 8.9 },
-  { eu: 37, india: 4.5, uk: 4.5, us: 6.5, cm: 23.5, inch: 9.3 },
-  { eu: 38, india: 5.0, uk: 5.0, us: 7.0, cm: 24.0, inch: 9.4 },
-  { eu: 38.5, india: 5.5, uk: 5.5, us: 7.5, cm: 24.5, inch: 9.6 },
-  { eu: 39, india: 6.0, uk: 6.0, us: 8.0, cm: 25.0, inch: 9.8 },
-  { eu: 40, india: 6.5, uk: 6.5, us: 8.5, cm: 25.5, inch: 10.0 },
-  { eu: 40.5, india: 7.0, uk: 7.0, us: 9.0, cm: 26.0, inch: 10.2 },
-  { eu: 41, india: 7.5, uk: 7.5, us: 9.5, cm: 26.5, inch: 10.4 },
-  { eu: 42, india: 8.0, uk: 8.0, us: 10.0, cm: 27.0, inch: 10.6 },
-];
-
-// Kids' table data (EU, India, CM)
-const kidsSizes = [
-  { eu: 19, india: '2C', cm: 11.5, stage: 'Toddler' },
-  { eu: 21, india: '4C', cm: 12.5, stage: 'Toddler' },
-  { eu: 23, india: '6C', cm: 14.0, stage: 'Toddler' },
-  { eu: 25, india: '8C', cm: 15.5, stage: 'Little Kid' },
-  { eu: 27, india: '9.5C', cm: 16.5, stage: 'Little Kid' },
-  { eu: 29, india: '11C', cm: 17.5, stage: 'Little Kid' },
-  { eu: 31, india: '12.5C', cm: 19.0, stage: 'Little Kid' },
-  { eu: 33, india: '1Y', cm: 20.5, stage: 'Big Kid' },
-  { eu: 35, india: '2.5Y', cm: 22.0, stage: 'Big Kid' },
-];
+const menSizes = MEN_SIZE_ROWS;
+const womenSizes = WOMEN_SIZE_ROWS;
+const kidsSizes = KIDS_SIZE_ROWS;
 
 const faqs = [
   {
     q: 'What is EU 42 in Indian shoe size?',
-    a: 'An EU 42 corresponds to Indian size 8 for men (India 8 / UK 8), which fits an anatomical foot length of approximately 27.0 centimeters. For women, EU 42 translates to approximately Indian size 8 to 8.5.'
+    a: 'An EU 42 corresponds to Indian size 8.5 for men under ISO standards, fitting a 27.0 cm foot length. On sneaker tags like Nike, EU 42 corresponds to India 8.0 (26.5 cm).'
   },
   {
     q: 'Is EU shoe size the same as Indian shoe size?',
-    a: 'No, European (EU) and Indian shoe sizes are completely different scales. EU sizes are based on metric Paris Points (2/3 cm per size) and run roughly 33 to 34 numbers higher than Indian sizes (e.g., EU 41 ≈ India 7, EU 42 ≈ India 8).'
+    a: 'No, European and Indian shoe sizes use different measurement units. EU sizes use Paris Points (2/3 cm per increment), while Indian sizing follows IS 1638:1969 using imperial barleycorns.'
   },
   {
     q: 'What is EU 40 in Indian shoe size?',
-    a: 'An EU 40 translates to Indian size 6 to 6.5 for men (fitting a 25.0 to 25.5 cm foot). For women, EU 40 corresponds to Indian size 6.5 to 7.'
+    a: 'An EU 40 translates to Indian size 6.5 for men (25.0 cm foot length). For women, EU 40 corresponds to Indian size 7.0 (26.0 cm).'
   },
   {
     q: 'Why do brands on Myntra, Flipkart, and Ajio show EU shoe sizes?',
-    a: 'Many international brands sold in India—such as Zara, H&M, Adidas, Puma, and Mango—use European sizing as their primary manufacturing standard. Always verify whether a product page lists sizes in "EU" or "UK/India" before ordering.'
+    a: 'International brands sold in India, including Zara, H&M, Adidas, and Puma, use European sizing on product labels. Always verify whether a product listing displays EU or UK/India sizes before ordering.'
   },
   {
-    q: 'How do I convert European women’s shoe sizes to Indian sizes?',
-    a: 'To convert an EU women’s shoe size to Indian sizing, subtract approximately 33 from the European size (for example, EU 38 − 33 = India 5; EU 39 − 33 = India 6). For half sizes, cross-reference foot length in centimeters.'
+    q: 'How do I convert European women\'s shoe sizes to Indian sizes?',
+    a: 'To convert an EU women\'s shoe size to Indian sizing, subtract approximately 32.5 to 33 from the European size (for example, EU 38.5 − 32.5 = India 6).'
   }
 ];
 
@@ -94,7 +55,6 @@ const relatedLinks = [
   { label: 'UK to India Shoe Size Converter', href: '/uk-to-india-shoe-size/' },
   { label: 'India to UK Shoe Size Converter', href: '/india-to-uk-shoe-size/' },
   { label: 'India Shoe Sizing Guide', href: '/country/india/' },
-  { label: 'European Shoe Sizing Guide', href: '/country/europe/' },
   { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
 ];
 ---
@@ -106,7 +66,6 @@ const relatedLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="eu to india shoe size, european shoe size to india, eu shoe size in india, convert eu shoe size to india, eu size to india size shoes, eu 42 in india shoe size, eu 40 in indian shoe size, eu 41 shoe size in india, eu to indian size shoe chart, european to indian shoe size converter" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={pageCanonical} />
@@ -368,76 +327,57 @@ const relatedLinks = [
     <!-- Editorial SEO Prose Guide -->
     <article class="editorial-band">
       <div class="page-inner prose-article">
-        <h2 class="editorial-main-title">European to Indian Shoe Size Conversion: Complete Shopping &amp; Sizing Guide</h2>
+        <h2 class="editorial-main-title">European to Indian shoe size conversion: shopping and fit guide</h2>
 
         <p class="lead-paragraph">
-          If you frequently browse Indian fashion e-commerce portals such as Myntra, Flipkart, Ajio, Nykaa Man, Tata CliQ, or Amazon India, you have almost certainly encountered footwear listings measured strictly in continental European (EU) sizes. Understanding how to accurately translate an <strong>eu to india shoe size</strong> is essential when purchasing imported sneakers, Spanish fast fashion, Scandinavian outdoor boots, or handcrafted Italian formal leather shoes. Because Indian shoemaking traditionally adheres to the British barleycorn measurement standard, converting continental European sizing numbers requires understanding how metric Paris Points correlate with domestic Indian footwear scales.
+          Footwear listings on portals such as Myntra, Flipkart, and Ajio frequently display continental European (EU) sizes. Because Indian shoemaking follows the British barleycorn measurement standard under IS 1638:1969, converting European sizing requires understanding how metric Paris Points correlate with Indian sizes.
         </p>
 
-        <h3>1. The Metric Paris Point vs. the Indian Imperial Barleycorn</h3>
+        <h3>1. Metric Paris point and Indian barleycorn units</h3>
         <p>
-          The fundamental difference between European and Indian shoe sizing lies in their underlying units of measurement:
-        </p>
-        <ul>
-          <li><strong>European (EU) System:</strong> Developed in France during the 19th century, continental European sizing is based on the <em>Paris Point</em> (equal to 2/3 of a centimeter, or approximately 6.67 millimeters). Because the Paris Point is a relatively small unit, European sizes progress across a higher numerical range, typically spanning numbers from 35 to 48 for adults.</li>
-          <li><strong>Indian Footwear Standard:</strong> Historically formalized during the industrialization of Indian manufacturing and shared with domestic leaders like Bata India, the standard <strong>india footwear size chart</strong> follows the imperial British <em>barleycorn</em> (equal to 1/3 of an inch, or approximately 8.46 millimeters). An Indian size 8, for instance, represents an identical length to a British UK 8.</li>
-        </ul>
-        <p>
-          Because Paris Points progress in smaller increments than Indian barleycorns, there is a consistent numerical translation offset across adult footwear categories.
+          European footwear sizing uses the Paris Point, defined as 2/3 of a centimeter (6.67 millimeters). Indian shoe sizing follows IS 1638:1969, using the imperial barleycorn of 1/3 inch (8.46 millimeters). For the full history and math behind imperial sizing, read our guide on <a href="/shoe-size-in-inches/">shoe sizes in inches and barleycorn measurements</a>.
         </p>
 
-        <h3>2. Mathematical Formulas to Convert EU Shoe Size to India</h3>
+        <h3>2. Conversion formulas</h3>
         <p>
-          When you need to <strong>convert eu shoe size to india</strong> on an online checkout page, you can apply these reliable mental formulas based on gender:
+          To calculate Indian sizes from European numbers:
         </p>
         <ul>
-          <li><strong>Men's Footwear Formula (India ≈ EU − 34):</strong> To find your Indian men's size, subtract 34 from the European shoe size. For example, an <strong>eu 42 in india shoe size</strong> corresponds directly to Indian size 8 (fitting an anatomical footbed of 27.0 cm). Similarly, an <strong>eu 41 shoe size in india</strong> translates to Indian size 7 (26.0 cm), while an <strong>eu 40 in indian shoe size</strong> equals Indian size 6 to 6.5 (25.0 cm).</li>
-          <li><strong>Women's Footwear Formula (India ≈ EU − 33):</strong> For adult women consulting a <strong>women shoe size chart india</strong>, the conversion subtracts approximately 33 from the European number. An EU 38 corresponds to Indian size 5 (24.0 cm), an EU 37 equals Indian size 4 to 4.5 (23.5 cm), and an EU 39 corresponds to Indian size 6 (25.0 cm).</li>
-          <li><strong>Kids' Footwear:</strong> Children's European sizes (EU 19 through EU 35) transition across toddler, little kid, and youth categories. An EU 27 equals Indian 9.5C (16.5 cm), while an EU 33 equals Indian youth 1Y (20.5 cm).</li>
+          <li>For men: subtract 33.5 to 34 from the European size. EU 42 corresponds to Indian size 8.5 (27.0 cm foot length), EU 41.5 corresponds to Indian size 8 (26.5 cm), and EU 40.5 corresponds to Indian size 7 (25.5 cm).</li>
+          <li>For women: subtract 32.5 to 33 from the European size. EU 38.5 corresponds to Indian size 6 (25.0 cm), and EU 37.5 corresponds to Indian size 5 (24.0 cm).</li>
+          <li>For kids: cross-reference foot length in centimeters against our table. EU 27 equals Indian 9.5C (16.5 cm), and EU 33 equals Indian youth 1Y (20.5 cm).</li>
         </ul>
 
         <h3>3. European sizes commonly searched in India</h3>
         <p>
-          Across Indian search queries and shopping portals, specific European sizes appear regularly. Here is how the most common European sizes map to domestic Indian shoe numbers, foot lengths in centimeters, and American equivalents:
+          Standard European shoe numbers translate to domestic Indian sizes as follows:
         </p>
         <ul>
-          <li><strong>36 shoe size in india &amp; 37 size in shoes in india:</strong> European EU 36 represents an Indian women's size 3.5 (22.5 cm foot length, US Women 5.5). Meanwhile, <strong>euro 37 size in india</strong> is one of the most widely bought women's sizes, corresponding to Indian size 4 to 4.5 (23.5 cm foot length, US Women 6.5).</li>
-          <li><strong>Shoe size 38 in india &amp; 38 size in india shoes:</strong> If you are looking up a <strong>38 foot size in india</strong>, an EU 38 corresponds directly to an Indian size 5 for women (fitting a 24.0 cm foot length, US Women 7.0). For men with smaller feet, an EU 38 corresponds roughly to an Indian men's 4.5 to 5.</li>
-          <li><strong>39 eu size in india &amp; Euro size 40 in india:</strong> An EU 39 represents an Indian women's size 6 (25.0 cm, US Women 8.0) or men's size 5.5. A <strong>40 size in india shoes</strong> (or <strong>euro size 40 in india</strong>) is a major cross-gender size, translating to Indian size 6.5 for women (25.5 cm) or Indian size 6 for men.</li>
-          <li><strong>Shoe size 41 in india &amp; 42 size shoe in india:</strong> In men's athletic and formal footwear, <strong>shoe size 41 in india</strong> corresponds to Indian size 7 (26.0 cm footbed, US Men 8.0). Furthermore, <strong>42 size shoe in india</strong> and <strong>42 foot size in india</strong> represent the single most popular men's shoe size in India, mapping exactly to Indian size 8 (27.0 cm footbed, US Men 9.0).</li>
-          <li><strong>43 shoe size in india &amp; 43 shoe size india:</strong> An EU 43 translates to Indian size 9 for men (fitting a 28.0 cm footbed, US Men 10.0).</li>
-          <li><strong>Shoe size 44 in india &amp; 45 shoe size in india:</strong> For taller individuals, <strong>shoe size 44 in india</strong> equals Indian size 9.5 to 10 (28.5 cm footbed, US Men 10.5 to 11.0), while a <strong>45 shoe size in india</strong> corresponds to Indian size 10.5 (29.5 cm footbed, US Men 11.5).</li>
+          <li>EU 36 represents Indian women's size 3.5 (22.5 cm foot length).</li>
+          <li>EU 37.5 represents Indian women's size 5.0 (24.0 cm foot length).</li>
+          <li>EU 38.5 represents Indian women's size 6.0 (25.0 cm foot length).</li>
+          <li>EU 40.5 represents Indian men's size 7.0 (25.5 cm foot length).</li>
+          <li>EU 41.5 represents Indian men's size 8.0 (26.5 cm foot length).</li>
+          <li>EU 42.0 represents Indian men's size 8.5 (27.0 cm foot length).</li>
+          <li>EU 44.0 represents Indian men's size 9.5 (28.0 cm foot length).</li>
         </ul>
 
-        <h3>4. Why Branded Shoes in India Use European Sizing</h3>
+        <h3>4. Why branded shoes in India use European sizing</h3>
         <p>
-          India's retail landscape features a vibrant mix of domestic footwear manufacturers and leading international fashion conglomerates:
-        </p>
-        <ul>
-          <li><strong>European Fast-Fashion Labels (Zara, H&amp;M, Mango, Bershka):</strong> European apparel powerhouses originating in Spain, Sweden, and France manufacture and label their footwear using Paris Points. When purchasing sandals, heels, or loafers from Zara or H&amp;M stores in Mumbai, Bengaluru, or Delhi, the primary label on the sole and box is an EU size.</li>
-          <li><strong>Global athletic brands (Adidas, Puma):</strong> Adidas and Puma commonly show EU labels on products sold in India. Check the product&apos;s EU and CM measurements before ordering because brand fits vary.</li>
-          <li><strong>Domestic Giants (Bata, Relaxo, Campus, Red Tape, Liberty):</strong> Traditional <strong>shoes companies india</strong> and domestic market leaders such as Bata India, Relaxo (Sparx), Campus Activewear, Liberty, and Red Tape build their lasts according to Indian/UK sizes. When switching from a domestic Indian pair to an imported European pair, always add 34 (men) or 33 (women) to your domestic size.</li>
-        </ul>
-
-        <h3>5. Indian Foot Morphology: Width, Instep &amp; Last Fitting</h3>
-        <p>
-          When you <strong>convert eu shoe size to india</strong>, evaluating length is only the first step. Anthropometric surveys carried out by the Central Leather Research Institute (CSIR-CLRI) across 30 Indian states demonstrated that the average Indian foot has a broader forefoot (metatarsal width) and a higher dorsal instep compared to the slimmer lasts favored by continental European shoemakers.
+          European apparel brands (including Zara, H&M, and Mango) and sportswear companies (Adidas and Puma) manufacture footwear on European lasts. When ordering from these brands, confirm whether the sizing selector displays EU or UK/India numbers.
         </p>
         <p>
-          Consequently, European dress shoes, chelsea boots, and pointed-toe leather shoes can feel uncomfortably tight across the ball of the foot or over the instep if ordered purely on length equivalence. If you have broad feet or frequently wear socks with formal shoes, sizing up by one European size (for instance, choosing EU 43 instead of EU 42) delivers comfortable forefoot freedom without excessive heel slippage.
+          Domestic manufacturers like Bata India, Red Tape, Liberty, and Woodland build lasts according to Indian and UK standards.
         </p>
 
-        <h3>6. How to Measure Foot Length in Centimeters at Home</h3>
+        <h3>5. Indian foot morphology and width</h3>
         <p>
-          To compare international shoes consistently, follow this 3-step foot measurement method:
+          An anthropometric foot survey conducted by the CSIR-Central Leather Research Institute (CSIR-CLRI), published in their 2022 survey report, documented that Indian feet show broader metatarsal ball girth and higher dorsal instep measurements relative to European lasts. When buying European formal dress shoes or fashion boots with narrow, tapered lasts, selecting a half size larger prevents pinching across the ball of the foot.
         </p>
-        <ol>
-          <li>Tape a piece of blank white paper to a flat, uncarpeted floor with the short edge flush against a wall.</li>
-          <li>Stand barefoot (or wearing your typical socks) with your heel lightly touching the wall. Distribute your weight evenly between both feet.</li>
-          <li>Using a pencil held strictly perpendicular to the floor, mark the furthest point of your longest toe. Measure the distance in centimeters from the wall to your mark.</li>
-        </ol>
+
+        <h3>6. Measuring foot length</h3>
         <p>
-          Compare your millimeter/centimeter measurement against our interactive calculator and <strong>foot size chart in india</strong> above. For example, a 27.0 cm foot corresponds to Indian size 8, European size 42, and American size 9.
+          To verify your size before ordering, measure your bare foot length from heel to longest toe in centimeters. See our step-by-step instructions on <a href="/shoe-size-by-foot-length/">measuring shoe size by foot length</a>. A foot length of 27.0 cm corresponds to Indian size 8.5 and European size 42.
         </p>
       </div>
     </article>
@@ -445,7 +385,7 @@ const relatedLinks = [
     <!-- FAQ Section -->
     <section class="faq-band">
       <div class="page-inner">
-        <h2 class="section-title">Frequently Asked Questions</h2>
+        <h2 class="section-title">Frequently asked questions</h2>
         <p class="section-sub">Direct answers to the most common questions regarding European to Indian shoe sizing.</p>
 
         <div class="faq-accordion-list">

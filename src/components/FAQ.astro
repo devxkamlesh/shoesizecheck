@@ -1,5 +1,5 @@
 ---
-// FAQ.astro — Geist-styled FAQ with FAQPage JSON-LD schema
+// FAQ.astro: FAQ component with FAQPage JSON-LD schema
 const faqs = [
   {
     q: 'What is a shoe size converter?',
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: 'How do I convert women\'s shoe size to men\'s?',
-    a: 'Subtract about 1.5 from the US women\'s size to get the US men\'s size. So a women\'s 9 is roughly a men\'s 7.5. A women\'s 8 is a men\'s 6.5. This only applies to US sizing though. In EU and Japanese (CM) sizing, there\'s no gender difference — the number is the same for both.'
+    a: 'Subtract about 1.5 from the US women\'s size to get the US men\'s size. So a women\'s 9 is roughly a men\'s 7.5. A women\'s 8 is a men\'s 6.5. This only applies to US sizing though. In EU and Japanese (CM) sizing, the number is the same for both.'
   },
   {
     q: 'What is US 10 in EU and UK?',
@@ -39,7 +39,7 @@ const faqs = [
   },
   {
     q: 'How do kids shoe sizes work?',
-    a: 'In the US, kids\' sizes go from 0C (newborn) to 13C (child), then reset to 1Y (youth) through 7Y. After youth 7Y, adult sizing starts. This reset from 13C to 1Y confuses a lot of parents. EU kids\' sizes are simpler — they go in a straight line from EU 17 to EU 39 without any restarts.'
+    a: 'In the US, kids\' sizes go from 0C (newborn) to 13C (child), then reset to 1Y (youth) through 7Y. After youth 7Y, adult sizing starts. This reset from 13C to 1Y confuses a lot of parents. EU kids\' sizes run in a continuous line from EU 17 to EU 39 without resets.'
   },
   {
     q: 'What is US 9 in all other sizes?',
@@ -47,7 +47,7 @@ const faqs = [
   },
   {
     q: 'Do shoe sizes change between brands?',
-    a: 'Yes. Nike tends to run a bit small, so some people go half a size up. Converse runs large — about a full size bigger than other brands. Adidas is usually a little bigger than Nike. New Balance is generally true to size. When buying a new brand, check their specific size chart or measure your foot in CM and compare.'
+    a: 'Yes. Nike tends to run a bit small, so some people go half a size up. Converse runs about a full size larger than other brands. Adidas is usually a little bigger than Nike. New Balance is generally true to size. When buying a new brand, check their specific size chart or measure your foot in CM and compare.'
   },
   {
     q: 'Should I size up or down if I\'m between two sizes?',
@@ -78,7 +78,7 @@ const faqSchema = JSON.stringify({
 <section class="faq-section" id="faq">
   <div class="faq-inner">
     <p class="mono-eyebrow">FAQ</p>
-    <h2 class="heading-lg">Frequently Asked Questions</h2>
+    <h2 class="heading-lg">Frequently asked questions</h2>
 
     <div class="faq-list">
       {faqs.map((f, i) => (

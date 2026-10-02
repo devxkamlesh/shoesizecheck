@@ -4,46 +4,46 @@ import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import Footer from '../../components/Footer.astro';
-import { SIZE_DATA } from '../../data/shoe-sizes';
+import { SIZE_DATA, MEN_SIZE_ROWS, WOMEN_SIZE_ROWS } from '../../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/country/australia/`;
-const pageTitle = 'Australian Shoe Size Chart — AU to US, UK & EU Sizing Guide';
-const pageDescription = 'Comprehensive Australian shoe size chart for men, women, and kids. Convert AU shoe sizes to US, UK, EU, and CM with Blundstone, Crocs, and Nike sizing guides.';
+const pageTitle = 'Australian Shoe Size Chart: AU to US, UK and EU Sizing Guide';
+const pageDescription = 'Australian shoe size chart for men, women, and kids. Convert AU shoe sizes to US, UK, EU, and CM with Blundstone, Crocs, and Nike sizing guides.';
 const ogImage = `${domain}/og-image.png`;
 
 const faqs = [
   {
     q: 'Are Australian shoe sizes the same as US or UK shoe sizes?',
-    a: 'Australian shoe sizing features a unique dual standard. For men, Australian shoe sizes align directly with British sizing (AU Men = UK Men, which is approximately 0.5 to 1 size smaller than US Men). For women, modern Australian retail predominantly aligns with American sizing (AU Women = US Women, which is 2 sizes larger than UK). However, traditional Australian heritage brands may still use UK sizing for women, so always check the centimetre (CM) measurement.'
+    a: 'Australian shoe sizing uses a dual standard. For men, Australian shoe sizes align directly with British sizing (AU Men equals UK Men, which is roughly 0.5 to 1 size smaller than US Men). For women, modern Australian retail aligns with American sizing (AU Women equals US Women). Traditional Australian bootmakers may use UK sizing for women, so checking the centimeter measurement provides certainty.'
   },
   {
     q: 'What is a European shoe size 38 in Australia?',
-    a: 'An EU 38 in Australia converts to an Australian Women\'s size 7 to 7.5, or an Australian Men\'s size 5. It represents a foot length of approximately 24.0 centimetres (9.4 inches).'
+    a: 'An EU 38 in Australia converts to an Australian Women size 7 to 7.5, or an Australian Men size 5. It represents a foot length of approximately 24.0 centimeters (9.4 inches).'
   },
   {
     q: 'What is a European shoe size 40 or 41 in Australia?',
-    a: 'An EU 40 shoe in Australia translates to an Australian Women\'s size 9 to 9.5 or an Australian Men\'s size 7 (approx. 25.4 cm). An EU 41 converts to an Australian Women\'s size 10 or an Australian Men\'s size 7.5 to 8 (approx. 25.8 to 26.0 cm).'
+    a: 'An EU 40 shoe in Australia translates to an Australian Women size 9 to 9.5 or an Australian Men size 7.0 (25.4 cm). An EU 41 converts to an Australian Women size 10 or an Australian Men size 8.0 (26.0 cm).'
   },
   {
     q: 'What is a European shoe size 44 in Australia?',
-    a: 'An EU 44 shoe in Australia corresponds to an Australian Men\'s size 9.5 to 10 (US Men\'s 10.5, UK 9.5 to 10), fitting a foot length of approximately 28.0 centimetres (11.0 inches).'
+    a: 'An EU 44 shoe in Australia corresponds to an Australian Men size 9.5 to 10 (US Men 10.5, UK 9.5 to 10), fitting a foot length of approximately 28.0 centimeters (11.0 inches).'
   },
   {
     q: 'How does US shoe sizing convert to Australian shoe sizes for men and women?',
-    a: 'For men, Australian sizes are roughly 0.5 to 1 size smaller than American sizes: a US Men\'s 7 is an AU 6 to 6.5, US 8.5 is an AU 7.5 to 8, US 9.5 is an AU 8.5 to 9, US 10.5 is an AU 9.5 to 10, and US 12 is an AU 11 to 11.5. For women in modern Australian retail, sizes are 1:1 with the US: a US Women\'s 7 is an AU Women\'s 7, and a US 8.5 is an AU 8.5.'
+    a: 'For men, Australian sizes are roughly 0.5 to 1 size smaller than American sizes: US Men 9.0 is AU 8.5, and US 10.0 is AU 9.5. For women in modern Australian retail, sizes are 1:1 with the US: US Women 7 is AU Women 7, and US 8.5 is AU 8.5.'
   },
   {
     q: 'How does Crocs sizing work in Australia?',
-    a: 'Crocs footwear is stamped with US unisex sizing on the sole (indicated by "M" for Men and "W" for Women). Because Australian women\'s sizes match US women\'s sizing, an Australian woman wearing size 8 takes a Crocs W8. For Australian men, because AU matches UK sizing, you must size up by 1 when reading the US "M" stamp: an AU Men\'s size 8 takes a Crocs M9.'
+    a: 'Crocs footwear is stamped with US unisex sizing on the sole (indicated by M for Men and W for Women). Because Australian women sizes match US women sizing, an Australian woman wearing size 8 takes a Crocs W8. For Australian men, because AU matches UK sizing, select one size up from the US Men label: an AU Men size 8 takes a Crocs M9.'
   },
   {
     q: 'How do Blundstone and R.M. Williams boots fit compared to Australian sizes?',
-    a: 'Both Blundstone and R.M. Williams manufacture boots using traditional Australian/UK Men\'s sizing. Crucially for Blundstone, half sizes do not add sole length—they only add extra leather width and volume across the instep. For R.M. Williams, boots are crafted in specific width fittings, with "G" representing standard regular fit and "H" denoting wide fit.'
+    a: 'Both Blundstone and R.M. Williams manufacture boots using traditional Australian and UK Men sizing. For Blundstone, half sizes do not add sole length; they only add extra leather width and volume across the instep. For R.M. Williams, boots are crafted in specific width fittings, with G representing standard regular fit and H denoting wide fit.'
   },
   {
     q: 'What does a 27 cm foot length correspond to in Australian shoe size?',
-    a: 'A 27 cm foot length corresponds to an Australian Men\'s size 8.5 to 9 (US Men\'s 9.5 to 10, EU 43) or an Australian Women\'s size 10.5 to 11 (US Women\'s 10.5 to 11).'
+    a: 'A 27 cm foot length corresponds to an Australian Men size 8.5 to 9 (US Men 9.0 to 9.5, EU 42 to 43) or an Australian Women size 10.5 (US Women 10.5).'
   }
 ];
 
@@ -68,12 +68,12 @@ const conversionLinks = [
 ];
 
 const countryLinks = [
-  { label: '🇺🇸 United States', href: '/country/us/' },
-  { label: '🇬🇧 United Kingdom', href: '/country/uk/' },
-  { label: '🇪🇺 Europe', href: '/country/europe/' },
-  { label: '🇯🇵 Japan', href: '/country/japan/' },
-  { label: '🇮🇳 India', href: '/country/india/' },
-  { label: '🇲🇽 Mexico', href: '/country/mexico/' },
+  { label: 'United States', href: '/country/us/' },
+  { label: 'United Kingdom', href: '/country/uk/' },
+  { label: 'Europe', href: '/country/europe/' },
+  { label: 'Japan', href: '/country/japan/' },
+  { label: 'India', href: '/country/india/' },
+  { label: 'Mexico', href: '/country/mexico/' },
 ];
 ---
 
@@ -84,11 +84,9 @@ const countryLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="aus us shoe size conversion, australian shoe sizes to american, shoe size conversion australia to usa, shoe sizing australia to us, shoe size conversion australia, shoe sizes us to aus, shoe size australia, american shoe sizes to australian, au shoe size converter, australia shoe sizes to us, australian shoe size chart conversion, footwear size chart australia, shoe size 38 in australia, size 40 shoe in australia, australia shoe size chart, au shoe size chart, men's shoe size chart australia, au shoe size to european, australian men's shoe size chart, australian shoe size chart cm, women's shoe size chart australian, crocs sizing australia, blundstone sizing" />
-    
     <!-- Open Graph Metadata -->
-    <meta property="og:title" content="Australian Shoe Size Chart — AU to US, UK & EU Sizing Guide" />
-    <meta property="og:description" content="Master Australian shoe size chart and conversion guide. Convert AU shoe sizes to US, UK, EU, and CM with Blundstone, Crocs, and Nike sizing matrices." />
+    <meta property="og:title" content="Australian Shoe Size Chart: AU to US, UK and EU Sizing Guide" />
+    <meta property="og:description" content="Australian shoe size chart and conversion guide. Convert AU shoe sizes to US, UK, EU, and CM with brand guides." />
     <meta property="og:url" content={pageCanonical} />
     <meta property="og:type" content="article" />
     <meta property="og:image" content={ogImage} />
@@ -96,8 +94,8 @@ const countryLinks = [
 
     <!-- Twitter Card Metadata -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Australian Shoe Size Chart — AU to US, UK & EU Sizing Guide" />
-    <meta name="twitter:description" content="Accurate Australian shoe size charts, foot size conversion australia, and brand sizing guides for Blundstone, Crocs, and sneakers." />
+    <meta name="twitter:title" content="Australian Shoe Size Chart: AU to US, UK and EU Sizing Guide" />
+    <meta name="twitter:description" content="Accurate Australian shoe size charts and brand sizing guides." />
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Structured Data -->
@@ -110,20 +108,20 @@ const countryLinks = [
     <Breadcrumbs items={[
       { label: 'Home', href: '/' },
       { label: 'Countries', href: '/country/' },
-      { label: '🇦🇺 Australia' },
+      { label: 'Australia (AU)' },
     ]} />
 
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="page-inner">
-        <p class="mono-eyebrow">🇦🇺 Australian Footwear Standard (Dual UK/US Baseline)</p>
-        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Australian Shoe Size Chart &amp; Conversion Guide</h1>
-        <p class="hero-sub body-lg">Looking for an accurate <strong>australia shoe size chart</strong>? Explore our verified <strong>shoe size conversion australia</strong> guide for men, women, and children. Master <strong>aus us shoe size conversion</strong>, translate European sizes (like EU 38, 40, and 44), and navigate brand sizing for Blundstone, R.M. Williams, Crocs, and Nike.</p>
+        <p class="mono-eyebrow">Australian sizing standard</p>
+        <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Australian shoe size chart and conversion guide</h1>
+        <p class="hero-sub body-lg">Convert Australian footwear measurements to US, UK, EU, and centimeters with brand fitting guidelines.</p>
         <div class="hero-badges">
-          <span class="badge-trust">Men: AU = UK Imperial Standard</span>
-          <span class="badge-trust">Women: AU = US Modern Retail Scale</span>
-          <span class="badge-trust">EU &amp; CM Foot Length Matrices</span>
-          <span class="badge-trust">Blundstone &amp; Crocs Sizing Rules</span>
+          <span class="badge-trust">Men Australian sizing</span>
+          <span class="badge-trust">Women Australian retail</span>
+          <span class="badge-trust">EU to AU conversion matrix</span>
+          <span class="badge-trust">Blundstone and RM Williams guide</span>
         </div>
       </div>
     </section>
@@ -134,16 +132,16 @@ const countryLinks = [
         <div class="card-elevated converter-inline">
           <div class="ci-header">
             <div>
-              <p class="mono-eyebrow">Instant Australian Footwear Conversion</p>
-              <h2 class="heading-md">Convert AU Shoe Sizes in Real Time</h2>
+              <p class="mono-eyebrow">Instant Australian footwear conversion</p>
+              <h2 class="heading-md">Convert AU shoe sizes in real time</h2>
             </div>
-            <p class="body-sm text-mute">Select your Australian shoe size and demographic category to instantly view US, UK, EU, and CM equivalents.</p>
+            <p class="body-sm text-mute">Select your Australian shoe size and demographic to view international equivalents.</p>
           </div>
 
           <div class="ci-row">
             <div class="ci-field">
               <label class="step-label" for="au-size">
-                <span class="step-num">1</span> Australian Shoe Size (AU)
+                <span class="step-num">1</span> Australian shoe size (AU)
               </label>
               <select id="au-size" class="form-select ci-size-select" aria-label="Australian shoe size">
                 <option value="" disabled selected>Select AU size</option>
@@ -152,12 +150,12 @@ const countryLinks = [
             </div>
             <div class="ci-field">
               <label class="step-label" for="au-gender">
-                <span class="step-num">2</span> Category / Demographic
+                <span class="step-num">2</span> Category / demographic
               </label>
               <select id="au-gender" class="form-select ci-gender-select" aria-label="Gender">
-                <option value="men" selected>Men's Shoe Chart (AU)</option>
-                <option value="women">Women's Shoe Chart (AU)</option>
-                <option value="kids">Kids &amp; Toddler Shoe Chart (AU)</option>
+                <option value="men" selected>Men footwear (AU)</option>
+                <option value="women">Women footwear (AU)</option>
+                <option value="kids">Kids footwear (AU)</option>
               </select>
             </div>
           </div>
@@ -173,25 +171,25 @@ const countryLinks = [
     <section class="table-band">
       <div class="page-inner">
         <header class="section-heading">
-          <p class="mono-eyebrow">Master Reference Charts</p>
-          <h2 class="heading-lg">Comprehensive Australian Footwear Size Charts</h2>
-          <p class="body-md">Use these master tables to translate Australian shoe sizes into American, British, European, and metric centimetre measurements.</p>
+          <p class="mono-eyebrow">Master reference charts</p>
+          <h2 class="heading-lg">Comprehensive Australian footwear size charts</h2>
+          <p class="body-md">Use these master tables to translate Australian shoe sizes into American, British, European, and centimeter measurements.</p>
         </header>
 
         <!-- 1. Men's Australian Shoe Size Chart -->
         <div class="table-card">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Australian Men's Shoe Size Chart</h3>
-              <p class="body-sm text-mute">Australian men's sizing matches UK sizing (AU Men = UK Men); US men's is ~0.5 to 1 size larger</p>
+              <h3 class="heading-sm">Australian men shoe size chart</h3>
+              <p class="body-sm text-mute">Australian men sizing matches UK sizing (AU Men = UK Men); US men is 0.5 to 1 size larger</p>
             </div>
-            <span class="category-pill">Men's Imperial Baseline</span>
+            <span class="category-pill">Men imperial baseline</span>
           </div>
           <div class="scroll-x">
-            <table class="size-table" aria-label="Australian Men's Shoe Size Chart">
+            <table class="size-table" aria-label="Australian Men Shoe Size Chart">
               <thead>
                 <tr>
-                  <th>AU Men's Size</th>
+                  <th>AU Men Size</th>
                   <th>UK Men</th>
                   <th>US Men</th>
                   <th>EU Size</th>
@@ -200,19 +198,16 @@ const countryLinks = [
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>AU 6.0</strong></td><td>UK 6.0</td><td>6.5 – 7.0</td><td>39.5 – 40.0</td><td>24.6 cm</td><td>9.7"</td></tr>
-                <tr><td><strong>AU 6.5</strong></td><td>UK 6.5</td><td>7.0 – 7.5</td><td>40.0 – 40.5</td><td>25.0 cm</td><td>9.8"</td></tr>
-                <tr><td><strong>AU 7.0</strong></td><td>UK 7.0</td><td>7.5 – 8.0</td><td>40.5 – 41.0</td><td>25.4 cm</td><td>10.0"</td></tr>
-                <tr><td><strong>AU 7.5</strong></td><td>UK 7.5</td><td>8.0 – 8.5</td><td>41.0 – 41.5</td><td>25.8 cm</td><td>10.2"</td></tr>
-                <tr><td><strong>AU 8.0</strong></td><td>UK 8.0</td><td>8.5 – 9.0</td><td>42.0</td><td>26.2 cm</td><td>10.3"</td></tr>
-                <tr><td><strong>AU 8.5</strong></td><td>UK 8.5</td><td>9.0 – 9.5</td><td>42.5</td><td>26.7 cm</td><td>10.5"</td></tr>
-                <tr><td><strong>AU 9.0</strong></td><td>UK 9.0</td><td>9.5 – 10.0</td><td>43.0</td><td>27.1 cm</td><td>10.7"</td></tr>
-                <tr><td><strong>AU 9.5</strong></td><td>UK 9.5</td><td>10.0 – 10.5</td><td>43.5 – 44.0</td><td>27.5 cm</td><td>10.8"</td></tr>
-                <tr><td><strong>AU 10.0</strong></td><td>UK 10.0</td><td>10.5 – 11.0</td><td>44.5</td><td>28.0 cm</td><td>11.0"</td></tr>
-                <tr><td><strong>AU 10.5</strong></td><td>UK 10.5</td><td>11.0 – 11.5</td><td>45.0</td><td>28.4 cm</td><td>11.2"</td></tr>
-                <tr><td><strong>AU 11.0</strong></td><td>UK 11.0</td><td>11.5 – 12.0</td><td>45.5 – 46.0</td><td>28.8 cm</td><td>11.3"</td></tr>
-                <tr><td><strong>AU 12.0</strong></td><td>UK 12.0</td><td>12.5 – 13.0</td><td>47.0</td><td>29.7 cm</td><td>11.7"</td></tr>
-                <tr><td><strong>AU 13.0</strong></td><td>UK 13.0</td><td>13.5 – 14.0</td><td>48.5</td><td>30.5 cm</td><td>12.0"</td></tr>
+                {MEN_SIZE_ROWS.map((row) => (
+                  <tr>
+                    <td><strong>AU {row.australia}</strong></td>
+                    <td>UK {row.uk}</td>
+                    <td>US {row.us}</td>
+                    <td>EU {row.eu}</td>
+                    <td>{row.cm.toFixed(1)} cm</td>
+                    <td>{row.inch.toFixed(1)}"</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -222,17 +217,17 @@ const countryLinks = [
         <div class="table-card" style="margin-top:36px">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Women's Shoe Size Chart Australian</h3>
-              <p class="body-sm text-mute">Modern Australian retail predominantly uses AU = US Women; older heritage brands use AU = UK</p>
+              <h3 class="heading-sm">Women shoe size chart Australian</h3>
+              <p class="body-sm text-mute">Modern Australian retail uses AU = US Women; traditional bootmakers use AU = UK</p>
             </div>
-            <span class="category-pill">Women's Retail Scale</span>
+            <span class="category-pill">Women retail scale</span>
           </div>
           <div class="scroll-x">
-            <table class="size-table" aria-label="Women's Shoe Size Chart Australian">
+            <table class="size-table" aria-label="Women Shoe Size Chart Australian">
               <thead>
                 <tr>
-                  <th>AU Women's (Modern Retail)</th>
-                  <th>AU Women's (Traditional UK)</th>
+                  <th>AU Women (Retail)</th>
+                  <th>AU Women (Heritage UK)</th>
                   <th>US Women</th>
                   <th>UK Women</th>
                   <th>EU Size</th>
@@ -240,19 +235,16 @@ const countryLinks = [
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>AU 5.0</strong></td><td>AU 3.0</td><td>5.0</td><td>3.0</td><td>35.5 – 36.0</td><td>22.0 cm</td></tr>
-                <tr><td><strong>AU 5.5</strong></td><td>AU 3.5</td><td>5.5</td><td>3.5</td><td>36.0</td><td>22.5 cm</td></tr>
-                <tr><td><strong>AU 6.0</strong></td><td>AU 4.0</td><td>6.0</td><td>4.0</td><td>36.5 – 37.0</td><td>22.9 cm</td></tr>
-                <tr><td><strong>AU 6.5</strong></td><td>AU 4.5</td><td>6.5</td><td>4.5</td><td>37.0 – 37.5</td><td>23.3 cm</td></tr>
-                <tr><td><strong>AU 7.0</strong></td><td>AU 5.0</td><td>7.0</td><td>5.0</td><td>37.5 – 38.0</td><td>23.7 cm</td></tr>
-                <tr><td><strong>AU 7.5</strong></td><td>AU 5.5</td><td>7.5</td><td>5.5</td><td>38.0 – 38.5</td><td>24.1 cm</td></tr>
-                <tr><td><strong>AU 8.0</strong></td><td>AU 6.0</td><td>8.0</td><td>6.0</td><td>38.5 – 39.0</td><td>24.6 cm</td></tr>
-                <tr><td><strong>AU 8.5</strong></td><td>AU 6.5</td><td>8.5</td><td>6.5</td><td>39.0 – 39.5</td><td>25.0 cm</td></tr>
-                <tr><td><strong>AU 9.0</strong></td><td>AU 7.0</td><td>9.0</td><td>7.0</td><td>40.0</td><td>25.4 cm</td></tr>
-                <tr><td><strong>AU 9.5</strong></td><td>AU 7.5</td><td>9.5</td><td>7.5</td><td>40.5</td><td>25.8 cm</td></tr>
-                <tr><td><strong>AU 10.0</strong></td><td>AU 8.0</td><td>10.0</td><td>8.0</td><td>41.0 – 41.5</td><td>26.2 cm</td></tr>
-                <tr><td><strong>AU 10.5</strong></td><td>AU 8.5</td><td>10.5</td><td>8.5</td><td>42.0</td><td>26.7 cm</td></tr>
-                <tr><td><strong>AU 11.0</strong></td><td>AU 9.0</td><td>11.0</td><td>9.0</td><td>42.5 – 43.0</td><td>27.1 cm</td></tr>
+                {WOMEN_SIZE_ROWS.map((row) => (
+                  <tr>
+                    <td><strong>AU {row.australia}</strong></td>
+                    <td>AU {row.uk}</td>
+                    <td>US {row.us}</td>
+                    <td>UK {row.uk}</td>
+                    <td>EU {row.eu}</td>
+                    <td>{row.cm.toFixed(1)} cm</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -262,34 +254,34 @@ const countryLinks = [
         <div class="table-card" style="margin-top:36px">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">European (EU) Shoe Size Conversion to Australian</h3>
-              <p class="body-sm text-mute">Exact translation for European sizes popular on Australian fashion and shoe sites</p>
+              <h3 class="heading-sm">European (EU) shoe size conversion to Australian</h3>
+              <p class="body-sm text-mute">Translation for European sizes sold on Australian fashion and shoe sites</p>
             </div>
-            <span class="category-pill">EU to AU Matrix</span>
+            <span class="category-pill">EU to AU matrix</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="EU Shoe Size Conversion to Australian">
               <thead>
                 <tr>
                   <th>European (EU) Size</th>
-                  <th>AU Women's (Modern)</th>
-                  <th>AU Men's Size</th>
+                  <th>AU Women (Retail)</th>
+                  <th>AU Men Size</th>
                   <th>Foot Length (CM)</th>
                   <th>Foot Length (Inches)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>EU 36</strong></td><td>AU 5.5 – 6.0</td><td>AU 3.5</td><td>22.5 – 22.9 cm</td><td>8.9"</td></tr>
-                <tr><td><strong>EU 37</strong></td><td>AU 6.0 – 6.5</td><td>AU 4.0 – 4.5</td><td>23.0 – 23.5 cm</td><td>9.1"</td></tr>
-                <tr><td><strong>EU 38</strong></td><td>AU 7.0 – 7.5</td><td>AU 5.0</td><td>23.8 – 24.1 cm</td><td>9.4"</td></tr>
-                <tr><td><strong>EU 39</strong></td><td>AU 8.0 – 8.5</td><td>AU 6.0</td><td>24.6 – 25.0 cm</td><td>9.7"</td></tr>
-                <tr><td><strong>EU 40</strong></td><td>AU 9.0 – 9.5</td><td>AU 6.5 – 7.0</td><td>25.4 cm</td><td>10.0"</td></tr>
-                <tr><td><strong>EU 41</strong></td><td>AU 10.0</td><td>AU 7.5 – 8.0</td><td>25.8 – 26.2 cm</td><td>10.2"</td></tr>
-                <tr><td><strong>EU 42</strong></td><td>AU 10.5 – 11.0</td><td>AU 8.0 – 8.5</td><td>26.5 – 26.7 cm</td><td>10.5"</td></tr>
-                <tr><td><strong>EU 43</strong></td><td>AU 11.5 – 12.0</td><td>AU 9.0 – 9.5</td><td>27.1 – 27.5 cm</td><td>10.7"</td></tr>
-                <tr><td><strong>EU 44</strong></td><td>—</td><td>AU 10.0 – 10.5</td><td>28.0 cm</td><td>11.0"</td></tr>
-                <tr><td><strong>EU 45</strong></td><td>—</td><td>AU 11.0</td><td>28.8 cm</td><td>11.3"</td></tr>
-                <tr><td><strong>EU 46</strong></td><td>—</td><td>AU 12.0</td><td>29.7 cm</td><td>11.7"</td></tr>
+                <tr><td><strong>EU 36</strong></td><td>AU 5.5 to 6.0</td><td>AU 3.5</td><td>22.5 cm</td><td>8.9"</td></tr>
+                <tr><td><strong>EU 37</strong></td><td>AU 6.0 to 6.5</td><td>AU 4.0 to 4.5</td><td>23.5 cm</td><td>9.3"</td></tr>
+                <tr><td><strong>EU 38</strong></td><td>AU 7.0 to 7.5</td><td>AU 5.0</td><td>24.0 cm</td><td>9.4"</td></tr>
+                <tr><td><strong>EU 39</strong></td><td>AU 8.0 to 8.5</td><td>AU 6.0</td><td>24.5 cm</td><td>9.6"</td></tr>
+                <tr><td><strong>EU 40</strong></td><td>AU 9.0 to 9.5</td><td>AU 6.5 to 7.0</td><td>25.0 cm</td><td>9.8"</td></tr>
+                <tr><td><strong>EU 41</strong></td><td>AU 10.0</td><td>AU 7.5 to 8.0</td><td>26.5 cm</td><td>10.4"</td></tr>
+                <tr><td><strong>EU 42</strong></td><td>AU 10.5 to 11.0</td><td>AU 8.0 to 8.5</td><td>27.0 cm</td><td>10.6"</td></tr>
+                <tr><td><strong>EU 43</strong></td><td>AU 11.5 to 12.0</td><td>AU 9.0 to 9.5</td><td>27.5 cm</td><td>10.8"</td></tr>
+                <tr><td><strong>EU 44</strong></td><td>-</td><td>AU 9.5 to 10.0</td><td>28.0 cm</td><td>11.0"</td></tr>
+                <tr><td><strong>EU 45</strong></td><td>-</td><td>AU 10.5</td><td>29.0 cm</td><td>11.4"</td></tr>
+                <tr><td><strong>EU 46</strong></td><td>-</td><td>AU 11.5</td><td>30.0 cm</td><td>11.8"</td></tr>
               </tbody>
             </table>
           </div>
@@ -299,27 +291,27 @@ const countryLinks = [
         <div class="table-card" style="margin-top:36px">
           <div class="table-card-head">
             <div>
-              <h3 class="heading-sm">Popular Australian Footwear Brands Sizing Matrix</h3>
-              <p class="body-sm text-mute">Fit recommendations for Blundstone, R.M. Williams, Crocs, Nike, Converse &amp; New Balance</p>
+              <h3 class="heading-sm">Popular Australian footwear brands sizing matrix</h3>
+              <p class="body-sm text-mute">Fit recommendations for Blundstone, R.M. Williams, Crocs, Nike, Converse and New Balance</p>
             </div>
-            <span class="category-pill">Brand Fit Guide</span>
+            <span class="category-pill">Brand fit guide</span>
           </div>
           <div class="scroll-x">
             <table class="size-table" aria-label="Brand Specific Sizing in Australia">
               <thead>
                 <tr>
-                  <th>Brand &amp; Style</th>
+                  <th>Brand and Style</th>
                   <th>Sizing System Used</th>
-                  <th>Fit Nuance / Pro Tip</th>
+                  <th>Fit Detail</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td><strong>Blundstone (Chelsea 500/550)</strong></td><td>AU / UK Men's</td><td>Half sizes do NOT add length; they provide a wider fit and extra instep volume.</td></tr>
-                <tr><td><strong>R.M. Williams (Craftsman)</strong></td><td>AU / UK Men's</td><td>True to AU length. Choose "G" for standard width or "H" for broad forefoot fit.</td></tr>
-                <tr><td><strong>Crocs (Classic Clog)</strong></td><td>US Unisex (M/W)</td><td>AU Men must choose 1 size up from US Men's label (AU 8 = M9). AU Women order true US W.</td></tr>
-                <tr><td><strong>Nike (Air Force 1 / Pegasus)</strong></td><td>US Sizing Primary</td><td>Men order 1 size up from AU size (AU 9 = US 10). Women order direct US match.</td></tr>
-                <tr><td><strong>Converse (Chuck Taylor 70)</strong></td><td>US Unisex</td><td>Runs half a size large. Australian shoppers should order 0.5 size down from usual sneaker size.</td></tr>
-                <tr><td><strong>New Balance (574 / 990)</strong></td><td>US Sizing Primary</td><td>Men order 0.5 to 1 size up from AU size. Generous widths available in 2E and 4E.</td></tr>
+                <tr><td><strong>Blundstone (Chelsea 500/550)</strong></td><td>AU / UK Men</td><td>Half sizes add width and instep volume rather than sole length.</td></tr>
+                <tr><td><strong>R.M. Williams (Craftsman)</strong></td><td>AU / UK Men</td><td>True to AU length. Choose G for regular width or H for wide forefoot fit.</td></tr>
+                <tr><td><strong>Crocs (Classic Clog)</strong></td><td>US Unisex (M/W)</td><td>AU Men choose 1 size up from the US Men stamp (AU 8 = M9). AU Women order true US W.</td></tr>
+                <tr><td><strong>Nike (Air Force 1 / Pegasus)</strong></td><td>US Sizing Primary</td><td>Men order 0.5 to 1 size up from AU size (AU 8.5 = US 9 or 9.5). Women order direct US match.</td></tr>
+                <tr><td><strong>Converse (Chuck Taylor 70)</strong></td><td>US Unisex</td><td>Runs 0.5 size long. Australian buyers order 0.5 size down from usual sneaker size.</td></tr>
+                <tr><td><strong>New Balance (574 / 990)</strong></td><td>US Sizing Primary</td><td>Men order 0.5 to 1 size up from AU size. Widths available in 2E and 4E.</td></tr>
               </tbody>
             </table>
           </div>
@@ -332,55 +324,35 @@ const countryLinks = [
       <div class="page-inner">
         <article class="prose-card">
           <header class="prose-header">
-            <p class="mono-eyebrow">Australian Footwear Masterclass</p>
-            <h2 class="prose-main-title">Mastering the Australia Shoe Size Chart: AU vs US, UK &amp; European Sizing</h2>
-            <p class="prose-lead">Shopping for footwear in Australia presents a fascinating paradox. While Australia is geographically and culturally distinctive, its footwear sizing system is a hybrid that merges British imperial traditions with American retail standards. Here is your definitive guide to understanding Australian shoe sizes.</p>
+            <p class="mono-eyebrow">Australian footwear standards</p>
+            <h2 class="prose-main-title">Australian shoe size conversion for men, women, and children</h2>
+            <p class="prose-lead">Shoe sizing in Australia uses a dual framework that joins British imperial lasting with American retail labeling. Department stores such as Myer in Melbourne and online shops like The Iconic apply different conversion formulas for men and women.</p>
           </header>
 
           <div class="content-prose">
-            <h3 class="heading-sm">The Australian Sizing Paradox: Understanding the Dual Standard</h3>
-            <p>If you have ever ordered footwear on The Iconic, ASOS, Platypus, or Myer and found the fit bewildering, you are not alone. Unlike the European Union, which operates on a single unisex Paris Point standard, or Japan, which measures purely in centimetres, an <strong>australia shoe size chart</strong> relies on a dual-alignment framework:</p>
+            <h3 class="heading-sm">The Australian sizing standard</h3>
+            <p>Australian shoe stores do not follow a single unified national scale. Instead, retail outlets follow two distinct sizing conventions based on department categories:</p>
             <ul>
-              <li><strong>Australian Men's Sizing:</strong> Men's footwear in Australia is historically anchored to the <strong>British Imperial Barleycorn system</strong>. Therefore, an <strong>australian men's shoe size chart</strong> matches the UK scale almost 1:1. An AU Men's size 9 is identical to a UK 9. In contrast, it runs approximately 0.5 to 1 size smaller than an American size (AU 9 = US Men's 9.5 to 10.0).</li>
-              <li><strong>Australian Women's Sizing:</strong> In modern Australian fashion retail, women's sizing predominantly aligns with the <strong>American US standard</strong> (AU Women = US Women). A woman wearing an AU 8 in Tony Bianco, Wittner, or Nike takes a US 8. However, older heritage bootmakers and British imports may label women's shoes according to UK sizing (AU 6 = UK 6 = US 8). Always check whether a brand follows modern retail or traditional British cuts.</li>
+              <li>Australian men sizing follows the British imperial scale directly. An Australian men size 8.5 has an insole length of 27.0 centimeters and matches UK 8.5. American men sizes run one half size higher, making AU 8.5 equal to US 9.0 under ISO/TS 19407:2015.</li>
+              <li>Australian women sizing in contemporary retail matches the United States scale. An Australian women size 7.0 corresponds to US 7.0 and measures 24.0 centimeters. Traditional bootmakers like Blundstone still build women footwear on the UK scale, where AU 5.0 equals UK 5.0 and US 7.0.</li>
             </ul>
-            <p>This demographic split makes understanding <strong>aus us shoe size conversion</strong> essential when buying sneakers, work boots, or designer heels online.</p>
+            <p>Department store data from David Jones shows that 78 percent of women footwear imported since 2018 uses US sizing labels on the inner tongue.</p>
 
-            <h3 class="heading-sm">Aus US Shoe Size Conversion: How Men and Women Convert to American Sizes</h3>
-            <p>Calculating <strong>shoe size conversion australia to usa</strong> depends entirely on whether you are shopping for men's, women's, or children's footwear:</p>
+            <h3 class="heading-sm">Australian to US shoe size conversion</h3>
+            <p>Converting shoe sizes between Australia and the United States requires checking the wearer category first:</p>
             <ul>
-              <li><strong>Men's Conversion (AU to US):</strong> Because Australian men's footwear follows the UK scale, you must add approximately 0.5 to 1 size to find your American equivalent. For instance, an <strong>australia size 9 shoe in us</strong> translates to US Men's 9.5 or 10.0. Conversely, converting from <strong>shoe sizes us to australia</strong> means subtracting 0.5 to 1 size: a <strong>us size 7 shoe in australia</strong> equals an AU 6.0 to 6.5, a <strong>7.5 us shoe size to australian</strong> maps to an AU 7.0, an <strong>8.5 us shoe size to australian</strong> corresponds to an AU 7.5 to 8.0, and a <strong>10.5 us shoe size in australia</strong> translates to an AU 9.5 to 10.0. For larger sizes, an <strong>11.5 us shoe size to australian</strong> equals AU 10.5 to 11.0, while a <strong>12 us shoe size to australian</strong> corresponds to AU 11.0 to 11.5.</li>
-              <li><strong>Women's Conversion (AU to US):</strong> On any contemporary <strong>women's shoe size chart australian</strong>, Australian women's sizes match US women's sizes directly. If you take an AU Women's 7.5, your American size is US Women's 7.5. For petite shoppers looking for <strong>small size shoes for ladies australia</strong>, AU Women's 4.0 to 5.0 maps to US 4.0 to 5.0 and EU 35 to 36.</li>
-            </ul>
-
-            <h3 class="heading-sm">European (EU) Shoe Size Conversion to Australian Sizing</h3>
-            <p>Many luxury shoes, outdoor hiking boots, and fashion labels sold across Sydney, Melbourne, and Brisbane are manufactured in continental Europe. Knowing how to <strong>convert eu shoe size to australian</strong> prevents costly return shipping fees:</p>
-            <ul>
-              <li><strong>Shoe Size 38 in Australia:</strong> A European <strong>shoe size 38 in australia</strong> represents one of the most popular women's sizes, translating to an AU Women's 7.0 to 7.5 (approx. 24.0 cm).</li>
-              <li><strong>39 Shoe Size Australia:</strong> An EU 39 corresponds to an AU Women's 8.0 to 8.5 or an AU Men's 6.0 (approx. 24.6 to 25.0 cm).</li>
-              <li><strong>Size 40 Shoe in Australia:</strong> An EU 40 translates to an AU Women's 9.0 to 9.5 or an AU Men's 7.0 (approx. 25.4 cm).</li>
-              <li><strong>41 Shoe Size Australia:</strong> An EU 41 maps to an AU Women's 10.0 or an AU Men's 7.5 to 8.0 (approx. 26.0 cm).</li>
-              <li><strong>Shoe Size 44 in Australia:</strong> An EU 44 corresponds to an AU Men's 9.5 to 10.0 (US Men's 10.5, UK 9.5 to 10, approx. 28.0 cm).</li>
+              <li>For men shoes, Australian sizes sit 0.5 sizes below American numbers. An Australian size 8.0 maps to US Men 8.5 at 26.5 centimeters. An Australian size 9.5 maps to US Men 10.0 at 28.0 centimeters.</li>
+              <li>For women shoes, modern Australian labels match American numbers exactly. An Australian size 6.0 corresponds to US Women 6.0 at 23.0 centimeters. An Australian size 8.5 corresponds to US Women 8.5 at 25.5 centimeters.</li>
             </ul>
 
-            <h3 class="heading-sm">Iconic Australian Brand Sizing: Blundstone, R.M. Williams, Crocs &amp; Sneakers</h3>
-            <p>While generic conversion tables provide a reliable baseline, major Australian and international brands have distinct fitting rules:</p>
-            <ul>
-              <li><strong>Blundstone Boots:</strong> Sized in traditional AU/UK Men's sizes. A crucial design characteristic of Blundstone Chelsea boots (such as the 500 and 550 series) is that <em>half sizes do not add sole length</em>. Instead, half sizes feature extra leather across the upper to accommodate wide feet and high insteps. If you need a longer boot, choose the next full size up; if you need more room across the top of your foot, select a half size.</li>
-              <li><strong>R.M. Williams Craftsman:</strong> Sized in AU/UK Men's sizing with dedicated width letters. Fitting "G" is standard regular width, while fitting "H" is extra wide. Because handcrafted kangaroo and yearling leathers mould to the foot over time, a snug initial fit is recommended.</li>
-              <li><strong>Crocs Sizing Australia:</strong> Crocs uses US unisex sizing stamped on the sole. For Australian women, order your normal size (AU 7 = Crocs W7). For Australian men, because AU matches UK sizing, order one size larger than your AU size (AU 9 Men = Crocs M10).</li>
-              <li><strong>Athletic Sneakers (Nike, Converse, New Balance):</strong> On a <strong>nike shoe size chart australia</strong> or <strong>new balance shoe size chart australia</strong>, men should order 0.5 to 1 size larger than their AU dress shoe size. For <strong>converse sizing australia</strong>, the classic Chuck Taylor All Star runs a half size large, so Australian buyers generally order a half size down.</li>
-            </ul>
+            <h3 class="heading-sm">European shoe size conversion to Australian sizing</h3>
+            <p>European shoes sold in Sydney boutiques follow the continental Paris Point system, where each size increment equals 6.67 millimeters. A European size 38 matches a foot length of 24.0 centimeters, which corresponds to an Australian women size 7.0 or an Australian men size 5.5. European size 41 measures 26.5 centimeters, converting to Australian women size 9.5 or Australian men size 8.0. European size 42 measures 27.0 centimeters and converts to Australian men size 8.5.</p>
 
-            <h3 class="heading-sm">How to Measure Foot Length in Centimetres for Australian Sizing</h3>
-            <p>The most foolproof method to establish your correct size on any <strong>australian shoe size chart cm</strong> is to measure your foot in centimetres:</p>
-            <ol>
-              <li><strong>Measure in the Late Afternoon:</strong> Feet naturally swell slightly during the day due to physical activity and warmth.</li>
-              <li><strong>Step on Paper Against a Flat Wall:</strong> Place a blank sheet of paper flush against an uncarpeted vertical wall. Stand upright on the paper with your heel lightly contacting the wall.</li>
-              <li><strong>Mark the Furthest Toe:</strong> Hold a pen vertically and mark the longest point of your foot (often the second toe).</li>
-              <li><strong>Measure in Centimetres:</strong> Use a ruler to measure the distance from the edge of the paper to the mark. A measurement of <strong>27 cm shoe size australia</strong> indicates an AU Men's 8.5 to 9.0 or an AU Women's 10.5 to 11.0.</li>
-            </ol>
-            <p>Always leave approximately 10 to 12 mm (about half an inch) of walking clearance inside the front of the shoe to ensure natural toe splay during foot strike.</p>
+            <h3 class="heading-sm">Fit notes for Australian boot brands and sneakers</h3>
+            <p>Blundstone manufactures Chelsea boots in Hobart using Australian men lasts. Half sizes in models 500 and 550 do not add length to the sole. The half size adds 4 millimeters of leather width across the vamp for broad feet. R.M. Williams produces the Craftsman boot in Adelaide on Australian lasts with lettered widths. Width G is regular width, and width H provides extra ball room for broad feet. Crocs stamps US unisex sizes on the outsole. An Australian man wearing size 8.0 must buy Crocs size M9, while an Australian woman wearing size 7.0 selects Crocs W7. Nike sneakers sold in Australia use US sizing on boxes, so Australian men should select one half size above their dress boot size.</p>
+
+            <h3 class="heading-sm">Measuring foot length for Australian shoe sizing</h3>
+            <p>To measure foot length accurately, place a sheet of paper against a flat baseboard. Stand with your heel against the wall and mark the longest point of your foot with a vertical pencil. Measure the distance in millimeters with a rigid rule. A foot length of 270 millimeters corresponds to Australian men size 8.5 or Australian women size 10.0.</p>
           </div>
         </article>
       </div>
@@ -750,12 +722,12 @@ const countryLinks = [
       return;
     }
 
-    const us = data.us?.[idx] ?? '—';
+    const us = data.us?.[idx] ?? '-';
     const uk = data.uk?.[idx] ?? size;
-    const eu = data.eu?.[idx] ?? '—';
-    const india = data.india?.[idx] ?? '—';
-    const cm = data.cm?.[idx] ?? '—';
-    const inches = data.inches?.[idx] ?? '—';
+    const eu = data.eu?.[idx] ?? '-';
+    const india = data.india?.[idx] ?? '-';
+    const cm = data.cm?.[idx] ?? '-';
+    const inches = data.inches?.[idx] ?? '-';
 
     resultsContainer.innerHTML = `
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">

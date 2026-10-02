@@ -7,7 +7,7 @@ import { CONVERSIONS } from '../../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/converters/`;
-const pageTitle = 'Shoe Size Converters — International Sizing Charts & Tools';
+const pageTitle = 'Shoe size converters: international sizing charts and tools';
 const pageDescription = 'Directory of international shoe size converters between US, UK, EU, India, Japan, and CM. Quick conversion tools, formula cheat sheets, and comparison charts.';
 const ogImage = `${domain}/og-image.png`;
 
@@ -28,15 +28,15 @@ const faqs = [
   },
   {
     q: 'How do I convert European (EU) shoe sizes accurately?',
-    a: 'EU sizes do not differentiate between men and women. For men, subtract roughly 33 from your EU size to find your approximate US size (EU 42 ≈ US 9). For women, subtract roughly 31 (EU 39 ≈ US 8). Always check centimetre (CM) footbed measurements when in doubt.'
+    a: 'EU sizes do not differentiate between men and women. For men, subtract roughly 33 from your EU size to find your approximate US size (EU 42 ≈ US 9). For women, subtract roughly 31 (EU 39 ≈ US 8). Always check centimeter (CM) footbed measurements when in doubt.'
   },
   {
     q: 'What is the difference between Indian and UK shoe sizes?',
-    a: 'Practically speaking, Indian and UK footwear sizes are identical for adult men and women because Indian shoemaking standards adopted the British barleycorn system. India size 8 equals UK size 8. However, Indian lasts often feature slightly broader forefoot proportions.'
+    a: 'Indian and UK footwear sizes are identical for adult men and women because Indian shoemaking standards adopted the British barleycorn system (IS 1638:1969). India size 8 equals UK size 8.'
   },
   {
     q: 'What is the most reliable measurement when converting sizes?',
-    a: 'Foot length in centimeters (CM) or millimeters (Mondopoint) is the most reliable and objective measurement. CM eliminates brand inconsistencies and regional conversion discrepancies between US, UK, and EU labels.'
+    a: 'Foot length in centimeters (CM) or millimeters (Mondopoint) is the most reliable measurement. Centimeters eliminate regional conversion discrepancies between US, UK, and EU labels.'
   }
 ];
 
@@ -76,7 +76,6 @@ const faqSchema = JSON.stringify({
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="shoe size converters, shoe size conversion chart, us to eu shoe size, us to uk shoe size, shoe size calculator, convert shoe size, international shoe sizing" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={pageCanonical} />
@@ -97,16 +96,16 @@ const faqSchema = JSON.stringify({
     <!-- Hero -->
     <section class="conv-hero">
       <div class="hero-inner">
-        <p class="mono-eyebrow">Interactive Sizing Engine & Directory</p>
-        <h1 class="display-xl">Shoe Size Converters</h1>
+        <p class="mono-eyebrow">Interactive Sizing Directory</p>
+        <h1 class="display-xl">Shoe size converters</h1>
         <p class="hero-lead">
-          Instant pair-to-pair shoe size converters across major international standards. Select your conversion below to view interactive calculators, mathematical formulas, and gender-specific charts.
+          Pair-to-pair shoe size converters across major international standards. Select your conversion below to view calculators, formulas, and charts.
         </p>
 
         <!-- Quick Stats Badge Bar -->
         <div class="stats-bar" aria-label="Key features">
           <div class="stat-pill">
-            <span class="stat-num">15</span>
+            <span class="stat-num">17</span>
             <span class="stat-txt">Direct Converters</span>
           </div>
           <div class="stat-pill">
@@ -115,7 +114,7 @@ const faqSchema = JSON.stringify({
           </div>
           <div class="stat-pill">
             <span class="stat-num">100%</span>
-            <span class="stat-txt">Instant Math</span>
+            <span class="stat-txt">Standard Math</span>
           </div>
         </div>
       </div>
@@ -161,7 +160,7 @@ const faqSchema = JSON.stringify({
           <div class="group-header">
             <div class="group-badge">US</div>
             <div>
-              <h2 class="group-title">From United States (US Sizing)</h2>
+              <h2 class="group-title">From United States (US sizing)</h2>
               <p class="group-sub">American barleycorn sizing conversions to international equivalents.</p>
             </div>
           </div>
@@ -187,7 +186,7 @@ const faqSchema = JSON.stringify({
           <div class="group-header">
             <div class="group-badge">EU</div>
             <div>
-              <h2 class="group-title">From European Union (EU / Paris Point)</h2>
+              <h2 class="group-title">From European Union (EU sizing)</h2>
               <p class="group-sub">Continental European unisex sizing converted to global standards.</p>
             </div>
           </div>
@@ -213,7 +212,7 @@ const faqSchema = JSON.stringify({
           <div class="group-header">
             <div class="group-badge">UK</div>
             <div>
-              <h2 class="group-title">From United Kingdom (UK Sizing)</h2>
+              <h2 class="group-title">From United Kingdom (UK sizing)</h2>
               <p class="group-sub">British barleycorn standard conversions for men, women, and kids.</p>
             </div>
           </div>
@@ -239,8 +238,8 @@ const faqSchema = JSON.stringify({
           <div class="group-header">
             <div class="group-badge">IN</div>
             <div>
-              <h2 class="group-title">From India (India Sizing)</h2>
-              <p class="group-sub">Indian BIS and Commonwealth sizing conversions to US, UK, and European standards.</p>
+              <h2 class="group-title">From India (India sizing)</h2>
+              <p class="group-sub">Indian footwear sizing conversions to US, UK, and European standards.</p>
             </div>
           </div>
           <div class="cards-grid">
@@ -272,8 +271,8 @@ const faqSchema = JSON.stringify({
     <!-- Quick Mathematical Cheat Sheet Table -->
     <section class="formula-section">
       <div class="section-inner">
-        <h2 class="section-heading">Quick Mathematical Formulas Cheat Sheet</h2>
-        <p class="table-sub">Standard mathematical conversion rules between international shoe sizing systems.</p>
+        <h2 class="section-heading">Quick mathematical formulas cheat sheet</h2>
+        <p class="table-sub">Mathematical conversion rules between international shoe sizing systems.</p>
         <div class="table-container">
           <table class="formula-table">
             <thead>
@@ -282,7 +281,7 @@ const faqSchema = JSON.stringify({
                 <th>Men's Formula</th>
                 <th>Women's Formula</th>
                 <th>Primary Unit</th>
-                <th>Key Rule</th>
+                <th>Standard Rule</th>
               </tr>
             </thead>
             <tbody>
@@ -291,19 +290,19 @@ const faqSchema = JSON.stringify({
                 <td><code>UK = US − 0.5</code></td>
                 <td><code>UK = US − 2.0</code></td>
                 <td>1/3 in (Barleycorn)</td>
-                <td>Half-size shift between systems</td>
+                <td>Half size shift between systems</td>
               </tr>
               <tr>
                 <td class="primary-cell"><strong>US → EU</strong></td>
                 <td><code>EU ≈ US + 33</code></td>
                 <td><code>EU ≈ US + 31</code></td>
                 <td>2/3 cm (Paris Point)</td>
-                <td>EU is completely unisex</td>
+                <td>EU is unisex</td>
               </tr>
               <tr>
                 <td class="primary-cell"><strong>US → India</strong></td>
-                <td><code>India ≈ US − 1.0</code></td>
-                <td><code>India ≈ US − 2.0</code></td>
+                <td><code>India = US − 0.5</code></td>
+                <td><code>India = US − 2.0</code></td>
                 <td>1/3 in (Barleycorn)</td>
                 <td>Follows UK scale directly</td>
               </tr>
@@ -326,14 +325,14 @@ const faqSchema = JSON.stringify({
                 <td><code>EU ≈ UK + 33.5</code></td>
                 <td><code>EU ≈ UK + 33.0</code></td>
                 <td>2/3 cm (Paris Point)</td>
-                <td>UK 8 = EU 42 Men</td>
+                <td>UK 8.5 = EU 42 Men</td>
               </tr>
               <tr>
                 <td class="primary-cell"><strong>UK ↔ India</strong></td>
                 <td><code>India = UK (1:1)</code></td>
                 <td><code>India = UK (1:1)</code></td>
                 <td>1/3 in (Barleycorn)</td>
-                <td>Direct identical equivalence</td>
+                <td>Direct 1:1 length equivalence</td>
               </tr>
             </tbody>
           </table>
@@ -345,19 +344,19 @@ const faqSchema = JSON.stringify({
     <section class="guide-section">
       <div class="section-inner">
         <article class="guide-content">
-          <h2 class="section-heading">How to Use Direct Shoe Size Converters</h2>
+          <h2 class="section-heading">How to use direct shoe size converters</h2>
           <div class="prose-text">
             <p>
-              Navigating international footwear sizing can be challenging because global shoemakers use fundamentally different mathematical bases. While American and British systems measure length using the historic <strong>barleycorn</strong> (one-third of an inch), European manufacturers build lasts based on the <strong>Paris Point</strong> (two-thirds of a centimeter), and Asian countries utilize direct metric foot measurement in centimeters or millimeters.
+              Shoemakers worldwide use different mathematical bases. American and British systems measure length using the barleycorn (one-third of an inch), European manufacturers build lasts based on the Paris Point (two-thirds of a centimeter), and Asian countries use metric measurements in centimeters or millimeters.
             </p>
             <p>
-              When shopping online across borders—whether purchasing sneakers from American distributors, luxury boots from Italy, heritage brogues from Northamptonshire, or athletic shoes manufactured in East Asia—relying on a single direct pair-to-pair converter ensures you account for both length increments and gender-specific baseline offsets.
+              When shopping online across borders, whether purchasing sneakers from American distributors, boots from Italy, or footwear from India, relying on a direct converter accounts for length increments and gender offsets.
             </p>
-            <h3>Key Tips for Flawless International Conversions</h3>
+            <h3>Tips for international conversions</h3>
             <ul>
-              <li><strong>Prioritize Footbed Length in CM:</strong> If a brand's sizing label includes centimeters (often listed as CM or JPN), compare your bare foot length directly against this figure rather than relying on converted numerical sizes.</li>
-              <li><strong>Understand Unisex EU Sizing:</strong> In the European system, an EU 42 is identically sized whether made for a man or a woman. However, in the US system, a men's 9 is significantly larger than a women's 9.</li>
-              <li><strong>Allow for Toe Box Clearance:</strong> Add approximately 1.0 cm to 1.5 cm of toe room beyond your absolute anatomical foot length when choosing enclosed boots or running shoes.</li>
+              <li>Check footbed length in centimeters when a brand tag includes CM or JP sizing.</li>
+              <li>In the European system, an EU 42 is identically sized whether made for a man or a woman.</li>
+              <li>Allow approximately 1.0 cm to 1.5 cm of toe room beyond your measured foot length when choosing enclosed boots or running shoes.</li>
             </ul>
           </div>
         </article>
@@ -367,7 +366,7 @@ const faqSchema = JSON.stringify({
     <!-- FAQ Accordion -->
     <section class="faq-section">
       <div class="section-inner">
-        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <h2 class="section-heading">Frequently asked questions</h2>
         <div class="faq-list">
           {faqs.map(f => (
             <details class="faq-item">

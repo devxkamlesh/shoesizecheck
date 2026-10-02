@@ -4,83 +4,38 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/uk-to-us-shoe-size/`;
-const pageTitle = 'UK to US Shoe Size Converter — British to American Chart';
-const pageDescription = 'Convert UK shoe sizes to US sizes instantly. Comprehensive UK to US conversion chart for men, women, and kids with boots, sneakers, and sizing formulas.';
+const pageTitle = 'UK to US shoe size converter: British to American chart';
+const pageDescription = 'Convert UK shoe sizes to US sizes. Comprehensive UK to US conversion charts for men, women, and kids with boots, sneakers, and sizing formulas.';
 const ogImage = `${domain}/og-image.png`;
 
-// Men's table data (UK, US, EU, CM, Inches)
-const menSizes = [
-  { uk: 5.5, us: 6.0, eu: 38.5, cm: 24.0, inch: 9.4 },
-  { uk: 6.0, us: 6.5, eu: 39.0, cm: 24.5, inch: 9.6 },
-  { uk: 6.5, us: 7.0, eu: 40.0, cm: 25.0, inch: 9.8 },
-  { uk: 7.0, us: 7.5, eu: 40.5, cm: 25.5, inch: 10.0 },
-  { uk: 7.5, us: 8.0, eu: 41.0, cm: 26.0, inch: 10.2 },
-  { uk: 8.0, us: 8.5, eu: 41.5, cm: 26.5, inch: 10.4 },
-  { uk: 8.5, us: 9.0, eu: 42.0, cm: 27.0, inch: 10.6 },
-  { uk: 9.0, us: 9.5, eu: 42.5, cm: 27.5, inch: 10.8 },
-  { uk: 9.5, us: 10.0, eu: 43.0, cm: 28.0, inch: 11.0 },
-  { uk: 10.0, us: 10.5, eu: 44.0, cm: 28.5, inch: 11.2 },
-  { uk: 10.5, us: 11.0, eu: 44.5, cm: 29.0, inch: 11.4 },
-  { uk: 11.0, us: 11.5, eu: 45.0, cm: 29.5, inch: 11.6 },
-  { uk: 11.5, us: 12.0, eu: 46.0, cm: 30.0, inch: 11.8 },
-  { uk: 12.5, us: 13.0, eu: 47.0, cm: 31.0, inch: 12.2 },
-];
-
-// Women's table data (UK, US, EU, CM, Inches)
-const womenSizes = [
-  { uk: 3.0, us: 5.0, eu: 35.5, cm: 22.0, inch: 8.7 },
-  { uk: 3.5, us: 5.5, eu: 36.0, cm: 22.5, inch: 8.9 },
-  { uk: 4.0, us: 6.0, eu: 36.5, cm: 23.0, inch: 9.1 },
-  { uk: 4.5, us: 6.5, eu: 37.0, cm: 23.5, inch: 9.3 },
-  { uk: 5.0, us: 7.0, eu: 37.5, cm: 24.0, inch: 9.4 },
-  { uk: 5.5, us: 7.5, eu: 38.0, cm: 24.5, inch: 9.6 },
-  { uk: 6.0, us: 8.0, eu: 38.5, cm: 25.0, inch: 9.8 },
-  { uk: 6.5, us: 8.5, eu: 39.0, cm: 25.5, inch: 10.0 },
-  { uk: 7.0, us: 9.0, eu: 40.0, cm: 26.0, inch: 10.2 },
-  { uk: 7.5, us: 9.5, eu: 40.5, cm: 26.5, inch: 10.4 },
-  { uk: 8.0, us: 10.0, eu: 41.0, cm: 27.0, inch: 10.6 },
-  { uk: 8.5, us: 10.5, eu: 42.0, cm: 27.5, inch: 10.8 },
-  { uk: 9.0, us: 11.0, eu: 42.5, cm: 28.0, inch: 11.0 },
-];
-
-// Kids' table data (UK, US, EU, CM, Stage)
-const kidsSizes = [
-  { uk: '3.5C', us: '4C', eu: 19, cm: 11.5, stage: 'Toddler' },
-  { uk: '5.5C', us: '6C', eu: 22, cm: 13.0, stage: 'Toddler' },
-  { uk: '7.5C', us: '8C', eu: 24, cm: 14.5, stage: 'Toddler' },
-  { uk: '9.5C', us: '10C', eu: 27, cm: 16.5, stage: 'Little Kid' },
-  { uk: '11.5C', us: '12C', eu: 30, cm: 18.0, stage: 'Little Kid' },
-  { uk: '12.5C', us: '13C', eu: 31, cm: 19.0, stage: 'Little Kid' },
-  { uk: '13.5C', us: '1Y', eu: 32, cm: 20.0, stage: 'Big Kid' },
-  { uk: '1.5Y', us: '2Y', eu: 33, cm: 20.5, stage: 'Big Kid' },
-  { uk: '2.5Y', us: '3Y', eu: 34.5, cm: 21.5, stage: 'Big Kid' },
-  { uk: '3.5Y', us: '4Y', eu: 36, cm: 22.5, stage: 'Big Kid' },
-  { uk: '4.5Y', us: '5Y', eu: 37, cm: 23.5, stage: 'Big Kid' },
-];
+const menSizes = MEN_SIZE_ROWS;
+const womenSizes = WOMEN_SIZE_ROWS;
+const kidsSizes = KIDS_SIZE_ROWS;
 
 const faqs = [
   {
     q: 'What is the shoe size conversion from UK to US?',
-    a: 'To convert UK shoe size to US, add 0.5 to British men\'s sizes (US = UK + 0.5; for example, UK 9 Men = US 9.5). For British women\'s sizes, add 2 full sizes (US = UK + 2; for example, UK 6 Women = US 8). For children\'s footwear, US sizes are typically 0.5 to 1 size larger than UK.'
+    a: 'To convert UK shoe size to US, add 0.5 to British men\'s sizes (US = UK + 0.5; for example, UK 8.5 Men = US 9). For British women\'s sizes, add 2 full sizes (US = UK + 2; for example, UK 6 Women = US 8). For children\'s footwear, US sizes are typically 0.5 to 1 size larger than UK.'
   },
   {
     q: 'What is the US shoe size equivalent to a UK women\'s size?',
-    a: 'The American women\'s equivalent is exactly 2 sizes larger than the British UK size. A UK Women\'s size 5 corresponds to a US Women\'s 7 (approx. 24.0 cm), UK Women\'s 6 equals US Women\'s 8 (approx. 25.0 cm), and UK Women\'s 7 translates to US Women\'s 9 (approx. 26.0 cm).'
+    a: 'The American women\'s equivalent is 2 sizes larger than the British UK size. A UK Women\'s size 5 corresponds to a US Women\'s 7 (24.0 cm), UK Women\'s 6 equals US Women\'s 8 (25.0 cm), and UK Women\'s 7 translates to US Women\'s 9 (26.0 cm).'
   },
   {
     q: 'How does UK shoe sizing compare to US for men\'s dress shoes and boots?',
-    a: 'British formal footwear and boots (such as Dr. Martens, Clarks, Loake, Church\'s, and Tricker\'s) are built around UK sizing. In addition to adding 0.5 in length for US men\'s sizing, pay attention to width fittings: standard British \'F\' fitting is comparable to American \'D\' (medium), while British \'G\' is a wide fitting equivalent to American \'E/EE\'.'
+    a: 'British formal footwear and boots (such as Dr. Martens, Clarks, Loake, Church\'s, and Tricker\'s) use UK sizing. In addition to adding 0.5 in length for US men\'s sizing, consider width fittings: standard British F fitting corresponds to American D (medium), while British G is a wide fitting equivalent to American E or EE.'
   },
   {
     q: 'How do I convert UK kids\' shoe sizes to US sizing?',
-    a: 'In children\'s footwear, British sizes run approximately 0.5 size smaller than US sizes through toddler and little kid stages (e.g., UK 7.5C = US 8C). When transitioning into youth/big kid sizes, British 13.5C converts into US 1Y, and UK 1.5Y corresponds to US 2Y.'
+    a: 'In children\'s footwear, British sizes run 0.5 to 1 size smaller than US sizes through toddler and little kid stages (such as UK 7.5C = US 8C). When transitioning into youth sizes, British 13.5C converts into US 1Y, and UK 1Y corresponds to US 2Y.'
   },
   {
     q: 'How can I measure my foot at home to confirm my exact US and UK size?',
-    a: 'Stand barefoot on a blank sheet of paper with your heel against a flat wall. Trace the outline of both feet and measure the distance in centimeters from the wall to the tip of your longest toe. Add 0.5 cm of movement allowance, then reference our conversion table to find your precise UK and US sizes.'
+    a: 'Measure the distance in centimeters from the wall to the tip of your longest toe. Add 0.5 cm of movement allowance, then reference our conversion table to find your UK and US sizes.'
   }
 ];
 
@@ -112,7 +67,6 @@ const relatedLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="uk to us shoe size, convert uk shoe size to us, convert uk to us shoe size, uk to american shoe size, uk foot size to us, uk size to us, uk size to us size shoes, uk to us size conversion, uk to us size guide, uk shoe size to us women, uk to us sizes women's, uk women's shoe size to us, uk men shoe size to us, uk to us men's shoe size, uk sneaker size to us, uk boot size to us, uk footwear size to us, uk to us boot size, feet size uk to us, shoe size guide uk to us, uk and us foot size, uk and us size chart, uk us size chart, uk shoe size to us shoe size, uk 8 to us size, uk 8 to us, uk 8 size to us, uk 8 is us size, uk 8 in us size shoes, uk size 8 in us size, uk size 8 in us shoes, uk size 10 in us, uk size 10 in us size, uk size 10 in us shoes, uk size ten in us, uk 10 in us size shoes, uk size 6 in us, uk size 6 in us shoes, uk 6 in us size shoes, uk size 7 in us, uk 7 shoes to us, uk size 9 in us, uk 9 to us, uk 9 shoe size to us, uk 9.5 to us, uk size 4 in us, uk size 4 in us size, uk size 4 in us shoes, uk 4 in us size shoes, uk size 5 in us, uk 5 to us shoe size, uk size 3 in us, uk 12 to us size, 4 uk size in us" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={pageCanonical} />
@@ -376,86 +330,73 @@ const relatedLinks = [
     <!-- Editorial Guide -->
     <section class="editorial-band">
       <div class="page-inner prose-article">
-        <h2 class="editorial-main-title">The Complete UK to US Shoe Size Guide: Conversion Math, Lasts &amp; Brand Nuances</h2>
+        <h2 class="editorial-main-title">UK to US shoe size guide: conversion rules and brand fits</h2>
 
         <p class="lead-paragraph">
-          If you are shopping for iconic British footwear—from Dr. Martens boots and Clarks desert shoes to Goodyear-welted oxfords from Northampton makers like Tricker's and Loake—knowing how to <strong>convert uk shoe size to us</strong> is vital. Because both systems share the imperial barleycorn system, understanding the baseline difference allows you to find your perfect American size with confidence.
+          British and American footwear sizing share the imperial barleycorn system. Because both scales use the same incremental step of one-third of an inch, conversions follow fixed numerical offsets between British and American lasts.
         </p>
 
-        <h3>1. The Geometry of the British Barleycorn Scale</h3>
+        <h3>1. Geometry of the British barleycorn scale</h3>
         <p>
-          Shoe sizing in both the United Kingdom and North America traces back to King Edward II's decree in 1324 establishing the <strong>barleycorn</strong> (one-third of an inch, or 8.46 millimeters) as standard length unit. When applied to footwear lasts:
+          Shoe sizing in the United Kingdom and North America traces to the 1324 statute establishing the barleycorn (one-third of an inch, or 8.46 millimeters) as a unit of measurement. A full size step equals 1/3 inch (8.46 mm), while a half size step equals 1/6 inch (4.23 mm). For historical background and formulas, consult our guide on <a href="/shoe-size-in-inches/">shoe sizes in inches and barleycorn measurements</a>.
+        </p>
+
+        <h3>2. Men's conversion: adding 0.5 to your British size</h3>
+        <p>
+          For men's footwear, calculate your American size by adding 0.5 to your British size. Standard benchmarks include:
         </p>
         <ul>
-          <li>A full size step equals <strong>1/3 inch (8.46 mm)</strong>.</li>
-          <li>A half-size step equals <strong>1/6 inch (4.23 mm)</strong>.</li>
+          <li>UK 6 = US Men's 6.5 (24.5 cm)</li>
+          <li>UK 7 = US Men's 7.5 (25.5 cm)</li>
+          <li>UK 8 = US Men's 8.5 (26.5 cm)</li>
+          <li>UK 8.5 = US Men's 9.0 (27.0 cm)</li>
+          <li>UK 9 = US Men's 9.5 (27.5 cm)</li>
+          <li>UK 9.5 = US Men's 10.0 (28.0 cm)</li>
+          <li>UK 10 = US Men's 10.5 (28.5 cm)</li>
+          <li>UK 11 = US Men's 11.5 (29.5 cm)</li>
+          <li>UK 12 = US Men's 12.5 (30.5 cm)</li>
         </ul>
         <p>
-          Because both countries utilize this identical stepping increment, conversions do not fluctuate randomly. Instead, they shift by fixed numerical offsets created by where each national standard placed its size 1 starting mark.
+          Sneaker manufacturers such as Nike, New Balance, and Asics apply this half-size rule to their men's conversion tables.
         </p>
 
-        <h3>2. Men's Conversion: Adding 0.5 to Your British Size (`US = UK + 0.5`)</h3>
+        <h3>3. Women's conversion: adding 2 sizes</h3>
         <p>
-          For men, <strong>convert uk to us shoe size</strong> by adding 0.5 to your British size. Whether you are looking up a <strong>uk sneaker size to us</strong> or shopping for formal oxfords, this half-size rule remains consistent:
+          In women's footwear, the offset between the two scales is two full sizes:
         </p>
         <ul>
-          <li><strong>UK size 6 in us</strong> (or <strong>uk 6 in us size shoes</strong>) = US Men's 6.5 (approx. 24.5 cm)</li>
-          <li><strong>UK size 7 in us</strong> (or <strong>uk 7 shoes to us</strong>) = US Men's 7.5 (approx. 25.5 cm)</li>
-          <li><strong>UK 8 to us</strong> (including <strong>uk 8 size to us</strong>, <strong>uk 8 is us size</strong>, and <strong>uk size 8 in us shoes</strong>) = US Men's 8.5 (approx. 26.5 cm)</li>
-          <li><strong>UK 9 to us</strong> (including <strong>uk size 9 in us</strong> and <strong>uk 9 shoe size to us</strong>) = US Men's 9.5 (approx. 27.5 cm)</li>
-          <li><strong>UK 9.5 to us</strong> = US Men's 10.0 (approx. 28.0 cm)</li>
-          <li><strong>UK size 10 in us</strong> (including <strong>uk size 10 in us size</strong>, <strong>uk size ten in us</strong>, and <strong>uk 10 in us size shoes</strong>) = US Men's 10.5 (approx. 28.5 cm)</li>
-          <li><strong>UK 12 to us size</strong> = US Men's 12.5–13.0 (approx. 31.0 cm)</li>
-        </ul>
-        <p>
-          This half-size adjustment applies directly across major athletic sneaker brands (such as Nike, New Balance, and Asics) and British heritage footwear.
-        </p>
-
-        <h3>3. Women's Conversion: Adding 2 Full Sizes (`US = UK + 2`)</h3>
-        <p>
-          In women's footwear, the scaling gap widens. In the United Kingdom, women's shoe sizes share the same baseline numbering as men's sizes. In the United States, women's sizing starts ahead of the men's scale by approximately 1.5 to 2 sizes.
-        </p>
-        <p>
-          Therefore, for <strong>uk shoe size to us women</strong> or <strong>uk women's shoe size to us</strong>, add 2 full sizes:
-        </p>
-        <ul>
-          <li><strong>UK size 3 in us</strong> = US Women's 5.0 (approx. 22.0 cm)</li>
-          <li><strong>UK size 4 in us</strong> (or <strong>4 uk size in us</strong> and <strong>uk 4 in us size shoes</strong>) = US Women's 6.0 (approx. 23.0 cm)</li>
-          <li><strong>UK size 5 in us</strong> (or <strong>uk 5 to us shoe size</strong>) = US Women's 7.0 (approx. 24.0 cm)</li>
-          <li><strong>UK size 6 in us shoes</strong> = US Women's 8.0 (approx. 25.0 cm)</li>
-          <li><strong>UK size 7 in us</strong> = US Women's 9.0 (approx. 26.0 cm)</li>
-        </ul>
-        <p>
-          This two-size rule ensures accurate heel grip and arch support when importing British women's Chelsea boots, flats, and court shoes.
-        </p>
-
-        <h3>4. Boot and Heritage Sizing: Dr. Martens, Clarks, and Chelsea Boots</h3>
-        <p>
-          When shopping for <strong>uk boot size to us</strong> or <strong>uk to us boot size</strong>, keep in mind that classic British bootmakers often manufacture exclusively in full sizes without half sizes:
-        </p>
-        <ul>
-          <li><strong>Dr. Martens (AirWair):</strong> Authentic Docs are sized in UK whole numbers (e.g., UK 7, UK 8, UK 9). Because Docs leather is thick and requires a break-in period, US half-size wearers (such as a US Men's 9.5) should typically choose the UK 9 rather than sizing down to an 8, and use an aftermarket insole for a snug custom fit.</li>
-          <li><strong>Clarks Originals:</strong> Desert Boots and Wallabees use UK lasts that offer generous forefoot volume. If you wear an American US 10 Men, a UK 9.5 fits true to length.</li>
-          <li><strong>Goodyear-Welted Dress Shoes:</strong> British formal shoes (such as Church's or Loake) default to an 'F' width fitting (comparable to American 'D' medium). If you have wide feet ('EE' in the US), search for British 'G' or 'H' fittings.</li>
+          <li>UK 3 = US Women's 5.0 (22.0 cm)</li>
+          <li>UK 4 = US Women's 6.0 (23.0 cm)</li>
+          <li>UK 5 = US Women's 7.0 (24.0 cm)</li>
+          <li>UK 6 = US Women's 8.0 (25.0 cm)</li>
+          <li>UK 7 = US Women's 9.0 (26.0 cm)</li>
+          <li>UK 8 = US Women's 10.0 (27.0 cm)</li>
         </ul>
 
-        <h3>5. Verifying Sizing via Centimetres (CM) and Mondopoint</h3>
+        <h3>4. Boot and heritage sizing: Dr. Martens, Clarks, and Chelsea boots</h3>
         <p>
-          To avoid costly international returns when shopping cross-Atlantic, measuring your <strong>feet size uk to us</strong> in centimeters provides an objective, foolproof baseline. Both American and British shoeboxes typically print the Japanese (JP) or Mondopoint metric measurement, which directly reflects the anatomical length of your foot in centimeters or millimeters.
-        </p>
-        <p>
-          Unlike numerical sizes that shift based on national tradition, a 27.0 cm footbed is universally identical whether marked as a British UK 8.5 or an American US 9.0. Checking your metric footbed length guarantees that athletic runners, sneakers, and slip-on loafers provide the necessary 10–12 mm of wiggle room in front of your toes.
-        </p>
-
-        <h3>6. Practical Cross-Border Checklist for British Footwear Buyers</h3>
-        <p>
-          When placing orders for British shoes or boots from the United States or international retailers, follow this quick checklist:
+          Classic British bootmakers frequently manufacture in whole UK sizes without half sizes:
         </p>
         <ul>
-          <li><strong>Identify the Native Last System:</strong> Determine whether the brand is using its native British sizing scale or has already pre-converted the size label for US retail. For example, UK-headquartered retailers like ASOS, END., and Selfridges list primary sizes in UK numbers unless you toggle the US currency/region filter.</li>
-          <li><strong>Consider Sock Thickness for Boots:</strong> Heavy Goodyear-welted leather boots and commando-sole brogues are often paired with dense wool or hiking socks. If you are between sizes, round up to the next half-size to accommodate extra volume.</li>
-          <li><strong>Width Lettering Differences:</strong> Remember that standard medium in British shoes is labeled 'F', while standard medium in American footwear is 'D'. If you require wide footwear, select a British 'G' or 'H' fitting.</li>
-          <li><strong>Consult the Category-Specific Chart:</strong> Always reference our dedicated <strong>shoe size guide uk to us</strong> tables above for men, women, and children to ensure you never confuse women's 2-size offsets with men's half-size offsets.</li>
+          <li>Dr. Martens (AirWair): boots are sized in whole UK numbers. Buyers wearing US Men's 9.5 typically choose UK 9.</li>
+          <li>Clarks Originals: Desert Boots and Wallabees use UK lasts with generous forefoot volume. A US Men's 10 corresponds to a UK 9.5.</li>
+          <li>Goodyear-welted shoes: makers such as Loake and Church's use standard F width fitting, equivalent to American D. For wider feet, look for G or H fittings.</li>
+        </ul>
+
+        <h3>5. Centimeter and Mondopoint measurements</h3>
+        <p>
+          Footwear boxes print the Japanese (JP) or Mondopoint metric measurement in centimeters. A 27.0 cm footbed is identical whether marked as UK 8.5 or US 9.0. See our guide on <a href="/shoe-size-by-foot-length/">shoe sizing by foot length</a> to determine your exact foot measurements.
+        </p>
+
+        <h3>6. Checklist for British footwear buyers</h3>
+        <p>
+          When ordering British shoes or boots from international retailers, check these points:
+        </p>
+        <ul>
+          <li>Verify whether the retailer lists native UK sizes or pre-converted US numbers.</li>
+          <li>Account for sock thickness when selecting leather boots.</li>
+          <li>Note width letter conventions: British F denotes medium width, while American medium is D.</li>
+          <li>Consult the gender-specific conversion table to apply the correct size offset.</li>
         </ul>
       </div>
     </section>
@@ -463,7 +404,7 @@ const relatedLinks = [
     <!-- FAQ Section -->
     <section class="faq-band">
       <div class="page-inner">
-        <h2 class="section-title">Frequently Asked Questions</h2>
+        <h2 class="section-title">Frequently asked questions</h2>
         <p class="section-sub">Clear, expert answers to the most common questions about converting UK shoe sizes to US sizes.</p>
 
         <div class="faq-accordion-list">

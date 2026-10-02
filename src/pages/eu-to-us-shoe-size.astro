@@ -4,89 +4,38 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/eu-to-us-shoe-size/`;
-const pageTitle = 'EU to US Shoe Size Converter — European to US Chart';
-const pageDescription = 'Convert European (EU) shoe sizes to US sizes instantly. Full EU to US conversion charts for men, women, and kids with boot sizing and fit guidelines.';
+const pageTitle = 'EU to US shoe size converter: European to US chart';
+const pageDescription = 'Convert European (EU) shoe sizes to US sizes. Full EU to US conversion charts for men, women, and kids with boot sizing and fit guidelines.';
 const ogImage = `${domain}/og-image.png`;
 
-// Men's table data (EU, US, UK, CM, Inches)
-const menSizes = [
-  { eu: 39, us: 6.0, uk: 5.5, cm: 24.0, inch: 9.4 },
-  { eu: 39.5, us: 6.5, uk: 6.0, cm: 24.5, inch: 9.6 },
-  { eu: 40, us: 7.0, uk: 6.5, cm: 25.0, inch: 9.8 },
-  { eu: 40.5, us: 7.5, uk: 7.0, cm: 25.5, inch: 10.0 },
-  { eu: 41, us: 8.0, uk: 7.5, cm: 26.0, inch: 10.2 },
-  { eu: 41.5, us: 8.5, uk: 8.0, cm: 26.5, inch: 10.4 },
-  { eu: 42, us: 9.0, uk: 8.5, cm: 27.0, inch: 10.6 },
-  { eu: 42.5, us: 9.5, uk: 9.0, cm: 27.5, inch: 10.8 },
-  { eu: 43, us: 10.0, uk: 9.5, cm: 28.0, inch: 11.0 },
-  { eu: 44, us: 10.5, uk: 10.0, cm: 28.5, inch: 11.2 },
-  { eu: 44.5, us: 11.0, uk: 10.5, cm: 29.0, inch: 11.4 },
-  { eu: 45, us: 11.5, uk: 11.0, cm: 29.5, inch: 11.6 },
-  { eu: 46, us: 12.0, uk: 11.5, cm: 30.0, inch: 11.8 },
-  { eu: 47, us: 13.0, uk: 12.5, cm: 31.0, inch: 12.2 },
-  { eu: 48, us: 14.0, uk: 13.5, cm: 32.0, inch: 12.6 },
-];
-
-// Women's table data (EU, US, UK, CM, Inches)
-const womenSizes = [
-  { eu: 35.5, us: 5.0, uk: 3.0, cm: 22.0, inch: 8.7 },
-  { eu: 36.0, us: 5.5, uk: 3.5, cm: 22.5, inch: 8.9 },
-  { eu: 36.5, us: 6.0, uk: 4.0, cm: 23.0, inch: 9.1 },
-  { eu: 37.0, us: 6.5, uk: 4.5, cm: 23.5, inch: 9.3 },
-  { eu: 37.5, us: 7.0, uk: 5.0, cm: 24.0, inch: 9.4 },
-  { eu: 38.0, us: 7.5, uk: 5.5, cm: 24.5, inch: 9.6 },
-  { eu: 38.5, us: 8.0, uk: 6.0, cm: 25.0, inch: 9.8 },
-  { eu: 39.0, us: 8.5, uk: 6.5, cm: 25.5, inch: 10.0 },
-  { eu: 39.5, us: 9.0, uk: 7.0, cm: 26.0, inch: 10.2 },
-  { eu: 40.0, us: 9.5, uk: 7.5, cm: 26.5, inch: 10.4 },
-  { eu: 40.5, us: 10.0, uk: 8.0, cm: 27.0, inch: 10.6 },
-  { eu: 41.0, us: 10.5, uk: 8.5, cm: 27.5, inch: 10.8 },
-  { eu: 42.0, us: 11.0, uk: 9.0, cm: 28.0, inch: 11.0 },
-  { eu: 43.0, us: 12.0, uk: 10.0, cm: 29.0, inch: 11.4 },
-];
-
-// Kids' table data (EU, US, CM)
-const kidsSizes = [
-  { eu: 19, us: '4C', cm: 11.5, stage: 'Toddler' },
-  { eu: 20, us: '5C', cm: 12.0, stage: 'Toddler' },
-  { eu: 22, us: '6C', cm: 13.0, stage: 'Toddler' },
-  { eu: 23, us: '7C', cm: 14.0, stage: 'Toddler' },
-  { eu: 24, us: '8C', cm: 15.0, stage: 'Toddler' },
-  { eu: 25, us: '9C', cm: 15.5, stage: 'Little Kid' },
-  { eu: 27, us: '10C', cm: 16.5, stage: 'Little Kid' },
-  { eu: 28, us: '11C', cm: 17.0, stage: 'Little Kid' },
-  { eu: 30, us: '12C', cm: 18.0, stage: 'Little Kid' },
-  { eu: 31, us: '13C', cm: 19.0, stage: 'Little Kid' },
-  { eu: 32, us: '1Y', cm: 20.0, stage: 'Big Kid' },
-  { eu: 33, us: '2Y', cm: 20.5, stage: 'Big Kid' },
-  { eu: 34, us: '3Y', cm: 21.5, stage: 'Big Kid' },
-  { eu: 36, us: '4Y', cm: 22.5, stage: 'Big Kid' },
-  { eu: 37, us: '5Y', cm: 23.5, stage: 'Big Kid' },
-];
+const menSizes = MEN_SIZE_ROWS;
+const womenSizes = WOMEN_SIZE_ROWS;
+const kidsSizes = KIDS_SIZE_ROWS;
 
 const faqs = [
   {
     q: 'How do I convert my shoe size from EU to US?',
-    a: 'To convert an EU shoe size to US, determine whether you need men\'s or women\'s sizing because the European system is unisex while the US splits by gender. For men, subtract approximately 33 from your European size (e.g., EU 42 − 33 ≈ US Men\'s 9). For women, subtract approximately 30.5 to 31 (e.g., EU 38.5 − 30.5 ≈ US Women\'s 8). Always check your foot length in centimeters to guarantee precision.'
+    a: 'To convert an EU shoe size to US, determine whether you need men\'s or women\'s sizing because the European system is unisex while the US splits by gender. For men, subtract 33 from your European size (for example, EU 42 − 33 = US Men\'s 9). For women, subtract 30.5 (for example, EU 38.5 − 30.5 = US Women\'s 8).'
   },
   {
     q: 'What is EU 42 in US shoe size?',
-    a: 'An EU 42 corresponds approximately to a US Men\'s 9 or a US Women\'s 10.5 to 11. It represents an anatomical footbed length of 27.0 centimeters (10.6 inches). In UK sizing, an EU 42 equals a British UK 8.5.'
+    a: 'An EU 42 corresponds to US Men\'s 9.0 (27.0 cm foot length). On athletic brand charts like Nike, EU 42 corresponds to US Men\'s 8.5 (26.5 cm).'
   },
   {
     q: 'What is EU 38 and EU 39 in US women\'s sizing?',
-    a: 'In women\'s footwear, an EU 38 translates to a US Women\'s 7.5 to 8 (approximately 24.5 to 25.0 cm foot length). An EU 39 corresponds to a US Women\'s 8.5 (approximately 25.5 cm foot length). If you are between sizes, European leather shoes will stretch slightly, while boots should be sized up.'
+    a: 'In women\'s footwear, an EU 38 translates to US Women\'s 7.5 (24.5 cm foot length). An EU 39 corresponds to US Women\'s 8.5 (25.5 cm foot length).'
   },
   {
     q: 'How do EU boot sizes convert to US sizes?',
-    a: 'When translating EU boot size to US (such as hiking boots, winter insulated footwear, or chelsea boots), standard conversion rules apply, but shoemakers strongly recommend sizing up by a half or full European size. This accounts for thicker winter socks and prevents toe bruising on downhill inclines.'
+    a: 'When translating EU boot size to US for hiking boots or winter boots, outdoor boot buyers often choose a half size larger to accommodate thicker socks.'
   },
   {
     q: 'Is European shoe sizing unisex?',
-    a: 'Yes, European (EU) shoe sizes are unisex. Unlike the American system where a men\'s size 9 is significantly larger than a women\'s size 9, an EU 42 represents the identical 27.0 cm footbed length whether designed for a man or a woman.'
+    a: 'European shoe sizing is unisex. An EU 41 fits a 26.5 cm footbed whether labeled for men or women.'
   }
 ];
 
@@ -119,7 +68,6 @@ const relatedLinks = [
   ogImage={ogImage}
 >
   <Fragment slot="head">
-    <meta name="keywords" content="us to eu shoe size, us to euro shoe size, european shoe size to american, us to european shoe size, american shoe size to european, american shoe size to eu, european foot size to us, eu foot size to us, us foot size to eu, european us shoe size chart, eu to american shoe size, us and eu shoe sizes, us and european shoe sizes, american and european shoe sizes, eu and us shoe size chart, eu boot size to us, eu to us foot size, feet size us to eu, shoes size chart us to eu" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={pageCanonical} />
@@ -140,10 +88,10 @@ const relatedLinks = [
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="page-inner">
-        <p class="mono-eyebrow">Continental Paris Point to American Barleycorn Conversion</p>
-        <h1 class="display-xl">EU to US Shoe Size Converter</h1>
+        <p class="mono-eyebrow">Continental Paris Point conversion</p>
+        <h1 class="display-xl">EU to US shoe size converter</h1>
         <p class="hero-sub body-lg">
-          Convert European shoe sizes to American standards instantly across men’s, women’s, and kids’ footwear. Explore calibrated conversion charts, metric centimeter comparisons, and cross-border fit guidance.
+          Convert European (EU) shoe sizes to American (US) sizes. Review conversion charts for men, women, and kids with metric foot lengths and brand notes.
         </p>
 
         <!-- Quick stat pills -->
@@ -293,7 +241,7 @@ const relatedLinks = [
 
         <!-- Men's Table -->
         <div class="table-panel active" id="tab-men" role="tabpanel">
-          <h3 class="table-heading">Men's European US Shoe Size Chart</h3>
+          <h3 class="table-heading">Men's European to US shoe size chart</h3>
           <div class="table-wrapper">
             <table class="size-table" aria-label="Men EU to US shoe size conversion chart">
               <thead>
@@ -322,7 +270,7 @@ const relatedLinks = [
 
         <!-- Women's Table -->
         <div class="table-panel" id="tab-women" role="tabpanel" style="display: none;">
-          <h3 class="table-heading">Women's European US Shoe Size Chart</h3>
+          <h3 class="table-heading">Women's European to US shoe size chart</h3>
           <div class="table-wrapper">
             <table class="size-table" aria-label="Women EU to US shoe size conversion chart">
               <thead>
@@ -351,7 +299,7 @@ const relatedLinks = [
 
         <!-- Kids' Table -->
         <div class="table-panel" id="tab-kids" role="tabpanel" style="display: none;">
-          <h3 class="table-heading">Kids' European US Shoe Size Chart</h3>
+          <h3 class="table-heading">Kids' European to US shoe size chart</h3>
           <div class="table-wrapper">
             <table class="size-table" aria-label="Kids EU to US shoe size conversion chart">
               <thead>
@@ -379,74 +327,60 @@ const relatedLinks = [
       </div>
     </section>
 
-    <!-- In-Depth SEO Guide (800 - 1200 words) -->
+    <!-- In-Depth SEO Guide -->
     <section class="editorial-band">
       <div class="page-inner prose-article">
 
-        <h2 class="editorial-main-title">Comprehensive EU to US Shoe Size Conversion Guide: Sizing, Lasts &amp; Fit Dynamics</h2>
+        <h2 class="editorial-main-title">Comprehensive EU to US shoe size conversion guide: sizing, lasts, and fit dynamics</h2>
 
         <p class="lead-paragraph">
-          Translating a <strong>european shoe size to american</strong> footwear is one of the most critical steps when buying imported shoes, luxury leather goods, or international athletic apparel online. Because European shoemakers use different mathematical base units than American factories, finding your ideal fit requires more than casual estimation. Whether you are seeking a reliable <strong>shoes size chart us to eu</strong> or calculating an exact <strong>eu to american shoe size</strong>, understanding the mechanics of shoe lasts, gender baselines, and anatomical foot length ensures you never receive an ill-fitting pair.
+          Translating European shoe sizes to American footwear is necessary when buying imported shoes or international athletic apparel online. Because European shoemakers use different base units than American factories, finding your ideal fit requires understanding the relationship between Paris Points and barleycorns.
         </p>
 
-        <h3>1. The Core Measurement Distinction: Paris Points vs. Imperial Barleycorns</h3>
+        <h3>1. Paris Points and imperial barleycorns</h3>
         <p>
-          The fundamental difference between <strong>us and eu shoe sizes</strong> stems from their historical units of measurement. In continental Europe, footwear lasts are engineered around the <strong>Paris Point</strong> (<em>point de Paris</em>), an 18th-century metric standard equal to exactly two-thirds of a centimeter (approximately 6.67 mm). Every full step in European sizing represents an increase of 6.67 millimeters along the footbed length.
+          The difference between European and American sizing stems from their historical units. In continental Europe, footwear lasts are engineered around the Paris Point, equal to two-thirds of a centimeter (6.67 mm). Every full step in European sizing represents an increase of 6.67 millimeters along the footbed length.
         </p>
         <p>
-          In contrast, American footwear manufacturers utilize the traditional British <strong>barleycorn</strong> system, where one full size equals exactly one-third of an inch (8.46 millimeters), and a half size represents one-sixth of an inch (4.23 millimeters). Because 6.67 mm (EU) does not divide evenly into 8.46 mm (US), an exact 1:1 whole-number alignment between <strong>american and european shoe sizes</strong> is mathematically impossible. A calibrated <strong>eu and us shoe size chart</strong> bridges these fractional variances, ensuring that consumers choose the closest functional equivalent.
-        </p>
-
-        <h3>2. Gender Scaling: The Unisex European Reality</h3>
-        <p>
-          A frequent source of frustration when converting <strong>european foot size to us</strong> is the concept of gender-neutral sizing. Continental European footwear sizing is completely unisex. An EU 41 built by an Italian or German factory possesses the identical 26.5 cm footbed length whether it is labelled for a man or a woman.
-        </p>
-        <p>
-          American shoemaking, however, maintains distinct numerical scales by gender. A US Men’s 8 is engineered for a 26.0 cm foot, while a US Women’s 8 fits a foot measuring roughly 24.5 to 25.0 cm—a full 1.5 sizes smaller. Consequently, when converting an <strong>eu foot size to us</strong>, your gender determines the outcome. For example, an EU size 40 translates to an American US Men’s 7, but corresponds to an American US Women’s 9.5. When shopping online, always specify gender to ensure your <strong>us to european shoe size</strong> conversion is accurate.
+          In contrast, American footwear manufacturers use the barleycorn system, where one full size equals one-third of an inch (8.46 millimeters), and a half size represents one-sixth of an inch (4.23 millimeters). Full details on imperial footwear units appear in our <a href="/shoe-size-in-inches/">shoe size in inches guide</a>. Because 6.67 mm does not divide evenly into 8.46 mm, whole numbers do not align directly across systems.
         </p>
 
-        <h3>3. Reverse Mathematical Formulas: From EU to US</h3>
+        <h3>2. Gender scaling: unisex European sizing</h3>
         <p>
-          When you need to perform quick mental math to convert an <strong>eu to us foot size</strong>, keep these two practical formulas in mind:
+          Continental European footwear sizing is unisex. An EU 41 built by a European factory possesses the identical 26.5 cm footbed length whether it is labelled for a man or a woman.
+        </p>
+        <p>
+          American shoemaking, however, maintains distinct numerical scales by gender. A US Men's 8.5 is engineered for a 26.5 cm foot, while a US Women's 8.5 fits a foot measuring roughly 25.5 cm. Consequently, when converting an EU size to US, gender determines the result: an EU size 40 translates to US Men's 7.0 (25.0 cm), but corresponds to US Women's 9.0 (26.0 cm).
+        </p>
+
+        <h3>3. Mental math formulas from EU to US</h3>
+        <p>
+          When you need quick mental math to convert an EU size to US, keep these formulas in mind:
         </p>
         <ul>
-          <li><strong>Men’s Conversion Rule:</strong> Subtract 33 from the European size to approximate American men’s sizing. For example, EU 42 − 33 = US Men’s 9. Similarly, EU 44 − 33 = US Men’s 11.</li>
-          <li><strong>Women’s Conversion Rule:</strong> Subtract 30.5 to 31 from the European size to approximate American women’s sizing. For example, EU 39 − 30.5 ≈ US Women’s 8.5. Likewise, EU 38 − 30.5 ≈ US Women’s 7.5.</li>
-          <li><strong>Reverse Calculation:</strong> If calculating your <strong>us foot size to eu</strong> or <strong>us to euro shoe size</strong>, simply reverse the formula: add 33 for men (US 9 + 33 = EU 42) and add 30.5 for women (US 8 + 30.5 = EU 38.5).</li>
+          <li>For men, subtract 33 from the European size to approximate American men's sizing (for example, EU 42 − 33 = US Men's 9).</li>
+          <li>For women, subtract 30.5 from the European size to approximate American women's sizing (for example, EU 38.5 − 30.5 = US Women's 8).</li>
+          <li>To reverse the calculation from US to EU, add 33 for men (US 9 + 33 = EU 42) and add 30.5 for women (US 8 + 30.5 = EU 38.5).</li>
         </ul>
 
-        <h3>4. Converting EU Boot Size to US Footwear</h3>
+        <h3>4. Converting EU boot sizes to US footwear</h3>
         <p>
-          A specialized challenge arises when determining an <strong>eu boot size to us</strong> for winter boots, alpine hiking footwear, or work boots. European boot brands (such as Meindl, Lowa, Salomon, and Blundstone) construct uppers with heavy structural reinforcement, waterproof GORE-TEX membranes, and dense internal foam linings.
-        </p>
-        <p>
-          Because winter and hiking socks are substantially thicker than dress or athletic socks, industry podiatrists recommend sizing up by half or one full European size when converting boots. For example, if your standard running sneaker size is an EU 42 (US Men’s 9), selecting an EU 42.5 or EU 43 in heavy outdoor boots prevents toe collision on steep descents and preserves warm air circulation around the toes.
+          European boot brands like Meindl, Lowa, and Salomon construct uppers with heavy structural reinforcement, waterproof membranes, and dense linings. Because winter and hiking socks are thicker than dress socks, outdoor boot buyers often choose a half size larger to maintain toe clearance on descents.
         </p>
 
-        <h3>5. Brand Comparison: American vs. European Manufacturers</h3>
+        <h3>5. Brand comparison: American and European manufacturers</h3>
         <p>
-          Understanding how individual brands manage <strong>american shoe size to european</strong> and <strong>american shoe size to eu</strong> conversions helps prevent sizing surprises:
+          Individual brand conventions can vary from the standard ISO chart:
         </p>
         <ul>
-          <li><strong>Nike, Jordan &amp; New Balance:</strong> These American athletic brands manufacture in half sizes based on the US scale. In their footwear, an EU 42 corresponds to a US Men’s 8.5, while an EU 42.5 equals a US Men’s 9.</li>
-          <li><strong>Adidas &amp; Puma:</strong> German heritage brands build directly on Paris Points. To bridge the gap to US sizes, Adidas utilizes fractional third-sizes (such as EU 42 2/3 for US Men’s 9 and EU 43 1/3 for US Men’s 9.5).</li>
-          <li><strong>Dr. Martens &amp; Birkenstock:</strong> These European staples are produced exclusively in full European integer sizes without half increments. Birkenstock recommends allowing 10 mm of clearance in front of the toes and 5 mm behind the heel within their contoured cork footbed.</li>
-          <li><strong>Luxury Italian Footwear (Gucci, Ferragamo, Santoni):</strong> Italian dress shoes are lasted significantly longer than American sneakers. A man wearing a US 10 in sneakers will often fit best in an Italian EU 42 (equivalent to US 9).</li>
+          <li>Nike size labeling differs from the standard ISO chart. On standard conversion charts, EU 42 corresponds to US Men's 9.0 (27.0 cm). Nike size labels list EUR 42 as US Men's 8.5 (26.5 cm) and EUR 42.5 as US Men's 9.0 (27.0 cm).</li>
+          <li>Adidas builds on Paris Points and uses fractional third-sizes (such as EU 42 2/3 for US Men's 9 and EU 43 1/3 for US Men's 9.5).</li>
+          <li>Dr. Martens and Birkenstock produce footwear in full European integer sizes without half increments.</li>
         </ul>
 
-        <h3>6. Measuring Feet Size US to EU for Absolute Accuracy</h3>
+        <h3>6. Measuring foot length in centimeters</h3>
         <p>
-          The most foolproof way to determine your true <strong>feet size us to eu</strong> and avoid regional conversion errors is measuring your barefoot length in centimeters:
-        </p>
-        <ol>
-          <li>Place a blank piece of paper on a firm, level floor against a wall.</li>
-          <li>Step onto the sheet with your heel resting gently against the wall, bearing full body weight.</li>
-          <li>Mark the exact tip of your longest toe with a fine pen or pencil held upright.</li>
-          <li>Measure the distance from the wall edge to the mark in centimeters (CM).</li>
-          <li>Consult our <strong>european us shoe size chart</strong> above. A measurement of 27.0 cm aligns with EU 42 or US Men’s 9, while 24.5 cm aligns with EU 38 or US Women’s 7.5.</li>
-        </ol>
-        <p>
-          Measuring in centimeters completely bypasses discrepancies between imperial barleycorns and Paris Points, giving you complete confidence when ordering international footwear online.
+          To find your shoe size without conversion discrepancies, measure your barefoot length in centimeters following our <a href="/shoe-size-by-foot-length/">shoe size by foot length guide</a>. A measurement of 27.0 cm aligns with EU 42 and US Men's 9.0.
         </p>
 
       </div>
@@ -455,8 +389,8 @@ const relatedLinks = [
     <!-- FAQ Accordion Section -->
     <section class="faq-band">
       <div class="page-inner">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-sub">Quick and authoritative answers to common European to American shoe size questions.</p>
+        <h2 class="section-title">Frequently asked questions</h2>
+        <p class="section-sub">Direct answers to common European to American shoe size questions.</p>
 
         <div class="faq-accordion-list">
           {faqs.map((f, i) => (
