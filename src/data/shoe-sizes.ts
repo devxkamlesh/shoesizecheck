@@ -39,7 +39,7 @@ export interface SizeRow {
 // Single source of truth for all size charts
 // Rule: India shoe size equals UK shoe size (1:1 length equivalence)
 // Standard ISO/TS 19407 offset: US Men = UK + 0.5; US Women = UK + 2
-// EU shoe sizing is unisex: EU 41 = 26.5 cm, EU 42 = 27.0 cm, EU 44 = 28.0 cm
+// EU shoe sizing is unisex: EU 41 = 26.0 cm, EU 41.5 = 26.5 cm, EU 42 = 27.0 cm, EU 44 = 28.0 cm
 export const MEN_SIZE_ROWS: SizeRow[] = [
   { us: 6.0,  uk: 5.5,  india: 5.5,  eu: 38.5, cm: 24.0, inch: 9.4,  jp: 24.0, china: 38.5, korea: 240, australia: 5.5,  mexico: 5.0 },
   { us: 6.5,  uk: 6.0,  india: 6.0,  eu: 39.0, cm: 24.5, inch: 9.6,  jp: 24.5, china: 39.0, korea: 245, australia: 6.0,  mexico: 5.5 },
@@ -240,7 +240,7 @@ export const COUNTRIES: CountryData[] = [
     intro: 'Continental European shoe sizing is based on the Paris Point, where one size step equals 2/3 of a centimeter (6.67 mm). EU sizes are unisex: EU 42 indicates the same interior length whether labeled for men or women.',
     explanation: 'The Paris Point was established in France in the early 19th century. Foot length in centimeters relates to EU sizing by adding 1.5 cm for toe clearance and multiplying by 1.5. For example, a 27.0 cm foot fits EU 42 (27.0 + 1.5 = 28.5 cm last length; 28.5 × 1.5 = 42.75). German, Italian, French, and Spanish manufacturers use this scale.',
     tips: [
-      'EU sizes are unisex: EU 41 represents 26.5 cm foot length for both men and women',
+      'EU sizes are unisex: EU 41 represents 26.0 cm and EU 41.5 represents 26.5 cm foot length for both men and women',
       'EU 42 corresponds to US Men\'s 9 and UK 8.5 (27.0 cm foot length)',
       'Continental European dress shoes are often built on longer lasts than athletic sneakers',
       'Check manufacturer specifications when choosing between whole EU numbers',
@@ -248,7 +248,7 @@ export const COUNTRIES: CountryData[] = [
     faqs: [
       { q: 'What foot length does EU 42 accommodate?', a: 'EU 42 accommodates a foot length of 27.0 cm. It corresponds to US Men\'s 9, UK 8.5, and India 8.5.' },
       { q: 'Are EU sizes unisex?', a: 'Yes. The numerical scale is identical across genders. Men\'s and women\'s models differ only in last width.' },
-      { q: 'How do I calculate my EU shoe size from centimeters?', a: 'A foot measuring 26.5 cm corresponds to EU 41. A foot measuring 27.0 cm corresponds to EU 42.' },
+      { q: 'How do I calculate my EU shoe size from centimeters?', a: 'A foot measuring 26.0 cm corresponds to EU 41, while 26.5 cm corresponds to EU 41.5. A foot measuring 27.0 cm corresponds to EU 42.' },
     ],
     relatedConversions: ['eu-to-us-shoe-size', 'eu-to-uk-shoe-size', 'eu-to-india-shoe-size', 'eu-to-cm-shoe-size'],
     relatedCountries: ['us', 'uk', 'india', 'japan', 'mexico'],
@@ -404,7 +404,7 @@ export const CONVERSIONS: ConversionData[] = [
     menExamples: ['US 7 -> EU 40', 'US 8 -> EU 41', 'US 9 -> EU 42', 'US 10 -> EU 44', 'US 11 -> EU 45', 'US 12 -> EU 46'],
     womenExamples: ['US 6 -> EU 36.5', 'US 7 -> EU 37.5', 'US 8 -> EU 38.5', 'US 9 -> EU 40', 'US 10 -> EU 41'],
     tips: [
-      'EU sizes are unisex: EU 41 indicates a 26.5 cm foot length for both men and women',
+      'EU sizes are unisex: EU 41 indicates a 26.0 cm foot length and EU 41.5 indicates 26.5 cm for both men and women',
       'Check manufacturer specifications when sizing European athletic sneakers',
       'Most continental European dress shoe makers produce only whole integer sizes',
     ],
@@ -523,18 +523,18 @@ export const CONVERSIONS: ConversionData[] = [
     title: 'EU to US Shoe Size Conversion: Chart and Calculator',
     description: 'Convert European EU shoe sizes to US sizes for men, women and kids. Includes unisex EU foot length guidelines.',
     h1: 'EU to US shoe size converter',
-    intro: 'European shoe sizing is unisex. EU 41 indicates a 26.5 cm foot length and EU 42 indicates a 27.0 cm foot length for both men and women. American sizing maintains separate baseline scales for men and women.',
+    intro: 'European shoe sizing is unisex. EU 41 indicates a 26.0 cm foot length, EU 41.5 indicates 26.5 cm, and EU 42 indicates a 27.0 cm foot length for both men and women. American sizing maintains separate baseline scales for men and women.',
     formula: 'Men: US ≈ EU - 33 (EU 42 -> US 9). Women: US ≈ EU - 30.5 (EU 38.5 -> US 8).',
     menExamples: ['EU 40 -> US 7', 'EU 41 -> US 8', 'EU 41.5 -> US 8.5', 'EU 42 -> US 9', 'EU 44 -> US 10'],
     womenExamples: ['EU 36.5 -> US 6', 'EU 37.5 -> US 7', 'EU 38.5 -> US 8', 'EU 40 -> US 9', 'EU 41 -> US 10'],
     tips: [
-      'EU 41 corresponds to 26.5 cm foot length for both men and women',
+      'EU 41 corresponds to 26.0 cm and EU 41.5 corresponds to 26.5 cm foot length for both men and women',
       'EU 42 corresponds to 27.0 cm foot length (US Men 9)',
       'In athletic brands like Nike, EU 42 is labeled US Men 8.5 and EU 42.5 is labeled US Men 9',
     ],
     faqs: [
       { q: 'What is EU 42 in US Men\'s size?', a: 'In standard sizing, EU 42 corresponds to a 27.0 cm foot length, matching US Men\'s 9. Nike labels EU 42 as US Men\'s 8.5 and EU 42.5 as US Men\'s 9.' },
-      { q: 'What is EU 41 in foot length?', a: 'EU 41 corresponds to a foot length of 26.5 cm in both men\'s and women\'s sizing.' },
+      { q: 'What is EU 41 in foot length?', a: 'EU 41 corresponds to an anatomical foot length of 26.0 cm in both men\'s and women\'s sizing, while EU 41.5 corresponds to 26.5 cm.' },
     ],
     relatedConversions: ['us-to-eu-shoe-size', 'eu-to-uk-shoe-size', 'eu-to-india-shoe-size'],
   },
@@ -665,12 +665,12 @@ export const CONVERSIONS: ConversionData[] = [
     menExamples: ['EU 40 -> 25.0 cm', 'EU 41 -> 26.0 cm', 'EU 41.5 -> 26.5 cm', 'EU 42 -> 27.0 cm', 'EU 44 -> 28.0 cm'],
     womenExamples: ['EU 36.5 -> 23.0 cm', 'EU 37.5 -> 24.0 cm', 'EU 38.5 -> 25.0 cm', 'EU 40 -> 26.0 cm', 'EU 41 -> 26.5 cm'],
     tips: [
-      'EU 41 corresponds to 26.5 cm foot length for both men and women',
+      'EU 41 corresponds to 26.0 cm and EU 41.5 corresponds to 26.5 cm foot length for both men and women',
       'EU 42 corresponds to 27.0 cm foot length',
     ],
     faqs: [
       { q: 'What is EU 42 in centimeters?', a: 'EU 42 corresponds to 27.0 cm foot length.' },
-      { q: 'What is EU 41 in centimeters?', a: 'EU 41 corresponds to 26.5 cm foot length.' },
+      { q: 'What is EU 41 in centimeters?', a: 'EU 41 corresponds to 26.0 cm foot length, while EU 41.5 corresponds to 26.5 cm.' },
     ],
     relatedConversions: ['us-to-cm-shoe-size', 'eu-to-us-shoe-size'],
   },
