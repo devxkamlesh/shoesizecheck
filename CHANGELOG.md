@@ -2,6 +2,12 @@
 
 All notable changes to the AllShoeSizeConverter project are documented in this file.
 
+## Version 2.1.0 (October 31, 2026)
+
+### Publisher compliance and sizing reconciliation
+
+On October 31, 2026, we updated the Google AdSense publisher tag to ca-pub-8217670687261602 in `src/layouts/Layout.astro` and synchronized the `public/ads.txt` authorization file. We updated the editorial maintainer link to devxkamlesh.online across all site templates. We reconciled European size conversion references across quick-reference snapshot cards, FAQ records, and formula guides so that US Men size 10 uniformly maps to EU 44, US Men 10.5 maps to EU 44.5, and US Women size 9 maps to EU 40.
+
 ## Version 2.0.0 (October 2026)
 
 ### Sizing data and mathematical models
