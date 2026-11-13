@@ -20,5 +20,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# private webmaster exports
+user data google and bing/
+
 # jetbrains setting folder
 .idea/

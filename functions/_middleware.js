@@ -4,7 +4,9 @@ export async function onRequest(context) {
   const url = new URL(request.url);
 
   // Keep one permanent hostname so Google does not split URL signals.
-  if (url.hostname.toLowerCase() === 'www.allshoesizeconverter.com') {
+  const hostname = url.hostname.toLowerCase();
+  if (hostname === 'www.allshoesizeconverter.com' || hostname === 'allshoesizeconverter.pages.dev') {
+    url.protocol = 'https:';
     url.hostname = 'allshoesizeconverter.com';
     return Response.redirect(url.toString(), 301);
   }
@@ -21,6 +23,7 @@ export async function onRequest(context) {
           status: 200,
           headers: {
             'content-type': 'text/markdown; charset=utf-8',
+            'x-robots-tag': 'noindex, follow',
             'x-markdown-tokens': String(tokenCount),
             'vary': 'Accept',
             'cache-control': 'public, max-age=0, must-revalidate'
@@ -41,6 +44,7 @@ export async function onRequest(context) {
         status: 200,
         headers: {
           'content-type': 'text/markdown; charset=utf-8',
+          'x-robots-tag': 'noindex, follow',
           'x-markdown-tokens': String(tokenCount),
           'cache-control': 'public, max-age=3600',
           'access-control-allow-origin': '*'

@@ -8,10 +8,17 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 
-# Explicit text/markdown content-type for markdown files
+# Machine-readable resources are useful to tools but are not search landing pages.
 /index.md
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
+  X-Robots-Tag: noindex, follow
+
+/llms.txt
+  X-Robots-Tag: noindex, follow
+
+/.well-known/*
+  X-Robots-Tag: noindex, follow
 
 # Prevent indexing of Cloudflare Pages development and preview domains
 https://allshoesizeconverter.pages.dev/*

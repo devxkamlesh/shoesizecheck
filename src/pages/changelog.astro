@@ -8,7 +8,7 @@ const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/changelog/`;
 const pageTitle = 'Website changelog: AllShoeSizeConverter';
 const pageDescription = 'Documented record of version updates, mathematical formula calibrations, empirical footwear measurements, and editorial revisions.';
-const releaseDate = '2026-10-31';
+const releaseDate = '2026-11-14';
 
 const pageSchema = JSON.stringify({
   "@context": "https://schema.org",
@@ -53,12 +53,34 @@ const pageSchema = JSON.stringify({
         <p class="mono-eyebrow">Release history and updates</p>
         <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Website changelog</h1>
         <p class="hero-sub body-lg">This record documents revisions, formula calibrations, empirical measurements, and editorial updates across allshoesizeconverter.com.</p>
-        <p class="review-line">Latest release: October 31, 2026 · Maintained by Kamlesh Choudhary (<a href="https://devxkamlesh.online/" rel="me">devxkamlesh</a>)</p>
+        <p class="review-line">Latest release: November 14, 2026 · Maintained by Kamlesh Choudhary (<a href="https://devxkamlesh.online/" rel="me">devxkamlesh</a>)</p>
       </div>
     </section>
 
     <section class="changelog-body">
       <div class="changelog-inner prose">
+
+        <article class="release-entry">
+          <div class="release-meta">
+            <span class="version-badge">v2.1.1</span>
+            <time datetime="2026-11-14">November 14, 2026</time>
+          </div>
+
+          <h2>Version 2.1.1</h2>
+
+          <h3>Search indexing signal cleanup</h3>
+          <p>
+            Search Console reported that Google moved 30 submitted content URLs from indexed to <code>Crawled - currently not indexed</code> on October 24, followed by a search-impression collapse on October 28. The report classified 27 historical HTTP or <code>www</code> URLs as redirects and three duplicate URLs as alternate pages with proper canonicals. It did not report robots.txt blocks, <code>noindex</code> exclusions, server errors, redirect errors, or canonical conflicts.
+          </p>
+          <p>
+            This release removes an invalid site-search action that generated <code>{'/?q={search_term_string}'}</code> without a working search page. Machine resources at <code>/index.md</code>, <code>/llms.txt</code>, and <code>/.well-known/*</code> now send <code>X-Robots-Tag: noindex, follow</code>. The production <code>allshoesizeconverter.pages.dev</code> hostname now redirects permanently to the canonical apex domain, while hashed preview deployments remain non-indexable. Existing HTTP and <code>www</code> redirects continue to preserve paths and query strings.
+          </p>
+
+          <h3>AdSense low-value-content recovery plan</h3>
+          <p>
+            Google AdSense rejected the site for low-value content. The repository now includes an evidence-based recovery plan that prioritizes reciprocal-page consolidation, original measurements, authoritative sources, page-level review records, and a controlled three-page indexing experiment. The plan requires measurable content and audience improvements before another AdSense review request.
+          </p>
+        </article>
 
         <article class="release-entry">
           <div class="release-meta">

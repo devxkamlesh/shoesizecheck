@@ -1,15 +1,20 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import RelatedLinks from '../components/RelatedLinks.astro';
-import Footer from '../components/Footer.astro';
-import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import RelatedLinks from "../components/RelatedLinks.astro";
+import Footer from "../components/Footer.astro";
+import {
+  MEN_SIZE_ROWS,
+  WOMEN_SIZE_ROWS,
+  KIDS_SIZE_ROWS,
+} from "../data/shoe-sizes";
 
-const domain = 'https://allshoesizeconverter.com';
+const domain = "https://allshoesizeconverter.com";
 const pageCanonical = `${domain}/eu-to-india-shoe-size/`;
-const pageTitle = 'EU to India shoe size chart: EU 40, 41, and 42';
-const pageDescription = 'Convert European shoe sizes to Indian sizes with men\'s, women\'s, and kids\' charts. See EU 40, 41, and 42 in India, plus CM and US equivalents.';
+const pageTitle = "EU to India shoe size chart: EU 40, 41, and 42";
+const pageDescription =
+  "Convert European shoe sizes to Indian sizes with men's, women's, and kids' charts. See EU 40, 41, and 42 in India, plus CM and US equivalents.";
 const ogImage = `${domain}/og-image.png`;
 
 const menSizes = MEN_SIZE_ROWS;
@@ -18,44 +23,44 @@ const kidsSizes = KIDS_SIZE_ROWS;
 
 const faqs = [
   {
-    q: 'What is EU 42 in Indian shoe size?',
-    a: 'An EU 42 corresponds to Indian size 8.5 for men under ISO standards, fitting a 27.0 cm foot length. On sneaker tags like Nike, EU 42 corresponds to India 8.0 (26.5 cm).'
+    q: "What is EU 42 in Indian shoe size?",
+    a: "An EU 42 corresponds to Indian size 8.5 for men under ISO standards, fitting a 27.0 cm foot length. On sneaker tags like Nike, EU 42 corresponds to India 8.0 (26.5 cm).",
   },
   {
-    q: 'Is EU shoe size the same as Indian shoe size?',
-    a: 'No, European and Indian shoe sizes use different measurement units. EU sizes use Paris Points (2/3 cm per increment), while Indian sizing follows IS 1638:1969 using imperial barleycorns.'
+    q: "Is EU shoe size the same as Indian shoe size?",
+    a: "No, European and Indian shoe sizes use different measurement units. EU sizes use Paris Points (2/3 cm per increment), while Indian sizing follows IS 1638:1969 using imperial barleycorns.",
   },
   {
-    q: 'What is EU 40 in Indian shoe size?',
-    a: 'An EU 40 translates to Indian size 6.5 for men (25.0 cm foot length). For women, EU 40 corresponds to Indian size 7.0 (26.0 cm).'
+    q: "What is EU 40 in Indian shoe size?",
+    a: "An EU 40 translates to Indian size 6.5 for men (25.0 cm foot length). For women, EU 40 corresponds to Indian size 7.0 (26.0 cm).",
   },
   {
-    q: 'Why do brands on Myntra, Flipkart, and Ajio show EU shoe sizes?',
-    a: 'International brands sold in India, including Zara, H&M, Adidas, and Puma, use European sizing on product labels. Always verify whether a product listing displays EU or UK/India sizes before ordering.'
+    q: "Why do brands on Myntra, Flipkart, and Ajio show EU shoe sizes?",
+    a: "International brands sold in India, including Zara, H&M, Adidas, and Puma, use European sizing on product labels. Always verify whether a product listing displays EU or UK/India sizes before ordering.",
   },
   {
-    q: 'How do I convert European women\'s shoe sizes to Indian sizes?',
-    a: 'To convert an EU women\'s shoe size to Indian sizing, subtract approximately 32.5 to 33 from the European size (for example, EU 38.5 − 32.5 = India 6).'
-  }
+    q: "How do I convert European women's shoe sizes to Indian sizes?",
+    a: "To convert an EU women's shoe size to Indian sizing, subtract approximately 32.5 to 33 from the European size (for example, EU 38.5 − 32.5 = India 6).",
+  },
 ];
 
 const faqSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(f => ({
+  mainEntity: faqs.map((f) => ({
     "@type": "Question",
-    "name": f.q,
-    "acceptedAnswer": { "@type": "Answer", "text": `<p>${f.a}</p>` }
-  }))
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: `<p>${f.a}</p>` },
+  })),
 });
 
 const relatedLinks = [
-  { label: 'All Converters Directory', href: '/converters/' },
-  { label: 'India to EU Shoe Size Converter', href: '/india-to-eu-shoe-size/' },
-  { label: 'UK to India Shoe Size Converter', href: '/uk-to-india-shoe-size/' },
-  { label: 'India to UK Shoe Size Converter', href: '/india-to-uk-shoe-size/' },
-  { label: 'India Shoe Sizing Guide', href: '/country/india/' },
-  { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
+  { label: "All Converters Directory", href: "/converters/" },
+  { label: "India to EU Shoe Size Converter", href: "/india-to-eu-shoe-size/" },
+  { label: "UK to India Shoe Size Converter", href: "/uk-to-india-shoe-size/" },
+  { label: "India to UK Shoe Size Converter", href: "/india-to-uk-shoe-size/" },
+  { label: "India Shoe Sizing Guide", href: "/country/india/" },
+  { label: "Shoe Size in Centimeters (CM)", href: "/shoe-size-in-cm/" },
 ];
 ---
 
@@ -77,21 +82,31 @@ const relatedLinks = [
   <Header />
 
   <main id="main-content">
-    <Breadcrumbs items={[
-      { label: 'Home', href: '/' },
-      { label: 'Converters', href: '/converters/' },
-      { label: 'EU to India Shoe Size' },
-    ]} />
+    <Breadcrumbs
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Converters", href: "/converters/" },
+        { label: "EU to India Shoe Size" },
+      ]}
+    />
 
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="page-inner">
-        <p class="mono-eyebrow">Continental Paris Point to Indian / UK Standard</p>
+        <p class="mono-eyebrow">
+          Continental Paris Point to Indian / UK Standard
+        </p>
         <h1 class="display-xl">EU to India Shoe Size Converter</h1>
         <p class="hero-sub body-lg">
-          Convert European shoe sizes to Indian footwear sizes instantly. Tailored for online shopping on Myntra, Flipkart, Amazon India, and Ajio across men's, women's, and kids' collections.
+          Convert European shoe sizes to Indian footwear sizes instantly.
+          Tailored for online shopping on Myntra, Flipkart, Amazon India, and
+          Ajio across men's, women's, and kids' collections.
         </p>
-        <p class="hero-answer"><strong>Direct answer:</strong> EU 40 is usually Indian size 6 for men, EU 41 is Indian size 7, and EU 42 is Indian size 8. Women&apos;s conversions can differ, so compare the CM measurement and select the correct category.</p>
+        <p class="hero-answer">
+          <strong>Direct answer:</strong> EU 40 is usually Indian size 6 for men,
+          EU 41 is Indian size 7, and EU 42 is Indian size 8. Women&apos;s conversions
+          can differ, so compare the CM measurement and select the correct category.
+        </p>
 
         <div class="quick-stat-row">
           <div class="stat-badge">
@@ -116,7 +131,10 @@ const relatedLinks = [
         <div class="card-elevated conv-card">
           <div class="conv-card-header">
             <h2 class="heading-md">Convert EU to India Shoe Size</h2>
-            <p class="conv-card-sub">Select your gender and European (EU) size to calculate the exact Indian footwear size and footbed length in centimeters.</p>
+            <p class="conv-card-sub">
+              Select your gender and European (EU) size to calculate the exact
+              Indian footwear size and footbed length in centimeters.
+            </p>
           </div>
 
           <div class="conv-row">
@@ -124,7 +142,11 @@ const relatedLinks = [
               <label class="step-label" for="conv-gender">
                 <span class="step-num">1</span> Category
               </label>
-              <select id="conv-gender" class="form-select" aria-label="Select category">
+              <select
+                id="conv-gender"
+                class="form-select"
+                aria-label="Select category"
+              >
                 <option value="men" selected>Men's Sizes</option>
                 <option value="women">Women's Sizes</option>
                 <option value="kids">Kids' Sizes</option>
@@ -135,9 +157,22 @@ const relatedLinks = [
               <label class="step-label" for="conv-size">
                 <span class="step-num">2</span> European (EU) Size
               </label>
-              <select id="conv-size" class="form-select" aria-label="Select EU shoe size">
+              <select
+                id="conv-size"
+                class="form-select"
+                aria-label="Select EU shoe size"
+              >
                 <option value="" disabled>Select EU size</option>
-                {menSizes.map(s => <option value={String(s.eu)} selected={s.eu === 42 ? true : undefined}>{s.eu} EU</option>)}
+                {
+                  menSizes.map((s) => (
+                    <option
+                      value={String(s.eu)}
+                      selected={s.eu === 42 ? true : undefined}
+                    >
+                      {s.eu} EU
+                    </option>
+                  ))
+                }
               </select>
             </div>
           </div>
@@ -148,11 +183,21 @@ const relatedLinks = [
               <div class="conv-col">
                 <span class="conv-sys">European Union (EU)</span>
                 <span class="conv-val" id="res-eu">42</span>
-                <span class="conv-note" id="res-eu-sub">Paris Point Unisex</span>
+                <span class="conv-note" id="res-eu-sub">Paris Point Unisex</span
+                >
               </div>
               <div class="conv-arrow-wrap" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7"></path>
                 </svg>
               </div>
               <div class="conv-col conv-target">
@@ -174,8 +219,13 @@ const relatedLinks = [
     <!-- Benchmark Cards -->
     <section class="snapshot-band">
       <div class="page-inner">
-        <h2 class="section-title">Common European to Indian shoe size benchmarks</h2>
-        <p class="section-sub">Quick reference for the most commonly searched EU shoe sizes on Indian e-commerce platforms.</p>
+        <h2 class="section-title">
+          Common European to Indian shoe size benchmarks
+        </h2>
+        <p class="section-sub">
+          Quick reference for the most commonly searched EU shoe sizes on Indian
+          e-commerce platforms.
+        </p>
 
         <div class="snapshot-grid">
           <div class="snap-card">
@@ -228,19 +278,40 @@ const relatedLinks = [
     <section class="charts-band">
       <div class="page-inner">
         <h2 class="section-title">EU to Indian Shoe Size Chart</h2>
-        <p class="section-sub">Cross-comparison tables showing exact correlations between European, Indian, British, and metric footbed lengths.</p>
+        <p class="section-sub">
+          Cross-comparison tables showing exact correlations between European,
+          Indian, British, and metric footbed lengths.
+        </p>
 
         <div class="table-tabs" role="tablist">
-          <button class="tab-btn active" data-target="tab-men" role="tab" aria-selected="true">Men's EU to India Chart</button>
-          <button class="tab-btn" data-target="tab-women" role="tab" aria-selected="false">Women's EU to India Chart</button>
-          <button class="tab-btn" data-target="tab-kids" role="tab" aria-selected="false">Kids' EU to India Chart</button>
+          <button
+            class="tab-btn active"
+            data-target="tab-men"
+            role="tab"
+            aria-selected="true">Men's EU to India Chart</button
+          >
+          <button
+            class="tab-btn"
+            data-target="tab-women"
+            role="tab"
+            aria-selected="false">Women's EU to India Chart</button
+          >
+          <button
+            class="tab-btn"
+            data-target="tab-kids"
+            role="tab"
+            aria-selected="false">Kids' EU to India Chart</button
+          >
         </div>
 
         <!-- Men's Table -->
         <div class="table-panel active" id="tab-men" role="tabpanel">
           <h3 class="table-heading">Men's European to Indian Size Chart</h3>
           <div class="table-wrapper">
-            <table class="size-table" aria-label="Men EU to India shoe size chart">
+            <table
+              class="size-table"
+              aria-label="Men EU to India shoe size chart"
+            >
               <thead>
                 <tr>
                   <th>EU Size</th>
@@ -251,25 +322,39 @@ const relatedLinks = [
                 </tr>
               </thead>
               <tbody>
-                {menSizes.map(r => (
-                  <tr>
-                    <td class="primary-cell"><strong>EU {r.eu}</strong></td>
-                    <td class="highlight-cell"><strong>India {r.india}</strong></td>
-                    <td>US {r.us}</td>
-                    <td>{r.cm} cm</td>
-                    <td>{r.inch}"</td>
-                  </tr>
-                ))}
+                {
+                  menSizes.map((r) => (
+                    <tr>
+                      <td class="primary-cell">
+                        <strong>EU {r.eu}</strong>
+                      </td>
+                      <td class="highlight-cell">
+                        <strong>India {r.india}</strong>
+                      </td>
+                      <td>US {r.us}</td>
+                      <td>{r.cm} cm</td>
+                      <td>{r.inch}"</td>
+                    </tr>
+                  ))
+                }
               </tbody>
             </table>
           </div>
         </div>
 
         <!-- Women's Table -->
-        <div class="table-panel" id="tab-women" role="tabpanel" style="display: none;">
+        <div
+          class="table-panel"
+          id="tab-women"
+          role="tabpanel"
+          style="display: none;"
+        >
           <h3 class="table-heading">Women's European to Indian Size Chart</h3>
           <div class="table-wrapper">
-            <table class="size-table" aria-label="Women EU to India shoe size chart">
+            <table
+              class="size-table"
+              aria-label="Women EU to India shoe size chart"
+            >
               <thead>
                 <tr>
                   <th>EU Size</th>
@@ -280,25 +365,39 @@ const relatedLinks = [
                 </tr>
               </thead>
               <tbody>
-                {womenSizes.map(r => (
-                  <tr>
-                    <td class="primary-cell"><strong>EU {r.eu}</strong></td>
-                    <td class="highlight-cell"><strong>India {r.india}</strong></td>
-                    <td>US {r.us}</td>
-                    <td>{r.cm} cm</td>
-                    <td>{r.inch}"</td>
-                  </tr>
-                ))}
+                {
+                  womenSizes.map((r) => (
+                    <tr>
+                      <td class="primary-cell">
+                        <strong>EU {r.eu}</strong>
+                      </td>
+                      <td class="highlight-cell">
+                        <strong>India {r.india}</strong>
+                      </td>
+                      <td>US {r.us}</td>
+                      <td>{r.cm} cm</td>
+                      <td>{r.inch}"</td>
+                    </tr>
+                  ))
+                }
               </tbody>
             </table>
           </div>
         </div>
 
         <!-- Kids' Table -->
-        <div class="table-panel" id="tab-kids" role="tabpanel" style="display: none;">
+        <div
+          class="table-panel"
+          id="tab-kids"
+          role="tabpanel"
+          style="display: none;"
+        >
           <h3 class="table-heading">Kids' European to Indian Size Chart</h3>
           <div class="table-wrapper">
-            <table class="size-table" aria-label="Kids EU to India shoe size chart">
+            <table
+              class="size-table"
+              aria-label="Kids EU to India shoe size chart"
+            >
               <thead>
                 <tr>
                   <th>EU Size</th>
@@ -308,76 +407,134 @@ const relatedLinks = [
                 </tr>
               </thead>
               <tbody>
-                {kidsSizes.map(r => (
-                  <tr>
-                    <td class="primary-cell"><strong>EU {r.eu}</strong></td>
-                    <td class="highlight-cell"><strong>India {r.india}</strong></td>
-                    <td>{r.cm} cm</td>
-                    <td>{r.stage}</td>
-                  </tr>
-                ))}
+                {
+                  kidsSizes.map((r) => (
+                    <tr>
+                      <td class="primary-cell">
+                        <strong>EU {r.eu}</strong>
+                      </td>
+                      <td class="highlight-cell">
+                        <strong>India {r.india}</strong>
+                      </td>
+                      <td>{r.cm} cm</td>
+                      <td>{r.stage}</td>
+                    </tr>
+                  ))
+                }
               </tbody>
             </table>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- Editorial SEO Prose Guide -->
     <article class="editorial-band">
       <div class="page-inner prose-article">
-        <h2 class="editorial-main-title">European to Indian shoe size conversion: shopping and fit guide</h2>
+        <h2 class="editorial-main-title">
+          European to Indian shoe size conversion: shopping and fit guide
+        </h2>
 
         <p class="lead-paragraph">
-          Footwear listings on portals such as Myntra, Flipkart, and Ajio frequently display continental European (EU) sizes. Because Indian shoemaking follows the British barleycorn measurement standard under IS 1638:1969, converting European sizing requires understanding how metric Paris Points correlate with Indian sizes.
+          Footwear listings on portals such as Myntra, Flipkart, and Ajio
+          frequently display continental European (EU) sizes. Because Indian
+          shoemaking follows the British barleycorn measurement standard under
+          IS 1638:1969, converting European sizing requires understanding how
+          metric Paris Points correlate with Indian sizes.
         </p>
 
         <h3>1. Metric Paris point and Indian barleycorn units</h3>
         <p>
-          European footwear sizing uses the Paris Point, defined as 2/3 of a centimeter (6.67 millimeters). Indian shoe sizing follows IS 1638:1969, using the imperial barleycorn of 1/3 inch (8.46 millimeters). For the full history and math behind imperial sizing, read our guide on <a href="/shoe-size-in-inches/">shoe sizes in inches and barleycorn measurements</a>.
+          European footwear sizing uses the Paris Point, defined as 2/3 of a
+          centimeter (6.67 millimeters). Indian shoe sizing follows IS
+          1638:1969, using the imperial barleycorn of 1/3 inch (8.46
+          millimeters). For the full history and math behind imperial sizing,
+          read our guide on <a href="/shoe-size-in-inches/"
+            >shoe sizes in inches and barleycorn measurements</a
+          >.
         </p>
 
         <h3>2. Conversion formulas</h3>
-        <p>
-          To calculate Indian sizes from European numbers:
-        </p>
+        <p>To calculate Indian sizes from European numbers:</p>
         <ul>
-          <li>For men: subtract 33.5 to 34 from the European size. EU 42 corresponds to Indian size 8.5 (27.0 cm foot length), EU 41.5 corresponds to Indian size 8 (26.5 cm), and EU 40.5 corresponds to Indian size 7 (25.5 cm).</li>
-          <li>For women: subtract 32.5 to 33 from the European size. EU 38.5 corresponds to Indian size 6 (25.0 cm), and EU 37.5 corresponds to Indian size 5 (24.0 cm).</li>
-          <li>For kids: cross-reference foot length in centimeters against our table. EU 27 equals Indian 9.5C (16.5 cm), and EU 33 equals Indian youth 1Y (20.5 cm).</li>
+          <li>
+            For men: subtract 33.5 to 34 from the European size. EU 42
+            corresponds to Indian size 8.5 (27.0 cm foot length), EU 41.5
+            corresponds to Indian size 8 (26.5 cm), and EU 40.5 corresponds to
+            Indian size 7 (25.5 cm).
+          </li>
+          <li>
+            For women: subtract 32.5 to 33 from the European size. EU 38.5
+            corresponds to Indian size 6 (25.0 cm), and EU 37.5 corresponds to
+            Indian size 5 (24.0 cm).
+          </li>
+          <li>
+            For kids: cross-reference foot length in centimeters against our
+            table. EU 27 equals Indian 9.5C (16.5 cm), and EU 33 equals Indian
+            youth 1Y (20.5 cm).
+          </li>
         </ul>
 
         <h3>3. European sizes commonly searched in India</h3>
         <p>
-          Standard European shoe numbers translate to domestic Indian sizes as follows:
+          Standard European shoe numbers translate to domestic Indian sizes as
+          follows:
         </p>
         <ul>
-          <li>EU 36 represents Indian women's size 3.5 (22.5 cm foot length).</li>
-          <li>EU 37.5 represents Indian women's size 5.0 (24.0 cm foot length).</li>
-          <li>EU 38.5 represents Indian women's size 6.0 (25.0 cm foot length).</li>
-          <li>EU 40.5 represents Indian men's size 7.0 (25.5 cm foot length).</li>
-          <li>EU 41.5 represents Indian men's size 8.0 (26.5 cm foot length).</li>
-          <li>EU 42.0 represents Indian men's size 8.5 (27.0 cm foot length).</li>
-          <li>EU 44.0 represents Indian men's size 9.5 (28.0 cm foot length).</li>
+          <li>
+            EU 36 represents Indian women's size 3.5 (22.5 cm foot length).
+          </li>
+          <li>
+            EU 37.5 represents Indian women's size 5.0 (24.0 cm foot length).
+          </li>
+          <li>
+            EU 38.5 represents Indian women's size 6.0 (25.0 cm foot length).
+          </li>
+          <li>
+            EU 40.5 represents Indian men's size 7.0 (25.5 cm foot length).
+          </li>
+          <li>
+            EU 41.5 represents Indian men's size 8.0 (26.5 cm foot length).
+          </li>
+          <li>
+            EU 42.0 represents Indian men's size 8.5 (27.0 cm foot length).
+          </li>
+          <li>
+            EU 44.0 represents Indian men's size 9.5 (28.0 cm foot length).
+          </li>
         </ul>
 
         <h3>4. Why branded shoes in India use European sizing</h3>
         <p>
-          European apparel brands (including Zara, H&M, and Mango) and sportswear companies (Adidas and Puma) manufacture footwear on European lasts. When ordering from these brands, confirm whether the sizing selector displays EU or UK/India numbers.
+          European apparel brands (including Zara, H&M, and Mango) and
+          sportswear companies (Adidas and Puma) manufacture footwear on
+          European lasts. When ordering from these brands, confirm whether the
+          sizing selector displays EU or UK/India numbers.
         </p>
         <p>
-          Domestic manufacturers like Bata India, Red Tape, Liberty, and Woodland build lasts according to Indian and UK standards.
+          Domestic manufacturers like Bata India, Red Tape, Liberty, and
+          Woodland build lasts according to Indian and UK standards.
         </p>
 
         <h3>5. Indian foot morphology and width</h3>
         <p>
-          An anthropometric foot survey conducted by the CSIR-Central Leather Research Institute (CSIR-CLRI), published in their 2022 survey report, documented that Indian feet show broader metatarsal ball girth and higher dorsal instep measurements relative to European lasts. When buying European formal dress shoes or fashion boots with narrow, tapered lasts, selecting a half size larger prevents pinching across the ball of the foot.
+          An anthropometric foot survey conducted by the CSIR-Central Leather
+          Research Institute (CSIR-CLRI), published in their 2022 survey report,
+          documented that Indian feet show broader metatarsal ball girth and
+          higher dorsal instep measurements relative to European lasts. When
+          buying European formal dress shoes or fashion boots with narrow,
+          tapered lasts, selecting a half size larger prevents pinching across
+          the ball of the foot.
         </p>
 
         <h3>6. Measuring foot length</h3>
         <p>
-          To verify your size before ordering, measure your bare foot length from heel to longest toe in centimeters. See our step-by-step instructions on <a href="/shoe-size-by-foot-length/">measuring shoe size by foot length</a>. A foot length of 27.0 cm corresponds to Indian size 8.5 and European size 42.
+          To verify your size before ordering, measure your bare foot length
+          from heel to longest toe in centimeters. See our step-by-step
+          instructions on <a href="/shoe-size-by-foot-length/"
+            >measuring shoe size by foot length</a
+          >. A foot length of 27.0 cm corresponds to Indian size 8.5 and
+          European size 42.
         </p>
       </div>
     </article>
@@ -386,30 +543,46 @@ const relatedLinks = [
     <section class="faq-band">
       <div class="page-inner">
         <h2 class="section-title">Frequently asked questions</h2>
-        <p class="section-sub">Direct answers to the most common questions regarding European to Indian shoe sizing.</p>
+        <p class="section-sub">
+          Direct answers to the most common questions regarding European to
+          Indian shoe sizing.
+        </p>
 
         <div class="faq-accordion-list">
-          {faqs.map((f, i) => (
-            <details class="faq-item" open={i === 0 ? true : undefined}>
-              <summary class="faq-question">
-                <span>{f.q}</span>
-                <span class="faq-chevron" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m6 9 6 6 6-6"/>
-                  </svg>
-                </span>
-              </summary>
-              <div class="faq-answer">
-                <p>{f.a}</p>
-              </div>
-            </details>
-          ))}
+          {
+            faqs.map((f, i) => (
+              <details class="faq-item" open={i === 0 ? true : undefined}>
+                <summary class="faq-question">
+                  <span>{f.q}</span>
+                  <span class="faq-chevron" aria-hidden="true">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </span>
+                </summary>
+                <div class="faq-answer">
+                  <p>{f.a}</p>
+                </div>
+              </details>
+            ))
+          }
         </div>
       </div>
     </section>
 
-    <RelatedLinks title="Related Shoe Size Converters & Regional Guides" links={relatedLinks} />
-
+    <RelatedLinks
+      title="Related Shoe Size Converters & Regional Guides"
+      links={relatedLinks}
+    />
   </main>
 
   <Footer />
@@ -418,36 +591,36 @@ const relatedLinks = [
 <!-- Client-side Interactive Engine Script -->
 <script is:inline define:vars={{ menSizes, womenSizes, kidsSizes }}>
   // @ts-nocheck
-  (function() {
+  (function () {
     const MEN = menSizes;
     const WOMEN = womenSizes;
     const KIDS = kidsSizes;
 
-    const genderSelect = document.getElementById('conv-gender');
-    const sizeSelect = document.getElementById('conv-size');
-    const resEu = document.getElementById('res-eu');
-    const resEuSub = document.getElementById('res-eu-sub');
-    const resIn = document.getElementById('res-in');
-    const resInSub = document.getElementById('res-in-sub');
-    const resCm = document.getElementById('res-cm');
-    const resInMeas = document.getElementById('res-in-meas');
+    const genderSelect = document.getElementById("conv-gender");
+    const sizeSelect = document.getElementById("conv-size");
+    const resEu = document.getElementById("res-eu");
+    const resEuSub = document.getElementById("res-eu-sub");
+    const resIn = document.getElementById("res-in");
+    const resInSub = document.getElementById("res-in-sub");
+    const resCm = document.getElementById("res-cm");
+    const resInMeas = document.getElementById("res-in-meas");
 
     function populateSizes() {
-      const gender = genderSelect?.value || 'men';
+      const gender = genderSelect?.value || "men";
       let data = MEN;
-      if (gender === 'women') data = WOMEN;
-      if (gender === 'kids') data = KIDS;
+      if (gender === "women") data = WOMEN;
+      if (gender === "kids") data = KIDS;
 
       if (!sizeSelect) return;
-      sizeSelect.innerHTML = '';
+      sizeSelect.innerHTML = "";
 
-      data.forEach(item => {
-        const opt = document.createElement('option');
+      data.forEach((item) => {
+        const opt = document.createElement("option");
         opt.value = String(item.eu);
         opt.textContent = `${item.eu} EU`;
-        if (gender === 'men' && item.eu === 42) opt.selected = true;
-        if (gender === 'women' && item.eu === 38) opt.selected = true;
-        if (gender === 'kids' && item.eu === 27) opt.selected = true;
+        if (gender === "men" && item.eu === 42) opt.selected = true;
+        if (gender === "women" && item.eu === 38) opt.selected = true;
+        if (gender === "kids" && item.eu === 27) opt.selected = true;
         sizeSelect.appendChild(opt);
       });
 
@@ -455,16 +628,22 @@ const relatedLinks = [
     }
 
     function updateConversion() {
-      const gender = genderSelect?.value || 'men';
+      const gender = genderSelect?.value || "men";
       const val = sizeSelect?.value;
       if (!val) return;
 
       let list = MEN;
       let label = "Men's Standard";
-      if (gender === 'women') { list = WOMEN; label = "Women's Standard"; }
-      if (gender === 'kids') { list = KIDS; label = "Kids' Standard"; }
+      if (gender === "women") {
+        list = WOMEN;
+        label = "Women's Standard";
+      }
+      if (gender === "kids") {
+        list = KIDS;
+        label = "Kids' Standard";
+      }
 
-      const match = list.find(item => String(item.eu) === String(val));
+      const match = list.find((item) => String(item.eu) === String(val));
       if (!match) return;
 
       if (resEu) resEu.textContent = String(match.eu);
@@ -472,33 +651,36 @@ const relatedLinks = [
       if (resIn) resIn.textContent = String(match.india);
       if (resInSub) resInSub.textContent = label;
       if (resCm) resCm.textContent = `${match.cm} cm`;
-      if (resInMeas) resInMeas.textContent = match.inch ? `${match.inch} inches` : `${match.stage || 'Metric'}`;
+      if (resInMeas)
+        resInMeas.textContent = match.inch
+          ? `${match.inch} inches`
+          : `${match.stage || "Metric"}`;
     }
 
-    genderSelect?.addEventListener('change', populateSizes);
-    sizeSelect?.addEventListener('change', updateConversion);
+    genderSelect?.addEventListener("change", populateSizes);
+    sizeSelect?.addEventListener("change", updateConversion);
 
     // Tab Controller
-    const tabs = document.querySelectorAll('.tab-btn');
-    const panels = document.querySelectorAll('.table-panel');
+    const tabs = document.querySelectorAll(".tab-btn");
+    const panels = document.querySelectorAll(".table-panel");
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-target');
-        tabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.getAttribute("data-target");
+        tabs.forEach((t) => {
+          t.classList.remove("active");
+          t.setAttribute("aria-selected", "false");
         });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
+        tab.classList.add("active");
+        tab.setAttribute("aria-selected", "true");
 
-        panels.forEach(p => {
+        panels.forEach((p) => {
           if (p.id === target) {
-            p.style.display = 'block';
-            p.classList.add('active');
+            p.style.display = "block";
+            p.classList.add("active");
           } else {
-            p.style.display = 'none';
-            p.classList.remove('active');
+            p.style.display = "none";
+            p.classList.remove("active");
           }
         });
       });
@@ -513,7 +695,11 @@ const relatedLinks = [
     background: var(--v-canvas);
     border-bottom: 1px solid var(--v-hairline);
     text-align: center;
-    background: radial-gradient(circle at 50% 0%, var(--v-mesh-1) 0%, transparent 70%);
+    background: radial-gradient(
+      circle at 50% 0%,
+      var(--v-mesh-1) 0%,
+      transparent 70%
+    );
   }
   .page-inner {
     max-width: 960px;
@@ -543,7 +729,17 @@ const relatedLinks = [
     max-width: 680px;
     margin: 0 auto 24px;
   }
-  .hero-answer { max-width: 680px; margin: 0 auto 24px; padding: 12px 16px; border-left: 3px solid var(--v-link); background: var(--v-link-soft); color: var(--v-body); font-size: 15px; line-height: 24px; text-align: left; }
+  .hero-answer {
+    max-width: 680px;
+    margin: 0 auto 24px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--v-link);
+    background: var(--v-link-soft);
+    color: var(--v-body);
+    font-size: 15px;
+    line-height: 24px;
+    text-align: left;
+  }
 
   /* Quick Stat Badges */
   .quick-stat-row {
@@ -564,8 +760,14 @@ const relatedLinks = [
     font-size: 12.5px;
     box-shadow: var(--v-shadow-whisper);
   }
-  .badge-label { color: var(--v-mute); }
-  .badge-val { font-family: var(--font-mono); font-weight: 700; color: var(--v-ink); }
+  .badge-label {
+    color: var(--v-mute);
+  }
+  .badge-val {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--v-ink);
+  }
 
   /* Converter Band */
   .converter-band {
@@ -579,7 +781,9 @@ const relatedLinks = [
     border-radius: var(--v-r-lg);
     box-shadow: var(--v-shadow-floating);
   }
-  .conv-card-header { margin-bottom: 24px; }
+  .conv-card-header {
+    margin-bottom: 24px;
+  }
   .heading-md {
     font-size: 22px;
     font-weight: 700;
@@ -587,7 +791,11 @@ const relatedLinks = [
     letter-spacing: -0.02em;
     margin: 0 0 6px;
   }
-  .conv-card-sub { font-size: 14px; color: var(--v-mute); margin: 0; }
+  .conv-card-sub {
+    font-size: 14px;
+    color: var(--v-mute);
+    margin: 0;
+  }
 
   .conv-row {
     display: grid;
@@ -627,7 +835,9 @@ const relatedLinks = [
     border-radius: var(--v-r-md);
     outline: none;
     cursor: pointer;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
   }
   .form-select:focus {
     border-color: var(--v-link);
@@ -671,11 +881,29 @@ const relatedLinks = [
     letter-spacing: -0.03em;
     line-height: 1.1;
   }
-  .conv-target .conv-val { color: var(--v-link); }
-  .conv-val-sm { font-size: 22px; font-weight: 700; font-family: var(--font-display); color: var(--v-ink); }
-  .conv-note { font-size: 12px; color: var(--v-faint); }
-  .conv-arrow-wrap { color: var(--v-mute); display: flex; align-items: center; justify-content: center; }
-  .conv-aux { border-left: 1px solid var(--v-hairline); padding-left: 20px; }
+  .conv-target .conv-val {
+    color: var(--v-link);
+  }
+  .conv-val-sm {
+    font-size: 22px;
+    font-weight: 700;
+    font-family: var(--font-display);
+    color: var(--v-ink);
+  }
+  .conv-note {
+    font-size: 12px;
+    color: var(--v-faint);
+  }
+  .conv-arrow-wrap {
+    color: var(--v-mute);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conv-aux {
+    border-left: 1px solid var(--v-hairline);
+    padding-left: 20px;
+  }
 
   /* Snapshot Grid */
   .snapshot-band {
@@ -690,7 +918,11 @@ const relatedLinks = [
     letter-spacing: -0.02em;
     margin: 0 0 6px;
   }
-  .section-sub { font-size: 14.5px; color: var(--v-body); margin: 0 0 28px; }
+  .section-sub {
+    font-size: 14.5px;
+    color: var(--v-body);
+    margin: 0 0 28px;
+  }
   .snapshot-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -704,12 +936,32 @@ const relatedLinks = [
     display: flex;
     flex-direction: column;
     gap: 8px;
-    transition: transform 0.15s ease, border-color 0.15s ease;
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease;
   }
-  .snap-card:hover { transform: translateY(-2px); border-color: var(--v-link); }
-  .snap-tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: var(--v-link); text-transform: uppercase; }
-  .snap-main { font-size: 18px; font-weight: 700; color: var(--v-ink); display: block; }
-  .snap-detail { font-size: 12.5px; color: var(--v-mute); display: block; }
+  .snap-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--v-link);
+  }
+  .snap-tag {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--v-link);
+    text-transform: uppercase;
+  }
+  .snap-main {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--v-ink);
+    display: block;
+  }
+  .snap-detail {
+    font-size: 12.5px;
+    color: var(--v-mute);
+    display: block;
+  }
 
   /* Charts Band */
   .charts-band {
@@ -737,9 +989,21 @@ const relatedLinks = [
     transition: all 0.15s ease;
     white-space: nowrap;
   }
-  .tab-btn:hover { color: var(--v-ink); border-color: var(--v-link); }
-  .tab-btn.active { background: var(--v-link); color: #ffffff; border-color: var(--v-link); }
-  .table-heading { font-size: 18px; font-weight: 700; color: var(--v-ink); margin: 0 0 16px; }
+  .tab-btn:hover {
+    color: var(--v-ink);
+    border-color: var(--v-link);
+  }
+  .tab-btn.active {
+    background: var(--v-link);
+    color: #ffffff;
+    border-color: var(--v-link);
+  }
+  .table-heading {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--v-ink);
+    margin: 0 0 16px;
+  }
   .table-wrapper {
     overflow-x: auto;
     border: 1px solid var(--v-hairline);
@@ -752,11 +1016,24 @@ const relatedLinks = [
     font-size: 13.5px;
     text-align: left;
   }
-  .size-table thead tr { background: var(--v-table-head); color: var(--v-table-head-text); }
-  .size-table th, .size-table td { padding: 12px 18px; border-bottom: 1px solid var(--v-hairline); }
-  .size-table tbody tr:hover { background: var(--v-table-hover); }
-  .primary-cell strong { color: var(--v-ink); }
-  .highlight-cell strong { color: var(--v-link-deep); }
+  .size-table thead tr {
+    background: var(--v-table-head);
+    color: var(--v-table-head-text);
+  }
+  .size-table th,
+  .size-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--v-hairline);
+  }
+  .size-table tbody tr:hover {
+    background: var(--v-table-hover);
+  }
+  .primary-cell strong {
+    color: var(--v-ink);
+  }
+  .highlight-cell strong {
+    color: var(--v-link-deep);
+  }
 
   /* Editorial SEO Prose */
   .editorial-band {
@@ -764,7 +1041,10 @@ const relatedLinks = [
     background: var(--v-elevated);
     border-top: 1px solid var(--v-hairline);
   }
-  .prose-article { max-width: 820px; margin: 0 auto; }
+  .prose-article {
+    max-width: 820px;
+    margin: 0 auto;
+  }
   .editorial-main-title {
     font-size: 28px;
     font-weight: 800;
@@ -773,7 +1053,12 @@ const relatedLinks = [
     line-height: 1.25;
     margin: 0 0 20px;
   }
-  .lead-paragraph { font-size: 16px; line-height: 28px; color: var(--v-body); margin-bottom: 24px; }
+  .lead-paragraph {
+    font-size: 16px;
+    line-height: 28px;
+    color: var(--v-body);
+    margin-bottom: 24px;
+  }
   .prose-article h3 {
     font-size: 20px;
     font-weight: 700;
@@ -781,10 +1066,26 @@ const relatedLinks = [
     letter-spacing: -0.01em;
     margin: 36px 0 12px;
   }
-  .prose-article p { font-size: 15px; line-height: 26px; color: var(--v-body); margin: 0 0 18px; }
-  .prose-article ul, .prose-article ol { margin: 0 0 24px; padding-left: 22px; }
-  .prose-article li { font-size: 14.5px; line-height: 24px; color: var(--v-body); margin-bottom: 10px; }
-  .prose-article strong { color: var(--v-ink); }
+  .prose-article p {
+    font-size: 15px;
+    line-height: 26px;
+    color: var(--v-body);
+    margin: 0 0 18px;
+  }
+  .prose-article ul,
+  .prose-article ol {
+    margin: 0 0 24px;
+    padding-left: 22px;
+  }
+  .prose-article li {
+    font-size: 14.5px;
+    line-height: 24px;
+    color: var(--v-body);
+    margin-bottom: 10px;
+  }
+  .prose-article strong {
+    color: var(--v-ink);
+  }
 
   /* FAQ Section */
   .faq-band {
@@ -806,7 +1107,9 @@ const relatedLinks = [
     overflow: hidden;
     transition: border-color 0.15s ease;
   }
-  .faq-item[open] { border-color: var(--v-link); }
+  .faq-item[open] {
+    border-color: var(--v-link);
+  }
   .faq-question {
     display: flex;
     align-items: center;
@@ -820,9 +1123,17 @@ const relatedLinks = [
     list-style: none;
     user-select: none;
   }
-  .faq-question::-webkit-details-marker { display: none; }
-  .faq-chevron { color: var(--v-mute); transition: transform 0.2s ease; }
-  .faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--v-link); }
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    color: var(--v-mute);
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--v-link);
+  }
   .faq-answer {
     padding: 0 22px 20px;
     font-size: 14.5px;
@@ -831,14 +1142,37 @@ const relatedLinks = [
     border-top: 1px dashed var(--v-hairline);
     padding-top: 14px;
   }
-  .faq-answer p { margin: 0; }
+  .faq-answer p {
+    margin: 0;
+  }
 
   @media (max-width: 768px) {
-    .conv-row { grid-template-columns: 1fr; }
-    .conv-result-card { flex-direction: column; gap: 16px; }
-    .conv-arrow-wrap { transform: rotate(90deg); }
-    .conv-aux { border-left: none; border-top: 1px solid var(--v-hairline); padding-left: 0; padding-top: 14px; width: 100%; }
-    .snapshot-grid { grid-template-columns: 1fr; }
-    .converter-band, .snapshot-band, .charts-band, .editorial-band, .faq-band { padding: 40px 16px; }
+    .conv-row {
+      grid-template-columns: 1fr;
+    }
+    .conv-result-card {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .conv-arrow-wrap {
+      transform: rotate(90deg);
+    }
+    .conv-aux {
+      border-left: none;
+      border-top: 1px solid var(--v-hairline);
+      padding-left: 0;
+      padding-top: 14px;
+      width: 100%;
+    }
+    .snapshot-grid {
+      grid-template-columns: 1fr;
+    }
+    .converter-band,
+    .snapshot-band,
+    .charts-band,
+    .editorial-band,
+    .faq-band {
+      padding: 40px 16px;
+    }
   }
 </style>

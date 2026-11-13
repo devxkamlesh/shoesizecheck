@@ -2,6 +2,16 @@
 
 All notable changes to the AllShoeSizeConverter project are documented in this file.
 
+## Version 2.1.1 (November 14, 2026)
+
+### Search indexing signal cleanup
+
+Search Console reported that Google moved 30 submitted content URLs from indexed to `Crawled - currently not indexed` on October 24, followed by a search-impression collapse on October 28. The same report classified 27 historical HTTP or `www` URLs as redirects and three duplicate URLs as alternate pages with proper canonicals; it did not report robots.txt blocks, `noindex` exclusions, server errors, redirect errors, or canonical conflicts. This release therefore preserves the canonical content URLs and makes a focused cleanup of avoidable discovery signals rather than rolling back the site.
+
+We removed the `WebSite` `SearchAction` because the site has no search-results feature and the markup caused Google to discover the placeholder URL `/?q={search_term_string}`. Machine-readable resources at `/index.md`, `/llms.txt`, and `/.well-known/*` now send `X-Robots-Tag: noindex, follow`, and links to those resources were removed from the human-facing sitewide footer. The production `allshoesizeconverter.pages.dev` hostname now redirects permanently to the canonical apex domain while hashed preview deployments remain accessible with `noindex, nofollow`. Existing HTTP and `www` redirects remain in place and preserve request paths and query strings.
+
+The accompanying `SEO_RECOVERY_RUNBOOK.md` documents the Search Console verification, staged three-page content experiment, consolidation criteria, re-indexing procedure, and 3/7/14/28-day monitoring plan. `ADSENSE_LOW_VALUE_CONTENT_RECOVERY.md` documents the low-value-content diagnosis, page consolidation workflow, original-evidence requirements, review-readiness gate, and AdSense resubmission procedure. These hygiene changes do not claim to resolve Google's content-quality decision by themselves; they create a stable technical baseline for measuring the content recovery work.
+
 ## Version 2.1.0 (October 31, 2026)
 
 ### Publisher compliance and sizing reconciliation
