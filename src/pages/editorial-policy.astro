@@ -3,12 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
+import { LATEST_RELEASE, formatReleaseDate } from '../data/releases';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/editorial-policy/`;
 const pageTitle = 'Editorial Policy and Sources: AllShoeSizeConverter';
 const pageDescription = 'Learn how AllShoeSizeConverter researches, checks, updates, and presents international shoe size conversions and measurement guidance.';
-const reviewedDate = '2026-10-31';
+const reviewedDate = LATEST_RELEASE.date;
 
 const pageSchema = JSON.stringify({
   "@context": "https://schema.org",
@@ -52,7 +53,7 @@ const pageSchema = JSON.stringify({
         <p class="mono-eyebrow">Accuracy, Sources &amp; Transparency</p>
         <h1 class="display-xl" style="font-size:clamp(28px,5vw,46px)">Editorial Policy &amp; Sources</h1>
         <p class="hero-sub body-lg">How AllShoeSizeConverter researches and maintains international shoe-size conversion guidance.</p>
-        <p class="review-line"><strong>Last reviewed:</strong> October 31, 2026 · <strong>Maintainer:</strong> Kamlesh Choudhary (<a href="https://devxkamlesh.online/" rel="me">devxkamlesh</a>)</p>
+        <p class="review-line"><strong>Last reviewed:</strong> {formatReleaseDate(reviewedDate)} · <strong>Maintainer:</strong> Kamlesh Choudhary (<a href="https://devxkamlesh.online/" rel="me">devxkamlesh</a>)</p>
       </div>
     </section>
 

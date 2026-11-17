@@ -1,0 +1,48 @@
+---
+// Sources.astro: cited references for a page, from src/data/sources.ts.
+import { SOURCES, SOURCES_CHECKED } from '../data/sources';
+import type { SourceId } from '../data/sources';
+
+interface Props {
+  ids: SourceId[];
+  /** One or two sentences on how this page's numbers were built. */
+  method: string;
+}
+const { ids, method } = Astro.props;
+const checked = new Date(SOURCES_CHECKED + 'T00:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+
+<section class="src-band" aria-labelledby="src-title">
+  <div class="src-inner">
+    <h2 class="src-title" id="src-title">Sources and how we checked</h2>
+    <p class="src-method">{method}</p>
+    <ol class="src-list">
+      {ids.map(id => {
+        const s = SOURCES[id];
+        return (
+          <li class="src-item">
+            <a href={s.url} class="src-link" target="_blank" rel="noopener">{s.title}</a>
+            <span class="src-pub">{s.publisher}</span>
+            <span class="src-note">{s.note}</span>
+          </li>
+        );
+      })}
+    </ol>
+    <p class="src-checked">Sources last checked against our chart on <time datetime={SOURCES_CHECKED}>{checked}</time>. Spotted a difference? <a href="/contact/">Report it</a> and we will review the chart.</p>
+  </div>
+</section>
+
+<style>
+  .src-band { padding: 48px 24px; background: var(--v-elevated); border-top: 1px solid var(--v-hairline); }
+  .src-inner { max-width: 960px; margin: 0 auto; }
+  .src-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--v-ink); margin: 0 0 8px; }
+  .src-method { font-size: 14.5px; line-height: 22px; color: var(--v-body); margin: 0 0 18px; max-width: 760px; }
+  .src-list { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 14px; }
+  .src-item { display: flex; flex-direction: column; gap: 2px; font-size: 14px; line-height: 21px; color: var(--v-body); }
+  .src-item::marker { color: var(--v-mute); font-family: var(--font-mono); }
+  .src-link { color: var(--v-link); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+  .src-link:hover { color: var(--v-link-deep); }
+  .src-pub { font-size: 12.5px; color: var(--v-mute); }
+  .src-checked { margin: 20px 0 0; font-size: 12.5px; color: var(--v-mute); }
+  .src-checked a { color: var(--v-link); }
+</style>

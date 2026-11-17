@@ -4,10 +4,16 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import BenchEvidence from '../components/BenchEvidence.astro';
+import Sources from '../components/Sources.astro';
+import { BENCH_TESTS } from '../data/bench-tests';
 import { size, cm as cmText } from '../data/size-lookup';
 import ReverseLookup from '../components/ReverseLookup.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
+// Our chart's rows for the measured Bata (UK 8) and Adidas (UK 8.5) boxes.
+const benchUk8 = size('men', 'uk', 8);
+const benchUk85 = size('men', 'uk', 8.5);
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/uk-to-eu-shoe-size/`;
 const pageTitle = "UK to EU and EU to UK shoe size converter and chart";
@@ -373,6 +379,18 @@ const relatedLinks = [
         </p>
       </div>
     </article>
+
+    <BenchEvidence
+      ids={['bata', 'adidas']}
+      heading="Two real boxes, labelled UK 8 and UK 8.5"
+      intro="We measured a Bata Oxford labelled UK 8 and an Adidas Stan Smith labelled UK 8.5, then checked the EU size on each box against this page's chart."
+      takeaway={`Bata's UK ${BENCH_TESTS.bata.label.uk} = EUR ${BENCH_TESTS.bata.label.eu} matches our chart exactly (UK ${benchUk8.uk} = EU ${benchUk8.eu}). Adidas prints EU sizes in thirds, so its UK ${BENCH_TESTS.adidas.label.uk} reads EUR ${BENCH_TESTS.adidas.label.eu}, one sixth of a size above our EU ${benchUk85.eu}. That is close enough to buy the same size.`}
+    />
+
+    <Sources
+      ids={['iso19407', 'satra', 'nikeMen']}
+      method="UK and EU sizes step by different amounts (8.46 mm and 6.67 mm), so our chart converts through foot length in centimetres rather than a fixed offset, the same basis ISO 19407 uses."
+    />
 
     <!-- FAQ Accordion Section -->
     <section class="faq-band">

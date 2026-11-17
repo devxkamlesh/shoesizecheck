@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
+import KidsBrandCheck from '../components/KidsBrandCheck.astro';
+import Sources from '../components/Sources.astro';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/kids-shoe-size-by-age/`;
@@ -347,6 +349,13 @@ const faqSchema = JSON.stringify({
         </article>
       </div>
     </section>
+
+    <KidsBrandCheck />
+
+    <Sources
+      ids={['iso19407', 'nikeKids', 'iso9407']}
+      method="Our kids' chart lists the child's foot length for each US, UK and EU size, the same foot-length basis ISO 19407 uses for children's sizes. Ages are typical ranges, not a substitute for measuring. Nike's chart is compared above because brand charts are what parents shop with."
+    />
 
     <!-- FAQ Section -->
     <section class="faq-band">

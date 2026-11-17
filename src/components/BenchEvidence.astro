@@ -1,0 +1,94 @@
+---
+// BenchEvidence.astro: our own measured shoes, with each box label checked against our chart.
+// The "Our chart" column is looked up from shoe-sizes.ts (men's row by US size, or by UK size
+// when the label has no US size), so the comparison stays correct if the chart changes.
+import { MEN_SIZE_ROWS } from '../data/shoe-sizes';
+import { BENCH_TESTS, BENCH_MEASURED } from '../data/bench-tests';
+import type { BenchTest } from '../data/bench-tests';
+
+interface Props {
+  ids: BenchTest['id'][];
+  heading: string;
+  intro: string;
+  /** Page-specific reading of the evidence, shown under the cards. */
+  takeaway: string;
+}
+const { ids, heading, intro, takeaway } = Astro.props;
+
+const fmtEu = (n: number) => (Number.isInteger(n * 2) ? String(n) : n.toFixed(1));
+const cards = ids.map(id => {
+  const t = BENCH_TESTS[id];
+  const ours = t.label.us !== undefined
+    ? MEN_SIZE_ROWS.find(r => r.us === t.label.us)
+    : MEN_SIZE_ROWS.find(r => r.uk === t.label.uk);
+  if (!ours) throw new Error(`BenchEvidence: no chart row for ${id}`);
+  const rows = [
+    { sys: 'US', label: t.label.us !== undefined ? String(t.label.us) : 'not printed', chart: String(ours.us), match: t.label.us === undefined ? null : t.label.us === ours.us },
+    { sys: 'UK', label: String(t.label.uk), chart: String(ours.uk), match: t.label.uk === ours.uk },
+    { sys: 'EU', label: t.label.eu, chart: fmtEu(ours.eu), match: Math.abs(t.label.euValue - ours.eu) < 0.01 },
+    { sys: 'Foot (cm)', label: t.label.cm !== undefined ? t.label.cm.toFixed(1) : 'not printed', chart: ours.cm.toFixed(1), match: t.label.cm === undefined ? null : t.label.cm === ours.cm },
+  ];
+  return { t, rows };
+});
+---
+
+<section class="bench-band" aria-labelledby="bench-title">
+  <div class="bench-inner">
+    <p class="mono-eyebrow">Our own measurements</p>
+    <h2 class="bench-title" id="bench-title">{heading}</h2>
+    <p class="bench-intro">{intro}</p>
+
+    <div class="bench-grid">
+      {cards.map(({ t, rows }) => (
+        <figure class="bench-card">
+          <img src={t.image} alt={t.alt} width="600" height="448" loading="lazy" decoding="async" class="bench-photo" />
+          <figcaption class="bench-body">
+            <span class="bench-shoe">{t.shoe}</span>
+            <span class="bench-insole">Insole measured at {t.insoleCm.toFixed(1)} cm ({BENCH_MEASURED})</span>
+            <table class="bench-table">
+              <thead><tr><th scope="col">System</th><th scope="col">Box label</th><th scope="col">Our chart</th></tr></thead>
+              <tbody>
+                {rows.map(r => (
+                  <tr>
+                    <th scope="row">{r.sys}</th>
+                    <td>{r.label}</td>
+                    <td>
+                      {r.chart}
+                      {r.match === true && <span class="bench-flag bench-ok">matches</span>}
+                      {r.match === false && <span class="bench-flag bench-diff">differs</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <p class="bench-takeaway">{takeaway}</p>
+    <p class="bench-method">Method: insoles removed and measured heel to toe with a steel ruler and calipers by Kamlesh Choudhary. "Our chart" is the men's row for the same US size (or UK size when the box prints no US size).</p>
+  </div>
+</section>
+
+<style>
+  .bench-band { padding: 56px 24px; background: var(--v-canvas); border-top: 1px solid var(--v-hairline); }
+  .bench-inner { max-width: 960px; margin: 0 auto; }
+  .bench-title { font-family: var(--font-display); font-size: clamp(22px, 3vw, 28px); font-weight: 700; letter-spacing: -0.025em; color: var(--v-ink); margin: 8px 0 10px; text-wrap: balance; }
+  .bench-intro { font-size: 15px; line-height: 24px; color: var(--v-body); margin: 0 0 24px; max-width: 720px; }
+  .bench-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .bench-card { margin: 0; background: var(--v-elevated); border: 1px solid var(--v-hairline); border-radius: var(--v-r-md); overflow: hidden; display: flex; flex-direction: column; }
+  .bench-photo { width: 100%; height: auto; aspect-ratio: 600 / 448; object-fit: cover; display: block; }
+  .bench-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .bench-shoe { font-weight: 700; font-size: 15px; color: var(--v-ink); }
+  .bench-insole { font-size: 12.5px; color: var(--v-mute); margin-bottom: 8px; }
+  .bench-table { width: 100%; border-collapse: collapse; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+  .bench-table th, .bench-table td { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--v-hairline); color: var(--v-ink); }
+  .bench-table thead th { font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--v-mute); }
+  .bench-table tbody th { font-weight: 600; color: var(--v-body); }
+  .bench-flag { margin-left: 6px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; padding: 1px 6px; border-radius: 4px; text-transform: uppercase; }
+  .bench-ok { color: var(--v-success); background: var(--v-link-soft); }
+  .bench-diff { color: var(--v-ink); background: var(--v-hairline-soft); border: 1px solid var(--v-hairline); }
+  .bench-takeaway { margin: 20px 0 6px; font-size: 15px; line-height: 24px; color: var(--v-ink); font-weight: 500; }
+  .bench-method { margin: 0; font-size: 12.5px; line-height: 18px; color: var(--v-mute); }
+</style>

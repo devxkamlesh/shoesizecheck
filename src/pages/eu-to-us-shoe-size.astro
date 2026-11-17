@@ -4,10 +4,15 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import BenchEvidence from '../components/BenchEvidence.astro';
+import Sources from '../components/Sources.astro';
+import { BENCH_TESTS } from '../data/bench-tests';
 import { size, cm as cmText } from '../data/size-lookup';
 import ReverseLookup from '../components/ReverseLookup.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
+// Our chart's row for the measured Nike box (US men's 9).
+const bench9 = size('men', 'us', 9);
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/eu-to-us-shoe-size/`;
 const pageTitle = "EU to US and US to EU shoe size converter and chart";
@@ -375,6 +380,18 @@ const relatedLinks = [
 
       </div>
     </section>
+
+    <BenchEvidence
+      ids={['nike']}
+      heading="Checked against a real box: Nike Air Max 90"
+      intro="We measured a Nike Air Max 90 labelled US men's 9 and compared every size printed on its box with this page's chart."
+      takeaway={`The box agrees with our chart on EU ${bench9.eu} and a ${cmText(bench9)} cm foot for US men's ${bench9.us}. Only the UK number differs: Nike prints UK ${BENCH_TESTS.nike.label.uk}, a full size below US, while our chart uses UK ${bench9.uk}. EU to US conversions are not affected.`}
+    />
+
+    <Sources
+      ids={['nikeMen', 'nikeWomen', 'iso19407', 'iso9407']}
+      method="Our men's and women's EU and centimetre columns follow Nike's published charts row for row. Every column is anchored to foot length in centimetres, the same basis ISO 19407 uses for its conversion tables."
+    />
 
     <!-- FAQ Accordion Section -->
     <section class="faq-band">

@@ -1,0 +1,56 @@
+---
+// KidsBrandCheck.astro: our kids' chart beside Nike's published kids' chart, row by row.
+// Differences are computed, not written by hand, so the summary stays honest if either changes.
+import { KIDS_SIZE_ROWS } from '../data/shoe-sizes';
+import { NIKE_CHART, SOURCES, SOURCES_CHECKED } from '../data/sources';
+
+const rows = NIKE_CHART.kids.map(n => {
+  const ours = KIDS_SIZE_ROWS.find(r => r.us === n.us);
+  if (!ours) throw new Error(`KidsBrandCheck: no kids row for ${n.us}`);
+  return { us: n.us, ourEu: ours.eu, nikeEu: n.eu, ourCm: ours.cm, nikeCm: n.cm, cmDiff: +(ours.cm - n.cm).toFixed(1), euDiff: +(ours.eu - n.eu).toFixed(1) };
+});
+const euSame = rows.filter(r => r.euDiff === 0).length;
+const maxCm = Math.max(...rows.map(r => Math.abs(r.cmDiff)));
+const fmt = (d: number) => (d === 0 ? 'same' : `${d > 0 ? '+' : ''}${d}`);
+---
+
+<section class="kbc-band" aria-labelledby="kbc-title">
+  <div class="kbc-inner">
+    <p class="mono-eyebrow">Chart check</p>
+    <h2 class="kbc-title" id="kbc-title">Our kids' chart beside Nike's published chart</h2>
+    <p class="kbc-intro">
+      We compared five common children's sizes with <a href={SOURCES.nikeKids.url} target="_blank" rel="noopener">Nike's kids' size chart</a> on {new Date(SOURCES_CHECKED + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}.
+      The EU size agrees at {euSame} of {rows.length} sizes. Nike lists some toddler and little-kid sizes up to {maxCm} cm shorter than our foot-length column, so a child measured between two sizes should take the larger one.
+    </p>
+    <div class="scroll-x">
+      <table class="size-table kbc-table">
+        <thead>
+          <tr><th>US kids</th><th>EU (ours)</th><th>EU (Nike)</th><th>Foot cm (ours)</th><th>CM (Nike)</th><th>Difference</th></tr>
+        </thead>
+        <tbody>
+          {rows.map(r => (
+            <tr>
+              <td>{r.us}</td>
+              <td>{r.ourEu}</td>
+              <td>{r.nikeEu}</td>
+              <td>{r.ourCm.toFixed(1)}</td>
+              <td>{r.nikeCm}</td>
+              <td>{r.cmDiff === 0 && r.euDiff === 0 ? 'same' : `cm ${fmt(r.cmDiff)}${r.euDiff !== 0 ? `, EU ${fmt(r.euDiff)}` : ''}`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="kbc-note">Each brand builds its chart around its own shoe lasts, so small differences between charts are normal, and half a centimetre matters more on a child's foot than an adult's. Nike's own advice matches ours: measure both feet, use the longer one, and if you are between sizes, size up.</p>
+  </div>
+</section>
+
+<style>
+  .kbc-band { padding: 56px 24px; background: var(--v-canvas); border-top: 1px solid var(--v-hairline); }
+  .kbc-inner { max-width: 960px; margin: 0 auto; }
+  .kbc-title { font-family: var(--font-display); font-size: clamp(22px, 3vw, 28px); font-weight: 700; letter-spacing: -0.025em; color: var(--v-ink); margin: 8px 0 10px; }
+  .kbc-intro { font-size: 15px; line-height: 24px; color: var(--v-body); margin: 0 0 20px; max-width: 760px; }
+  .kbc-intro a { color: var(--v-link); }
+  .kbc-table { background: var(--v-elevated); }
+  .kbc-note { margin: 16px 0 0; font-size: 13.5px; line-height: 21px; color: var(--v-mute); max-width: 760px; }
+</style>

@@ -4,6 +4,9 @@ import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import Footer from '../../components/Footer.astro';
+import BenchEvidence from '../../components/BenchEvidence.astro';
+import Sources from '../../components/Sources.astro';
+import { BENCH_TESTS } from '../../data/bench-tests';
 import { size } from '../../data/size-lookup';
 import { SIZE_DATA, MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../../data/shoe-sizes';
 
@@ -345,6 +348,18 @@ const countryLinks = [
         </article>
       </div>
     </section>
+
+    <BenchEvidence
+      ids={['bata', 'nike', 'adidas']}
+      heading="Three UK box labels, one insole length"
+      intro={`Three shoes we measured have insoles within 2 mm of each other (${BENCH_TESTS.bata.insoleCm.toFixed(1)} to ${BENCH_TESTS.nike.insoleCm.toFixed(1)} cm), yet their boxes print UK ${BENCH_TESTS.bata.label.uk}, UK ${BENCH_TESTS.nike.label.uk} and UK ${BENCH_TESTS.adidas.label.uk}.`}
+      takeaway="UK labels for the same insole length vary by half a size between brands. Treat a UK size as a starting point and check each brand's centimetre column before ordering."
+    />
+
+    <Sources
+      ids={['iso19407', 'satra', 'iso9407', 'nikeMen']}
+      method="UK sizes in our chart follow the barleycorn scale (one third of an inch per size) with the men's and women's offsets explained above, anchored to foot length in centimetres as in ISO 19407."
+    />
 
     <!-- FAQ Section -->
     <section class="faq-band">

@@ -40,7 +40,7 @@ export const SOURCES = {
     title: "Kids' Footwear Size Chart",
     publisher: 'Nike',
     url: 'https://www.nike.com/size-fit/kids-footwear',
-    note: 'A brand reference for children\'s sizes. It agrees with our EU column at most sizes but lists some toddler sizes up to 1 cm shorter; the comparison on this page shows where.',
+    note: 'A brand reference for children\'s sizes. It agrees with our EU column at most sizes but lists some toddler sizes shorter in centimetres; the comparison on this page shows where and by how much.',
   },
   satra: {
     title: 'The diversity of footwear sizing systems',

@@ -1,4 +1,5 @@
 ---
+import { LATEST_RELEASE, formatReleaseDate } from '../data/releases';
 // Footer.astro: Modern multi-column footer with company links, status badge and disclaimer
 ---
 
@@ -101,7 +102,7 @@
           <strong>Disclaimer:</strong> AllShoeSizeConverter provides conversion guides based on standard ISO, Brannock, Paris Point, and Barleycorn calculations. Because individual shoe lasts, brand silhouettes, and manufacturing tolerances vary, always verify with brand-specific sizing charts prior to ordering footwear.
         </p>
         <p class="footer-copy">
-          &copy; {new Date().getFullYear()} AllShoeSizeConverter. All rights reserved. Editorial maintainer: <a href="https://devxkamlesh.online/" rel="me">Kamlesh Choudhary (devxkamlesh)</a>. Last reviewed: October 31, 2026.
+          &copy; {new Date().getFullYear()} AllShoeSizeConverter. All rights reserved. Editorial maintainer: <a href="https://devxkamlesh.online/" rel="me">Kamlesh Choudhary (devxkamlesh)</a>. Last reviewed: <time datetime={LATEST_RELEASE.date}>{formatReleaseDate(LATEST_RELEASE.date)}</time>.
         </p>
       </div>
 

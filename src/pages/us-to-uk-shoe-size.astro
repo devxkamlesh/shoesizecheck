@@ -4,9 +4,15 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import BenchEvidence from '../components/BenchEvidence.astro';
+import Sources from '../components/Sources.astro';
+import { BENCH_TESTS } from '../data/bench-tests';
+import { size } from '../data/size-lookup';
 import ReverseLookup from '../components/ReverseLookup.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
+// Our chart's row for the two measured US men's 9 boxes.
+const bench9 = size('men', 'us', 9);
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/us-to-uk-shoe-size/`;
 const pageTitle = "US to UK and UK to US shoe size converter and chart";
@@ -418,6 +424,18 @@ const relatedLinks = [
         </p>
       </div>
     </section>
+
+    <BenchEvidence
+      ids={['nike', 'adidas']}
+      heading="Same US 9, two different UK labels"
+      intro="We measured two sneakers labelled US men's 9. Nike and Adidas print different UK sizes on the box for the same US size."
+      takeaway={`Nike labels US ${BENCH_TESTS.nike.label.us} as UK ${BENCH_TESTS.nike.label.uk}, a one-size gap. Adidas labels it UK ${BENCH_TESTS.adidas.label.uk}, a half-size gap, which is what our chart uses (UK ${bench9.uk}). Both boxes print the same ${bench9.cm.toFixed(1)} cm foot length, so when brands disagree, buy by centimetres.`}
+    />
+
+    <Sources
+      ids={['iso19407', 'nikeMen', 'nikeWomen', 'satra']}
+      method="Our UK column uses the half-size men's offset and two-size women's offset described on this page, anchored to foot length as in ISO 19407. Nike's charts are listed because Nike uses a one-size men's offset, the most common reason shoppers see a different UK size."
+    />
 
     <!-- FAQ Section -->
     <section class="faq-band">

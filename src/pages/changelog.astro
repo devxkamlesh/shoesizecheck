@@ -3,12 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
+import { LATEST_RELEASE, release, formatReleaseDate } from '../data/releases';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/changelog/`;
 const pageTitle = 'Website changelog: AllShoeSizeConverter';
 const pageDescription = 'Documented record of version updates, mathematical formula calibrations, empirical footwear measurements, and editorial revisions.';
-const releaseDate = '2026-11-14';
+const releaseDate = LATEST_RELEASE.date;
 
 const pageSchema = JSON.stringify({
   "@context": "https://schema.org",
@@ -63,7 +64,7 @@ const pageSchema = JSON.stringify({
         <article class="release-entry">
           <div class="release-meta">
             <span class="version-badge">v2.2.0</span>
-            <time datetime="2026-11-18">November 18, 2026</time>
+            <time datetime={release('2.2.0').date}>{formatReleaseDate(release('2.2.0').date)}</time>
           </div>
 
           <h2>Version 2.2.0</h2>
@@ -77,12 +78,27 @@ const pageSchema = JSON.stringify({
           <p>
             Converter result cards, benchmark cards, and several written examples now take their numbers from the same table as the charts, so they cannot drift apart. This corrected statements that still used older values: a 27.0 cm men's foot is EU 42.5 (not 42), US men's 9 is EU 42.5, a 26.5 cm women's foot is US women's 9.5, men's EU 42 is UK 8, and US to Mexico talla values for men's sizes were half a size high. A build check now compares every US, UK, India, EU, and centimetre pair written on the site against the chart.
           </p>
+
+          <h3>Sources and our own measurements on five guides</h3>
+          <p>
+            The <a href="/eu-to-us-shoe-size/">EU to US</a>, <a href="/us-to-uk-shoe-size/">US to UK</a>, <a href="/uk-to-eu-shoe-size/">UK to EU</a>, <a href="/kids-shoe-size-by-age/">kids' size by age</a> and <a href="/country/uk/">UK size</a> guides now list their sources: ISO 19407:2023, ISO 9407:2019, Nike's published men's, women's and kids' charts, and SATRA's article on sizing systems. We checked Nike's charts against ours on November 18, 2026; our men's and women's EU and centimetre columns match them row for row. Four guides also show our September 2026 insole measurements, with each box label compared to our chart. The kids' guide compares our chart with Nike's and shows where they differ.
+          </p>
+
+          <h3>Quick-reference table corrected</h3>
+          <p>
+            The foot-length quick reference on the homepage and measuring guides is now generated from the size chart. It previously listed 26.5 cm as EU 41.5 and 27 cm as EU 42; the chart values are EU 42 and EU 42.5. A 23 cm men's row that is not in our chart was removed.
+          </p>
+
+          <h3>Converter finder</h3>
+          <p>
+            The homepage has a converter finder: choose the size system you have and the one you need, and it opens the page that converts that pair, including the country guides for Japan, Mexico, Australia, Korea and China.
+          </p>
         </article>
 
         <article class="release-entry">
           <div class="release-meta">
             <span class="version-badge">v2.1.1</span>
-            <time datetime="2026-11-14">November 14, 2026</time>
+            <time datetime={release('2.1.1').date}>{formatReleaseDate(release('2.1.1').date)}</time>
           </div>
 
           <h2>Version 2.1.1</h2>
@@ -104,7 +120,7 @@ const pageSchema = JSON.stringify({
         <article class="release-entry">
           <div class="release-meta">
             <span class="version-badge">v2.1.0</span>
-            <time datetime="2026-10-31">October 31, 2026</time>
+            <time datetime={release('2.1.0').date}>{formatReleaseDate(release('2.1.0').date)}</time>
           </div>
 
           <h2>Version 2.1.0</h2>
@@ -118,7 +134,7 @@ const pageSchema = JSON.stringify({
         <article class="release-entry">
           <div class="release-meta">
             <span class="version-badge">v2.0.0</span>
-            <time datetime="2026-10-02">October 2, 2026</time>
+            <time datetime={release('2.0.0').date}>{formatReleaseDate(release('2.0.0').date)}</time>
           </div>
 
           <h2>Version 2.0.0</h2>
@@ -152,7 +168,7 @@ const pageSchema = JSON.stringify({
         <article class="release-entry">
           <div class="release-meta">
             <span class="version-badge">v1.0.0</span>
-            <time datetime="2026-09-15">September 15, 2026</time>
+            <time datetime={release('1.0.0').date}>{formatReleaseDate(release('1.0.0').date)}</time>
           </div>
 
           <h2>Version 1.0.0</h2>
