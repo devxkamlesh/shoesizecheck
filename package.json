@@ -13,9 +13,9 @@
     "audit": "node scripts/audit.cjs",
     "check:sizes": "node scripts/check-size-claims.mjs",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=allshoesizeconverter",
-    "astro": "astro"
+    "astro": "astro",
+    "indexnow": "node scripts/indexnow.mjs"
   },
-
   "dependencies": {
     "@astrojs/check": "^0.9.10",
     "@tailwindcss/vite": "^4.3.3",
