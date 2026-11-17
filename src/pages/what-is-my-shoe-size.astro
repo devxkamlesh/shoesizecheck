@@ -18,35 +18,35 @@ const faqs = [
   },
   {
     q: 'What is my EU shoe size (European shoe size)?',
-    a: 'European sizing is unisex and uses the Paris Point standard (each size is 2/3 of a centimeter, or 6.67 mm). For US men, add approximately 33 to your size (US Men\'s 9 = EU 42). For US women, add roughly 31 to 31.5 (US Women\'s 8 = EU 39). An adult foot measuring 26 cm fits EU 41 in both men\'s and women\'s footwear.'
+    a: 'European sizing is unisex and uses the Paris Point standard (each size is 2/3 of a centimeter, or 6.67 mm). For US men, add approximately 33.5 to your size (US Men\'s 9 = EU 42.5). For US women, add roughly 31 to 32 (US Women\'s 8 = EU 39). An adult foot measuring 26 cm fits about EU 41 in men\'s footwear and EU 40.5 in women\'s.'
   },
   {
     q: 'If my foot is 9 inches long, what shoe size am I?',
-    a: 'A 9-inch foot (~22.9 cm) corresponds to US Women\'s 6, US Men\'s 4.5, UK 4, EU 36.5 to 37, and India 4. In centimeter sizing, this represents size 23.'
+    a: 'A 9-inch foot (~22.9 cm) corresponds to US Women\'s 6 (UK and India 4, EU 36.5), or roughly US Men\'s 4.5. In centimeter sizing, this represents size 23.'
   },
   {
     q: 'If my foot is 10 inches long, what shoe size am I?',
-    a: 'Ten inches equals 25.4 centimeters. That corresponds to US Men\'s 7.5 to 8, US Women\'s 9 to 9.5, UK 7, EU 40.5 to 41, and India 7. If your foot is 10.5 inches (~26.7 cm), you fit a US Men\'s 9 to 9.5 or US Women\'s 10.5 to 11.'
+    a: 'Ten inches equals 25.4 centimeters. That corresponds to about US Men\'s 7.5 (UK and India 7, EU 40.5) or US Women\'s 8.5 (UK 6.5, EU 40). If your foot is 10.5 inches (~26.7 cm), you fit about a US Men\'s 8.5 to 9 or US Women\'s 9.5 to 10.'
   },
   {
     q: 'My foot is 24 cm long, what size shoe am I?',
-    a: 'A 24 cm foot length corresponds to US Men\'s 6, US Women\'s 7.5, UK 5.5, EU 38, India 5, and Japan 24. It is one of the most common standard adult female shoe sizes globally.'
+    a: 'A 24 cm foot length corresponds to US Men\'s 6 (UK and India 5.5, EU 38.5) or US Women\'s 7 (UK 5, EU 38), and Japan 24. It is one of the most common standard adult female shoe sizes globally.'
   },
   {
     q: 'My foot is 25 cm long, what size shoe am I?',
-    a: 'A 25 cm foot length corresponds to US Men\'s 7, US Women\'s 8.5, UK 6.5, EU 40, India 6, and Japan 25. In centimeter-based athletic sneakers, this provides an ideal true-to-size fit.'
+    a: 'A 25 cm foot length corresponds to US Men\'s 7 (UK and India 6.5, EU 40) or US Women\'s 8 (UK 6, EU 39), and Japan 25. In centimeter-based athletic sneakers, this provides an ideal true-to-size fit.'
   },
   {
     q: 'If my foot is 26 cm long, what shoe size am I?',
-    a: 'A 26 cm foot length corresponds to US Men\'s 8, US Women\'s 9.5, UK 7.5, EU 41, and India 7. In Japan and Mondopoint sizing, this is labeled directly as size 26.'
+    a: 'A 26 cm foot length corresponds to US Men\'s 8 (UK and India 7.5, EU 41) or US Women\'s 9 (UK 7, EU 40.5). In Japan and Mondopoint sizing, this is labeled directly as size 26.'
   },
   {
     q: 'If my foot is 27 cm long, what shoe size am I?',
-    a: 'A 27 cm foot length corresponds to US Men\'s 9, US Women\'s 10.5, UK 8.5, EU 42, and India 8. It is one of the most widely manufactured adult men\'s shoe sizes in the world.'
+    a: 'A 27 cm foot length corresponds to US Men\'s 9 (UK and India 8.5, EU 42.5) or US Women\'s 10 (UK 8, EU 42). It is one of the most widely manufactured adult men\'s shoe sizes in the world.'
   },
   {
     q: 'If my foot is 28 cm long, what shoe size am I?',
-    a: 'A 28 cm foot length corresponds to US Men\'s 10, US Women\'s 11.5, UK 9.5, EU 43.5 to 44, India 9.5, and Japan 28. It represents an average large adult shoe profile.'
+    a: 'A 28 cm foot length corresponds to US Men\'s 10 (UK and India 9.5, EU 44) or US Women\'s 11 (UK 9, EU 43), and Japan 28. It represents an average large adult shoe profile.'
   },
   {
     q: 'What size shoe is my baby or 1-year-old?',
@@ -140,7 +140,7 @@ const faqSchema = JSON.stringify({
               </div>
               <div class="card">
                 <h3>European Union (EU)</h3>
-                <p>Uses Paris Points (2/3 cm or 6.67 mm per increment). Sizing is unisex across men and women, meaning EU 41 indicates the exact same length for both.</p>
+                <p>Uses Paris Points (2/3 cm or 6.67 mm per increment). Sizing is nominally unisex, but brand charts place men's and women's lengths up to half a size apart: EU 41 is 26.0 cm in our men's chart and 26.5 cm in our women's.</p>
               </div>
               <div class="card">
                 <h3>Japan and Mondopoint (CM)</h3>
@@ -151,11 +151,11 @@ const faqSchema = JSON.stringify({
             <h2 class="heading-md">Common foot length reference</h2>
             <p>Use these benchmark lengths to check your starting size across systems:</p>
             <ul>
-              <li>A 24 cm foot length corresponds to US Women's 7.5, US Men's 6, UK 5.5, EU 38, and India 5.</li>
-              <li>A 25 cm foot length corresponds to US Women's 8.5, US Men's 7, UK 6.5, EU 40, and India 6.</li>
-              <li>A 26 cm foot length corresponds to US Women's 9.5, US Men's 8, UK 7.5, EU 41, and India 7.</li>
-              <li>A 27 cm foot length corresponds to US Women's 10.5, US Men's 9, UK 8.5, EU 42, and India 8.</li>
-              <li>A 28 cm foot length corresponds to US Women's 11.5, US Men's 10, UK 9.5, EU 43.5 to 44, and India 9.5.</li>
+              <li>A 24 cm foot length corresponds to US Men's 6 (UK and India 5.5, EU 38.5) or US Women's 7 (UK 5, EU 38).</li>
+              <li>A 25 cm foot length corresponds to US Men's 7 (UK and India 6.5, EU 40) or US Women's 8 (UK 6, EU 39).</li>
+              <li>A 26 cm foot length corresponds to US Men's 8 (UK and India 7.5, EU 41) or US Women's 9 (UK 7, EU 40.5).</li>
+              <li>A 27 cm foot length corresponds to US Men's 9 (UK and India 8.5, EU 42.5) or US Women's 10 (UK 8, EU 42).</li>
+              <li>A 28 cm foot length corresponds to US Men's 10 (UK and India 9.5, EU 44) or US Women's 11 (UK 9, EU 43).</li>
             </ul>
 
             <h2 class="heading-md">When to size up or down</h2>

@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: 'How do European (EU) sizes compare to US and UK sizes?',
-    a: 'European sizing is unisex and steps by Paris Points (2/3 cm per size). Under ISO/TS 19407:2015 tables for men, EU 42 corresponds to US Men 9.0 and UK 8.5. For women, EU 39 corresponds to US Women 8.0 and UK 6.0.'
+    a: 'European sizing is unisex and steps by Paris Points (2/3 cm per size). In our men\'s chart, EU 42 corresponds to US Men 8.5 and UK 8. For women, EU 39 corresponds to US Women 8.0 and UK 6.0.'
   },
   {
     q: 'Why do Indian shoe sizes follow UK sizing?',
@@ -136,7 +136,7 @@ const tableRows = MEN_SIZE_ROWS.filter(r => [7.0, 8.0, 9.0, 10.0, 11.0, 12.0].in
                   <td>{r.india}</td>
                   <td>{r.jp ?? r.cm}</td>
                   <td>{r.australia ?? r.uk}</td>
-                  <td>{r.mexico ?? r.uk}</td>
+                  <td>{r.cm}</td>
                   <td>{r.cm.toFixed(1)}</td>
                   <td>{r.inch}"</td>
                 </tr>
@@ -161,7 +161,7 @@ const tableRows = MEN_SIZE_ROWS.filter(r => [7.0, 8.0, 9.0, 10.0, 11.0, 12.0].in
             <div class="system-item">
               <h3>Paris Point system</h3>
               <p class="system-countries">Europe, China</p>
-              <p>Each size equals 2/3 cm (6.67 mm). Sizes are unisex: EU 42 indicates 27.0 cm for men and women.</p>
+              <p>Each size equals 2/3 cm (6.67 mm). Sizes are nominally unisex, but charts differ by gender: men's EU 42 fits 26.5 cm, women's EU 42 fits 27.0 cm.</p>
             </div>
             <div class="system-item">
               <h3>Mondopoint system</h3>

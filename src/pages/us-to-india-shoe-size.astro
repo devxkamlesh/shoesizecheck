@@ -4,22 +4,36 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { size, cm as cmText } from '../data/size-lookup';
+import ReverseLookup from '../components/ReverseLookup.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/us-to-india-shoe-size/`;
-const pageTitle = 'US to India shoe size converter: US to Indian chart';
-const pageDescription = 'Convert US shoe sizes to Indian sizes. Complete US to India shoe size chart for men, women, and kids with brand sizing notes and centimetre measurements.';
+const pageTitle = "US to India and India to US shoe size chart and converter";
+const pageDescription = "Convert US shoe sizes to Indian and Indian sizes to US for men, women, and kids. US men's 8 = India 7.5, US men's 9 = India 8.5, with cm and EU.";
 const ogImage = `${domain}/og-image.png`;
 
 const menSizes = MEN_SIZE_ROWS;
 const womenSizes = WOMEN_SIZE_ROWS;
 const kidsSizes = KIDS_SIZE_ROWS;
+// Default converter card, rendered from the same row the size picker preselects.
+const d0 = menSizes.find(s => s.us === 9.0)!;
+
+// Every size quoted on this page comes from the shared rows.
+const m8 = size('men', 'us', 8);
+const w8 = size('women', 'us', 8);
+const m40 = size('men', 'eu', 40);
+const m42 = size('men', 'eu', 42);
+const benchmarks = [
+  { gender: 'men', row: m8 }, { gender: 'men', row: size('men', 'us', 9) }, { gender: 'men', row: size('men', 'us', 10) },
+  { gender: 'women', row: size('women', 'us', 7) }, { gender: 'women', row: w8 }, { gender: 'women', row: size('women', 'us', 8.5) },
+];
 
 const faqs = [
   {
     q: 'What is US size 8 in Indian shoe size?',
-    a: 'An American US size 8 for men equals Indian size 7.5 under standard conversion (26.0 cm foot length, EU 41). Athletic sneaker brands often label US 8 as India 7. For women, a US size 8 equals Indian size 6, which fits a 25.0 cm foot length (EU 38.5).'
+    a: `An American US size ${m8.us} for men equals Indian size ${m8.india} under standard conversion (${cmText(m8)} cm foot length, EU ${m8.eu}). For women, a US size ${w8.us} equals Indian size ${w8.india}, which fits a ${cmText(w8)} cm foot length (EU ${w8.eu}).`
   },
   {
     q: 'How do I convert US women\'s shoe sizes to Indian sizes?',
@@ -31,11 +45,23 @@ const faqs = [
   },
   {
     q: 'What size is EU 40 or 42 shoe size in India when buying US branded shoes?',
-    a: 'An EU 40 translates to Indian size 6.5 for men (US Men 7.0, 25.0 cm). An EU 42 corresponds to Indian size 8.5 for men (US Men 9.0, 27.0 cm) on the standard scale, or Indian size 8 under sneaker brand labeling.'
+    a: `A men's EU ${m40.eu} translates to Indian size ${m40.india} (US Men ${m40.us}, ${cmText(m40)} cm). A men's EU ${m42.eu} corresponds to Indian size ${m42.india} (US Men ${m42.us}, ${cmText(m42)} cm).`
   },
   {
     q: 'How do Nike and sneaker brands fit compared to the standard Indian size table?',
     a: 'Under standard ISO sizing, an American US Men\'s 9 equals Indian size 8.5 (27.0 cm foot length). Sneaker manufacturers like Nike and Converse apply a 1-size offset, labeling US 9 as UK/India 8 on the box tag. When ordering sneakers, verify the physical centimetre (CM) measurement on the size tag.'
+  },
+  {
+    q: "What is UK size 8 in India, and how does it convert to US sizing?",
+    a: "In Indian footwear retail under IS 1638:1969, UK size 8 and Indian size 8 are identical in length. When converting an Indian size 8 to American footwear, it translates to US Men's size 8.5 (fitting a 26.5 cm footbed, EU 42). Nike uses a one-size US to UK offset, so its chart lists UK and India 8 as US Men's 9.0."
+  },
+  {
+    q: "How do I convert an Indian shoe size to US size for men and women?",
+    a: "To convert an Indian shoe size to US, add 0.5 to 1 size for men (US Men = India + 0.5 under ISO standard; US Men = India + 1 for sneaker brands). For women, add 2 full sizes (US = India + 2; for example, India 5 becomes US Women 7, and India 6 becomes US Women 8)."
+  },
+  {
+    q: "How does Indian foot width compare to American shoe width?",
+    a: "The CSIR-Central Leather Research Institute (CSIR-CLRI) published an anthropometric survey report in 2022 documenting that Indian feet have broader ball girth and higher instep measurements relative to European and standard American lasts. When buying US footwear, individuals with broad forefeet often choose wide fittings or a half size up."
   }
 ];
 
@@ -51,11 +77,10 @@ const faqSchema = JSON.stringify({
 
 const relatedLinks = [
   { label: 'All Converters Directory', href: '/converters/' },
-  { label: 'India to US Shoe Size Converter', href: '/india-to-us-shoe-size/' },
   { label: 'US to UK Shoe Size Converter', href: '/us-to-uk-shoe-size/' },
-  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
-  { label: 'UK to India Shoe Size Converter', href: '/uk-to-india-shoe-size/' },
-  { label: 'India to EU Shoe Size Converter', href: '/india-to-eu-shoe-size/' },
+  { label: 'EU to US Shoe Size Converter', href: '/eu-to-us-shoe-size/' },
+  { label: 'India to UK Shoe Size Converter', href: '/india-to-uk-shoe-size/' },
+  { label: 'EU to India Shoe Size Converter', href: '/eu-to-india-shoe-size/' },
   { label: 'India Shoe Sizing Guide', href: '/country/india/' },
   { label: 'United States Shoe Sizing Guide', href: '/country/us/' },
   { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
@@ -93,7 +118,7 @@ const relatedLinks = [
     <section class="hero-band">
       <div class="page-inner hero-content">
         <span class="badge-pill">International Footwear Converter</span>
-        <h1 class="hero-title">US to India Shoe Size Converter</h1>
+        <h1 class="hero-title">US to India and India to US shoe size converter</h1>
         <p class="hero-sub">Convert American shoe sizes to Indian footwear sizes accurately. Explore complete men's, women's, and children's charts with brand comparisons, Myntra guidelines, and anatomical centimetre foot lengths.</p>
         
         <div class="hero-stats">
@@ -150,7 +175,7 @@ const relatedLinks = [
             <div class="conv-result-card">
               <div class="conv-col">
                 <span class="conv-sys">United States (US)</span>
-                <span class="conv-val" id="res-us">9.0</span>
+                <span class="conv-val" id="res-us">{String(d0.us)}</span>
                 <span class="conv-note" id="res-us-sub">Men's Standard</span>
               </div>
               <div class="conv-arrow-wrap" aria-hidden="true">
@@ -160,19 +185,21 @@ const relatedLinks = [
               </div>
               <div class="conv-col conv-target">
                 <span class="conv-sys">India (IND / UK)</span>
-                <span class="conv-val" id="res-in">8.0</span>
+                <span class="conv-val" id="res-in">{String(d0.india)}</span>
                 <span class="conv-note" id="res-in-sub">India Men's Equivalent</span>
               </div>
               <div class="conv-col conv-aux">
                 <span class="conv-sys">Footbed & European</span>
-                <span class="conv-val-sm" id="res-cm">27.0 cm · EU 42</span>
-                <span class="conv-note" id="res-in-meas">10.6 inches</span>
+                <span class="conv-val-sm" id="res-cm">{`${d0.cm.toFixed(1)} cm · EU ${d0.eu}`}</span>
+                <span class="conv-note" id="res-in-meas">{`${d0.inch.toFixed(1)} inches`}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <ReverseLookup id="india-to-us" from="india" to="us" fromLabel="India" toLabel="US" defaultMen={8} />
 
     <!-- Benchmark Cards -->
     <section class="snapshot-band">
@@ -181,48 +208,15 @@ const relatedLinks = [
         <p class="section-sub">Quick reference for the most widely searched US and Indian footwear sizes on Myntra, Flipkart, Amazon India, and retail storefronts.</p>
 
         <div class="snapshot-grid">
-          <div class="snap-card">
-            <span class="snap-tag">Men's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">US 8 Men → India 7</span>
-              <span class="snap-detail">Foot length: 26.0 cm · EU 41 · us8 size in india</span>
+          {benchmarks.map(({ gender, row }) => (
+            <div class="snap-card">
+              <span class="snap-tag">{gender === 'men' ? "Men's" : "Women's"} Benchmark</span>
+              <div class="snap-body">
+                <span class="snap-main">US {row.us} {gender === 'men' ? 'Men' : 'Women'} → India {row.india}</span>
+                <span class="snap-detail">Foot length: {cmText(row)} cm · EU {row.eu} · UK {row.uk}</span>
+              </div>
             </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">US 9 Men → India 8</span>
-              <span class="snap-detail">Foot length: 27.0 cm · EU 42 · 42 size shoe in india</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">US 10 Men → India 9.5</span>
-              <span class="snap-detail">Foot length: 28.0 cm · EU 44 · 44 shoe size in india</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">US 7 Women → India 5</span>
-              <span class="snap-detail">Foot length: 24.0 cm · EU 38 · 38 size in india shoes</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">US 8 Women → India 6</span>
-              <span class="snap-detail">Foot length: 25.0 cm · EU 39 · euro 37 to 39 range</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">US 8.5 Women → India 6.5</span>
-              <span class="snap-detail">Foot length: 25.5 cm · EU 40 · 40 size in india shoes</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

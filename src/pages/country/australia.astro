@@ -9,7 +9,18 @@ import { SIZE_DATA, MEN_SIZE_ROWS, WOMEN_SIZE_ROWS } from '../../data/shoe-sizes
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/country/australia/`;
 const pageTitle = 'Australian Shoe Size Chart: AU to US, UK and EU Sizing Guide';
-const pageDescription = 'Australian shoe size chart for men, women, and kids. Convert AU shoe sizes to US, UK, EU, and CM with Blundstone, Crocs, and Nike sizing guides.';
+const pageDescription = "Australian shoe size chart for men, women, and kids. Convert AU to US, UK, EU, and CM, and EU to AU: EU 40 = AU men's 6.5 or AU women's 8.5.";
+
+// EU to AU lookup (absorbs the retired /eu-40-to-au-shoe-size/ page). Values come from the shared rows.
+// EU sizes present in both the men's and women's rows.
+const euAuRange = [38.5, 39, 40, 40.5, 41, 42, 42.5, 43];
+const euAuRows = euAuRange.map(eu => ({
+  eu,
+  men: MEN_SIZE_ROWS.find(r => r.eu === eu),
+  women: WOMEN_SIZE_ROWS.find(r => r.eu === eu),
+}));
+const eu40Men = MEN_SIZE_ROWS.find(r => r.eu === 40)!;
+const eu40Women = WOMEN_SIZE_ROWS.find(r => r.eu === 40)!;
 const ogImage = `${domain}/og-image.png`;
 
 const faqs = [
@@ -27,7 +38,7 @@ const faqs = [
   },
   {
     q: 'What is a European shoe size 44 in Australia?',
-    a: 'An EU 44 shoe in Australia corresponds to an Australian Men size 9.5 to 10 (US Men 10.5, UK 9.5 to 10), fitting a foot length of approximately 28.0 centimeters (11.0 inches).'
+    a: 'An EU 44 shoe in Australia corresponds to an Australian Men size 9.5 (US Men 10, UK 9.5), fitting a foot length of approximately 28.0 centimeters (11.0 inches).'
   },
   {
     q: 'How does US shoe sizing convert to Australian shoe sizes for men and women?',
@@ -43,7 +54,15 @@ const faqs = [
   },
   {
     q: 'What does a 27 cm foot length correspond to in Australian shoe size?',
-    a: 'A 27 cm foot length corresponds to an Australian Men size 8.5 to 9 (US Men 9.0 to 9.5, EU 42 to 43) or an Australian Women size 10.5 (US Women 10.5).'
+    a: 'A 27 cm foot length corresponds to an Australian Men size 8.5 (US Men 9.0, EU 42.5) or an Australian Women size 10 (US Women 10, EU 42).'
+  },
+  {
+    q: "What is EU 40 in Australian shoe size?",
+    a: "EU 40 is AU men's 6.5, which matches UK men's 6.5 and US men's 7. Modern Australian women's retail follows US women's numbers, so EU 40 is AU women's 8.5. The foot length is about 25.0 cm in men's shoes and 25.5 cm in women's."
+  },
+  {
+    q: "How many centimeters is EU 40?",
+    a: "EU 40 corresponds to about 25.0 cm of foot length in men's shoes and 25.5 cm in women's. Use the brand's own CM or JP measurement when available because shoe lasts and toe-room allowances vary."
   }
 ];
 
@@ -58,9 +77,9 @@ const faqSchema = JSON.stringify({
 });
 
 const conversionLinks = [
-  { label: 'EU 40 to AU Shoe Size', href: '/eu-40-to-au-shoe-size/' },
-  { label: 'UK to US Shoe Size', href: '/uk-to-us-shoe-size/' },
-  { label: 'US to EU Shoe Size', href: '/us-to-eu-shoe-size/' },
+  { label: 'EU to AU Shoe Size', href: '#eu-to-au' },
+  { label: 'US to UK Shoe Size', href: '/us-to-uk-shoe-size/' },
+  { label: 'EU to US Shoe Size', href: '/eu-to-us-shoe-size/' },
   { label: 'Shoe Size in CM', href: '/shoe-size-in-cm/' },
   { label: 'Shoe Size in Inches', href: '/shoe-size-in-inches/' },
   { label: 'What Is My Shoe Size?', href: '/what-is-my-shoe-size/' },
@@ -164,6 +183,40 @@ const countryLinks = [
             <p class="ci-placeholder">Select an Australian shoe size to see conversions across US, UK, EU, India, CM, and Inches</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- EU to AU (incl. EU 40) -->
+    <section class="table-band" id="eu-to-au">
+      <div class="page-inner">
+        <header class="section-heading">
+          <p class="mono-eyebrow">European to Australian</p>
+          <h2 class="heading-lg">EU to AU shoe size chart, including EU 40</h2>
+          <p class="body-md"><strong>EU 40 is AU men's {eu40Men.australia} or AU women's {eu40Women.australia}.</strong> That is US men's {eu40Men.us} ({eu40Men.cm.toFixed(1)} cm foot) or US women's {eu40Women.us} ({eu40Women.cm.toFixed(1)} cm foot). Australian men's sizes follow UK men's, and most Australian women's retail follows US women's numbers.</p>
+        </header>
+        <div class="table-card">
+          <div class="scroll-x">
+            <table class="size-table" aria-label="EU to Australian shoe size chart">
+              <thead>
+                <tr><th>EU Size</th><th>AU Men</th><th>US Men</th><th>Men's Foot (CM)</th><th>AU Women</th><th>US Women</th><th>Women's Foot (CM)</th></tr>
+              </thead>
+              <tbody>
+                {euAuRows.map(({ eu, men, women }) => (
+                  <tr>
+                    <td><strong>EU {eu}</strong></td>
+                    <td>{men ? `AU ${men.australia}` : '–'}</td>
+                    <td>{men ? `US ${men.us}` : '–'}</td>
+                    <td>{men ? `${men.cm.toFixed(1)} cm` : '–'}</td>
+                    <td>{women ? `AU ${women.australia}` : '–'}</td>
+                    <td>{women ? `US ${women.us}` : '–'}</td>
+                    <td>{women ? `${women.cm.toFixed(1)} cm` : '–'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="body-sm text-mute" style="margin-top:12px">Some heritage brands label women's shoes on a UK-based scale (EU 40 = UK 6.5). Check the brand's own chart before ordering.</p>
       </div>
     </section>
 

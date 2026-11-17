@@ -1,188 +1,312 @@
 ---
-// PopularConversions.astro: Quick shoe size conversion cards
-interface ConversionItem {
-  title: string;
-  subtitle: string;
-  href: string;
+// PopularConversions.astro: "Find your converter" card for the homepage.
+// Visitors pick the size system they have and the one they need; the card links to the
+// page that converts that pair. Every route is built from CONVERSIONS at build time, so a
+// merged or retired page can never be linked here.
+import { CONVERSIONS } from '../data/shoe-sizes';
+
+const SYSTEMS = [
+  { id: 'us', label: 'US' },
+  { id: 'uk', label: 'UK' },
+  { id: 'eu', label: 'EU' },
+  { id: 'india', label: 'India' },
+  { id: 'jp', label: 'Japan' },
+  { id: 'cm', label: 'CM (foot length)' },
+  { id: 'mexico', label: 'Mexico' },
+  { id: 'australia', label: 'Australia' },
+  { id: 'korea', label: 'Korea' },
+  { id: 'china', label: 'China' },
+] as const;
+type Sys = typeof SYSTEMS[number]['id'];
+
+// Country guides cover systems that have no pair converter of their own.
+const COUNTRY_PAGE: Partial<Record<Sys, { href: string; title: string }>> = {
+  jp: { href: '/country/japan/', title: 'Japan shoe size chart and converter' },
+  mexico: { href: '/country/mexico/', title: 'Mexico shoe size chart and converter' },
+  australia: { href: '/country/australia/', title: 'Australian shoe size chart and converter' },
+  korea: { href: '/country/korea/', title: 'Korean shoe size chart and converter' },
+  china: { href: '/country/china/', title: 'China shoe size chart and converter' },
+};
+
+// Every pair page works in both directions (reverse lookup or two-column chart).
+const pairPage = new Map<string, { href: string; title: string }>();
+for (const c of CONVERSIONS) {
+  const page = { href: `/${c.slug}/`, title: c.h1 };
+  pairPage.set(`${c.fromSystem}|${c.toSystem}`, page);
+  pairPage.set(`${c.toSystem}|${c.fromSystem}`, page);
+}
+// Japanese sizes are foot length in cm, so a CM converter answers a Japan pair.
+const find = (a: Sys, b: Sys) =>
+  pairPage.get(`${a}|${b}`)
+  ?? (a === 'jp' ? pairPage.get(`cm|${b}`) : undefined)
+  ?? (b === 'jp' ? pairPage.get(`${a}|cm`) : undefined);
+
+const ALL_IN_ONE = { href: '/#converter', title: 'All-in-one shoe size converter' };
+const ROUTES: Record<string, { href: string; title: string }> = {};
+for (const a of SYSTEMS) for (const b of SYSTEMS) {
+  if (a.id === b.id) continue;
+  ROUTES[`${a.id}|${b.id}`] = find(a.id, b.id) ?? COUNTRY_PAGE[b.id] ?? COUNTRY_PAGE[a.id] ?? ALL_IN_ONE;
 }
 
-const conversions: ConversionItem[] = [
-  { title: 'US to EU', subtitle: 'American to European sizes', href: '/us-to-eu-shoe-size/' },
-  { title: 'US to UK', subtitle: 'American to British sizes', href: '/us-to-uk-shoe-size/' },
-  { title: 'US to India', subtitle: 'American to Indian sizes', href: '/us-to-india-shoe-size/' },
-  { title: 'EU to US', subtitle: 'European to American sizes', href: '/eu-to-us-shoe-size/' },
-  { title: 'UK to US', subtitle: 'British to American sizes', href: '/uk-to-us-shoe-size/' },
-  { title: 'India to US', subtitle: 'Indian to American sizes', href: '/india-to-us-shoe-size/' },
-  { title: 'EU to UK', subtitle: 'European to British sizes', href: '/eu-to-uk-shoe-size/' },
-  { title: 'US to CM', subtitle: 'US sizes to Centimeters', href: '/us-to-cm-shoe-size/' },
-  { title: 'EU to CM', subtitle: 'EU sizes to Centimeters', href: '/eu-to-cm-shoe-size/' },
-];
+const DEFAULT_FROM: Sys = 'eu';
+const DEFAULT_TO: Sys = 'us';
+const initial = ROUTES[`${DEFAULT_FROM}|${DEFAULT_TO}`];
+
+// Tiles, most-used first (Bing and Google clicks, November 2026).
+const ORDER = ['eu-to-us', 'uk-to-eu', 'us-to-uk', 'us-to-india', 'eu-to-cm', 'us-to-cm', 'us-to-japan', 'india-to-uk', 'eu-to-india', 'us-to-mexico'];
+const BOTH_WAYS = new Set(['eu-to-us', 'uk-to-eu', 'us-to-uk', 'us-to-india', 'india-to-uk', 'eu-to-india']);
+const tiles = ORDER
+  .map(key => CONVERSIONS.find(c => c.slug === `${key}-shoe-size`))
+  .filter(c => c !== undefined)
+  .map(c => ({ href: `/${c.slug}/`, from: c.fromLabel, to: c.toLabel, both: BOTH_WAYS.has(c.slug.replace('-shoe-size', '')) }));
 ---
 
-<section class="pop-section">
-  <div class="pop-inner">
-    <div class="pop-header">
-      <div class="pop-header-left">
-        <p class="pop-eyebrow">POPULAR CONVERSIONS</p>
-        <h2 class="pop-heading">Quick Shoe Size Conversions</h2>
-        <p class="pop-sub">Jump to the most commonly searched shoe size conversions. Each page includes a dedicated converter and full chart.</p>
+<section class="finder-section" aria-labelledby="finder-title">
+  <div class="finder-inner">
+    <div class="finder-card">
+      <div class="finder-copy">
+        <p class="mono-eyebrow">Find your converter</p>
+        <h2 class="finder-title" id="finder-title">Which sizes are you converting?</h2>
+        <p class="finder-sub">Pick the size on your shoe and the size you need. We open the page with the right chart, calculator and fit notes.</p>
       </div>
-      <a href="/converters/" class="pop-view-all">
-        <span>View all 16 converters</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
+
+      <div class="finder-form" data-finder>
+        <label class="finder-field">
+          <span class="finder-label">I have</span>
+          <select class="form-select finder-select" data-finder-from aria-label="Size system you have">
+            {SYSTEMS.map(s => <option value={s.id} selected={s.id === DEFAULT_FROM ? true : undefined}>{s.label}</option>)}
+          </select>
+        </label>
+
+        <button type="button" class="finder-swap" data-finder-swap aria-label="Swap the two size systems" title="Swap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12M17 20l4-4M17 20l-4-4"/>
+          </svg>
+        </button>
+
+        <label class="finder-field">
+          <span class="finder-label">I need</span>
+          <select class="form-select finder-select" data-finder-to aria-label="Size system you need">
+            {SYSTEMS.map(s => <option value={s.id} selected={s.id === DEFAULT_TO ? true : undefined}>{s.label}</option>)}
+          </select>
+        </label>
+
+        <a class="finder-go" href={initial.href} data-finder-go>
+          <span class="finder-go-text">
+            <span class="finder-go-label">Open</span>
+            <span class="finder-go-title" data-finder-title>{initial.title}</span>
+          </span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
     </div>
 
-    <div class="pop-grid">
-      {conversions.map(c => (
-        <a href={c.href} class="conv-card">
-          <div class="conv-text">
-            <span class="conv-title">{c.title}</span>
-            <span class="conv-desc">{c.subtitle}</span>
-          </div>
-          <span class="conv-arrow" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </span>
-        </a>
-      ))}
+    <div class="finder-tiles-head">
+      <h3 class="finder-tiles-title">Popular converters</h3>
+      <a href="/converters/" class="finder-all">All converters →</a>
     </div>
+    <ul class="finder-tiles" role="list">
+      {tiles.map(t => (
+        <li>
+          <a href={t.href} class="finder-tile">
+            <span class="tile-codes">
+              <span class="tile-code">{t.from}</span>
+              <span class="tile-arrow" aria-hidden="true">{t.both ? '⇄' : '→'}</span>
+              <span class="tile-code">{t.to}</span>
+            </span>
+            <span class="tile-note">{t.both ? 'Both directions' : `${t.from} to ${t.to}`}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
   </div>
 </section>
 
+<script is:inline define:vars={{ ROUTES }}>
+  (function () {
+    var root = document.querySelector('[data-finder]');
+    if (!root) return;
+    var from = root.querySelector('[data-finder-from]');
+    var to = root.querySelector('[data-finder-to]');
+    var go = root.querySelector('[data-finder-go]');
+    var title = root.querySelector('[data-finder-title]');
+    function update(changed) {
+      // Picking the same system twice: move the other select so the pair stays valid.
+      if (from.value === to.value) {
+        var other = changed === from ? to : from;
+        other.value = other.value === 'us' ? 'eu' : 'us';
+        if (from.value === to.value) other.value = 'uk';
+      }
+      var r = ROUTES[from.value + '|' + to.value];
+      if (!r) return;
+      go.href = r.href;
+      title.textContent = r.title;
+    }
+    from.addEventListener('change', function () { update(from); });
+    to.addEventListener('change', function () { update(to); });
+    root.querySelector('[data-finder-swap]').addEventListener('click', function () {
+      var f = from.value; from.value = to.value; to.value = f; update(from);
+    });
+  })();
+</script>
+
 <style>
-  .pop-section {
+  .finder-section {
     padding: 64px 24px;
     background: var(--v-elevated);
     border-top: 1px solid var(--v-hairline);
   }
-  .pop-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .pop-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-  }
-  .pop-header-left {
-    max-width: 620px;
-  }
-  .pop-view-all {
-    display: inline-flex;
+  .finder-inner { max-width: 1200px; margin: 0 auto; }
+
+  .finder-card {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+    gap: 32px;
     align-items: center;
-    gap: 8px;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--v-canvas);
-    text-decoration: none;
-    padding: 8px 18px;
-    border: 1px solid var(--v-ink);
-    border-radius: var(--v-r-full);
-    background: var(--v-ink);
-    transition: all 0.15s ease;
-    white-space: nowrap;
-    margin-bottom: 4px;
+    padding: 32px;
+    background: radial-gradient(ellipse 60% 100% at 0% 0%, var(--v-glow), transparent 70%), var(--v-canvas);
+    border: 1px solid var(--v-hairline);
+    border-top: 3px solid var(--v-tape);
+    border-radius: var(--v-r-lg);
+    box-shadow: var(--v-shadow-floating);
   }
-  .pop-view-all:hover {
-    opacity: 0.88;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  .finder-title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--v-ink);
+    margin: 8px 0 10px;
+    text-wrap: balance;
   }
-  .pop-eyebrow {
+  .finder-sub { font-size: 15px; line-height: 24px; color: var(--v-body); margin: 0; }
+
+  .finder-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 12px;
+    align-items: end;
+  }
+  .finder-field { display: flex; flex-direction: column; gap: 6px; }
+  .finder-label {
     font-family: var(--font-mono);
     font-size: 11px;
     font-weight: 600;
-    color: var(--v-mute);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin: 0 0 8px;
+    color: var(--v-mute);
   }
-  .pop-heading {
-    font-size: 26px;
-    font-weight: 700;
+  .finder-select { height: 46px; font-size: 15px; font-weight: 600; }
+  .finder-swap {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--v-elevated);
+    border: 1px solid var(--v-hairline);
+    border-radius: var(--v-r-full);
     color: var(--v-ink);
-    letter-spacing: -0.02em;
-    margin: 0 0 10px;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease;
   }
-  .pop-sub {
-    font-size: 15px;
-    color: var(--v-body);
-    line-height: 24px;
-    max-width: 580px;
-    margin: 0;
-  }
+  .finder-swap:hover { border-color: var(--v-link); transform: rotate(180deg); }
 
-  .pop-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .conv-card {
+  .finder-go {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
+    gap: 16px;
+    padding: 14px 20px;
+    background: var(--v-link);
+    color: var(--v-on-link);
+    border-radius: var(--v-r-md);
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .finder-go:hover { background: var(--v-link-deep); }
+  .finder-go svg { flex-shrink: 0; transition: transform 0.15s ease; }
+  .finder-go:hover svg { transform: translateX(3px); }
+  .finder-go-text { display: flex; flex-direction: column; min-width: 0; }
+  .finder-go-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .finder-go-title { font-size: 16px; font-weight: 700; line-height: 22px; }
+
+  .finder-tiles-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 40px 0 14px;
+  }
+  .finder-tiles-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--v-ink);
+    margin: 0;
+  }
+  .finder-all { font-size: 14px; font-weight: 600; color: var(--v-link); text-decoration: none; }
+  .finder-all:hover { text-decoration: underline; }
+
+  .finder-tiles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .finder-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    padding: 14px 16px;
     background: var(--v-canvas);
     border: 1px solid var(--v-hairline);
     border-radius: var(--v-r-md);
     text-decoration: none;
-    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .conv-card:hover {
+  .finder-tile:hover {
     border-color: var(--v-link);
-    background: var(--v-elevated);
-    box-shadow: var(--v-shadow-whisper);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--v-shadow-floating);
   }
-  .conv-text {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .conv-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--v-ink);
-    letter-spacing: -0.01em;
-  }
-  .conv-desc {
-    font-size: 12.5px;
-    color: var(--v-mute);
-  }
-  .conv-arrow {
-    color: var(--v-mute);
+  .tile-codes {
     display: flex;
     align-items: center;
-    transition: color 0.15s ease, transform 0.15s ease;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--v-ink);
   }
-  .conv-card:hover .conv-arrow {
-    color: var(--v-link);
-    transform: translateX(3px);
-  }
+  .tile-arrow { color: var(--v-link); font-weight: 700; }
+  .tile-note { font-size: 12.5px; color: var(--v-mute); }
 
-  @media (max-width: 900px) {
-    .pop-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  @media (max-width: 960px) {
+    .finder-card { grid-template-columns: 1fr; gap: 24px; }
+    .finder-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
-  @media (max-width: 600px) {
-    .pop-section {
-      padding: 44px 16px;
-    }
-    .pop-heading {
-      font-size: 22px;
-    }
-    .pop-grid {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
+  @media (max-width: 560px) {
+    .finder-section { padding: 48px 16px; }
+    .finder-card { padding: 22px 18px; }
+    .finder-form { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; }
+    .finder-swap { width: 40px; height: 46px; }
+    .finder-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 </style>

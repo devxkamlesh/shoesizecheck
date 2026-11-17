@@ -4,8 +4,11 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { size, cm as cmText } from '../data/size-lookup';
+import ReverseLookup from '../components/ReverseLookup.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
+const m265 = size('men', 'cm', 26.5);
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/india-to-uk-shoe-size/`;
 const pageTitle = 'India to UK shoe size: Indian size chart and converter';
@@ -23,11 +26,11 @@ const faqs = [
   },
   {
     q: 'What is India 8 in UK shoe size?',
-    a: 'India size 8 is UK size 8. Both correspond to an anatomical foot length of 27.0 centimeters. In international sizing, this equals US Men\'s 9 and EU 42.'
+    a: 'India size 8 is UK size 8. Both correspond to a men\'s foot length of 26.5 centimeters. In international sizing, this equals US Men\'s 8.5 and EU 42.'
   },
   {
     q: 'What is India size 7 in UK footwear?',
-    a: 'India size 7 is directly equivalent to UK size 7. It fits a foot length of 26.0 centimeters, which matches US Men\'s 8 and EU 41.'
+    a: 'India size 7 is directly equivalent to UK size 7. It fits a foot length of 25.5 centimeters, which matches US Men\'s 7.5 and EU 40.5.'
   },
   {
     q: 'How do Indian women\'s shoe sizes convert to UK sizes?',
@@ -36,6 +39,18 @@ const faqs = [
   {
     q: 'Do British shoes run narrower than Indian shoes?',
     a: 'British heritage brands such as Clarks, Dr. Martens, Church\'s, and Loake construct standard footwear on medium F width lasts. Research by the CSIR-Central Leather Research Institute (CSIR-CLRI) indicates that Indian feet have a wider ball girth and higher instep, so choosing a wide fitting (G or H) or half a size up is common for formal British leather footwear.'
+  },
+  {
+    q: "What is UK 8 in India shoe size?",
+    a: "UK size 8 equals Indian size 8 directly. Both sizes fit a men's foot length of 26.5 centimeters and correspond to US Men's 8.5 and EU 42."
+  },
+  {
+    q: "What is UK 7 in Indian shoe size?",
+    a: "UK size 7 is identical to Indian size 7, designed for a foot measuring 25.5 centimeters. In American sizing, this equals US Men's 7.5, and in European sizing it corresponds to EU 40.5."
+  },
+  {
+    q: "What is the Indian Bha sizing standard compared to UK?",
+    a: "The Bureau of Indian Standards (BIS) and CSIR-CLRI developed the Bha standard to address Indian foot proportions. Until footwear brands complete new tooling, the commercial footwear market continues to use the UK scale."
   }
 ];
 
@@ -51,8 +66,6 @@ const faqSchema = JSON.stringify({
 
 const relatedLinks = [
   { label: 'All Converters Directory', href: '/converters/' },
-  { label: 'UK to India Shoe Size Converter', href: '/uk-to-india-shoe-size/' },
-  { label: 'India to EU Shoe Size Converter', href: '/india-to-eu-shoe-size/' },
   { label: 'EU to India Shoe Size Converter', href: '/eu-to-india-shoe-size/' },
   { label: 'India Shoe Sizing Guide', href: '/country/india/' },
   { label: 'United Kingdom Shoe Sizing Guide', href: '/country/uk/' },
@@ -163,14 +176,16 @@ const relatedLinks = [
               </div>
               <div class="conv-col conv-aux">
                 <span class="conv-sys">Footbed Length</span>
-                <span class="conv-val-sm" id="res-cm">27.0 cm</span>
-                <span class="conv-note" id="res-in-meas">10.6 inches</span>
+                <span class="conv-val-sm" id="res-cm">26.5 cm</span>
+                <span class="conv-note" id="res-in-meas">10.4 inches</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <ReverseLookup id="uk-to-india" from="uk" to="india" fromLabel="UK" toLabel="India" defaultMen={8} />
 
     <!-- Benchmark Cards -->
     <section class="snapshot-band">
@@ -183,21 +198,21 @@ const relatedLinks = [
             <span class="snap-tag">Men Popular</span>
             <div class="snap-body">
               <span class="snap-main">India 7 → UK 7</span>
-              <span class="snap-detail">Foot length: 26.0 cm · EU 41 · US 8</span>
+              <span class="snap-detail">Foot length: 25.5 cm · EU 40.5 · US 7.5</span>
             </div>
           </div>
           <div class="snap-card">
             <span class="snap-tag">Men Popular</span>
             <div class="snap-body">
               <span class="snap-main">India 8 → UK 8</span>
-              <span class="snap-detail">Foot length: 27.0 cm · EU 42 · US 9</span>
+              <span class="snap-detail">Foot length: 26.5 cm · EU 42 · US 8.5</span>
             </div>
           </div>
           <div class="snap-card">
             <span class="snap-tag">Men Popular</span>
             <div class="snap-body">
               <span class="snap-main">India 9 → UK 9</span>
-              <span class="snap-detail">Foot length: 27.5 cm · EU 42.5 · US 9.5</span>
+              <span class="snap-detail">Foot length: 27.5 cm · EU 43 · US 9.5</span>
             </div>
           </div>
           <div class="snap-card">
@@ -347,10 +362,10 @@ const relatedLinks = [
           Both countries use the barleycorn scale, where each full shoe size represents one-third of an inch (8.46 millimeters), and each half size represents one-sixth of an inch (4.23 mm). Full details on imperial units appear in our <a href="/shoe-size-in-inches/">shoe size in inches guide</a>.
         </p>
         <ul>
-          <li>India 7 equals UK 7 (26.0 cm foot length, EU 41, US Men 8.0).</li>
-          <li>India 8 equals UK 8 (27.0 cm foot length, EU 42, US Men 9.0).</li>
-          <li>India 9 equals UK 9 (28.0 cm foot length, EU 44, US Men 10.0).</li>
-          <li>India 10 equals UK 10 (29.0 cm foot length, EU 45, US Men 11.0).</li>
+          <li>India 7 equals UK 7 (25.5 cm foot length, EU 40.5, US Men 7.5).</li>
+          <li>India 8 equals UK 8 (26.5 cm foot length, EU 42, US Men 8.5).</li>
+          <li>India 9 equals UK 9 (27.5 cm foot length, EU 43, US Men 9.5).</li>
+          <li>India 10 equals UK 10 (28.5 cm foot length, EU 44.5, US Men 10.5).</li>
         </ul>
         <p>
           This holds true across Indian manufacturers such as Bata India, Red Tape, Liberty, and Relaxo. If your Bata shoes are marked size 8, your baseline size in British footwear is size 8.
@@ -399,7 +414,7 @@ const relatedLinks = [
           <li>Order your exact Indian size for casual sneakers and running shoes: an Indian size 8 translates to UK 8.</li>
           <li>Account for sock thickness when buying winter boots by choosing a half size larger.</li>
           <li>Look for Clarks G fittings if you have broader feet.</li>
-          <li>Measure your barefoot length in centimeters following our <a href="/shoe-size-by-foot-length/">shoe size by foot length guide</a>. A 27.0 cm footbed matches UK 8 and India 8.</li>
+          <li>Measure your barefoot length in centimeters following our <a href="/shoe-size-by-foot-length/">shoe size by foot length guide</a>. A men's {cmText(m265)} cm foot matches UK {m265.uk} and India {m265.india}.</li>
         </ul>
       </div>
     </article>

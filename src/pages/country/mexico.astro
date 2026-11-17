@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: 'What is a 24.5 or 25.5 Mexico shoe size?',
-    a: 'A 24.5 Mexico shoe size (Punto 24.5, or talla 4.5) corresponds to an anatomical foot length of 24.5 centimeters. In adult women sizing, it translates to US Women 7.5, UK 5.5, and EU 38.0. A 25.5 Mexico shoe size (Punto 25.5, or talla 5.5) represents 25.5 cm of foot length, mapping to US Women 8.5, US Men 7.5, UK 6.5, and EU 40.5.'
+    a: 'A 24.5 Mexico shoe size (Punto 24.5, or talla 4.5) corresponds to an anatomical foot length of 24.5 centimeters. In adult women sizing, it translates to US Women 7.5, UK 5.5, and EU 38.5. A 25.5 Mexico shoe size (Punto 25.5, or talla 5.5) represents 25.5 cm of foot length, mapping to US Women 8.5 (UK 6.5, EU 40) or US Men 7.5 (UK 7, EU 40.5).'
   },
   {
     q: 'What is a 2.5 Mexico shoe size?',
@@ -199,7 +199,7 @@ const countryLinks = [
               </thead>
               <tbody>
                 {MEN_SIZE_ROWS.map(row => {
-                  const shortVal = row.mexico != null ? Number(row.mexico).toFixed(1) : (row.cm - 20).toFixed(1);
+                  const shortVal = (row.cm - 20).toFixed(1);
                   return (
                     <tr>
                       <td><strong>{row.cm.toFixed(1)} cm</strong></td>
@@ -239,7 +239,7 @@ const countryLinks = [
               </thead>
               <tbody>
                 {WOMEN_SIZE_ROWS.map(row => {
-                  const shortVal = row.mexico != null ? Number(row.mexico).toFixed(1) : (row.cm - 20).toFixed(1);
+                  const shortVal = (row.cm - 20).toFixed(1);
                   return (
                     <tr>
                       <td><strong>{row.cm.toFixed(1)} cm</strong></td>
@@ -338,7 +338,7 @@ const countryLinks = [
             <p>Mexican shoe sizes correspond directly to anatomical foot length measured in centimeters. Under Mexican national trade standard NOM-020-SCFI-1997, a shoe labeled Punto 27 accommodates an anatomical foot measuring exactly 27.0 centimeters from the back of the heel to the tip of the longest toe. The scale advances in half-centimeter steps. These include 26.0, 26.5, 27.0, and 27.5 cm. This metric framework matches Japanese sizing. Shoppers frequently encounter colloquial shorthand numbering across Mexican retail markets, department stores, and open-air plazas. Clerks drop the leading number two when speaking. A customer asking for talla 7 refers to Punto 27 cm. Under international conversion standard ISO/TS 19407:2015 tables, talla 8 corresponds to Punto 28 cm, which represents US Men 10.0, UK 9.5, and European size 44.0. Half sizes follow this pattern: talla 4.5 designates a 24.5 cm shoe.</p>
 
             <h3 class="heading-sm">Converting Mexican sizes to US and European scales</h3>
-            <p>Translating Mexican sizes to international scales requires separate evaluations for men and women styles. For adult men, a Punto 26 shoe corresponds to US Men 8.0, UK 7.5, and EU 41.0. Punto 27 translates to US Men 9.0, UK 8.5, and EU 42.0. Punto 28 corresponds to US Men 10.0, UK 9.5, and EU 44.0. Women sizing uses a different offset. A Punto 23 shoe corresponds to US Women 6.0, UK 4.0, and EU 36.5, whereas Punto 24 maps to US Women 7.0, UK 5.0, and EU 37.5. Punto 25 converts to US Women 8.0, UK 6.0, and EU 38.5. Mexican shoe lengths remain unisex. A 25 cm footbed measures 25 centimeters in men or women models. Women lasts incorporate narrower heel counters, slimmer ball widths, and lower instep volume than men models of matching length.</p>
+            <p>Translating Mexican sizes to international scales requires separate evaluations for men and women styles. For adult men, a Punto 26 shoe corresponds to US Men 8.0, UK 7.5, and EU 41.0. Punto 27 translates to US Men 9.0, UK 8.5, and EU 42.5. Punto 28 corresponds to US Men 10.0, UK 9.5, and EU 44.0. Women sizing uses a different offset. A Punto 23 shoe corresponds to US Women 6.0, UK 4.0, and EU 36.5, whereas Punto 24 maps to US Women 7.0, UK 5.0, and EU 38. Punto 25 converts to US Women 8.0, UK 6.0, and EU 39. Mexican shoe lengths remain unisex. A 25 cm footbed measures 25 centimeters in men or women models. Women lasts incorporate narrower heel counters, slimmer ball widths, and lower instep volume than men models of matching length.</p>
 
             <h3 class="heading-sm">Handcrafted footwear from León and regional brand fits</h3>
             <p>The city of León, Guanajuato has operated as Mexico's footwear center since 1645. Roberto Plasencia Saldaña founded Flexi in León in 1935, creating shoes built on metric lasts with polyurethane sole cushioning that fit true to centimeter puntos. Francisco Cuadra founded Cuadra in León in 1991. The company manufactures western boots and traditional equestrian charro footwear using durable Goodyear welt construction. Charro boots require a snug fit across the instep during first wear because thick cowhide leather relaxes and conforms to the arch after several days of regular walking. Huaraches stretch during initial wear. Artisanal huaraches from Michoacán and Jalisco use woven cowhide strips without synthetic lining, stretching up to 0.5 centimeters during initial wear.</p>
@@ -690,7 +690,7 @@ const countryLinks = [
         const opt = document.createElement('option');
         opt.value = val;
         const num = Number(val);
-        const shortVal = num >= 20 ? num - 20 : num;
+        const shortVal = gender !== 'kids' && num >= 20 ? num - 20 : num;
         opt.textContent = `MX ${val} (Talla ${shortVal})`;
         sizeSelect.appendChild(opt);
       }
@@ -725,7 +725,7 @@ const countryLinks = [
     const cm = data.cm?.[idx] ?? size;
     const inches = data.inches?.[idx] ?? '-';
     const num = Number(size);
-    const shortVal = num >= 20 ? num - 20 : num;
+    const shortVal = gender !== 'kids' && num >= 20 ? num - 20 : num;
 
     resultsContainer.innerHTML = `
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:12px; width:100%;">

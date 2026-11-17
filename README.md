@@ -1,46 +1,22 @@
-# Astro Starter Kit: Basics
+# allshoesizeconverter.com
 
-```sh
-npm create astro@latest -- --template basics
-```
+Static Astro site with shoe size converters and charts (US, UK, EU, India, Japan, Mexico, CM, and more), deployed to Cloudflare Pages.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command | What it does |
+| :-- | :-- |
+| `npm install` | Install dependencies (Node 22.18+) |
+| `npx astro dev --background` | Start the dev server at `localhost:4321` (`astro dev stop` to stop) |
+| `npm run build` | Type-check (`astro check`), then build to `dist/` and write `dist/sitemap.xml` |
+| `npm run check:sizes` | After a build: fail if any size pairing in page text disagrees with the size data |
+| `npm run audit` | After a build: check titles, descriptions, breadcrumbs, and orphan pages |
+| `npm run deploy` | Build and deploy `dist/` with Wrangler |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Where things live
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `src/data/shoe-sizes.ts`: the single source of truth for every size table and converter. EU sizes follow Nike's published charts; Mexico sizes are foot length in cm. Change numbers here, then run `npm run build && npm run check:sizes` to find page text that needs updating.
+- `src/pages/`: one hand-written page per conversion and country. `[conversion].astro` and `[country].astro` only render entries that have no dedicated page.
+- `scripts/sitemap.mjs`: Astro integration that generates the sitemap. `lastmod` comes from git history, so build from a full clone.
+- `functions/_middleware.js`: Cloudflare Pages middleware for host redirects, retired URLs (add them to `MOVED`), and the Markdown view of the homepage. Put redirects here, not in `public/_redirects`, because Pages skips `_redirects` for requests that go through Functions.
+- `public/_headers`: security headers and noindex rules for machine-readable files and preview domains.

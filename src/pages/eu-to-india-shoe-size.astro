@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import RelatedLinks from "../components/RelatedLinks.astro";
 import Footer from "../components/Footer.astro";
+import ReverseLookup from '../components/ReverseLookup.astro';
 import {
   MEN_SIZE_ROWS,
   WOMEN_SIZE_ROWS,
@@ -20,11 +21,13 @@ const ogImage = `${domain}/og-image.png`;
 const menSizes = MEN_SIZE_ROWS;
 const womenSizes = WOMEN_SIZE_ROWS;
 const kidsSizes = KIDS_SIZE_ROWS;
+// Default converter card, rendered from the same row the size picker preselects.
+const d0 = menSizes.find(s => s.eu === 42)!;
 
 const faqs = [
   {
     q: "What is EU 42 in Indian shoe size?",
-    a: "An EU 42 corresponds to Indian size 8.5 for men under ISO standards, fitting a 27.0 cm foot length. On sneaker tags like Nike, EU 42 corresponds to India 8.0 (26.5 cm).",
+    a: "An EU 42 corresponds to Indian size 8 for men, fitting a 26.5 cm foot length. An EU 42.5 corresponds to India 8.5 (27.0 cm).",
   },
   {
     q: "Is EU shoe size the same as Indian shoe size?",
@@ -32,7 +35,7 @@ const faqs = [
   },
   {
     q: "What is EU 40 in Indian shoe size?",
-    a: "An EU 40 translates to Indian size 6.5 for men (25.0 cm foot length). For women, EU 40 corresponds to Indian size 7.0 (26.0 cm).",
+    a: "An EU 40 translates to Indian size 6.5 for men (25.0 cm foot length). For women, EU 40 corresponds to Indian size 6.5 (25.5 cm).",
   },
   {
     q: "Why do brands on Myntra, Flipkart, and Ajio show EU shoe sizes?",
@@ -40,8 +43,20 @@ const faqs = [
   },
   {
     q: "How do I convert European women's shoe sizes to Indian sizes?",
-    a: "To convert an EU women's shoe size to Indian sizing, subtract approximately 32.5 to 33 from the European size (for example, EU 38.5 − 32.5 = India 6).",
+    a: "To convert an EU women's shoe size to Indian sizing, subtract approximately 33 from the European size (for example, EU 39 − 33 = India 6).",
   },
+  {
+    q: "What is Indian shoe size 8 in EU?",
+    a: "Indian men's size 8 corresponds to EU size 42 (26.5 cm foot length). For women, Indian size 8 corresponds to EU 42 (27.0 cm)."
+  },
+  {
+    q: "What is India shoe size 7 in EU?",
+    a: "Indian size 7 for men corresponds to EU size 40.5 (25.5 cm foot length). For women, Indian size 7 corresponds to EU 40.5 (26.0 cm)."
+  },
+  {
+    q: "How does Bata or Red Tape shoe size convert to European size?",
+    a: "Domestic Indian brands like Bata, Red Tape, Liberty, Woodland, and Metro use Indian sizing under IS 1638:1969, which matches UK sizing. For men, India 8 corresponds to EU 42 and India 9 corresponds to EU 43."
+  }
 ];
 
 const faqSchema = JSON.stringify({
@@ -56,8 +71,6 @@ const faqSchema = JSON.stringify({
 
 const relatedLinks = [
   { label: "All Converters Directory", href: "/converters/" },
-  { label: "India to EU Shoe Size Converter", href: "/india-to-eu-shoe-size/" },
-  { label: "UK to India Shoe Size Converter", href: "/uk-to-india-shoe-size/" },
   { label: "India to UK Shoe Size Converter", href: "/india-to-uk-shoe-size/" },
   { label: "India Shoe Sizing Guide", href: "/country/india/" },
   { label: "Shoe Size in Centimeters (CM)", href: "/shoe-size-in-cm/" },
@@ -103,8 +116,8 @@ const relatedLinks = [
           Ajio across men's, women's, and kids' collections.
         </p>
         <p class="hero-answer">
-          <strong>Direct answer:</strong> EU 40 is usually Indian size 6 for men,
-          EU 41 is Indian size 7, and EU 42 is Indian size 8. Women&apos;s conversions
+          <strong>Direct answer:</strong> EU 40 is Indian size 6.5 for men,
+          EU 41 is Indian size 7.5, and EU 42 is Indian size 8. Women&apos;s conversions
           can differ, so compare the CM measurement and select the correct category.
         </p>
 
@@ -182,7 +195,7 @@ const relatedLinks = [
             <div class="conv-result-card">
               <div class="conv-col">
                 <span class="conv-sys">European Union (EU)</span>
-                <span class="conv-val" id="res-eu">42</span>
+                <span class="conv-val" id="res-eu">{String(d0.eu)}</span>
                 <span class="conv-note" id="res-eu-sub">Paris Point Unisex</span
                 >
               </div>
@@ -202,19 +215,21 @@ const relatedLinks = [
               </div>
               <div class="conv-col conv-target">
                 <span class="conv-sys">India (IND / UK)</span>
-                <span class="conv-val" id="res-in">8</span>
+                <span class="conv-val" id="res-in">{String(d0.india)}</span>
                 <span class="conv-note" id="res-in-sub">Men's Standard</span>
               </div>
               <div class="conv-col conv-aux">
                 <span class="conv-sys">Footbed Length</span>
-                <span class="conv-val-sm" id="res-cm">27.0 cm</span>
-                <span class="conv-note" id="res-in-meas">10.6 inches</span>
+                <span class="conv-val-sm" id="res-cm">{`${d0.cm} cm`}</span>
+                <span class="conv-note" id="res-in-meas">{`${d0.inch} inches`}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <ReverseLookup id="india-to-eu" from="india" to="eu" fromLabel="India" toLabel="EU" defaultMen={8} />
 
     <!-- Benchmark Cards -->
     <section class="snapshot-band">
@@ -231,7 +246,7 @@ const relatedLinks = [
           <div class="snap-card">
             <span class="snap-tag">Men Benchmark</span>
             <div class="snap-body">
-              <span class="snap-main">EU 41 → India 7</span>
+              <span class="snap-main">EU 41 → India 7.5</span>
               <span class="snap-detail">Foot length: 26.0 cm · US 8.0</span>
             </div>
           </div>
@@ -239,20 +254,20 @@ const relatedLinks = [
             <span class="snap-tag">Men Benchmark</span>
             <div class="snap-body">
               <span class="snap-main">EU 42 → India 8</span>
-              <span class="snap-detail">Foot length: 27.0 cm · US 9.0</span>
+              <span class="snap-detail">Foot length: 26.5 cm · US 8.5</span>
             </div>
           </div>
           <div class="snap-card">
             <span class="snap-tag">Men Benchmark</span>
             <div class="snap-body">
               <span class="snap-main">EU 43 → India 9</span>
-              <span class="snap-detail">Foot length: 28.0 cm · US 10.0</span>
+              <span class="snap-detail">Foot length: 27.5 cm · US 9.5</span>
             </div>
           </div>
           <div class="snap-card">
             <span class="snap-tag">Women Benchmark</span>
             <div class="snap-body">
-              <span class="snap-main">EU 37 → India 4.5</span>
+              <span class="snap-main">EU 37.5 → India 4.5</span>
               <span class="snap-detail">Foot length: 23.5 cm · US 6.5</span>
             </div>
           </div>
@@ -458,20 +473,20 @@ const relatedLinks = [
         <p>To calculate Indian sizes from European numbers:</p>
         <ul>
           <li>
-            For men: subtract 33.5 to 34 from the European size. EU 42
-            corresponds to Indian size 8.5 (27.0 cm foot length), EU 41.5
+            For men: subtract about 34 from the European size. EU 42.5
+            corresponds to Indian size 8.5 (27.0 cm foot length), EU 42
             corresponds to Indian size 8 (26.5 cm), and EU 40.5 corresponds to
             Indian size 7 (25.5 cm).
           </li>
           <li>
-            For women: subtract 32.5 to 33 from the European size. EU 38.5
-            corresponds to Indian size 6 (25.0 cm), and EU 37.5 corresponds to
+            For women: subtract about 33 from the European size. EU 39
+            corresponds to Indian size 6 (25.0 cm), and EU 38 corresponds to
             Indian size 5 (24.0 cm).
           </li>
           <li>
             For kids: cross-reference foot length in centimeters against our
-            table. EU 27 equals Indian 9.5C (16.5 cm), and EU 33 equals Indian
-            youth 1Y (20.5 cm).
+            table. EU 27 equals Indian 9.5C (17.0 cm), and EU 33 equals Indian
+            youth 1Y (21.0 cm).
           </li>
         </ul>
 
@@ -485,19 +500,19 @@ const relatedLinks = [
             EU 36 represents Indian women's size 3.5 (22.5 cm foot length).
           </li>
           <li>
-            EU 37.5 represents Indian women's size 5.0 (24.0 cm foot length).
+            EU 38 represents Indian women's size 5.0 (24.0 cm foot length).
           </li>
           <li>
-            EU 38.5 represents Indian women's size 6.0 (25.0 cm foot length).
+            EU 39 represents Indian women's size 6.0 (25.0 cm foot length).
           </li>
           <li>
             EU 40.5 represents Indian men's size 7.0 (25.5 cm foot length).
           </li>
           <li>
-            EU 41.5 represents Indian men's size 8.0 (26.5 cm foot length).
+            EU 42 represents Indian men's size 8.0 (26.5 cm foot length).
           </li>
           <li>
-            EU 42.0 represents Indian men's size 8.5 (27.0 cm foot length).
+            EU 42.5 represents Indian men's size 8.5 (27.0 cm foot length).
           </li>
           <li>
             EU 44.0 represents Indian men's size 9.5 (28.0 cm foot length).
@@ -533,8 +548,8 @@ const relatedLinks = [
           from heel to longest toe in centimeters. See our step-by-step
           instructions on <a href="/shoe-size-by-foot-length/"
             >measuring shoe size by foot length</a
-          >. A foot length of 27.0 cm corresponds to Indian size 8.5 and
-          European size 42.
+          >. A men's foot length of 27.0 cm corresponds to Indian size 8.5 and
+          European size 42.5.
         </p>
       </div>
     </article>

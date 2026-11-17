@@ -4,8 +4,10 @@ import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import Footer from '../../components/Footer.astro';
+import { size } from '../../data/size-lookup';
 import { SIZE_DATA, MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../../data/shoe-sizes';
 
+const m42 = size('men', 'eu', 42);
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/country/uk/`;
 const pageTitle = 'UK Shoe Size Chart: British Sizing and Clarks Guide';
@@ -23,7 +25,7 @@ const faqs = [
   },
   {
     q: 'What is a Chinese shoe size chart and how does it convert to UK sizes?',
-    a: 'China uses two footwear measurement systems. The traditional China Type 1 system matches European Paris Points (China size 42 corresponds directly to EU 42 and UK size 8.5). The modern China Type 2 national standard (GB/T 3293.1-1998) is based on metric Mondopoint millimeters (China 260 indicates a foot length of 260 mm, converting to UK 7.5). When buying from Chinese online retailers, check whether the label displays metric millimeters or continental EU numbers.'
+    a: `China uses two footwear measurement systems. The traditional China Type 1 system matches European Paris Points (China size ${m42.eu} corresponds directly to EU ${m42.eu} and men's UK size ${m42.uk}). The modern China Type 2 national standard (GB/T 3293.1-1998) is based on metric Mondopoint millimeters (China 260 indicates a foot length of 260 mm, converting to UK 7.5). When buying from Chinese online retailers, check whether the label displays metric millimeters or continental EU numbers.`
   },
   {
     q: 'How should properly fitted shoes feel?',
@@ -43,7 +45,7 @@ const faqs = [
   },
   {
     q: 'How do UK adult shoe sizes compare with US and European footwear?',
-    a: 'For men, a UK shoe size is 0.5 size smaller than an American US Men size (UK 8.5 equals US Men 9.0 and EU 42.0). For women, a UK shoe size is 2 sizes smaller than a US Women size (UK 5.0 equals US Women 7.0 and EU 37.5). European Paris point sizing is unisex, providing a stable bridge when converting between British and international footwear.'
+    a: 'For men, a UK shoe size is 0.5 size smaller than an American US Men size (UK 8.5 equals US Men 9.0 and EU 42.5). For women, a UK shoe size is 2 sizes smaller than a US Women size (UK 5.0 equals US Women 7.0 and EU 38). European Paris point sizing uses one number scale for both genders, though brand charts map it to slightly different foot lengths for men and women.'
   }
 ];
 
@@ -58,9 +60,8 @@ const faqSchema = JSON.stringify({
 });
 
 const conversionLinks = [
-  { label: 'UK to US Shoe Size', href: '/uk-to-us-shoe-size/' },
   { label: 'UK to EU Shoe Size', href: '/uk-to-eu-shoe-size/' },
-  { label: 'UK to India Shoe Size', href: '/uk-to-india-shoe-size/' },
+  { label: 'India to UK Shoe Size', href: '/india-to-uk-shoe-size/' },
   { label: 'US to UK Shoe Size', href: '/us-to-uk-shoe-size/' },
   { label: 'Shoe Size in CM', href: '/shoe-size-in-cm/' },
 ];

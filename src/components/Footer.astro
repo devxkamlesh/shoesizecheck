@@ -65,12 +65,11 @@
         <h3 class="footer-heading">Quick conversions</h3>
         <ul class="footer-links">
           <li><a href="/converters/">All Converters</a></li>
-          <li><a href="/us-to-eu-shoe-size/">US to EU Sizing</a></li>
+          <li><a href="/eu-to-us-shoe-size/">EU to US Sizing</a></li>
           <li><a href="/us-to-uk-shoe-size/">US to UK Sizing</a></li>
           <li><a href="/us-to-india-shoe-size/">US to India Sizing</a></li>
-          <li><a href="/eu-to-us-shoe-size/">EU to US Sizing</a></li>
-          <li><a href="/uk-to-us-shoe-size/">UK to US Sizing</a></li>
-          <li><a href="/india-to-us-shoe-size/">India to US Sizing</a></li>
+          <li><a href="/india-to-uk-shoe-size/">India to UK Sizing</a></li>
+          <li><a href="/uk-to-eu-shoe-size/">UK to EU Sizing</a></li>
           <li><a href="/eu-to-cm-shoe-size/">EU to CM Sizing</a></li>
           <li><a href="/us-to-cm-shoe-size/">US to CM Sizing</a></li>
         </ul>
@@ -124,6 +123,20 @@
     padding: 64px 24px 36px;
     position: relative;
   }
+  /* Ruler ticks along the top edge, matching the header. */
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 9px;
+    pointer-events: none;
+    background: repeating-linear-gradient(to right, var(--v-ruler) 0 1px, transparent 1px 6px) left top / 100% 4px no-repeat,
+                repeating-linear-gradient(to right, var(--v-ruler) 0 1px, transparent 1px 30px) left top / 100% 6px no-repeat,
+                repeating-linear-gradient(to right, var(--v-ruler) 0 1px, transparent 1px 60px) left top / 100% 9px no-repeat;
+    opacity: 0.7;
+  }
   .footer-inner {
     max-width: 1240px;
     margin: 0 auto;
@@ -162,9 +175,10 @@
     box-shadow: var(--v-shadow-whisper);
   }
   .footer-wordmark {
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: -0.03em;
     color: var(--v-ink);
   }
   .footer-tagline {

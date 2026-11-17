@@ -24,15 +24,15 @@ const faqs = [
   },
   {
     q: 'What is 24.5 Japan shoe size in US sizing?',
-    a: 'A 24.5 Japan shoe size equals a foot length of 24.5 centimeters. In American footwear, a 24.5 JP translates to an American US Women\'s 7.5 or an American US Men\'s 6.5 (European EU 38.5, UK 5.5).'
+    a: 'A 24.5 Japan shoe size equals a foot length of 24.5 centimeters. In American footwear, a 24.5 JP translates to an American US Women\'s 7.5 (EU 38.5, UK 5.5) or an American US Men\'s 6.5 (EU 39, UK 6).'
   },
   {
     q: 'What are US 9.5 and 10.5 in Japanese shoe sizes?',
-    a: 'An American Men\'s US 9.5 corresponds to 27.5 cm (27.5 JP / 275 mm) in Japan, equivalent to European EU 42.5. An American Men\'s US 10.5 corresponds to 28.5 cm (28.5 JP / 285 mm) in Japan, equivalent to European EU 44.0.'
+    a: 'An American Men\'s US 9.5 corresponds to 27.5 cm (27.5 JP / 275 mm) in Japan, equivalent to European EU 43. An American Men\'s US 10.5 corresponds to 28.5 cm (28.5 JP / 285 mm) in Japan, equivalent to European EU 44.5.'
   },
   {
     q: 'What do EU shoe sizes like 38 and 41 equal in Japan?',
-    a: 'A European EU 38 corresponds to 24.0 cm (24.0 JP) in Japanese footwear, which equals a US Women\'s 7.0 or US Men\'s 6.0. An EU 41 corresponds to 26.0 cm (26.0 JP) in Japanese sizing, which equals an American US Men\'s 8.0 or US Women\'s 9.0.'
+    a: 'A women\'s EU 38 corresponds to 24.0 cm (24.0 JP) in Japanese footwear, which equals a US Women\'s 7.0. A men\'s EU 41 corresponds to 26.0 cm (26.0 JP), which equals an American US Men\'s 8.0.'
   },
   {
     q: 'How do Japanese shoe widths differ from American footwear widths?',
@@ -56,7 +56,7 @@ const relatedLinks = [
   { label: 'United States Shoe Sizing Guide', href: '/country/us/' },
   { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
   { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
-  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
+  { label: 'EU to US Shoe Size Converter', href: '/eu-to-us-shoe-size/' },
   { label: 'US to UK Shoe Size Converter', href: '/us-to-uk-shoe-size/' },
   { label: 'US to India Shoe Size Converter', href: '/us-to-india-shoe-size/' },
 ];
@@ -167,7 +167,7 @@ const relatedLinks = [
               </div>
               <div class="res-col res-secondary">
                 <span class="res-sys">Equivalent Sizes</span>
-                <span class="res-val-sm" id="res-aux">EU 42.0 · UK 8.5</span>
+                <span class="res-val-sm" id="res-aux">EU 42.5 · UK 8.5</span>
                 <span class="res-note" id="res-inch">10.6 inches</span>
               </div>
             </div>
@@ -191,12 +191,12 @@ const relatedLinks = [
           <div class="bench-card">
             <span class="bench-cat">Men</span>
             <span class="bench-main">US 9 Men → 27.0 JP</span>
-            <span class="bench-aux">270 mm · EU 42 · UK 8.5</span>
+            <span class="bench-aux">270 mm · EU 42.5 · UK 8.5</span>
           </div>
           <div class="bench-card">
             <span class="bench-cat">Men</span>
             <span class="bench-main">US 9.5 Men → 27.5 JP</span>
-            <span class="bench-aux">275 mm · EU 42.5 · UK 9.0</span>
+            <span class="bench-aux">275 mm · EU 43 · UK 9.0</span>
           </div>
           <div class="bench-card">
             <span class="bench-cat">Men</span>
@@ -211,17 +211,17 @@ const relatedLinks = [
           <div class="bench-card">
             <span class="bench-cat">Women</span>
             <span class="bench-main">US 7 Women → 24.0 JP</span>
-            <span class="bench-aux">240 mm · EU 37.5 · UK 5.0</span>
+            <span class="bench-aux">240 mm · EU 38 · UK 5.0</span>
           </div>
           <div class="bench-card">
             <span class="bench-cat">Women</span>
             <span class="bench-main">US 7.5 Women → 24.5 JP</span>
-            <span class="bench-aux">245 mm · EU 38.0 · UK 5.5</span>
+            <span class="bench-aux">245 mm · EU 38.5 · UK 5.5</span>
           </div>
           <div class="bench-card">
             <span class="bench-cat">Women</span>
             <span class="bench-main">US 8 Women → 25.0 JP</span>
-            <span class="bench-aux">250 mm · EU 38.5 · UK 6.0</span>
+            <span class="bench-aux">250 mm · EU 39 · UK 6.0</span>
           </div>
         </div>
       </div>
@@ -364,10 +364,10 @@ const relatedLinks = [
           International buyers translating Japanese shoe numbers to American sizes can reference these common points:
         </p>
         <ul>
-          <li>A Japanese size 24.5 (24.5 cm) converts to an American US Women's 7.5 or an American US Men's 6.5 (European EU 38.5).</li>
-          <li>A Japanese size 26.0 (26.0 cm) converts to an American US Men's 8.0 or US Women's 9.0 (European EU 41).</li>
-          <li>A Japanese size 27.0 (27.0 cm) converts to an American US Men's 9.0 or US Women's 10.0 (European EU 42).</li>
-          <li>A Japanese size 28.0 (28.0 cm) converts to an American US Men's 10.0 or US Women's 11.0 (European EU 44).</li>
+          <li>A Japanese size 24.5 (24.5 cm) converts to an American US Women's 7.5 (EU 38.5) or an American US Men's 6.5 (EU 39).</li>
+          <li>A Japanese size 26.0 (26.0 cm) converts to an American US Men's 8.0 (EU 41) or US Women's 9.0 (EU 40.5).</li>
+          <li>A Japanese size 27.0 (27.0 cm) converts to an American US Men's 9.0 (EU 42.5) or US Women's 10.0 (EU 42).</li>
+          <li>A Japanese size 28.0 (28.0 cm) converts to an American US Men's 10.0 (EU 44) or US Women's 11.0 (EU 43).</li>
         </ul>
 
         <h3>Japanese footwear brands and width standards</h3>

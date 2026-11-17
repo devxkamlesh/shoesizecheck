@@ -4,8 +4,10 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import FindMySize from '../components/FindMySize.astro';
 import Footer from '../components/Footer.astro';
+import { size, cm as cmText } from '../data/size-lookup';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
+const m9 = size('men', 'us', 9);
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/shoe-size-by-foot-length/`;
 const pageTitle = 'Shoe size by foot length: men, women, and kids chart';
@@ -163,7 +165,7 @@ const faqSchema = JSON.stringify({
           </header>
 
           <div class="content-prose">
-            <p>Shoe size numbers vary across countries. In the United Kingdom, sizes increment by 1/3 inch (one barleycorn). The United States uses that same 1/3-inch increment but starts at a different base point and adds separate offsets for men and women. European manufacturers use Paris Points (2/3 of a centimeter per size). A person wearing a US Men's 9 fits a UK 8.5, an EU 42, an India 8.5, or a Japanese 27.0. Physical foot measurement in centimeters resolves regional differences.</p>
+            <p>Shoe size numbers vary across countries. In the United Kingdom, sizes increment by 1/3 inch (one barleycorn). The United States uses that same 1/3-inch increment but starts at a different base point and adds separate offsets for men and women. European manufacturers use Paris Points (2/3 of a centimeter per size). A person wearing a US Men's {m9.us} fits a UK {m9.uk}, an EU {m9.eu}, an India {m9.india}, or a Japanese {cmText(m9)}. Physical foot measurement in centimeters resolves regional differences.</p>
 
             <h3 class="heading-md">How foot length relates to shoe interior clearance</h3>
             <p>Shoes are built around molds known as lasts. A correctly fitted shoe includes 10 to 15 millimeters (approx. 0.4 to 0.6 inches) of clearance beyond your longest toe.</p>

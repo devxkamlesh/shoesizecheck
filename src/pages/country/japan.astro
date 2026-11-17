@@ -4,8 +4,11 @@ import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import Footer from '../../components/Footer.astro';
+import { size, cm as cmText } from '../../data/size-lookup';
 import { SIZE_DATA, MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../../data/shoe-sizes';
 
+const m265 = size('men', 'cm', 26.5);
+const w265 = size('women', 'cm', 26.5);
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/country/japan/`;
 const pageTitle = 'Japan Shoe Size Chart: JP to US, EU and CM Sizing Guide';
@@ -23,7 +26,7 @@ const faqs = [
   },
   {
     q: 'What is a 23.5 cm shoe size in Japan?',
-    a: 'A 23.5 cm shoe size in Japan represents a foot that measures 23.5 centimeters from the heel to the longest toe. In international sizing, JP 23.5 converts to US Women 6.5, US Men 5.5, EU 37.0, UK 4.5, and South Korea 235 mm.'
+    a: 'A 23.5 cm shoe size in Japan represents a foot that measures 23.5 centimeters from the heel to the longest toe. In international sizing, JP 23.5 converts to US Women 6.5, US Men 5.5, EU 37.5, UK 4.5, and South Korea 235 mm.'
   },
   {
     q: 'What is the difference between Japanese shoe sizes (cm) and Korean shoe sizes (mm)?',
@@ -63,7 +66,7 @@ const conversionLinks = [
   { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
   { label: 'Shoe Size by Foot Length', href: '/shoe-size-by-foot-length/' },
   { label: 'What Is My Shoe Size?', href: '/what-is-my-shoe-size/' },
-  { label: 'US to EU Shoe Size', href: '/us-to-eu-shoe-size/' },
+  { label: 'EU to US Shoe Size', href: '/eu-to-us-shoe-size/' },
 ];
 
 const countryLinks = [
@@ -338,8 +341,8 @@ const countryLinks = [
             <h3 class="heading-sm">Converting Japanese shoe sizes to US, UK, and European standards</h3>
             <p>Converting Japanese shoe sizes to Western numbers depends on whether the wearer requires men or women footwear:</p>
             <ul>
-              <li>For men shoes, Japanese centimeter sizes convert using standard ISO/TS 19407:2015 tables. A Japanese 26.0 cm corresponds to US Men 8.0 and UK 7.5. Japan 27.0 cm equals US Men 9.0, UK 8.5, and EU 42.0. Japan 28.0 cm maps to US Men 10.0, UK 9.5, and EU 44.0.</li>
-              <li>For women shoes, US labels run two sizes higher than UK labels for the same length. Japan 23.5 cm corresponds to US Women 6.5, UK 4.5, and EU 37.0. Japan 24.5 cm corresponds to US Women 8.0, UK 6.0, and EU 39.0. Japan 25.0 cm maps to US Women 8.5, UK 6.5, and EU 40.0.</li>
+              <li>For men shoes, Japanese centimeter sizes convert using standard ISO/TS 19407:2015 tables. A Japanese 26.0 cm corresponds to US Men 8.0 and UK 7.5. Japan 27.0 cm equals US Men 9.0, UK 8.5, and EU 42.5. Japan 28.0 cm maps to US Men 10.0, UK 9.5, and EU 44.0.</li>
+              <li>For women shoes, US labels run two sizes higher than UK labels for the same length. Japan 23.5 cm corresponds to US Women 6.5, UK 4.5, and EU 37.5. Japan 24.5 cm corresponds to US Women 7.5, UK 5.5, and EU 38.5. Japan 25.0 cm maps to US Women 8.0, UK 6.0, and EU 39.0.</li>
             </ul>
 
             <h3 class="heading-sm">Width classifications under JIS S 5037</h3>
@@ -349,7 +352,7 @@ const countryLinks = [
             <p>Asics designs performance road running shoes in Kobe with firm heel counters and room for toe splay. Marathon runners training for 42 kilometer distances often choose a half size up (0.5 cm larger) to accommodate natural swelling over long mileage. Mizuno manufactures athletic shoes in Osaka featuring the Wave Plate system with square toe boxes. Onitsuka Tiger produces retro lifestyle sneakers like the Mexico 66 on slender vintage lasts, where buyers with wide feet frequently go up 0.5 cm for daily comfort.</p>
 
             <h3 class="heading-sm">Measuring foot length for Japanese footwear</h3>
-            <p>To measure foot length accurately, tape a blank sheet of paper to a hard floor against a flat wall. Stand with your heel against the wall and mark the outermost edge of your longest toe with a vertical pencil. Measure the distance in centimeters with a ruler. A measurement of 26.5 centimeters corresponds to Japan 26.5 cm for men (US Men 8.5) or Japan 26.5 cm for women (US Women 10.0).</p>
+            <p>To measure foot length accurately, tape a blank sheet of paper to a hard floor against a flat wall. Stand with your heel against the wall and mark the outermost edge of your longest toe with a vertical pencil. Measure the distance in centimeters with a ruler. A measurement of {cmText(m265)} centimeters corresponds to Japan {cmText(m265)} cm for men (US Men {m265.us}) or Japan {cmText(w265)} cm for women (US Women {w265.us}).</p>
           </div>
         </article>
       </div>

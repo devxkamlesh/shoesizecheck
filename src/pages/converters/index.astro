@@ -14,6 +14,9 @@ const ogImage = `${domain}/og-image.png`;
 // Group conversions by origin system
 const usConversions = CONVERSIONS.filter(c => c.fromSystem === 'us');
 const euConversions = CONVERSIONS.filter(c => c.fromSystem === 'eu');
+// These pages convert in both directions (each absorbed its reverse page).
+const BOTH_WAYS = new Set(['eu-to-us-shoe-size', 'us-to-uk-shoe-size', 'uk-to-eu-shoe-size', 'eu-to-india-shoe-size', 'us-to-india-shoe-size', 'india-to-uk-shoe-size']);
+const route = (c: { slug: string; fromLabel: string; toLabel: string }) => `${c.fromLabel} ${BOTH_WAYS.has(c.slug) ? '⇄' : '→'} ${c.toLabel}`;
 const ukConversions = CONVERSIONS.filter(c => c.fromSystem === 'uk');
 const indiaConversions = CONVERSIONS.filter(c => c.fromSystem === 'india');
 
@@ -28,7 +31,7 @@ const faqs = [
   },
   {
     q: 'How do I convert European (EU) shoe sizes accurately?',
-    a: 'EU sizes do not differentiate between men and women. For men, subtract roughly 33 from your EU size to find your approximate US size (EU 42 ≈ US 9). For women, subtract roughly 31 (EU 39 ≈ US 8). Always check centimeter (CM) footbed measurements when in doubt.'
+    a: 'EU sizes use one number scale for men and women, but the US equivalent depends on gender. For men, subtract roughly 33.5 from your EU size to find your approximate US size (EU 42.5 ≈ US 9). For women, subtract roughly 31 (EU 39 ≈ US 8). Always check centimeter (CM) footbed measurements when in doubt.'
   },
   {
     q: 'What is the difference between Indian and UK shoe sizes?',
@@ -143,10 +146,10 @@ const faqSchema = JSON.stringify({
         <!-- Filter category buttons -->
         <div class="filter-pills" role="tablist" aria-label="Filter by standard">
           <button class="pill-btn active" data-filter="all" role="tab" aria-selected="true">All Converters ({CONVERSIONS.length})</button>
-          <button class="pill-btn" data-filter="us" role="tab" aria-selected="false">From US ({usConversions.length})</button>
-          <button class="pill-btn" data-filter="eu" role="tab" aria-selected="false">From EU ({euConversions.length})</button>
-          <button class="pill-btn" data-filter="uk" role="tab" aria-selected="false">From UK ({ukConversions.length})</button>
-          <button class="pill-btn" data-filter="india" role="tab" aria-selected="false">From India ({indiaConversions.length})</button>
+          <button class="pill-btn" data-filter="us" role="tab" aria-selected="false">US ({usConversions.length})</button>
+          <button class="pill-btn" data-filter="eu" role="tab" aria-selected="false">EU ({euConversions.length})</button>
+          <button class="pill-btn" data-filter="uk" role="tab" aria-selected="false">UK ({ukConversions.length})</button>
+          <button class="pill-btn" data-filter="india" role="tab" aria-selected="false">India ({indiaConversions.length})</button>
         </div>
       </div>
     </section>
@@ -160,7 +163,7 @@ const faqSchema = JSON.stringify({
           <div class="group-header">
             <div class="group-badge">US</div>
             <div>
-              <h2 class="group-title">From United States (US sizing)</h2>
+              <h2 class="group-title">United States (US sizing)</h2>
               <p class="group-sub">American barleycorn sizing conversions to international equivalents.</p>
             </div>
           </div>
@@ -168,13 +171,13 @@ const faqSchema = JSON.stringify({
             {usConversions.map(c => (
               <a href={`/${c.slug}/`} class="c-card" data-slug={c.slug} data-keywords={`${c.fromLabel} to ${c.toLabel} ${c.h1} ${c.description}`}>
                 <div class="card-top">
-                  <span class="route-tag">{c.fromLabel} → {c.toLabel}</span>
+                  <span class="route-tag">{route(c)}</span>
                   <span class="card-arrow" aria-hidden="true">→</span>
                 </div>
                 <h3 class="card-title">{c.h1}</h3>
                 <p class="card-desc">{c.description}</p>
                 <div class="card-footer">
-                  <span class="formula-snippet">{c.formula.split('.')[0]}.</span>
+                  <span class="formula-snippet">{c.formula.split(/\.(?=\s|$)/)[0]}.</span>
                 </div>
               </a>
             ))}
@@ -186,7 +189,7 @@ const faqSchema = JSON.stringify({
           <div class="group-header">
             <div class="group-badge">EU</div>
             <div>
-              <h2 class="group-title">From European Union (EU sizing)</h2>
+              <h2 class="group-title">European Union (EU sizing)</h2>
               <p class="group-sub">Continental European unisex sizing converted to global standards.</p>
             </div>
           </div>
@@ -194,13 +197,13 @@ const faqSchema = JSON.stringify({
             {euConversions.map(c => (
               <a href={`/${c.slug}/`} class="c-card" data-slug={c.slug} data-keywords={`${c.fromLabel} to ${c.toLabel} ${c.h1} ${c.description}`}>
                 <div class="card-top">
-                  <span class="route-tag">{c.fromLabel} → {c.toLabel}</span>
+                  <span class="route-tag">{route(c)}</span>
                   <span class="card-arrow" aria-hidden="true">→</span>
                 </div>
                 <h3 class="card-title">{c.h1}</h3>
                 <p class="card-desc">{c.description}</p>
                 <div class="card-footer">
-                  <span class="formula-snippet">{c.formula.split('.')[0]}.</span>
+                  <span class="formula-snippet">{c.formula.split(/\.(?=\s|$)/)[0]}.</span>
                 </div>
               </a>
             ))}
@@ -212,7 +215,7 @@ const faqSchema = JSON.stringify({
           <div class="group-header">
             <div class="group-badge">UK</div>
             <div>
-              <h2 class="group-title">From United Kingdom (UK sizing)</h2>
+              <h2 class="group-title">United Kingdom (UK sizing)</h2>
               <p class="group-sub">British barleycorn standard conversions for men, women, and kids.</p>
             </div>
           </div>
@@ -220,7 +223,7 @@ const faqSchema = JSON.stringify({
             {ukConversions.map(c => (
               <a href={`/${c.slug}/`} class="c-card" data-slug={c.slug} data-keywords={`${c.fromLabel} to ${c.toLabel} ${c.h1} ${c.description}`}>
                 <div class="card-top">
-                  <span class="route-tag">{c.fromLabel} → {c.toLabel}</span>
+                  <span class="route-tag">{route(c)}</span>
                   <span class="card-arrow" aria-hidden="true">→</span>
                 </div>
                 <h3 class="card-title">{c.h1}</h3>
@@ -238,7 +241,7 @@ const faqSchema = JSON.stringify({
           <div class="group-header">
             <div class="group-badge">IN</div>
             <div>
-              <h2 class="group-title">From India (India sizing)</h2>
+              <h2 class="group-title">India (India sizing)</h2>
               <p class="group-sub">Indian footwear sizing conversions to US, UK, and European standards.</p>
             </div>
           </div>
@@ -246,13 +249,13 @@ const faqSchema = JSON.stringify({
             {indiaConversions.map(c => (
               <a href={`/${c.slug}/`} class="c-card" data-slug={c.slug} data-keywords={`${c.fromLabel} to ${c.toLabel} ${c.h1} ${c.description}`}>
                 <div class="card-top">
-                  <span class="route-tag">{c.fromLabel} → {c.toLabel}</span>
+                  <span class="route-tag">{route(c)}</span>
                   <span class="card-arrow" aria-hidden="true">→</span>
                 </div>
                 <h3 class="card-title">{c.h1}</h3>
                 <p class="card-desc">{c.description}</p>
                 <div class="card-footer">
-                  <span class="formula-snippet">{c.formula.split('.')[0]}.</span>
+                  <span class="formula-snippet">{c.formula.split(/\.(?=\s|$)/)[0]}.</span>
                 </div>
               </a>
             ))}
@@ -294,7 +297,7 @@ const faqSchema = JSON.stringify({
               </tr>
               <tr>
                 <td class="primary-cell"><strong>US → EU</strong></td>
-                <td><code>EU ≈ US + 33</code></td>
+                <td><code>EU ≈ US + 33.5</code></td>
                 <td><code>EU ≈ US + 31</code></td>
                 <td>2/3 cm (Paris Point)</td>
                 <td>EU is unisex</td>
@@ -322,10 +325,10 @@ const faqSchema = JSON.stringify({
               </tr>
               <tr>
                 <td class="primary-cell"><strong>UK → EU</strong></td>
-                <td><code>EU ≈ UK + 33.5</code></td>
+                <td><code>EU ≈ UK + 34</code></td>
                 <td><code>EU ≈ UK + 33.0</code></td>
                 <td>2/3 cm (Paris Point)</td>
-                <td>UK 8.5 = EU 42 Men</td>
+                <td>UK 8.5 = EU 42.5 Men</td>
               </tr>
               <tr>
                 <td class="primary-cell"><strong>UK ↔ India</strong></td>

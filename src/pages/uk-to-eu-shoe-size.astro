@@ -4,38 +4,64 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { size, cm as cmText } from '../data/size-lookup';
+import ReverseLookup from '../components/ReverseLookup.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/uk-to-eu-shoe-size/`;
-const pageTitle = 'UK to EU shoe size converter: British to European chart';
-const pageDescription = 'Convert UK shoe sizes to European (EU) sizes. Complete UK to EU conversion charts for men, women, and kids with Paris Point sizing guides.';
+const pageTitle = "UK to EU and EU to UK shoe size converter and chart";
+const pageDescription = "Convert UK to EU and EU to UK shoe sizes for men, women, and kids. Men's UK 8 = EU 42 and UK 10 = EU 44.5, with cm and US equivalents.";
 const ogImage = `${domain}/og-image.png`;
 
 const menSizes = MEN_SIZE_ROWS;
 const womenSizes = WOMEN_SIZE_ROWS;
 const kidsSizes = KIDS_SIZE_ROWS;
+// Default converter card, rendered from the same row the size picker preselects.
+const d0 = menSizes.find(s => s.uk === 8.0)!;
+
+// Every size quoted on this page comes from the shared rows.
+const m8 = size('men', 'uk', 8);
+const m85 = size('men', 'uk', 8.5);
+const m95 = size('men', 'uk', 9.5);
+const m10 = size('men', 'uk', 10);
+const w4 = size('women', 'uk', 4);
+const w5 = size('women', 'uk', 5);
+const w6 = size('women', 'uk', 6);
+const w7 = size('women', 'uk', 7);
+const benchmarks = [
+  { gender: 'men', row: m8 }, { gender: 'men', row: size('men', 'uk', 9) }, { gender: 'men', row: m10 },
+  { gender: 'women', row: w5 }, { gender: 'women', row: w6 }, { gender: 'women', row: w7 },
+];
 
 const faqs = [
   {
     q: 'How do I convert UK shoe sizes to European (EU) sizes?',
-    a: 'To convert UK shoe size to EU, add 33.5 to your adult UK size (UK 8.5 + 33.5 = EU 42; UK 5 + 33 = EU 38; UK 10.5 + 34 = EU 44.5). Referencing a calibrated conversion chart accounts for the differences between barleycorn increments (8.46 mm) and Paris Points (6.67 mm).'
+    a: `To convert a UK shoe size to EU, add about 34 for men and about 33 for women (men's UK ${m8.uk} = EU ${m8.eu}; women's UK ${w6.uk} = EU ${w6.eu}). The offset is not exact because British barleycorn steps (8.46 mm) and Paris Points (6.67 mm) do not line up, so check the chart for half sizes.`
   },
   {
     q: 'What is UK size 8 in EU shoe sizing?',
-    a: 'A British UK size 8 corresponds to European EU 41.5, fitting an anatomical foot length of 26.5 centimeters. A UK 8.5 corresponds to EU 42 (27.0 cm).'
+    a: `A men's UK size ${m8.uk} corresponds to EU ${m8.eu}, fitting a ${cmText(m8)} cm foot. A men's UK ${m85.uk} corresponds to EU ${m85.eu} (${cmText(m85)} cm).`
   },
   {
     q: 'What is UK size 10 in EU shoe sizing?',
-    a: 'A British UK size 10 corresponds to European EU 44.5, fitting an anatomical foot length of 28.5 centimeters. A UK 9.5 corresponds to EU 44.0 (28.0 cm).'
+    a: `A men's UK size ${m10.uk} corresponds to EU ${m10.eu}, fitting a ${cmText(m10)} cm foot. A men's UK ${m95.uk} corresponds to EU ${m95.eu} (${cmText(m95)} cm).`
   },
   {
     q: 'How do I convert European (EU) shoe sizes to UK?',
-    a: 'To convert European shoe sizes to UK, subtract 33 to 34 from the European number. For example, EU 42 − 33.5 = UK 8.5; EU 38 − 33 = UK 5; and EU 44 − 34 = UK 10.'
+    a: `To convert a European size to UK, subtract about 34 for men and about 33 for women. For example, men's EU ${m8.eu} is UK ${m8.uk}, men's EU ${m10.eu} is UK ${m10.uk}, and women's EU ${w6.eu} is UK ${w6.uk}.`
   },
   {
     q: 'Why do UK and European footwear sizes increment at different rates?',
     a: 'The British UK system uses the barleycorn unit (1/3 inch, or 8.46 mm per full size), while continental Europe relies on the Paris Point (2/3 cm, or 6.67 mm). Because Paris Points are smaller, European sizes increment in finer steps.'
+  },
+  {
+    q: "What is EU size 42 in UK shoe sizing?",
+    a: "A European EU size 42 corresponds to British UK size 8 for men, fitting a 26.5 cm foot length. Nike tags use a one-size US to UK offset, so EU 42 is labeled UK 7.5 there."
+  },
+  {
+    q: "What is EU size 44 or 45 in UK sizing?",
+    a: "A European EU 44 translates to a British UK 9.5 (28.0 cm foot length). A European EU 45 corresponds to a British UK 10.5 (29.0 cm foot length)."
   }
 ];
 
@@ -51,12 +77,9 @@ const faqSchema = JSON.stringify({
 
 const relatedLinks = [
   { label: 'All Converters Directory', href: '/converters/' },
-  { label: 'EU to UK Shoe Size Converter', href: '/eu-to-uk-shoe-size/' },
-  { label: 'UK to US Shoe Size Converter', href: '/uk-to-us-shoe-size/' },
   { label: 'US to UK Shoe Size Converter', href: '/us-to-uk-shoe-size/' },
-  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
   { label: 'EU to US Shoe Size Converter', href: '/eu-to-us-shoe-size/' },
-  { label: 'UK to India Shoe Size Converter', href: '/uk-to-india-shoe-size/' },
+  { label: 'India to UK Shoe Size Converter', href: '/india-to-uk-shoe-size/' },
   { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
   { label: 'United Kingdom Shoe Sizing Guide', href: '/country/uk/' },
 ];
@@ -93,7 +116,7 @@ const relatedLinks = [
     <section class="hero-band">
       <div class="page-inner hero-content">
         <span class="badge-pill">Cross-Channel Footwear Guide</span>
-        <h1 class="hero-title">UK to EU Shoe Size Converter</h1>
+        <h1 class="hero-title">UK to EU and EU to UK shoe size converter</h1>
         <p class="hero-sub">Convert British (UK) shoe sizes to Continental European (EU) sizes accurately. Compare comprehensive men's, women's, and children's charts with size 8, size 10 benchmarks, Paris Point formulas, and centimeter lengths.</p>
         
         <div class="hero-stats">
@@ -107,7 +130,7 @@ const relatedLinks = [
           </div>
           <div class="stat-pill">
             <span class="stat-label">General Formula</span>
-            <span class="stat-val">EU ≈ UK + 33.5 to 34</span>
+            <span class="stat-val">EU ≈ UK + 34 (men), + 33 (women)</span>
           </div>
         </div>
       </div>
@@ -150,7 +173,7 @@ const relatedLinks = [
             <div class="conv-result-card">
               <div class="conv-col">
                 <span class="conv-sys">United Kingdom (UK)</span>
-                <span class="conv-val" id="res-uk">8.0</span>
+                <span class="conv-val" id="res-uk">{d0.uk.toFixed(1)}</span>
                 <span class="conv-note" id="res-uk-sub">Men's Standard</span>
               </div>
               <div class="conv-arrow-wrap" aria-hidden="true">
@@ -160,19 +183,21 @@ const relatedLinks = [
               </div>
               <div class="conv-col conv-target">
                 <span class="conv-sys">European Union (EU)</span>
-                <span class="conv-val" id="res-eu">42.0</span>
+                <span class="conv-val" id="res-eu">{d0.eu.toFixed(1)}</span>
                 <span class="conv-note" id="res-eu-sub">Paris Point Standard</span>
               </div>
               <div class="conv-col conv-aux">
                 <span class="conv-sys">Foot Length & US</span>
-                <span class="conv-val-sm" id="res-aux">27.0 cm · US 9.0</span>
-                <span class="conv-note" id="res-inch">10.6 inches</span>
+                <span class="conv-val-sm" id="res-aux">{`${d0.cm.toFixed(1)} cm · US ${d0.us.toFixed(1)}`}</span>
+                <span class="conv-note" id="res-inch">{`${d0.inch.toFixed(1)} inches`}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <ReverseLookup id="eu-to-uk" from="eu" to="uk" fromLabel="EU" toLabel="UK" defaultMen={42} />
 
     <!-- Benchmark Cards -->
     <section class="snapshot-band">
@@ -181,48 +206,15 @@ const relatedLinks = [
         <p class="section-sub">Essential size conversions frequently searched by British and European footwear shoppers.</p>
 
         <div class="snapshot-grid">
-          <div class="snap-card">
-            <span class="snap-tag">Men's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">UK Size 8 in EU → EU 42.0</span>
-              <span class="snap-detail">Foot length: 27.0 cm · US Men 9.0 · 10.6 inches · uk size 8 in eu</span>
+          {benchmarks.map(({ gender, row }) => (
+            <div class="snap-card">
+              <span class="snap-tag">{gender === 'men' ? "Men's" : "Women's"} Benchmark</span>
+              <div class="snap-body">
+                <span class="snap-main">UK {row.uk} {gender === 'men' ? 'Men' : 'Women'} → EU {row.eu}</span>
+                <span class="snap-detail">Foot length: {cmText(row)} cm · US {gender === 'men' ? 'Men' : 'Women'} {row.us} · {row.inch.toFixed(1)} inches</span>
+              </div>
             </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">UK Size 10 in EU → EU 44.5 / 45</span>
-              <span class="snap-detail">Foot length: 29.0 cm · US Men 11.0 · 11.4 inches · uk size 10 in eu</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">UK Size 5 in EU → EU 38.0</span>
-              <span class="snap-detail">Foot length: 24.0 cm · US Women 7.0 · 9.4 inches</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">UK Size 6 in EU → EU 39.0</span>
-              <span class="snap-detail">Foot length: 25.0 cm · US Women 8.0 · 9.8 inches</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">UK Size 7 in EU → EU 40.5 / 41</span>
-              <span class="snap-detail">Foot length: 26.0 cm · US Men 8.0 · 10.2 inches</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men's Benchmark</span>
-            <div class="snap-body">
-              <span class="snap-main">UK Size 9 in EU → EU 43.0</span>
-              <span class="snap-detail">Foot length: 28.0 cm · US Men 10.0 · 11.0 inches</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -350,10 +342,10 @@ const relatedLinks = [
           Linear approximations bridge the gap between British and European scales:
         </p>
         <ul>
-          <li>For adult men, adding 33.5 to the UK size approximates the European number: UK 8 + 33.5 = EU 41.5, UK 8.5 + 33.5 = EU 42, and UK 9.5 + 34.5 = EU 44.</li>
-          <li>For UK size 8, a men's UK 8 fits a 26.5 cm foot length (EU 41.5), while UK 8.5 fits 27.0 cm (EU 42).</li>
-          <li>For UK size 10, a men's UK 10 fits a 28.5 cm foot length (EU 44.5), while UK 9.5 fits 28.0 cm (EU 44).</li>
-          <li>For women's shoes, UK 4 corresponds to EU 36.5, UK 5 to EU 38, UK 6 to EU 38.5, and UK 7 to EU 40.</li>
+          <li>For adult men, adding about 34 to the UK size approximates the European number: UK {m8.uk} is EU {m8.eu}, UK {m85.uk} is EU {m85.eu}, and UK {m10.uk} is EU {m10.eu}.</li>
+          <li>For UK size {m8.uk}, a men's UK {m8.uk} fits a {cmText(m8)} cm foot length (EU {m8.eu}), while UK {m85.uk} fits {cmText(m85)} cm (EU {m85.eu}).</li>
+          <li>For UK size {m10.uk}, a men's UK {m10.uk} fits a {cmText(m10)} cm foot length (EU {m10.eu}), while UK {m95.uk} fits {cmText(m95)} cm (EU {m95.eu}).</li>
+          <li>For women's shoes, UK {w4.uk} corresponds to EU {w4.eu}, UK {w5.uk} to EU {w5.eu}, UK {w6.uk} to EU {w6.eu}, and UK {w7.uk} to EU {w7.eu}.</li>
         </ul>
 
         <h3>Converting EU to UK shoe sizes</h3>
@@ -361,8 +353,8 @@ const relatedLinks = [
           To convert continental European sizes to British sizes:
         </p>
         <ul>
-          <li>For men: subtract 33.5 from the European number (EU 42 − 33.5 = UK 8.5; EU 44 − 34 = UK 10).</li>
-          <li>For women: subtract 33 from the European number (EU 38 − 33 = UK 5; EU 39 − 33 = UK 6).</li>
+          <li>For men: subtract about 34 from the European number (EU {m8.eu} is UK {m8.uk}; EU {m10.eu} is UK {m10.uk}).</li>
+          <li>For women: subtract about 33 from the European number (EU {w5.eu} is UK {w5.uk}; EU {w6.eu} is UK {w6.uk}).</li>
           <li>When an EU size sits between two UK sizes, running shoes generally warrant the larger half size, while dress loafers warrant the closer fit.</li>
         </ul>
 
@@ -377,7 +369,7 @@ const relatedLinks = [
 
         <h3>Measuring foot length</h3>
         <p>
-          To confirm your size, measure your foot length in centimeters. See our step-by-step instructions on <a href="/shoe-size-by-foot-length/">measuring shoe size by foot length</a>. A foot measuring 27.0 cm corresponds to UK 8.5 and EU 42.
+          To confirm your size, measure your foot length in centimeters. See our step-by-step instructions on <a href="/shoe-size-by-foot-length/">measuring shoe size by foot length</a>. A men's foot measuring {cmText(m85)} cm corresponds to UK {m85.uk} and EU {m85.eu}.
         </p>
       </div>
     </article>

@@ -33,13 +33,13 @@
         <div class="nav-drop-panel" role="menu">
           <a href="/converters/" class="drop-item" role="menuitem">All Converters</a>
           <div class="drop-divider"></div>
-          <a href="/us-to-eu-shoe-size/" class="drop-item" role="menuitem">US to EU</a>
-          <a href="/us-to-uk-shoe-size/" class="drop-item" role="menuitem">US to UK</a>
-          <a href="/us-to-india-shoe-size/" class="drop-item" role="menuitem">US to India</a>
-          <a href="/us-to-japan-shoe-size/" class="drop-item" role="menuitem">US to Japan</a>
           <a href="/eu-to-us-shoe-size/" class="drop-item" role="menuitem">EU to US</a>
-          <a href="/uk-to-us-shoe-size/" class="drop-item" role="menuitem">UK to US</a>
-          <a href="/india-to-us-shoe-size/" class="drop-item" role="menuitem">India to US</a>
+          <a href="/us-to-uk-shoe-size/" class="drop-item" role="menuitem">US to UK</a>
+          <a href="/us-to-japan-shoe-size/" class="drop-item" role="menuitem">US to Japan</a>
+          <a href="/us-to-india-shoe-size/" class="drop-item" role="menuitem">US to India</a>
+          <a href="/india-to-uk-shoe-size/" class="drop-item" role="menuitem">India to UK</a>
+          <a href="/uk-to-eu-shoe-size/" class="drop-item" role="menuitem">UK to EU</a>
+          <a href="/eu-to-india-shoe-size/" class="drop-item" role="menuitem">EU to India</a>
         </div>
       </div>
 
@@ -138,8 +138,8 @@
         <!-- Quick Conversions Row -->
         <div class="quick-pill-grid">
           <a href="/converters/" class="quick-pill">All Converters</a>
-          <a href="/us-to-eu-shoe-size/" class="quick-pill">US → EU</a>
-          <a href="/us-to-uk-shoe-size/" class="quick-pill">US → UK</a>
+          <a href="/eu-to-us-shoe-size/" class="quick-pill">EU ⇄ US</a>
+          <a href="/us-to-uk-shoe-size/" class="quick-pill">US ⇄ UK</a>
           <a href="/shoe-size-in-cm/" class="quick-pill">Size in CM</a>
         </div>
 
@@ -148,7 +148,7 @@
           <a href="/converters/" class="mobile-nav-item">
             <div class="item-text">
               <span class="item-title">Shoe Size Converters</span>
-              <span class="item-desc">Browse all 15+ conversion tools</span>
+              <span class="item-desc">Browse every two-way shoe size converter</span>
             </div>
             <svg class="item-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
           </a>
@@ -220,6 +220,18 @@
 </header>
 
 <style>
+  .nav-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 5px;
+    pointer-events: none;
+    background: repeating-linear-gradient(to right, var(--v-ruler) 0 1px, transparent 1px 6px) left bottom / 100% 3px no-repeat,
+                repeating-linear-gradient(to right, var(--v-ruler) 0 1px, transparent 1px 60px) left bottom / 100% 5px no-repeat;
+    opacity: 0.6;
+  }
   .nav-bar {
     position: sticky;
     top: 0;
@@ -272,9 +284,10 @@
     gap: 6px;
   }
   .nav-wordmark {
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.03em;
     color: var(--v-ink);
   }
   .nav-tag {

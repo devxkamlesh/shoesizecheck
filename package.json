@@ -3,15 +3,16 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.18.0"
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "audit": "node scripts/audit.cjs",
-    "deploy": "astro build && wrangler pages deploy dist --project-name=allshoesizeconverter",
+    "check:sizes": "node scripts/check-size-claims.mjs",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=allshoesizeconverter",
     "astro": "astro"
   },
 

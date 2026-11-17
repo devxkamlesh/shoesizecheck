@@ -25,3 +25,6 @@ user data google and bing/
 
 # jetbrains setting folder
 .idea/
+
+# wrangler local state and build temp
+.wrangler/

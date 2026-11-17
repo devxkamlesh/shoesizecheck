@@ -1,0 +1,95 @@
+---
+// Reverse-direction lookup for converter pages that cover both directions of a pair
+// (for example /us-to-uk-shoe-size/ also answers "UK to US"). Rows come from shoe-sizes.ts.
+import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
+
+type Sys = 'us' | 'uk' | 'eu' | 'india';
+interface Props {
+  id: string;          // anchor, e.g. "uk-to-us"
+  from: Sys;           // system the visitor already knows
+  to: Sys;             // system they want
+  fromLabel: string;   // "UK"
+  toLabel: string;     // "US"
+  defaultMen: number;  // preselected men's value in `from`
+}
+const { id, from, to, fromLabel, toLabel, defaultMen } = Astro.props;
+
+const rows = { men: MEN_SIZE_ROWS, women: WOMEN_SIZE_ROWS, kids: KIDS_SIZE_ROWS };
+const d0 = MEN_SIZE_ROWS.find(r => r[from] === defaultMen) ?? MEN_SIZE_ROWS[0];
+const extras = (['us', 'uk', 'eu'] as Sys[]).filter(s => s !== from && s !== to);
+const sysLabel: Record<Sys, string> = { us: 'US', uk: 'UK', eu: 'EU', india: 'India' };
+const line = (r: typeof d0) =>
+  [`${toLabel} ${r[to]}`, ...extras.map(s => `${sysLabel[s]} ${r[s]}`), `${r.cm} cm`].join(' · ');
+---
+
+<section class="rev-band" id={id} aria-labelledby={`${id}-title`}>
+  <div class="rev-inner">
+    <div class="card-elevated rev-card">
+      <h2 class="rev-title" id={`${id}-title`}>{fromLabel} to {toLabel} shoe size</h2>
+      <p class="rev-sub">Already know your {fromLabel} size? Pick it here to get the {toLabel} size. Both directions use the same chart below.</p>
+      <div class="rev-row">
+        <label class="rev-field">
+          <span class="rev-label">Category</span>
+          <select class="form-select" data-rev-gender>
+            <option value="men" selected>Men's</option>
+            <option value="women">Women's</option>
+            <option value="kids">Kids'</option>
+          </select>
+        </label>
+        <label class="rev-field">
+          <span class="rev-label">{fromLabel} size</span>
+          <select class="form-select" data-rev-size>
+            {MEN_SIZE_ROWS.map(r => <option value={String(r[from])} selected={r[from] === defaultMen ? true : undefined}>{fromLabel} {r[from]}</option>)}
+          </select>
+        </label>
+      </div>
+      <p class="rev-result" aria-live="polite">
+        <strong data-rev-from>{fromLabel} {d0[from]}</strong> = <span data-rev-to>{line(d0)}</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ id, rows, from, to, fromLabel, toLabel, extras, sysLabel }}>
+  (function () {
+    const root = document.getElementById(id);
+    if (!root) return;
+    const g = root.querySelector('[data-rev-gender]');
+    const s = root.querySelector('[data-rev-size]');
+    const outFrom = root.querySelector('[data-rev-from]');
+    const outTo = root.querySelector('[data-rev-to]');
+    const line = r => [toLabel + ' ' + r[to]].concat(extras.map(k => sysLabel[k] + ' ' + r[k]), [r.cm + ' cm']).join(' · ');
+    function show() {
+      const r = rows[g.value].find(x => String(x[from]) === s.value);
+      if (!r) return;
+      outFrom.textContent = fromLabel + ' ' + r[from];
+      outTo.textContent = line(r);
+    }
+    g.addEventListener('change', () => {
+      const list = rows[g.value];
+      s.innerHTML = '';
+      list.forEach((r, i) => {
+        const o = document.createElement('option');
+        o.value = String(r[from]);
+        o.textContent = fromLabel + ' ' + r[from];
+        if (i === Math.floor(list.length / 2)) o.selected = true;
+        s.appendChild(o);
+      });
+      show();
+    });
+    s.addEventListener('change', show);
+  })();
+</script>
+
+<style>
+  .rev-band { padding: 0 24px 48px; background: var(--v-canvas); }
+  .rev-inner { max-width: 960px; margin: 0 auto; }
+  .rev-card { padding: var(--v-lg); }
+  .rev-title { font-size: 20px; font-weight: 700; color: var(--v-ink); margin: 0 0 var(--v-xs); }
+  .rev-sub { color: var(--v-mute); font-size: 14px; margin: 0 0 var(--v-md); }
+  .rev-row { display: flex; flex-wrap: wrap; gap: var(--v-md); }
+  .rev-field { flex: 1 1 180px; display: flex; flex-direction: column; gap: var(--v-xxs); }
+  .rev-label { font-size: 12px; font-weight: 600; color: var(--v-faint); text-transform: uppercase; letter-spacing: 0.04em; }
+  .rev-result { margin: var(--v-md) 0 0; font-size: 18px; color: var(--v-body); }
+  .rev-result strong { color: var(--v-link); }
+</style>

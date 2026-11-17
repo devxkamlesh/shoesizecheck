@@ -4,8 +4,10 @@ import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import Footer from '../../components/Footer.astro';
+import { size, cm as cmText } from '../../data/size-lookup';
 import { SIZE_DATA, MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../../data/shoe-sizes';
 
+const w36 = size('women', 'eu', 36);
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/country/us/`;
 const pageTitle = 'US Shoe Size Chart: Men, Women and Kids Size Guide';
@@ -15,15 +17,15 @@ const ogImage = `${domain}/og-image.png`;
 const faqs = [
   {
     q: 'Is a US size 8 a 38 or 39?',
-    a: 'In women footwear, a US size 8 corresponds to EU 38.5 to 39 (25.0 cm foot length). In men footwear, a US Men size 8 corresponds to EU 41.0 (26.0 cm foot length). Confirm whether the footwear tag refers to men or women sizing before purchasing.'
+    a: 'In women footwear, a US size 8 corresponds to EU 39 (25.0 cm foot length). In men footwear, a US Men size 8 corresponds to EU 41.0 (26.0 cm foot length). Confirm whether the footwear tag refers to men or women sizing before purchasing.'
   },
   {
     q: 'Is US 7 size 40?',
-    a: 'On a men shoe chart, a US Men 7 equals EU 40.0 (25.0 cm foot length and UK 6.5). In women footwear, a US Women 7 corresponds to EU 37.5 (24.0 cm foot length).'
+    a: 'On a men shoe chart, a US Men 7 equals EU 40.0 (25.0 cm foot length and UK 6.5). In women footwear, a US Women 7 corresponds to EU 38 (24.0 cm foot length).'
   },
   {
     q: 'What is 42 in US shoe size?',
-    a: 'An EU 42 corresponds to a US Men size 9.0 (UK 8.5, India 8.5, 27.0 cm foot length). In women footwear, an EU 42 corresponds to US Women 10.5.'
+    a: 'An EU 42 corresponds to a US Men size 8.5 (UK 8, India 8, 26.5 cm foot length). In women footwear, an EU 42 corresponds to US Women 10.'
   },
   {
     q: 'What is US size 8 in India?',
@@ -31,7 +33,7 @@ const faqs = [
   },
   {
     q: 'What is a 36 shoe size in US women\'s?',
-    a: 'An EU 36 corresponds to a US Women size 5.5 to 6.0 (UK 3.5 to 4.0, 22.5 to 23.0 cm foot length).'
+    a: 'An EU 36 corresponds to a US Women size 5.5 (UK 3.5, 22.5 cm foot length).'
   },
   {
     q: 'How do women and men shoe size compare in the US?',
@@ -58,7 +60,7 @@ const faqSchema = JSON.stringify({
 });
 
 const conversionLinks = [
-  { label: 'US to EU Shoe Size', href: '/us-to-eu-shoe-size/' },
+  { label: 'EU to US Shoe Size', href: '/eu-to-us-shoe-size/' },
   { label: 'US to UK Shoe Size', href: '/us-to-uk-shoe-size/' },
   { label: 'US to India Shoe Size', href: '/us-to-india-shoe-size/' },
   { label: 'US to Japan Shoe Size', href: '/us-to-japan-shoe-size/' },
@@ -314,7 +316,7 @@ const countryLinks = [
             <p>Width profiles also differ between categories. Standard men shoes use a D width last, while standard women shoes use a narrower B width last. A woman buying a men sneaker will experience a wider heel cup and midfoot chamber. A man purchasing a women sneaker will experience a narrower fit that often requires a half size increase in length.</p>
 
             <h3 class="heading-sm">Decoding the 36 shoe size in US women's</h3>
-            <p>An EU 36 corresponds to a US Women 5.5 to 6.0, UK 3.5, and 22.5 to 23.0 cm foot length. Footwear built on European lasts runs true to unisex metric lengths. When wearing athletic or winter socks, selecting US Women 6.0 provides adequate space across the toe box.</p>
+            <p>An EU {w36.eu} corresponds to a US Women {w36.us}, UK {w36.uk}, and a {cmText(w36)} cm foot length. Footwear built on European lasts runs true to unisex metric lengths. When wearing athletic or winter socks, selecting US Women 6.0 provides adequate space across the toe box.</p>
 
             <h3 class="heading-sm">How to measure your foot using a feet size chart</h3>
             <p>Follow four steps to measure your feet accurately:</p>

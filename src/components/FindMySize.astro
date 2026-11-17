@@ -2,17 +2,20 @@
 // FindMySize.astro: Foot length calculator, Geist design
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, SIZE_DATA } from '../data/shoe-sizes';
 
-const quickRefRows = [
-  { cm: 23, in: '9.1"', usM: 5, usW: 6.0, eu: 36.5, india: 4.0 },
-  { cm: 24, in: '9.4"', usM: 6, usW: 7.0, eu: 38.5, india: 5.5 },
-  { cm: 25, in: '9.8"', usM: 7, usW: 8.0, eu: 40.0, india: 6.5 },
-  { cm: 26, in: '10.2"', usM: 8, usW: 9.0, eu: 41.0, india: 7.5 },
-  { cm: 26.5, in: '10.4"', usM: 8.5, usW: 9.5, eu: 41.5, india: 8.0 },
-  { cm: 27, in: '10.6"', usM: 9, usW: 10.0, eu: 42.0, india: 8.5 },
-  { cm: 28, in: '11.0"', usM: 10, usW: 11.0, eu: 44.0, india: 9.5 },
-  { cm: 29, in: '11.4"', usM: 11, usW: '-', eu: 45.0, india: 10.5 },
-  { cm: 30, in: '11.8"', usM: 12, usW: '-', eu: 46.0, india: 11.5 },
-];
+// Quick reference rows come from the shared chart: men's row for each foot length, plus the
+// women's US size for the same length when the women's chart has one.
+const QUICK_REF_CM = [24, 25, 26, 26.5, 27, 28, 29, 30];
+const quickRefRows = QUICK_REF_CM
+  .map(cm => ({ men: MEN_SIZE_ROWS.find(r => r.cm === cm), women: WOMEN_SIZE_ROWS.find(r => r.cm === cm) }))
+  .filter(({ men }) => men !== undefined)
+  .map(({ men, women }) => ({
+    cm: men!.cm,
+    in: `${men!.inch.toFixed(1)}"`,
+    usM: men!.us,
+    usW: women ? women.us : '–',
+    eu: men!.eu,
+    india: men!.india,
+  }));
 
 const serializedSizeData = JSON.stringify(SIZE_DATA);
 ---
@@ -69,7 +72,7 @@ const serializedSizeData = JSON.stringify(SIZE_DATA);
           <p class="mono-eyebrow" style="margin-bottom:12px">Quick reference</p>
           <div class="fms-ref-grid">
             <div class="fms-ref-row fms-ref-header">
-              <span>cm</span><span>in</span><span>US M</span><span>US W</span><span>EU</span><span>India</span>
+              <span>cm</span><span>in</span><span>US M</span><span>US W</span><span>EU M</span><span>India M</span>
             </div>
             {quickRefRows.map(r => (
               <div class="fms-ref-row">

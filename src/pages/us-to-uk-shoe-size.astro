@@ -4,12 +4,13 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import ReverseLookup from '../components/ReverseLookup.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/us-to-uk-shoe-size/`;
-const pageTitle = 'US to UK shoe size converter: American to British chart';
-const pageDescription = 'Convert US shoe sizes to UK sizes. Accurate US to UK conversion chart for men, women, and kids with shoe size guides, formulas, and brand tips.';
+const pageTitle = "US to UK and UK to US shoe size converter and chart";
+const pageDescription = "Convert US to UK and UK to US shoe sizes for men, women, and kids in one chart. Men: UK = US − 0.5. Women: UK = US − 2. Includes cm and EU.";
 const ogImage = `${domain}/og-image.png`;
 
 const menSizes = MEN_SIZE_ROWS;
@@ -36,6 +37,18 @@ const faqs = [
   {
     q: 'Do athletic sneaker brands fit the same across US and UK sizes?',
     a: 'Athletic sneaker brands maintain specific international labeling on shoe box tongues. For example, Nike Men\'s US 10 corresponds to UK 9 and EU 44, using a 1-size offset. Adidas Men\'s US 10 corresponds to UK 9.5 and EU 44. To eliminate fitting discrepancies, check the centimetre (CM) footbed measurement.'
+  },
+  {
+    q: "What is the shoe size conversion from UK to US?",
+    a: "To convert UK shoe size to US, add 0.5 to British men's sizes (US = UK + 0.5; for example, UK 8.5 Men = US 9). For British women's sizes, add 2 full sizes (US = UK + 2; for example, UK 6 Women = US 8). For children's footwear, US sizes are typically 0.5 to 1 size larger than UK."
+  },
+  {
+    q: "What is the US shoe size equivalent to a UK women's size?",
+    a: "The American women's equivalent is 2 sizes larger than the British UK size. A UK Women's size 5 corresponds to a US Women's 7 (24.0 cm), UK Women's 6 equals US Women's 8 (25.0 cm), and UK Women's 7 translates to US Women's 9 (26.0 cm)."
+  },
+  {
+    q: "How do I convert UK kids' shoe sizes to US sizing?",
+    a: "In children's footwear, British sizes run 0.5 to 1 size smaller than US sizes through toddler and little kid stages (such as UK 7.5C = US 8C). When transitioning into youth sizes, British 13.5C converts into US 1Y, and UK 1Y corresponds to US 2Y."
   }
 ];
 
@@ -51,8 +64,7 @@ const faqSchema = JSON.stringify({
 
 const relatedLinks = [
   { label: 'All Converters Directory', href: '/converters/' },
-  { label: 'UK to US Shoe Size Converter', href: '/uk-to-us-shoe-size/' },
-  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
+  { label: 'EU to US Shoe Size Converter', href: '/eu-to-us-shoe-size/' },
   { label: 'US to India Shoe Size Converter', href: '/us-to-india-shoe-size/' },
   { label: 'United States Shoe Sizing Guide', href: '/country/us/' },
   { label: 'United Kingdom Shoe Sizing Guide', href: '/country/uk/' },
@@ -88,7 +100,7 @@ const relatedLinks = [
     <section class="page-hero">
       <div class="page-inner">
         <p class="mono-eyebrow">Barleycorn offset conversion</p>
-        <h1 class="display-xl">US to UK shoe size converter</h1>
+        <h1 class="display-xl">US to UK and UK to US shoe size converter</h1>
         <p class="hero-sub body-lg">
           Convert American (US) shoe sizes to British (UK) sizes. Use the interactive calculator, review conversion charts for men, women, and kids, and check the math behind cross-Atlantic footwear sizing.
         </p>
@@ -163,13 +175,15 @@ const relatedLinks = [
               <div class="conv-col conv-aux">
                 <span class="conv-sys">Footbed Length</span>
                 <span class="conv-val-sm" id="res-cm">27.0 cm</span>
-                <span class="conv-note" id="res-in-meas">10.6 inches · EU 42</span>
+                <span class="conv-note" id="res-in-meas">10.6 inches · EU 42.5</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <ReverseLookup id="uk-to-us" from="uk" to="us" fromLabel="UK" toLabel="US" defaultMen={8.5} />
 
     <!-- Benchmark Cards -->
     <section class="snapshot-band">
@@ -189,7 +203,7 @@ const relatedLinks = [
             <span class="snap-tag">Men Popular</span>
             <div class="snap-body">
               <span class="snap-main">US 9 → UK 8.5</span>
-              <span class="snap-detail">Foot length: 27.0 cm · EU 42 · 10.6″</span>
+              <span class="snap-detail">Foot length: 27.0 cm · EU 42.5 · 10.6″</span>
             </div>
           </div>
           <div class="snap-card">
@@ -210,14 +224,14 @@ const relatedLinks = [
             <span class="snap-tag">Women Popular</span>
             <div class="snap-body">
               <span class="snap-main">US 7 → UK 5</span>
-              <span class="snap-detail">Foot length: 24.0 cm · EU 37.5 · 9.4″</span>
+              <span class="snap-detail">Foot length: 24.0 cm · EU 38 · 9.4″</span>
             </div>
           </div>
           <div class="snap-card">
             <span class="snap-tag">Women Popular</span>
             <div class="snap-body">
               <span class="snap-main">US 8 → UK 6</span>
-              <span class="snap-detail">Foot length: 25.0 cm · EU 38.5 · 9.8″</span>
+              <span class="snap-detail">Foot length: 25.0 cm · EU 39 · 9.8″</span>
             </div>
           </div>
         </div>

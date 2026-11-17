@@ -62,6 +62,25 @@ const pageSchema = JSON.stringify({
 
         <article class="release-entry">
           <div class="release-meta">
+            <span class="version-badge">v2.2.0</span>
+            <time datetime="2026-11-18">November 18, 2026</time>
+          </div>
+
+          <h2>Version 2.2.0</h2>
+
+          <h3>Reverse-direction converters merged</h3>
+          <p>
+            Six pairs of converters showed the same chart in opposite directions. Each pair is now one page that converts both ways, with a reverse lookup under the main calculator and the useful questions from the retired page. Old addresses redirect permanently: UK to US now opens <a href="/us-to-uk-shoe-size/">US to UK</a>, US to EU opens <a href="/eu-to-us-shoe-size/">EU to US</a>, EU to UK opens <a href="/uk-to-eu-shoe-size/">UK to EU</a>, India to EU opens <a href="/eu-to-india-shoe-size/">EU to India</a>, India to US opens <a href="/us-to-india-shoe-size/">US to India</a>, and UK to India opens <a href="/india-to-uk-shoe-size/">India to UK</a>. In each pair, the page readers used most was kept. The single-size EU 40 to AU page became an EU to AU chart on the <a href="/country/australia/">Australian size guide</a>.
+          </p>
+
+          <h3>Size statements read from the shared chart</h3>
+          <p>
+            Converter result cards, benchmark cards, and several written examples now take their numbers from the same table as the charts, so they cannot drift apart. This corrected statements that still used older values: a 27.0 cm men's foot is EU 42.5 (not 42), US men's 9 is EU 42.5, a 26.5 cm women's foot is US women's 9.5, men's EU 42 is UK 8, and US to Mexico talla values for men's sizes were half a size high. A build check now compares every US, UK, India, EU, and centimetre pair written on the site against the chart.
+          </p>
+        </article>
+
+        <article class="release-entry">
+          <div class="release-meta">
             <span class="version-badge">v2.1.1</span>
             <time datetime="2026-11-14">November 14, 2026</time>
           </div>

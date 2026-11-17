@@ -5,6 +5,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
+import { size, cm as cmText } from '../data/size-lookup';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/us-to-mexico-shoe-size/`;
@@ -62,6 +63,17 @@ const kidsSizes = KIDS_SIZE_ROWS.map(r => ({
   stage: r.stage,
 }));
 
+// Benchmarks read from the shared rows. Mexico (Punto) equals foot length in cm; talla drops the leading 2.
+const benchmarks = [
+  { gender: 'men' as const, row: size('men', 'us', 8) },
+  { gender: 'men' as const, row: size('men', 'us', 9) },
+  { gender: 'men' as const, row: size('men', 'us', 9.5) },
+  { gender: 'men' as const, row: size('men', 'us', 10) },
+  { gender: 'women' as const, row: size('women', 'us', 7) },
+  { gender: 'women' as const, row: size('women', 'us', 8) },
+];
+const w8 = size('women', 'us', 8);
+
 const faqs = [
   {
     q: 'How do US shoe sizes convert to Mexican shoe sizes?',
@@ -81,7 +93,7 @@ const faqs = [
   },
   {
     q: 'What is a Mexican women\'s size 5 in US shoe sizing?',
-    a: 'A Mexican women\'s size 5 (Talla 5, or Punto 25.0 cm) corresponds to an American US Women\'s 8.0 (European EU 38.5, UK 6.0). It is designed for a foot length measuring 25.0 centimeters.'
+    a: `A Mexican women's size ${w8.cm - 20} (Talla ${w8.cm - 20}, or Punto ${cmText(w8)} cm) corresponds to an American US Women's ${w8.us.toFixed(1)} (European EU ${w8.eu}, UK ${w8.uk.toFixed(1)}). It is designed for a foot length measuring ${cmText(w8)} centimeters.`
   }
 ];
 
@@ -99,7 +111,7 @@ const relatedLinks = [
   { label: 'All Converters Directory', href: '/converters/' },
   { label: 'Mexico Shoe Size Chart & Guide', href: '/country/mexico/' },
   { label: 'US to CM Shoe Size Converter', href: '/us-to-cm-shoe-size/' },
-  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
+  { label: 'EU to US Shoe Size Converter', href: '/eu-to-us-shoe-size/' },
   { label: 'US to UK Shoe Size Converter', href: '/us-to-uk-shoe-size/' },
   { label: 'United States Sizing Guide', href: '/country/us/' },
   { label: 'Shoe Size in Centimeters (CM)', href: '/shoe-size-in-cm/' },
@@ -225,48 +237,15 @@ const relatedLinks = [
         <p class="section-sub">Standard adult conversions between American footwear and Mexican retail sizes.</p>
 
         <div class="snapshot-grid">
-          <div class="snap-card">
-            <span class="snap-tag">Men Popular</span>
-            <div class="snap-body">
-              <span class="snap-main">US 8 Men → Mexico 6.5</span>
-              <span class="snap-detail">Punto 26.0 cm · EU 41 · UK 7.5</span>
+          {benchmarks.map(({ gender, row }) => (
+            <div class="snap-card">
+              <span class="snap-tag">{gender === 'men' ? 'Men' : 'Women'} Popular</span>
+              <div class="snap-body">
+                <span class="snap-main">US {row.us} {gender === 'men' ? 'Men' : 'Women'} → Mexico {row.cm} (talla {row.cm - 20})</span>
+                <span class="snap-detail">Punto {cmText(row)} cm · EU {row.eu} · UK {row.uk.toFixed(1)}</span>
+              </div>
             </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men Popular</span>
-            <div class="snap-body">
-              <span class="snap-main">US 9 Men → Mexico 7.5</span>
-              <span class="snap-detail">Punto 27.0 cm · EU 42 · UK 8.5</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men Popular</span>
-            <div class="snap-body">
-              <span class="snap-main">US 9.5 Men → Mexico 8.0</span>
-              <span class="snap-detail">Punto 27.5 cm · EU 42.5 · UK 9.0</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men Popular</span>
-            <div class="snap-body">
-              <span class="snap-main">US 10 Men → Mexico 8.5</span>
-              <span class="snap-detail">Punto 28.0 cm · EU 44 · UK 9.5</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women Popular</span>
-            <div class="snap-body">
-              <span class="snap-main">US 7 Women → Mexico 4.0</span>
-              <span class="snap-detail">Punto 24.0 cm · EU 37.5 · UK 5.0</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women Popular</span>
-            <div class="snap-body">
-              <span class="snap-main">US 8 Women → Mexico 5.0</span>
-              <span class="snap-detail">Punto 25.0 cm · EU 38.5 · UK 6.0</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

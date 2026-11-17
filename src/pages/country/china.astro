@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: 'How does Chinese shoe size conversion work for men and women to US sizes?',
-    a: 'China Type 1 sizes match European sizes. For men, China 42 equals EU 42, which converts to US Men 9.0 and UK 8.5 under ISO/TS 19407. For women, China 36.5 equals EU 36.5, which converts to US Women 6.0 and UK 4.0.'
+    a: 'China Type 1 sizes match European sizes. For men, China 42 equals EU 42, which converts to US Men 8.5 and UK 8. For women, China 36.5 equals EU 36.5, which converts to US Women 6.0 and UK 4.0.'
   },
   {
     q: 'Why do shoes from AliExpress, Shein, and Temu fit differently than Western sizes?',
@@ -61,7 +61,7 @@ const conversionLinks = [
   { label: 'Shoe Size in CM', href: '/shoe-size-in-cm/' },
   { label: 'Mondopoint Shoe Size Guide', href: '/mondopoint-shoe-size/' },
   { label: 'Shoe Size by Foot Length', href: '/shoe-size-by-foot-length/' },
-  { label: 'US to EU Shoe Size', href: '/us-to-eu-shoe-size/' },
+  { label: 'EU to US Shoe Size', href: '/eu-to-us-shoe-size/' },
   { label: 'What Is My Shoe Size?', href: '/what-is-my-shoe-size/' },
   { label: 'Kids Shoe Size by Age', href: '/kids-shoe-size-by-age/' },
 ];
@@ -201,7 +201,7 @@ const countryLinks = [
               <tbody>
                 {MEN_SIZE_ROWS.map((row) => (
                   <tr>
-                    <td><strong>China {row.china}</strong></td>
+                    <td><strong>China {row.eu}</strong></td>
                     <td>{row.korea} mm</td>
                     <td>US {row.us}</td>
                     <td>UK {row.uk}</td>
@@ -240,7 +240,7 @@ const countryLinks = [
               <tbody>
                 {WOMEN_SIZE_ROWS.map((row) => (
                   <tr>
-                    <td><strong>China {row.china}</strong></td>
+                    <td><strong>China {row.eu}</strong></td>
                     <td>{row.korea} mm</td>
                     <td>US {row.us}</td>
                     <td>UK {row.uk}</td>
@@ -336,7 +336,7 @@ const countryLinks = [
             <h3 class="heading-sm">Chinese sizing standards: Type 1 and Type 2</h3>
             <p>Shoppers buying footwear from Chinese manufacturers encounter two numbering schemes:</p>
             <ul>
-              <li>China Type 1 matches the continental European Paris Point standard, where each unit equals 6.67 millimeters. A Chinese size 42 shoe equals an EU 42 and fits a 27.0 centimeter foot. China size 36 matches an EU 36 and fits a 22.5 to 23.0 centimeter foot.</li>
+              <li>China Type 1 matches the continental European Paris Point standard, where each unit equals 6.67 millimeters. A Chinese size 42 shoe equals an EU 42 and fits a 26.5 centimeter men's foot. China size 36 matches an EU 36 and fits a 22.5 centimeter foot.</li>
               <li>China Type 2 is the national manufacturing standard established under GB/T 3293.1-1998. It measures bare foot length directly in millimeters with 5 millimeter intervals, such as 240, 245, 250, and 260 millimeters.</li>
             </ul>
             <p>Modern shoe tags often print both standards together. A label marked 260 (2.5) indicates a 260 millimeter foot length with a 2.5 width fitting, which represents a standard medium ball girth under the standard.</p>

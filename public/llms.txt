@@ -7,14 +7,17 @@ AllShoeSizeConverter is an authoritative footwear sizing utility providing verif
 ## Core Tools & Converters
 
 - [Shoe Size Converter Homepage](https://allshoesizeconverter.com/): Interactive shoe size converter across US, UK, EU, India, Japan, CM, and inches.
-- [All Shoe Size Converters Hub](https://allshoesizeconverter.com/converters/): Complete directory of 15+ specialized pair conversion tools.
-- [US to EU Shoe Size Converter](https://allshoesizeconverter.com/us-to-eu-shoe-size/): Complete US to EU shoe size conversion chart and calculator.
-- [US to UK Shoe Size Converter](https://allshoesizeconverter.com/us-to-uk-shoe-size/): Convert US men's, women's, and kids shoe sizes to UK sizes.
-- [US to India Shoe Size Converter](https://allshoesizeconverter.com/us-to-india-shoe-size/): Conversion chart between US and Indian standard shoe sizes.
+- [All Shoe Size Converters Hub](https://allshoesizeconverter.com/converters/): Directory of every pair converter; each one works in both directions.
+- [EU to US and US to EU Shoe Size Converter](https://allshoesizeconverter.com/eu-to-us-shoe-size/): European and US sizes for men, women, and kids, both directions.
+- [US to UK and UK to US Shoe Size Converter](https://allshoesizeconverter.com/us-to-uk-shoe-size/): US and British sizes for men, women, and kids, both directions.
+- [UK to EU and EU to UK Shoe Size Converter](https://allshoesizeconverter.com/uk-to-eu-shoe-size/): British and European sizes, both directions.
+- [US to India and India to US Shoe Size Converter](https://allshoesizeconverter.com/us-to-india-shoe-size/): US and Indian sizes, both directions.
+- [India to UK and UK to India Shoe Size Converter](https://allshoesizeconverter.com/india-to-uk-shoe-size/): Indian and UK sizes match 1:1.
+- [EU to India and India to EU Shoe Size Converter](https://allshoesizeconverter.com/eu-to-india-shoe-size/): European and Indian sizes, both directions.
 - [US to Japan Shoe Size Converter](https://allshoesizeconverter.com/us-to-japan-shoe-size/): Convert US shoe sizes to Japanese centimeter sizes.
-- [EU to US Shoe Size Converter](https://allshoesizeconverter.com/eu-to-us-shoe-size/): Convert European shoe sizes to US men and women standards.
-- [UK to US Shoe Size Converter](https://allshoesizeconverter.com/uk-to-us-shoe-size/): British to US footwear size conversion guide.
+- [US to Mexico Shoe Size Converter](https://allshoesizeconverter.com/us-to-mexico-shoe-size/): Convert US sizes to Mexican Punto (cm) sizes.
 - [Find My Shoe Size by Foot Length](https://allshoesizeconverter.com/shoe-size-by-foot-length/): Interactive calculator to find shoe size from foot length in cm or inches.
+- [Shoe Size in CM](https://allshoesizeconverter.com/shoe-size-in-cm/): Centimeter to shoe size charts for men, women, and kids.
 - [Kids Shoe Size by Age Chart](https://allshoesizeconverter.com/kids-shoe-size-by-age/): Children's shoe size guide from newborn baby to 12-year-old youth.
 - [Mondopoint Shoe Size Guide](https://allshoesizeconverter.com/mondopoint-shoe-size/): Millimeter sizing standard for ski boots and technical footwear.
 
@@ -25,6 +28,8 @@ AllShoeSizeConverter is an authoritative footwear sizing utility providing verif
 - [UK Shoe Size Chart](https://allshoesizeconverter.com/country/uk/): British footwear sizing standards and width letters.
 - [EU Shoe Size Chart](https://allshoesizeconverter.com/country/europe/): European Paris Point shoe sizing standards.
 - [India Shoe Size Chart](https://allshoesizeconverter.com/country/india/): Indian standard shoe sizes and width guidance.
+- [Australian Shoe Size Chart](https://allshoesizeconverter.com/country/australia/): AU sizes, including EU to AU (EU 40 = AU men's 6.5).
+- [Mexico Shoe Size Chart](https://allshoesizeconverter.com/country/mexico/): Mexican Punto Calzado sizes and conversions.
 
 ## Information & Legal
 

@@ -79,7 +79,6 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Kamlesh Choudhary (devxkamlesh)" />
-    <meta property="article:modified_time" content="2026-10-31" />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={robots} />
 
@@ -103,6 +102,7 @@ const {
 
     <!-- Self-hosted Geist Fonts via Astro Fonts API -->
     <Font cssVariable="--font-geist" preload />
+    <Font cssVariable="--font-bricolage" preload />
     <Font cssVariable="--font-geist-mono" />
 
 
@@ -416,6 +416,49 @@ const {
         } else {
           setupConverterTour();
         }
+      })();
+    </script>
+
+    <!-- Cursor glow: a soft mesh-gradient spotlight that follows the pointer inside page heroes.
+         Mouse/trackpad only, skipped for reduced motion, eased in one rAF loop that stops when idle. -->
+    <script is:inline>
+      (function () {
+        if (!window.matchMedia('(pointer: fine)').matches) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var heroes = document.querySelectorAll('.page-hero, .hero-band, .about-hero, .changelog-hero, .contact-hero, .conv-hero, .country-hero, .editorial-hero, .legal-hero, .error-hero, .converter-section');
+        if (!heroes.length) return;
+        var glows = [];
+        heroes.forEach(function (hero) {
+          var g = document.createElement('div');
+          g.className = 'hero-glow';
+          g.setAttribute('aria-hidden', 'true');
+          hero.insertBefore(g, hero.firstChild);
+          hero.classList.add('has-glow');
+          glows.push({ hero: hero, el: g, x: 0, y: 0, tx: 0, ty: 0, init: false });
+        });
+        var raf = 0, px = -1, py = -1;
+        function frame() {
+          raf = 0;
+          var moving = false;
+          glows.forEach(function (g) {
+            var r = g.hero.getBoundingClientRect();
+            var inside = px >= r.left && px <= r.right && py >= r.top && py <= r.bottom;
+            g.el.classList.toggle('on', inside);
+            if (!inside) return;
+            g.tx = px - r.left; g.ty = py - r.top;
+            if (!g.init) { g.x = g.tx; g.y = g.ty; g.init = true; }
+            // Ease 18% of the way each frame for a smooth trailing motion.
+            g.x += (g.tx - g.x) * 0.18; g.y += (g.ty - g.y) * 0.18;
+            g.el.style.setProperty('--gx', g.x.toFixed(1) + 'px');
+            g.el.style.setProperty('--gy', g.y.toFixed(1) + 'px');
+            if (Math.abs(g.tx - g.x) > 0.5 || Math.abs(g.ty - g.y) > 0.5) moving = true;
+          });
+          if (moving) raf = requestAnimationFrame(frame);
+        }
+        function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+        window.addEventListener('pointermove', function (e) { px = e.clientX; py = e.clientY; kick(); }, { passive: true });
+        window.addEventListener('scroll', kick, { passive: true });
+        document.documentElement.addEventListener('pointerleave', function () { px = py = -1; kick(); });
       })();
     </script>
   </body>

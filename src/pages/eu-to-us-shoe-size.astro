@@ -4,30 +4,48 @@ import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import Footer from '../components/Footer.astro';
+import { size, cm as cmText } from '../data/size-lookup';
+import ReverseLookup from '../components/ReverseLookup.astro';
 import { MEN_SIZE_ROWS, WOMEN_SIZE_ROWS, KIDS_SIZE_ROWS } from '../data/shoe-sizes';
 
 const domain = 'https://allshoesizeconverter.com';
 const pageCanonical = `${domain}/eu-to-us-shoe-size/`;
-const pageTitle = 'EU to US shoe size converter: European to US chart';
-const pageDescription = 'Convert European (EU) shoe sizes to US sizes. Full EU to US conversion charts for men, women, and kids with boot sizing and fit guidelines.';
+const pageTitle = "EU to US and US to EU shoe size converter and chart";
+const pageDescription = "Convert EU to US and US to EU shoe sizes for men, women, and kids. EU 42 = US men's 8.5 and EU 39 = US women's 8, with cm foot lengths.";
 const ogImage = `${domain}/og-image.png`;
 
 const menSizes = MEN_SIZE_ROWS;
 const womenSizes = WOMEN_SIZE_ROWS;
 const kidsSizes = KIDS_SIZE_ROWS;
+// Default converter card, rendered from the same row the size picker preselects.
+const d0 = menSizes.find(s => s.eu === 42)!;
+
+// Every size quoted on this page comes from the shared rows.
+const m41 = size('men', 'eu', 41);
+const w41 = size('women', 'eu', 41);
+const m42 = size('men', 'eu', 42);
+const m425 = size('men', 'eu', 42.5);
+const w38 = size('women', 'eu', 38);
+const w39 = size('women', 'eu', 39);
+const w40 = size('women', 'eu', 40);
+const m40 = size('men', 'eu', 40);
+const benchmarks = [
+  { gender: 'men', row: m42 }, { gender: 'men', row: m425 }, { gender: 'men', row: size('men', 'eu', 44) },
+  { gender: 'women', row: w38 }, { gender: 'women', row: w39 }, { gender: 'women', row: w40 },
+];
 
 const faqs = [
   {
     q: 'How do I convert my shoe size from EU to US?',
-    a: 'To convert an EU shoe size to US, determine whether you need men\'s or women\'s sizing because the European system is unisex while the US splits by gender. For men, subtract 33 from your European size (for example, EU 42 − 33 = US Men\'s 9). For women, subtract 30.5 (for example, EU 38.5 − 30.5 = US Women\'s 8).'
+    a: `To convert an EU shoe size to US, first decide whether you need men's or women's sizing: EU numbers are shared, but the US scale splits by gender. For men, subtract about 33.5 from your European size (for example, EU ${m425.eu} − 33.5 = US Men's ${m425.us}). For women, subtract about 31 (for example, EU ${w39.eu} − 31 = US Women's ${w39.us}).`
   },
   {
     q: 'What is EU 42 in US shoe size?',
-    a: 'An EU 42 corresponds to US Men\'s 9.0 (27.0 cm foot length). On athletic brand charts like Nike, EU 42 corresponds to US Men\'s 8.5 (26.5 cm).'
+    a: `An EU ${m42.eu} corresponds to US Men's ${m42.us} (${cmText(m42)} cm foot length), matching Nike's published chart. An EU ${m425.eu} corresponds to US Men's ${m425.us} (${cmText(m425)} cm).`
   },
   {
     q: 'What is EU 38 and EU 39 in US women\'s sizing?',
-    a: 'In women\'s footwear, an EU 38 translates to US Women\'s 7.5 (24.5 cm foot length). An EU 39 corresponds to US Women\'s 8.5 (25.5 cm foot length).'
+    a: `In women's footwear, an EU ${w38.eu} translates to US Women's ${w38.us} (${cmText(w38)} cm foot length). An EU ${w39.eu} corresponds to US Women's ${w39.us} (${cmText(w39)} cm foot length).`
   },
   {
     q: 'How do EU boot sizes convert to US sizes?',
@@ -35,7 +53,11 @@ const faqs = [
   },
   {
     q: 'Is European shoe sizing unisex?',
-    a: 'European shoe sizing is unisex. An EU 41 fits a 26.5 cm footbed whether labeled for men or women.'
+    a: `Nominally. Men and women share one EU number scale, but brand charts map it to different foot lengths: a men's EU ${m41.eu} fits a ${cmText(m41)} cm foot, while a women's EU ${w41.eu} fits ${cmText(w41)} cm. Use the chart for the gender you are buying.`
+  },
+  {
+    q: "What are the primary US to EU shoe size conversions?",
+    a: "Standard conversions for men include US 7 = EU 40, US 8 = EU 41, US 9 = EU 42.5, US 10 = EU 44, US 11 = EU 45, and US 12 = EU 46. Standard conversions for women include US 6 = EU 36.5, US 7 = EU 38, US 8 = EU 39, US 9 = EU 40.5, and US 10 = EU 42."
   }
 ];
 
@@ -51,8 +73,7 @@ const faqSchema = JSON.stringify({
 
 const relatedLinks = [
   { label: 'All Converters Directory', href: '/converters/' },
-  { label: 'US to EU Shoe Size Converter', href: '/us-to-eu-shoe-size/' },
-  { label: 'EU to UK Shoe Size Converter', href: '/eu-to-uk-shoe-size/' },
+  { label: 'UK to EU Shoe Size Converter', href: '/uk-to-eu-shoe-size/' },
   { label: 'EU to CM Shoe Size Calculator', href: '/eu-to-cm-shoe-size/' },
   { label: 'European Shoe Sizing Guide', href: '/country/europe/' },
   { label: 'United States Shoe Sizing Guide', href: '/country/us/' },
@@ -89,7 +110,7 @@ const relatedLinks = [
     <section class="page-hero">
       <div class="page-inner">
         <p class="mono-eyebrow">Continental Paris Point conversion</p>
-        <h1 class="display-xl">EU to US shoe size converter</h1>
+        <h1 class="display-xl">EU to US and US to EU shoe size converter</h1>
         <p class="hero-sub body-lg">
           Convert European (EU) shoe sizes to American (US) sizes. Review conversion charts for men, women, and kids with metric foot lengths and brand notes.
         </p>
@@ -98,15 +119,15 @@ const relatedLinks = [
         <div class="quick-stat-row">
           <div class="stat-badge">
             <span class="badge-label">Men Offset:</span>
-            <span class="badge-val">US ≈ EU − 33</span>
+            <span class="badge-val">US ≈ EU − 33.5</span>
           </div>
           <div class="stat-badge">
             <span class="badge-label">Women Offset:</span>
-            <span class="badge-val">US ≈ EU − 30.5</span>
+            <span class="badge-val">US ≈ EU − 31</span>
           </div>
           <div class="stat-badge">
             <span class="badge-label">EU Standard:</span>
-            <span class="badge-val">Unisex Paris Point</span>
+            <span class="badge-val">Paris Point, shared scale</span>
           </div>
         </div>
       </div>
@@ -149,7 +170,7 @@ const relatedLinks = [
             <div class="conv-result-card">
               <div class="conv-col">
                 <span class="conv-sys">European Union (EU)</span>
-                <span class="conv-val" id="res-eu">42</span>
+                <span class="conv-val" id="res-eu">{String(d0.eu)}</span>
                 <span class="conv-note" id="res-eu-sub">Paris Point Unisex</span>
               </div>
               <div class="conv-arrow-wrap" aria-hidden="true">
@@ -159,19 +180,21 @@ const relatedLinks = [
               </div>
               <div class="conv-col conv-target">
                 <span class="conv-sys">United States (US)</span>
-                <span class="conv-val" id="res-us">9</span>
+                <span class="conv-val" id="res-us">{String(d0.us)}</span>
                 <span class="conv-note" id="res-us-sub">Men's Standard</span>
               </div>
               <div class="conv-col conv-aux">
                 <span class="conv-sys">Footbed Length</span>
-                <span class="conv-val-sm" id="res-cm">27.0 cm</span>
-                <span class="conv-note" id="res-in">10.6 inches</span>
+                <span class="conv-val-sm" id="res-cm">{`${d0.cm} cm`}</span>
+                <span class="conv-note" id="res-in">{`${d0.inch} inches`}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <ReverseLookup id="us-to-eu" from="us" to="eu" fromLabel="US" toLabel="EU" defaultMen={9} />
 
     <!-- Popular Benchmarks -->
     <section class="snapshot-band">
@@ -180,48 +203,15 @@ const relatedLinks = [
         <p class="section-sub">Essential conversion reference points for the most commonly purchased European footwear sizes.</p>
 
         <div class="snapshot-grid">
-          <div class="snap-card">
-            <span class="snap-tag">Men Standard</span>
-            <div class="snap-body">
-              <span class="snap-main">EU 42 → US Men 9</span>
-              <span class="snap-detail">Foot length: 27.0 cm · UK 8.5</span>
+          {benchmarks.map(({ gender, row }) => (
+            <div class="snap-card">
+              <span class="snap-tag">{gender === 'men' ? "Men's" : "Women's"} Benchmark</span>
+              <div class="snap-body">
+                <span class="snap-main">EU {row.eu} → US {gender === 'men' ? 'Men' : 'Women'} {row.us}</span>
+                <span class="snap-detail">Foot length: {cmText(row)} cm · UK {row.uk.toFixed(1)}</span>
+              </div>
             </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men Standard</span>
-            <div class="snap-body">
-              <span class="snap-main">EU 44 → US Men 10</span>
-              <span class="snap-detail">Foot length: 28.0 cm · UK 9.5</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Men Standard</span>
-            <div class="snap-body">
-              <span class="snap-main">EU 44.5 → US Men 10.5</span>
-              <span class="snap-detail">Foot length: 28.5 cm · UK 10.0</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women Standard</span>
-            <div class="snap-body">
-              <span class="snap-main">EU 38 → US Women 7.5</span>
-              <span class="snap-detail">Foot length: 24.5 cm · UK 5.5</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women Standard</span>
-            <div class="snap-body">
-              <span class="snap-main">EU 38.5 → US Women 8</span>
-              <span class="snap-detail">Foot length: 25.0 cm · UK 6.0</span>
-            </div>
-          </div>
-          <div class="snap-card">
-            <span class="snap-tag">Women Standard</span>
-            <div class="snap-body">
-              <span class="snap-main">EU 39 → US Women 8.5</span>
-              <span class="snap-detail">Foot length: 25.5 cm · UK 6.5</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -345,12 +335,12 @@ const relatedLinks = [
           In contrast, American footwear manufacturers use the barleycorn system, where one full size equals one-third of an inch (8.46 millimeters), and a half size represents one-sixth of an inch (4.23 millimeters). Full details on imperial footwear units appear in our <a href="/shoe-size-in-inches/">shoe size in inches guide</a>. Because 6.67 mm does not divide evenly into 8.46 mm, whole numbers do not align directly across systems.
         </p>
 
-        <h3>2. Gender scaling: unisex European sizing</h3>
+        <h3>2. Gender scaling: one European number scale</h3>
         <p>
-          Continental European footwear sizing is unisex. An EU 41 built by a European factory possesses the identical 26.5 cm footbed length whether it is labelled for a man or a woman.
+          Continental Europe uses one number scale for men and women, but brand charts map the same number to slightly different foot lengths. A men's EU {m41.eu} fits a {cmText(m41)} cm foot, while a women's EU {w41.eu} fits {cmText(w41)} cm.
         </p>
         <p>
-          American shoemaking, however, maintains distinct numerical scales by gender. A US Men's 8.5 is engineered for a 26.5 cm foot, while a US Women's 8.5 fits a foot measuring roughly 25.5 cm. Consequently, when converting an EU size to US, gender determines the result: an EU size 40 translates to US Men's 7.0 (25.0 cm), but corresponds to US Women's 9.0 (26.0 cm).
+          American shoemaking, however, maintains distinct numerical scales by gender. A US Men's 8.5 is engineered for a 26.5 cm foot, while a US Women's 8.5 fits a foot measuring roughly 25.5 cm. Consequently, when converting an EU size to US, gender determines the result: an EU size {m40.eu} translates to US Men's {m40.us} ({cmText(m40)} cm), but corresponds to US Women's {w40.us} ({cmText(w40)} cm).
         </p>
 
         <h3>3. Mental math formulas from EU to US</h3>
@@ -358,9 +348,9 @@ const relatedLinks = [
           When you need quick mental math to convert an EU size to US, keep these formulas in mind:
         </p>
         <ul>
-          <li>For men, subtract 33 from the European size to approximate American men's sizing (for example, EU 42 − 33 = US Men's 9).</li>
-          <li>For women, subtract 30.5 from the European size to approximate American women's sizing (for example, EU 38.5 − 30.5 = US Women's 8).</li>
-          <li>To reverse the calculation from US to EU, add 33 for men (US 9 + 33 = EU 42) and add 30.5 for women (US 8 + 30.5 = EU 38.5).</li>
+          <li>For men, subtract about 33.5 from the European size to approximate American men's sizing (for example, EU {m425.eu} − 33.5 = US Men's {m425.us}).</li>
+          <li>For women, subtract about 31 from the European size to approximate American women's sizing (for example, EU {w39.eu} − 31 = US Women's {w39.us}).</li>
+          <li>To reverse the calculation from US to EU, add about 33.5 for men (US {m425.us} + 33.5 = EU {m425.eu}) and about 31 for women (US {w39.us} + 31 = EU {w39.eu}).</li>
         </ul>
 
         <h3>4. Converting EU boot sizes to US footwear</h3>
@@ -373,14 +363,14 @@ const relatedLinks = [
           Individual brand conventions can vary from the standard ISO chart:
         </p>
         <ul>
-          <li>Nike size labeling differs from the standard ISO chart. On standard conversion charts, EU 42 corresponds to US Men's 9.0 (27.0 cm). Nike size labels list EUR 42 as US Men's 8.5 (26.5 cm) and EUR 42.5 as US Men's 9.0 (27.0 cm).</li>
+          <li>Our men's EU column follows Nike's published chart: EUR {m42.eu} is US Men's {m42.us} ({cmText(m42)} cm) and EUR {m425.eu} is US Men's {m425.us} ({cmText(m425)} cm).</li>
           <li>Adidas builds on Paris Points and uses fractional third-sizes (such as EU 42 2/3 for US Men's 9 and EU 43 1/3 for US Men's 9.5).</li>
           <li>Dr. Martens and Birkenstock produce footwear in full European integer sizes without half increments.</li>
         </ul>
 
         <h3>6. Measuring foot length in centimeters</h3>
         <p>
-          To find your shoe size without conversion discrepancies, measure your barefoot length in centimeters following our <a href="/shoe-size-by-foot-length/">shoe size by foot length guide</a>. A measurement of 27.0 cm aligns with EU 42 and US Men's 9.0.
+          To find your shoe size without conversion discrepancies, measure your barefoot length in centimeters following our <a href="/shoe-size-by-foot-length/">shoe size by foot length guide</a>. A men's measurement of {cmText(m425)} cm aligns with EU {m425.eu} and US Men's {m425.us}.
         </p>
 
       </div>
